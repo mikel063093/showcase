@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{#
+    edito: autor
+    archivoEditado: true
+    Comentario
+
+    edito: John, Alexi
+    archivoEditado: true
+    Comentario: Para incluir el validateForm.js.twig
+#}
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <title>{% block titulo %}Módulo de administración{% endblock %}</title>
+
+        {% block incluirCss %}    
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery.datetimepicker.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery-ui.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-theme.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/estilos.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/pnotify/pnotify.custom.min.css') }}"/>
+            {#<link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/gritter/css/jquery.gritter.css') }}"/>#}
+            <link rel="stylesheet" href="{{ asset('bundles/app/jstree/themes/default/style.css') }}">
+            {#
+            <link rel="stylesheet" type="text/css" href="{{ asset('jquery-ui/themes/base/minified/jquery-ui.min.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('kickstart/kickstart.min.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('gritter/css/jquery.gritter.css') }}"/>
+            #}
+        {% endblock %}
+        
+        {% block css %}
+            <style type="text/css">
+                /* estilos específicos de la vista */
+                body{ padding: 10px;}
+            </style>
+        {% endblock %}
+
+        {% block incluirJs %}
+            <script src="{{ asset('bundles/app/jquery/jquery.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/jquery-ui/ui/minified/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/jquery-ui/ui/minified/jquery.datetimepicker.js') }}"></script>
+            {#<script src="{{ asset('bundles/app/jquery-ui/ui/minified/i18n/jquery.ui.datepicker-es.min.js') }}"></script>#}
+            {#<script src="{{ asset('kickstart/kickstart.min.js') }}"></script>#}
+            {#<script src="{{ asset('bundles/app/gritter/js/jquery.gritter.min.js') }}"></script>#}
+            <script src="{{ asset('bundles/app/pnotify/pnotify.custom.min.js') }}"></script>
+            
+            
+            <script src="{{ asset('bundles/app/jquery-validation-1.13.1/jquery.validate.js') }}"></script>
+            <script src="{{ asset('bundles/app/jquery-validation-1.13.1/additional-methods.js') }}"></script>
+            <script src="{{ asset('bundles/app/jquery-validation-1.13.1/messages_es.js') }}"></script>
+            <script src="{{ asset('bundles/app/jstree/jstree.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/spin.min.js') }}"></script>
+            <script src="{{ asset('bundles/impresion/js/impresion.js') }}"></script>
+            
+            
+        {% endblock %}
+        
+        {% include "plantillas/app.js.twig" %}
+        {% include "plantillas/validateForm.js.twig" %} 
+
+
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+    </head>
+    <body>
+            <div style="display: none;" id="confirmacion" class="ventana-confirmacion" 
+                 title="{% block tituloConfirmacion %}Confirmación{% endblock %}">
+                {% block contenidoConfirmacion %}<br>Está seguro que desea eliminar el registro?{% endblock %}
+            </div>
+            <div style="display: none;" id="modal" class="ventana-modal" title="{% block tituloModal %}{% endblock %}">
+                {% block contenidoModal %}<br>CARGANDO . . .{% endblock %}
+            </div>
+            <div style="display: none;" id="modal-cargando" class="ventana-modal" title="Procesando...">
+                <br><br>
+                <div id="spin-cargando"></div>
+                <br><br>
+            </div>
+            {% block pagina %}
+            <div class='cabecera'>
+                {% block cabecera %}{% endblock %}
+            </div>
+            <div class='menu'>
+                {% block menu %}{% endblock %}
+            </div>
+            <div class='contenido' id="contenido">
+                {% block contenido %}{% endblock %}
+            </div>
+            <div class="pie">
+                {% block pie %}{% endblock %}
+            </div>
+        {% endblock %}
+        {% block js %}{% endblock %}
+    </body>
+</html>

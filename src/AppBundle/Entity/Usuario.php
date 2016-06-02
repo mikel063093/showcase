@@ -5,6 +5,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+
 /**
  * Usuario
  *
@@ -12,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="UsuarioRepository") 
  * @author ALEJANDRO
  */
-class Usuario {
+class Usuario implements UserInterface, \Serializable{
     /**
      * @var integer $id
      *
@@ -50,7 +53,7 @@ class Usuario {
     /**
      * @var string $foto
      *
-     * @ORM\Column(name="foto", type="string", length=120, nullable=false, options=
+     * @ORM\Column(name="foto", type="string", length=120, nullable=true, options=
      * {"comment" = "ruta de la fotografia del usuario"})
      */
     private $foto;
@@ -58,10 +61,28 @@ class Usuario {
     /**
      * @var string $gcmId
      *
-     * @ORM\Column(name="gcmId", type="string", length=120, nullable=false, options=
+     * @ORM\Column(name="gcmId", type="string", length=120, nullable=true, options=
      * {"comment" = ""})
      */
     private $gcmId;
+
+    /**
+     * @ORM\Column(type="string", length=255, options=
+     * {"comment" = "Nombre de usuario"})
+     */
+    protected $username;
+    
+    /**
+     * @ORM\Column(name="password", type="string", length=255 , options=
+     * {"comment" = "Clave del usuario encriptada"})
+     */
+    protected $password;
+ 
+    /**
+     * @ORM\Column(name="salt", type="string", length=255, options=
+     * {"comment" = "Semilla para la ancriptacion de la clave"})
+     */
+    protected $salt;
 
     /**
      * 
@@ -341,5 +362,86 @@ class Usuario {
     public function getRol()
     {
         return $this->rol;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+ 
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    
+     /**
+     * Set password
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+ 
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+ 
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+ 
+    /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Erases the user credentials.
+     */
+    public function eraseCredentials() {
+ 
+    }
+
+    public function serialize() {
+        return \json_encode(array($this->username, $this->password, $this->salt, $this->id));
+    }
+
+    public function unserialize($serialized) {
+        list($this->username, $this->password, $this->salt, $this->id) = \json_decode($serialized);
+    }
+
+    public function getRoles()
+    {
+     
+        return array($this->rol->getRole());
     }
 }
