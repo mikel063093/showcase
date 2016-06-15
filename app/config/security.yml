@@ -23,6 +23,15 @@ security:
         login:
             pattern:  ^/user/seguridad/inicioSesion$
             security: false
+
+        registro:
+            pattern: ^/movil/registrar
+            security: false
+
+        api:
+            pattern:   ^/movil
+            stateless: true
+            lexik_jwt: ~
         
         # Firewall modulo administracion
         secured_area:
@@ -64,10 +73,23 @@ security:
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
+        movil:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
 
     access_control:
         - { path: ^/user/seguridad/inicioSesion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/registrar, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/web/*, roles: ROLE_USER }
         - { path: ^/administracion/*, roles: ROLE_ADMIN }
         - { path: ^/user, roles: [ROLE_USER, ROLE_ADMIN]}
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         

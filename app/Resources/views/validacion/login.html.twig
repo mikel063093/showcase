@@ -8,7 +8,7 @@
 <form id="form-iniciar" action="{{ path("web_login_check") }}" method="post">
     <input type="text" class="form-control"  name="_username"  placeholder="usuario" value="{{ ultimo_usuario }}">
     <input type="password" class="form-control" name="_password" placeholder="Contraseña">
-    
+    <a href="{{path('registro')}}">Registrarse</a>
     <button type="submit" class="btn">Ingresar</button>
 </form>
   </body>

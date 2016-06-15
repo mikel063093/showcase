@@ -10,3 +10,7 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: 748eeb21f05ed3a02e612a19df16a9d960196ad3
+    jwt_private_key_path: %kernel.root_dir%/var/jwt/private.ppk   # ssh private key path
+    jwt_public_key_path:  %kernel.root_dir%/var/jwt/public.ppk    # ssh public key path
+    jwt_key_pass_phrase:  'showcase'                                      # ssh key pass phrase
+    jwt_token_ttl:        null
