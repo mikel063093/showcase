@@ -28,6 +28,10 @@ security:
             pattern: ^/movil/registrar
             security: false
 
+        validacion:
+            pattern: ^/movil/validar
+            security: false
+            
         api:
             pattern:   ^/movil
             stateless: true
