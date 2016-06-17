@@ -31,6 +31,10 @@ security:
         validacion:
             pattern: ^/movil/validar
             security: false
+
+        registroRedes:
+            pattern: ^/movil/registroRedesMovil
+            security: false
             
         api:
             pattern:   ^/movil
