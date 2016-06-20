@@ -49,6 +49,7 @@ var Script = function () {
     });
 
     $('.fa-bars').click(function () {
+        alert('hola');
         if ($('#sidebar > ul').is(":visible") === true) {
             $('#main-content').css({
                 'margin-left': '0px'

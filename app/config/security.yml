@@ -44,6 +44,7 @@ security:
         # Firewall modulo administracion
         secured_area:
             pattern:    ^/administracion/*
+            context: website
             provider: user_db
             form_login:
                 check_path: web_login_check
@@ -52,11 +53,12 @@ security:
                 always_use_default_target_path: true
             logout:
                 path:   web_logout
-                target: /
+                target: /user
                 
         # Firewall modulo consulta web
         secured_web:
             pattern:    ^/web/*
+            context: website
             provider: web_db
             form_login:
                 check_path: web_login_check
@@ -65,10 +67,11 @@ security:
                 always_use_default_target_path: true
             logout:
                 path:   web_logout
-                target: /
+                target: /user
         # Firewall modulo consulta web
         login_web:
             pattern:    ^/user
+            context: website
             provider: chain_provider
             form_login:
                 check_path: web_login_check
@@ -77,7 +80,7 @@ security:
                 always_use_default_target_path: true
             logout:
                 path:   web_logout
-                target: /
+                target: /user
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
