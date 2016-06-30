@@ -1,0 +1,78 @@
+<script type="text/javascript">
+	$('#form-editar').validate({
+        rules: {
+            'zona[nombre]': {  required: true },
+        },
+        messages:{
+        	'zona[nombre]': {  required: 'El campo Nombre es obligatorio' },
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+            	for (var i = 0; i < validator.errorList.length; i++) {
+            		mostrarMensaje(validator.errorList[i].message,'Error');
+            	};
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+     	$('#modal-cargando').modal('show');
+        var datos = $('#form-editar').serialize();
+        $.ajax({
+            url:"{{path('actualizarZona')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            success: function (data){
+                if(data.valor){
+                	$.ajax({
+			            type: "POST",
+			            url: '{{path("registrosZonas")}}',
+			            dataType: "html",
+			            
+			            success: function(data) {
+			                $('#registros').html(data);
+			            }
+			        });
+                 	$('#btn-guardar').unbind();
+                	$('#modal').modal('hide');
+                    $('#modal-title').html('');
+					$('#modal-content').html('<br>CARGANDO . . .');
+					$('#modal-footer').html('');
+					mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+                	mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+
+</script>
+
+{{ form_start(form, {'attr': {'id': 'form-editar','class':'form-horizontal style-form' }}) }}
+	<input type="hidden" name="id_entity" value="{{entity.id}}">
+    <div class="form-group">
+
+	  <label class="col-sm-3 col-sm-3 control-label"><strong>Nombre (*)</strong></label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+
+{{ form_rest(form) }}

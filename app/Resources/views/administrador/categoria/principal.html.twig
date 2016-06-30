@@ -1,0 +1,49 @@
+{% extends "plantilla/principal.html.twig" %}
+
+{% block tituloLocal %}Gestion de Categorias{% endblock %}
+
+{% block lblAdicionar %}
+Adicionar Categoria
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+         $.ajax({
+            type: "POST",
+            url: '{{path("registrosCategorias")}}',
+            dataType: "html",
+            
+            success: function(data) {
+                $('#registros').html(data);
+            }
+        });
+    });
+
+    $('#btn-adicionar').click(function(){
+        
+        $.ajax({
+            url: '{{path("nuevoCategoria")}}',
+            type: 'POST',
+            dataType: 'html',
+            success:function(data){
+                
+                $('#modal-title').html('Registro de Categoria');
+                $('#modal-content').html(data);
+                $('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
+                $('#modal').modal('show');
+                $('#btn-guardar').click(function(){
+                    $('#form-registro').submit();
+                });
+
+            }
+
+        });
+    });
+
+
+    
+
+    </script>
+{% endblock %}

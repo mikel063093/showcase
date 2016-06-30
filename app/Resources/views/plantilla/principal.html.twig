@@ -1,0 +1,22 @@
+{% extends app.request.isXmlHttpRequest ? "plantilla/ajax.html.twig" : "plantilla/admin.html.twig" %}
+{% block css %}{% endblock %}
+{% block contenido %}
+    
+    <div class="content-panel">
+        <h4><i class="fa fa-angle-right"></i>{% block tituloLocal %}{% endblock %}</h4>
+        
+        <div id="registros"></div>
+        <div>
+        {% block btnAdicionar %}
+            <button id="btn-adicionar" type="button" class="btn btn-danger btn-principal">
+            {% block lblAdicionar %}
+            {% endblock %}
+            </button>
+        {% endblock %}
+        
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}{% endblock %}

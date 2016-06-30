@@ -1,0 +1,51 @@
+{% extends "plantilla/principal.html.twig" %}
+
+{% block tituloLocal %}Gestion de Establecimientos{% endblock %}
+
+{% block lblAdicionar %}
+Adicionar Establecimiento
+{% endblock %}
+
+{% block js %}
+    <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyCqT2T00gk7BychSMAc0NUklRACv89qV9o">  
+                        </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+         $.ajax({
+            type: "POST",
+            url: '{{path("registrosEstablecimientos")}}',
+            dataType: "html",
+            
+            success: function(data) {
+                $('#registros').html(data);
+            }
+        });
+    });
+
+    $('#btn-adicionar').click(function(){
+        
+        $.ajax({
+            url: '{{path("nuevoEstablecimiento")}}',
+            type: 'POST',
+            dataType: 'html',
+            success:function(data){
+                
+                $('#modal-title').html('Registo de Establecimiento');
+                $('#modal-content').html(data);
+                $('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
+                $('#modal').modal('show');
+                $('#btn-guardar').click(function(){
+                    $('#form-registro').submit();
+                });
+
+            }
+
+        });
+    });
+
+
+    
+
+    </script>
+{% endblock %}

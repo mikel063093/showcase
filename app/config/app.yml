@@ -1,0 +1,7 @@
+parameters:
+    web:
+        titulo: ShowCase
+        servidor: http://localhost:8082
+twig:
+    globals:
+        web: %web% 

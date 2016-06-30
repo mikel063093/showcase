@@ -1,0 +1,118 @@
+<script type="text/javascript">
+	$('#form-editar').validate({
+        rules: {
+            'usuario[nombres]': {  required: true },
+            'usuario[apellidos]': {  required: true },
+            'usuario[correo]': {  required: true, email:true },
+            'usuario[password][second]': {  equalTo: "#usuario_password_first" }
+        },
+        messages:{
+        	'usuario[nombres]': {  required: 'El campo Nombres es obligatorio' },
+            'usuario[apellidos]': {  required: 'El campo Apellidos es obligatorio' },
+            'usuario[correo]': {  required: 'El campo Correo es obligatorio', email: 'El campo correo no tiene un formato valido' },
+            'usuario[password][second]': { equalTo: 'Los campos Contraseña y Confirmar Contraseña deben ser iguales' }
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+            	for (var i = 0; i < validator.errorList.length; i++) {
+            		mostrarMensaje(validator.errorList[i].message,'Error');
+            	};
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+     	$('#modal-cargando').modal('show');
+        var datos = $('#form-editar').serialize();
+        $.ajax({
+            url:"{{path('actualizarUsuario')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            success: function (data){
+                if(data.valor){
+                	$.ajax({
+			            type: "POST",
+			            url: '{{path("registrosUsuarios")}}',
+			            dataType: "html",
+			            
+			            success: function(data) {
+			                $('#registros').html(data);
+			            }
+			        });
+                 	$('#btn-guardar').unbind();
+                	$('#modal').modal('hide');
+                    $('#modal-title').html('');
+					$('#modal-content').html('<br>CARGANDO . . .');
+					$('#modal-footer').html('');
+					mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+                	mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+
+</script>
+
+{{ form_start(form, {'attr': {'id': 'form-editar','class':'form-horizontal style-form' }}) }}
+	<input type="hidden" name="id_entity" value="{{entity.id}}">
+    <div class="form-group">
+
+	  <label class="col-sm-3 col-sm-3 control-label"><strong>Nombres (*)</strong></label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.nombres, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Apellidos (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.apellidos, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Correo (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.correo, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Contraseña (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Confirmar Contraseña</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Rol</label>
+	  <div class="col-sm-9">
+	     	<select class="form-control" name="rol" id="rol">
+			  {% for rol in roles %}
+			  	<option value="{{rol.id}}" {% if rol.id == entity.rol.id%}selected{% endif %}>{{rol.nombre}}</option>
+			  {% endfor %}
+			</select>
+	  </div>
+	</div>
+
+{{ form_rest(form) }}

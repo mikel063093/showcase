@@ -1,0 +1,251 @@
+<script type="text/javascript">
+	$('#form-registro').validate({
+        rules: {
+            'establecimiento[nombre]': {  required: true },
+            'establecimiento[direccion]': {  required: true },
+            'establecimiento[telefono]': {  required: true },
+            'establecimiento[peso]': {  required: true , number: true },
+        },
+        messages:{
+            'establecimiento[nombre]': {  required: 'El campo Nombre es obligatorio' },
+            'establecimiento[direccion]': {  required: 'El campo Direccion es obligatorio' },
+            'establecimiento[telefono]': {  required: 'El campo Telefono es obligatorio' },
+            'establecimiento[peso]': {  required: 'El campo Peso es obligatorio',number:'El campo Peso solo recibe numeros' },
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+            	for (var i = 0; i < validator.errorList.length; i++) {
+            		mostrarMensaje(validator.errorList[i].message,'Error');
+            	};
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+     	$('#modal-cargando').modal('show');
+        var datos = new FormData(form);
+        $.ajax({
+            url:"{{path('guardarEstablecimiento')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            processData: false,
+            contentType: false,
+            success: function (data){
+                if(data.valor){
+                	$.ajax({
+			            type: "POST",
+			            url: '{{path("registrosEstablecimientos")}}',
+			            dataType: "html",
+			            
+			            success: function(data) {
+			                $('#registros').html(data);
+			            }
+			        });
+                 	$('#btn-guardar').unbind();
+                	$('#modal').modal('hide');
+                    $('#modal-title').html('');
+        					$('#modal-content').html('<br>CARGANDO . . .');
+        					$('#modal-footer').html('');
+        					mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+                	mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+           
+                
+    var establecimiento;    
+    var mapa;
+
+    function loadMap() {
+        mapa = new google.maps.Map(document.getElementById('mapaEdit'), {
+        center:new google.maps.LatLng(2.433,-76.617),         
+        zoom:13,
+        mapTypeId:google.maps.MapTypeId.ROADMAP,
+        scrollwheel: false
+      });
+        
+        
+      mapa.addListener('click', function(evento) {
+          $('#coordenadas').val(evento.latLng.lat()+','+evento.latLng.lng());
+          if(establecimiento){
+              establecimiento.setPosition(new google.maps.LatLng(evento.latLng.lat(),evento.latLng.lng()));
+              establecimiento.setTitle('Establecimiento');
+          }else{
+              establecimiento = new google.maps.Marker({
+              position: evento.latLng,
+              map: mapa,
+              title: 'Establecimiento'
+            });
+          }
+      });
+    }
+         
+        
+  $(document).ready(function(){
+    loadMap();
+  });
+             
+  $('#close-modal').click(function(){
+    $('#btn-guardar').unbind();
+    $('#modal-title').html('');
+    $('#modal-content').html('<br>CARGANDO . . .');
+    $('#modal-footer').html('');
+    
+  });
+
+  $('#establecimiento_file').change(function (){         
+      validacion=true;
+      var sizeByte = this.files[0].size;
+      var nombre = this.files[0].name;
+      var file,img;
+      var extensiones=["JPG", "JPEG", "PNG"];
+      var ext=nombre.substring(nombre.indexOf('.')+1).toUpperCase();
+      if (extensiones.indexOf(ext) === -1){
+          crearMensaje(0, 'Las extensiones permitidas son: jpg, jpeg y png.');
+          $(this).val('');
+          validacion= false;
+      }else{
+          $("#imgPreviewEmpresa").attr("style","display:block;");
+          var file = $("#establecimiento_file").val();
+          var ruta = URL.createObjectURL(this.files[0]);
+          $("#imgPreviewEmpresa").fadeIn("fast").attr('src',URL.createObjectURL(this.files[0]));
+      }
+  });
+
+
+
+</script>
+
+{{ form_start(form, {'attr': {'id': 'form-registro','class':'form-horizontal style-form' }}) }}
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label"><strong>Nombre (*)</strong></label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Descripcion (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Direccion (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.direccion, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Telefono (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.telefono, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Peso (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.peso, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Sitio Web</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.sitioWeb, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Facebook</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.facebook, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Twitter</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.twitter, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">SnapChat</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.snapchat, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">YouTube</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.youtube, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Instagram</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.instagram, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Categoria</label>
+	  <div class="col-sm-9">
+	     	<select class="form-control" name="categoria" id="categoria">
+			  {% for categoria in categorias %}
+			  	<option value="{{categoria.id}}">{{categoria.nombre}}</option>
+			  {% endfor %}
+			</select>
+	  </div>
+	</div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Zona</label>
+      <div class="col-sm-9">
+            <select class="form-control" name="zona" id="zona">
+              {% for zona in zonas %}
+                <option value="{{zona.id}}">{{zona.nombre}}</option>
+              {% endfor %}
+            </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Plan</label>
+      <div class="col-sm-9">
+            <select class="form-control" name="plan" id="plan">
+              {% for plan in planes %}
+                <option value="{{plan.id}}">{{plan.nombre}}</option>
+              {% endfor %}
+            </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Localizacion</label>
+      <div class="col-sm-9">
+          <input id="coordenadas" name="coordenadas" type="hidden">
+          <div id="mapaEdit" style="height:380px;"></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Logo</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.file,{'attr':{'class':'input-file'}}) }}
+          <img style="display: none" id="imgPreviewEmpresa" src="" alt="" height="80" />
+      </div>
+    </div>
+    
+
+{{ form_rest(form) }}

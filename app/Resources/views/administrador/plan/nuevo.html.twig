@@ -1,0 +1,84 @@
+<script type="text/javascript">
+	$('#form-registro').validate({
+        rules: {
+            'plan[nombre]': {  required: true },
+            'plan[descripcion]': {  required: true },
+        },
+        messages:{
+        	'plan[nombre]': {  required: 'El campo Nombre es obligatorio' },
+            'plan[descripcion]': {  required: 'El campo Descripcion es obligatorio'},
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+            	for (var i = 0; i < validator.errorList.length; i++) {
+            		mostrarMensaje(validator.errorList[i].message,'Error');
+            	};
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+     	$('#modal-cargando').modal('show');
+        var datos = $('#form-registro').serialize();
+        $.ajax({
+            url:"{{path('guardarPlan')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            success: function (data){
+                if(data.valor){
+                	$.ajax({
+			            type: "POST",
+			            url: '{{path("registrosPlanes")}}',
+			            dataType: "html",
+			            
+			            success: function(data) {
+			                $('#registros').html(data);
+			            }
+			        });
+                 	$('#btn-guardar').unbind();
+                	$('#modal').modal('hide');
+                    $('#modal-title').html('');
+					$('#modal-content').html('<br>CARGANDO . . .');
+					$('#modal-footer').html('');
+					mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+                	mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+
+</script>
+
+{{ form_start(form, {'attr': {'id': 'form-registro','class':'form-horizontal style-form' }}) }}
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label"><strong>Nombre (*)</strong></label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label"><strong>Descripción (*)</strong></label>
+      <div class="col-sm-9">
+          {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+{{ form_rest(form) }}
