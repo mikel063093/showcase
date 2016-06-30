@@ -3,32 +3,38 @@
 <h5 class="centered">
   {{ app.user.nombres }} {{app.user.apellidos}}
 </h5>	
-<li class="mt">
-    <a class="active" href="#">
+{#<li class="mt">
+    <a class="active" href="#" value="{{path('usuarioPrincipal')}}">
         
         <span>Usuarios</span>
     </a>
-</li>
+</li>#}
 <li class="mt">
-    <a class="" href="#">
+    <a class="" href="#" >
         
         <span>Reservas</span>
     </a>
 </li>
 <li class="mt">
-    <a class="" href="#">
+    <a class="" href="#" value="{{path('planPrincipal')}}">
+        
+        <span>Planes</span>
+    </a>
+</li>
+<li class="mt">
+    <a class="" href="#" value="{{path('zonaPrincipal')}}">
         
         <span>Zonas</span>
     </a>
 </li>
 <li class="mt">
-    <a class="" href="#">
+    <a class="" href="#" value="{{path('categoriaPrincipal')}}">
         
         <span>Categorias</span>
     </a>
 </li>
 <li class="mt">
-    <a class="" href="#">
+    <a class="" href="#" value="{{path('establecimientoPrincipal')}}">
        
         <span>Establecimientos</span>
     </a>
@@ -45,4 +51,23 @@
         <span>Cupones y Promociones</span>
     </a>
 </li>
+<script>
+    $(".mt a").click(function(evento){
+        var opcion = $(this).attr('value');
+        $(this).parent().parent().children().removeClass('active');
+        $(this).parent().addClass('active');
+       
+        evento.preventDefault();
+        $.ajax({
+            url: opcion,
+            type: 'POST',
+            dataType: 'html',
+            success:function(data){
+                $('#contenido').html(data);
+            }
 
+        });
+            
+        
+    });
+</script>

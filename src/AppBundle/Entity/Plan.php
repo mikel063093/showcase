@@ -30,7 +30,7 @@ class Plan {
      * @var string $nombre
      *
      * @ORM\Column(name="nombre", type="string", length=120, nullable=false, options=
-     * {"comment" = "Nombre de la direccion"})
+     * {"comment" = "Nombre del plan"})
      */
     private $nombre;
 
@@ -38,7 +38,7 @@ class Plan {
      * @var string $descripcion
      *
      * @ORM\Column(name="descripcion", type="string", length=1000, nullable=false, options=
-     * {"comment" = "Nombre de la direccion"})
+     * {"comment" = "Descripcion del plan"})
      */
     private $descripcion;
 

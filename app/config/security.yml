@@ -24,6 +24,10 @@ security:
             pattern:  ^/user/seguridad/inicioSesion$
             security: false
 
+        registroWeb:
+            pattern:  ^/web/registro$
+            security: false
+
         registro:
             pattern: ^/movil/registrar
             security: false

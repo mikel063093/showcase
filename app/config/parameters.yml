@@ -16,3 +16,4 @@ parameters:
     jwt_token_ttl:        null
     facebookId: "1545741209066315"
     facebookSecret: "1579cd9225b3e95708b511160424d996"
+    servidor: http://localhost:8082

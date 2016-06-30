@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class UsuarioRepository extends EntityRepository
 {
+	public function findTodos(){
+		$em = $this->getEntityManager();
+        $consulta = $em->createQueryBuilder()
+                        ->select('u')
+                        ->from('AppBundle:Usuario', 'u');
+        return $consulta->getQuery();
+	}
 }

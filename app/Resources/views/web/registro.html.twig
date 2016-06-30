@@ -81,7 +81,7 @@
                     if(data.valor){
                         
                         mostrarMensaje('Usuario creado con exito','Exito');
-                        window.location.href="http://localhost:8082{{path('user')}}";
+                        window.location.href="{{web.servidor}}{{path('user')}}";
                     }
                 }
 
@@ -106,7 +106,7 @@
                 invalidHandler: function(event, validator) {
                     if (validator.errorList.length > 0) {
                     	for (var i = 0; i < validator.errorList.length; i++) {
-                    		mostrarMensaje(validator.errorList[0].message,'Error');
+                    		mostrarMensaje(validator.errorList[i].message,'Error');
                     	};
                         return false;
                     }

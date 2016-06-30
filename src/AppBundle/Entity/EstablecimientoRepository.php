@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class EstablecimientoRepository extends EntityRepository
 {
+	public function findEstablecimientosCategoria($id){
+		$em = $this->getEntityManager();
+
+		$consulta = $em->createQueryBuilder()
+                        ->addSelect('e')
+                        ->from('AppBundle:Establecimiento', 'e')
+                        ->where('e.categoria = :categoria')->setParameter('categoria',$id);
+        $consulta->setMaxResults(4);
+        $consulta->orderBy('e.peso', 'ASC');
+
+        return $consulta->getQuery()->getResult();
+	}
 }

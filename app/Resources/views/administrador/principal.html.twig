@@ -1,1 +1,49 @@
-{% extends 'plantilla/admin.html.twig' %}
+{% extends "plantilla/principal.html.twig" %}
+
+{% block tituloLocal %}Gestion de Usuarios{% endblock %}
+
+{% block lblAdicionar %}
+Adicionar Usuario
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+		 $.ajax({
+            type: "POST",
+            url: '{{path("registrosUsuarios")}}',
+            dataType: "html",
+            
+            success: function(data) {
+                $('#registros').html(data);
+            }
+        });
+	});
+
+	$('#btn-adicionar').click(function(){
+		
+		$.ajax({
+			url: '{{path("nuevoUsuario")}}',
+			type: 'POST',
+			dataType: 'html',
+			success:function(data){
+				
+				$('#modal-title').html('Registo de Usuario');
+				$('#modal-content').html(data);
+				$('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
+				$('#modal').modal('show');
+				$('#btn-guardar').click(function(){
+					$('#form-registro').submit();
+				});
+
+			}
+
+		});
+	});
+
+
+	
+
+	</script>
+{% endblock %}

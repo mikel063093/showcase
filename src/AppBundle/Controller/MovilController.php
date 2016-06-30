@@ -27,7 +27,7 @@ class MovilController extends Controller
         $correo = $peticion->request->get('correo');
         $clave = $peticion->request->get('clave');
         
-        $datos = array( "id"=> '0',"nombre"=> "","apellido"=>"","correo"=> "",
+        $datos = array( "id"=> '0',"nombre"=> "","apellido"=>"","correo"=> "","foto" => "",
             "estado"=> 'exito',
             "mensaje"=> 'Usuario registrado correctamente.'
         );
@@ -67,6 +67,9 @@ class MovilController extends Controller
                 $datos['nombre'] = $existe->getNombres();
                 $datos['apellido'] = $existe->getApellidos();
                 $datos['correo'] = $existe->getCorreo();
+                if($existe->getFoto()){
+                    $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto();
+                }
                 $passwordCodificado = $existe->getPassword();
             }
             
@@ -84,11 +87,12 @@ class MovilController extends Controller
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             $response = curl_exec($ch);
             curl_close($ch);
+
             if ($response === false) {
                 $datos['estado'] = 'error';
                 $datos['mensaje'] = 'Validacion incorrecta.';
             } else {
-                //var_dump($response);
+                
                 $jsonStr = strpbrk($response, "{");
                 $jsonToken = json_decode($jsonStr);
                 if (isset($jsonToken->token)) {
@@ -112,13 +116,14 @@ class MovilController extends Controller
         $em = $this->getDoctrine()->getManager();
         $login = $peticion->request->get('login');
         $pass = $peticion->request->get('pass');       
-        $datos = array( "id"=> '0',"nombre"=> '',"apellido"=>"","correo"=> '',
+        $datos = array( "id"=> '0',"nombre"=> '',"apellido"=>"","correo"=> '',"foto" => "",
             "estado"=> 'exito',
             "mensaje"=> 'Usuario validado correctamente.',
             "token" => '0'
         );
         
         try {
+
             $usuarios = $em->getRepository('AppBundle:Usuario')->findBy(array('username'=>$login));
             if (count($usuarios) == 0) {
                 $datos['estado'] = 'error';
@@ -127,12 +132,16 @@ class MovilController extends Controller
                 $existe = $usuarios[0];
                 $encoder = $this->container->get('security.encoder_factory')->getEncoder($existe);
                 $passwordCodificado = $encoder->encodePassword($pass, $existe->getSalt());
+                
                 if ($passwordCodificado == $existe->getPassword()) {
+                    
                     $datos['id'] = "" . $existe->getId();
                     $datos['nombre'] = $existe->getNombres();
                     $datos['correo'] = $existe->getCorreo();
                     $datos['apellido'] = $existe->getApellidos();
-                    
+                    if($existe->getFoto()){
+                        $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto();
+                    }
                     
                     $url = $this->generateUrl('api_login_check', array(), UrlGeneratorInterface::ABSOLUTE_URL);
                     $par = array(
@@ -148,6 +157,7 @@ class MovilController extends Controller
                     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                     $response = curl_exec($ch);
                     curl_close($ch);
+
                     if ($response === false) {
                         $datos['estado'] = 'error';
                         $datos['mensaje'] = 'Validacion incorrecta.';
@@ -159,6 +169,10 @@ class MovilController extends Controller
                             $datos["token"] = $jsonToken->token;
                         }
                     }
+                }else{
+                    $datos['estado'] = 'error';
+                    $datos['mensaje'] = 'Contraseña incorrecta.';
+
                 }
             }
         } catch (\Exception $e) {
@@ -182,7 +196,7 @@ class MovilController extends Controller
         $email = "";
         $nombres = "";
         $apellidos = "";
-        $datos = array( "id"=> '0',"nombre"=> "","apellido"=>"","correo"=> "",
+        $datos = array( "id"=> '0',"nombre"=> "","apellido"=>"","correo"=> "","foto" => "",
             "estado"=> 'exito',
             "mensaje"=> 'Usuario registrado correctamente.'
         );
@@ -248,6 +262,9 @@ class MovilController extends Controller
                         $datos["nombre"] = $user->getNombres();
                         $datos["apellido"] = $user->getApellidos();
                         $datos["correo"] = $user->getCorreo();
+                        if($existe->getFoto()){
+                            $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto();
+                        }
                         $datos["token"] = $jsonToken->token;
                     }elseif(isset($jsonToken->code)){
                         if($jsonToken->code){
@@ -309,6 +326,98 @@ class MovilController extends Controller
         return new JsonResponse($datos);
     }
 
+     /**
+     * @Route("/subirFoto", name="subirFoto")
+     */
+    public function subirFotoAction(Request $peticion){
+        
+        $em = $this->getDoctrine()->getManager();
+       
+        $id = $peticion->request->get('id');
+        $contenido = $peticion->request->get('contenido');
+        $tipo = $peticion->request->get('tipo');
+        $datos = array( "id"=> '0',"foto"=> "",
+            "estado"=> 'exito',
+            "mensaje"=> 'Foto de perfil subida correctamente.'
+        );
+        try{
+
+            $user = $em->getRepository('AppBundle:Usuario')->find($id);
+            if ($user) {
+                
+                $data = base64_decode($contenido);
+                $file =   sha1($data) . $tipo;
+                $success = file_put_contents($user->getUploadRootDir().'/'.$file, $data);
+                $user->setFoto($file);
+                $em->persist($user);
+                $em->flush();
+                $datos["id"] = $user->getId();
+                $datos["foto"] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$user->getFoto();
+            }else {
+                $datos['estado'] = 'error';
+                $datos['mensaje'] = 'Imposible acceder a la información del Usuario.';
+            }
+        } catch (\Exception $e) {
+            return new JsonResponse(array(
+                "estado" => 'error',
+                //"mensaje" => 'Imposible acceder a la información del Usuario.'
+                "mensaje" => $e->getMessage()
+            ));
+        }
+        return new JsonResponse($datos);
+    } 
+
+
+
+    /**
+     * @Route("/establecimientos", name="establecimientosMovil")
+     */
+    public function establecimientosAction(Request $peticion){
+        
+        $em = $this->getDoctrine()->getManager();
+        $datos =array("estado" => 'exito',
+                "mensaje" => "Establecimientos obtenidos exitosamente",
+                "categorias" => array()
+                );
+        
+        try{
+
+            $categorias = $em->getRepository('AppBundle:Categoria')->findTodos();
+            $paginador = $this->get('paginador');
+            $tamPagina = 2;
+            $cats = $paginador->paginar(
+                    $categorias, $peticion->request->get('pagina', 1), $tamPagina
+            );
+            
+            foreach ($cats as  $c) {
+                $cat = array("nombre" => $c->getNombre());
+                $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
+                $est = array();
+
+                foreach ($establecimientos as $e) {
+                    
+                    $est[] = array(
+                        'id' => $e->getId(),
+                        'nombre' => $e->getNombre(),
+                        'logo' => $this->container->getParameter('servidor').$e->getWebPath()
+                        );
+                    
+                }
+                $cat[]=$est;
+
+                $datos["categorias"][] = $cat; 
+            }
+
+
+        } catch (\Exception $e) {
+            return new JsonResponse(array(
+                "estado" => 'error',
+                //"mensaje" => 'Imposible acceder a la información del Usuario.'
+                "mensaje" => $e->getMessage()
+            ));
+        }
+        return new JsonResponse($datos);
+    }
 
 
 

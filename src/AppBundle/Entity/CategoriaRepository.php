@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoriaRepository extends EntityRepository
 {
+	public function findTodos(){
+		$em = $this->getEntityManager();
+
+		$consulta = $em->createQueryBuilder()
+                        ->addSelect('c')
+                        ->from('AppBundle:Categoria', 'c');
+        return $consulta->getQuery();
+	}
 }

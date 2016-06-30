@@ -6,7 +6,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Usuario
@@ -84,6 +84,7 @@ class Usuario implements UserInterface, \Serializable{
      */
     protected $salt;
 
+    private $file;
     /**
      * 
      * @ORM\OneToMany(targetEntity="Pedido", mappedBy="usuario")
@@ -443,5 +444,90 @@ class Usuario implements UserInterface, \Serializable{
     {
      
         return array($this->rol->getRole());
+    }
+
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    
+     public function getAbsolutePath()
+    {
+        return null === $this->logo
+            ? null
+            : $this->getUploadRootDir().'/'.$this->logo;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->logo
+            ? null
+            : $this->getUploadDir().'/'.$this->logo;
+    }
+
+    public function getUploadRootDir()
+    {
+        // la ruta absoluta del directorio donde se deben
+        // guardar los archivos cargados
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        // se deshace del __DIR__ para no meter la pata
+        // al mostrar el documento/imagen cargada en la vista.
+        return 'imagenes/perfil';
+    }
+    
+    public function upload()
+    {
+       
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+             
+            return;
+        }
+        
+      
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        
+            $posExten = strripos($this->getFile()->getClientOriginalName(), ".");
+            $exten = substr($this->getFile()->getClientOriginalName(), $posExten);
+            $nombrefinal = sha1_file($this->getFile()).$exten;
+
+
+        
+        
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $nombrefinal
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->logo = $nombrefinal;
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
     }
 }
