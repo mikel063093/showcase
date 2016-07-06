@@ -262,7 +262,7 @@ class MovilController extends Controller
                         $datos["nombre"] = $user->getNombres();
                         $datos["apellido"] = $user->getApellidos();
                         $datos["correo"] = $user->getCorreo();
-                        if($existe->getFoto()){
+                        if($user->getFoto()){
                             $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto();
                         }
                         $datos["token"] = $jsonToken->token;
@@ -327,7 +327,7 @@ class MovilController extends Controller
     }
 
      /**
-     * @Route("/subirFoto", name="subirFoto")
+     * @Route("/editarPerfil", name="editarPerfilMovil")
      */
     public function subirFotoAction(Request $peticion){
         
@@ -336,19 +336,32 @@ class MovilController extends Controller
         $id = $peticion->request->get('id');
         $contenido = $peticion->request->get('contenido');
         $tipo = $peticion->request->get('tipo');
+        $nombres = $peticion->request->get('nombres');
+        $apellidos = $peticion->request->get('apellidos');
+        $password = $peticion->request->get('password');
+
         $datos = array( "id"=> '0',"foto"=> "",
             "estado"=> 'exito',
-            "mensaje"=> 'Foto de perfil subida correctamente.'
+            "mensaje"=> 'Perfil editado correctamente.'
         );
         try{
 
             $user = $em->getRepository('AppBundle:Usuario')->find($id);
             if ($user) {
-                
-                $data = base64_decode($contenido);
-                $file =   sha1($data) . $tipo;
-                $success = file_put_contents($user->getUploadRootDir().'/'.$file, $data);
-                $user->setFoto($file);
+                if($contenido != ""){
+                    $data = base64_decode($contenido);
+                    $file =   sha1($data) . $tipo;
+                    $success = file_put_contents($user->getUploadRootDir().'/'.$file, $data);
+                    $user->setFoto($file);
+                }
+                $user->setNombres($nombres);
+                $user->setApellidos($apellidos);
+                if($password != ""){
+                    $user->setSalt(md5(time()));
+                    $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+                    $passwordCodificado = $encoder->encodePassword($password,$user->getSalt());
+                    $user->setPassword($passwordCodificado);    
+                }
                 $em->persist($user);
                 $em->flush();
                 $datos["id"] = $user->getId();
@@ -377,18 +390,20 @@ class MovilController extends Controller
         $em = $this->getDoctrine()->getManager();
         $datos =array("estado" => 'exito',
                 "mensaje" => "Establecimientos obtenidos exitosamente",
-                "categorias" => array()
+                "categorias" => array(),
+                "totalPaginas" => 0,
+                "pagina" => 0
                 );
         
         try{
-
-            $categorias = $em->getRepository('AppBundle:Categoria')->findTodos();
-            $paginador = $this->get('paginador');
-            $tamPagina = 2;
-            $cats = $paginador->paginar(
-                    $categorias, $peticion->request->get('pagina', 1), $tamPagina
-            );
+            $totalPaginas = count($em->getRepository('AppBundle:Categoria')->findAll());
             
+            $tamPagina = 2;
+            $pagina = $peticion->request->get('pagina', 1);
+            $cats = $em->getRepository('AppBundle:Categoria')->findTodos($tamPagina,$tamPagina*intval($pagina));
+            
+            $datos["totalPaginas"] = round($totalPaginas/2,0,PHP_ROUND_HALF_UP);
+            $datos["pagina"] = $pagina;
             foreach ($cats as  $c) {
                 $cat = array("nombre" => $c->getNombre());
                 $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
@@ -419,7 +434,69 @@ class MovilController extends Controller
         return new JsonResponse($datos);
     }
 
+    /**
+     * @Route("/establecimiento", name="establecimientoMovil")
+     */
+    public function establecimientoAction(Request $peticion){
+        
+        $em = $this->getDoctrine()->getManager();
+        $datos =array("estado" => 'exito',
+                "mensaje" => "Establecimiento obtenido exitosamente",
+                
+                );
+        
+        try{
 
+            $id = $peticion->get('id');
+            $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($id);
+            $datos["id"] = $establecimiento->getId();
+            $datos["nombre"] = $establecimiento->getNombre();
+            $datos["descripcion"] = $establecimiento->getDescripcion();
+            $datos["direccion"] = $establecimiento->getDireccion();
+            $datos["telefono"] = $establecimiento->getTelefono();
+            $datos["sitioWeb"] = $establecimiento->getSitioWeb();
+            $datos["facebook"] = $establecimiento->getFacebook();
+            $datos["twitter"] = $establecimiento->getTwitter();
+            $datos["snapchat"] = $establecimiento->getSnapchat();
+            $datos["youtube"] = $establecimiento->getYoutube();
+            $datos["instagram"] = $establecimiento->getInstagram();
+            if($establecimiento->getLogo() != "" ){
+                $datos["logo"] = $this->container->getParameter('servidor').'/'.$establecimiento->getWebPath();
+            }else{
+                $datos["logo"] = "";
+            }   
+            $datos["articulos"] = [];
+
+            $articulos = $em->getRepository('AppBundle:Articulo')->getArticulosEstablecimiento($establecimiento->getId());
+
+            foreach ($articulos as  $a) {
+                $articulo = array(
+                    "id" => $a->getId(),
+                    "nombre" => $a->getNombre(),
+                    "precio" => $a->getPrecio(),
+                    
+                    );
+                if ($a->getImagen()) {
+                    $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
+                } else {
+                   $articulo["imagen"] = "";
+                }
+
+                 $datos["articulos"][] = $articulo;
+                
+                
+            }
+
+
+        } catch (\Exception $e) {
+            return new JsonResponse(array(
+                "estado" => 'error',
+                //"mensaje" => 'Imposible acceder a la información del Usuario.'
+                "mensaje" => $e->getMessage()
+            ));
+        }
+        return new JsonResponse($datos);
+    }
 
     /**
      * @Route("/hola", name="movilHola")

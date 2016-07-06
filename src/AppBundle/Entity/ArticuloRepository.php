@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticuloRepository extends EntityRepository
 {
+	public function getArticulosEstablecimiento($id){
+		$em = $this->getEntityManager();
+
+		$consulta = $em->createQueryBuilder()
+                        ->addSelect('a')
+                        ->from('AppBundle:Articulo', 'a')
+                        ->where('a.establecimiento = :establecimiento')->setParameter('establecimiento',$id)
+                        ->andWhere('a.cantidad > 0');
+        
+
+        return $consulta->getQuery()->getResult();
+	}
 }

@@ -1,0 +1,165 @@
+<script type="text/javascript">
+	$('#form-registro').validate({
+        rules: {
+            'articulo[nombre]': {  required: true },
+            'articulo[precio]': {  required: true , number: true },
+            'articulo[unidadMedida]': {  required: true },
+            'articulo[valorMedida]': {  required: true , number: true },
+            'articulo[cantidad]': {  required: true , number: true },
+        },
+        messages:{
+            'articulo[nombre]': {  required: 'El campo Nombre es obligatorio' },
+            'articulo[precio]': {  required: 'El campo Precio es obligatorio',number:'El campo Precio solo recibe numeros' },
+            'articulo[unidadMedida]': {  required: 'El campo Unidad de Medida es obligatorio' },
+            'articulo[valorMedida]': {  required: 'El campo Valor de Medida es obligatorio',number:'El campo Valor de Medida solo recibe numeros' },
+            'articulo[cantidad]': {  required: 'El campo Cantidad es obligatorio',number:'El campo Cantidad de Medida solo recibe numeros' },
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+            	for (var i = 0; i < validator.errorList.length; i++) {
+            		mostrarMensaje(validator.errorList[i].message,'Error');
+            	};
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+     	$('#modal-cargando').modal('show');
+        var datos = new FormData(form);
+        $.ajax({
+            url:"{{path('guardarArticulo')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            processData: false,
+            contentType: false,
+            success: function (data){
+                if(data.valor){
+                	$.ajax({
+			            type: "POST",
+			            url: '{{path("registrosArticulos")}}',
+			            dataType: "html",
+			            
+			            success: function(data) {
+			                $('#registros').html(data);
+			            }
+			        });
+                 	$('#btn-guardar').unbind();
+                	$('#modal').modal('hide');
+                    $('#modal-title').html('');
+        					$('#modal-content').html('<br>CARGANDO . . .');
+        					$('#modal-footer').html('');
+        					mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+                	mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+                  
+  $('#close-modal').click(function(){
+    $('#btn-guardar').unbind();
+    $('#modal-title').html('');
+    $('#modal-content').html('<br>CARGANDO . . .');
+    $('#modal-footer').html('');
+    
+  });
+
+  $('#articulo_file').change(function (){         
+      validacion=true;
+      var sizeByte = this.files[0].size;
+      var nombre = this.files[0].name;
+      var file,img;
+      var extensiones=["JPG", "JPEG", "PNG"];
+      var ext=nombre.substring(nombre.indexOf('.')+1).toUpperCase();
+      if (extensiones.indexOf(ext) === -1){
+          crearMensaje(0, 'Las extensiones permitidas son: jpg, jpeg y png.');
+          $(this).val('');
+          validacion= false;
+      }else{
+          $("#imgPreviewEmpresa").attr("style","display:block;");
+          var file = $("#articulo_file").val();
+          var ruta = URL.createObjectURL(this.files[0]);
+          $("#imgPreviewEmpresa").fadeIn("fast").attr('src',URL.createObjectURL(this.files[0]));
+      }
+  });
+
+
+
+</script>
+
+{{ form_start(form, {'attr': {'id': 'form-registro','class':'form-horizontal style-form' }}) }}
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label"><strong>Nombre (*)</strong></label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Descripcion</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Precio (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.precio, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Unidad  Medida (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.unidadMedida, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Valor Medida (*)</label>
+	  <div class="col-sm-9">
+	      {{ form_widget(form.valorMedida, {'attr': {'class': 'form-control'}}) }}
+	  </div>
+	</div>
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Cantidad (*)</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.cantidad, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+	<div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label">Establecimiento (*)</label>
+	  <div class="col-sm-9">
+	     	<select class="form-control" name="establecimiento" id="establecimiento">
+			  {% for establecimiento in establecimientos %}
+			  	<option value="{{establecimiento.id}}">{{establecimiento.nombre}}</option>
+			  {% endfor %}
+			</select>
+	  </div>
+	</div>
+    
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Imagen (*)</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.file,{'attr':{'class':'input-file'}}) }}
+          <img style="display: none" id="imgPreviewEmpresa" src="" alt="" height="80" />
+      </div>
+    </div>
+    
+
+{{ form_rest(form) }}

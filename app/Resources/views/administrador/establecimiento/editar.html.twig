@@ -261,7 +261,7 @@
       <label class="col-sm-3 col-sm-3 control-label">Logo</label>
       <div class="col-sm-9">
           {{ form_widget(form.file,{'attr':{'class':'input-file'}}) }}
-          <img {% if entity.logo or entity.logo == ""%}style="display: none"{%endif%} id="imgPreviewEmpresa" src="{% if entity.logo and entity.logo != ""%}{{asset('imagenes/logos/' ~ entity.logo)}}{%endif%}" alt="" height="80" />
+          <img {% if not(entity.logo) or entity.logo == ""%}style="display: none"{%endif%} id="imgPreviewEmpresa" src="{% if entity.logo and entity.logo != ""%}{{asset('imagenes/logos/' ~ entity.logo)}}{%endif%}" alt="" height="80" />
       </div>
     </div>
 
