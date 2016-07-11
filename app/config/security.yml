@@ -39,7 +39,11 @@ security:
         registroRedes:
             pattern: ^/movil/registroRedesMovil
             security: false
-            
+
+        recuperarContrasena:
+            pattern: ^/movil/recuperarContrasena
+            security: false    
+
         api:
             pattern:   ^/movil
             stateless: true

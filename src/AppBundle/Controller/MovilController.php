@@ -396,12 +396,12 @@ class MovilController extends Controller
                 );
         
         try{
-            $totalPaginas = count($em->getRepository('AppBundle:Categoria')->findAll());
+            
             
             $tamPagina = 2;
             $pagina = $peticion->request->get('pagina', 1);
-            $cats = $em->getRepository('AppBundle:Categoria')->findTodos($tamPagina,$tamPagina*intval($pagina));
-            
+            $cats = $em->getRepository('AppBundle:Categoria')->findAll();
+            $totalPaginas = count($cats);
             $datos["totalPaginas"] = round($totalPaginas/2,0,PHP_ROUND_HALF_UP);
             $datos["pagina"] = $pagina;
             foreach ($cats as  $c) {
@@ -499,11 +499,169 @@ class MovilController extends Controller
     }
 
     /**
+     * @Route("/recuperarContrasena", name="recuperarContrasena")
+     * 
+     */
+    public function recuperarContrasenaAction(Request $peticion)
+    {
+        $correo=  ($peticion->request->get('correo'));
+        $em=$this->getDoctrine()->getManager();
+        $entity= $em->getRepository('AppBundle:Usuario')->findOneBy(array(
+            'correo'=>$correo
+        ));
+        
+        if ($entity){
+            
+            $str = rand(0, 9999999999);
+            $clave = str_pad($str, 10, "0", STR_PAD_LEFT);
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
+            $passwordCodificado = $encoder->encodePassword($clave,$entity->getSalt());
+            $entity->setPassword($passwordCodificado);    
+            $em->persist($entity);
+            $em->flush();
+            
+            $mail=$this->get('correo');
+            $mail->setVista('web/correo.html.twig')
+                ->setPara(array($correo))
+                ->setTitulo("Nueva Contraseña")
+                ->setContenido("Su nueva contraseña es: ".$clave);
+            $mail->enviar();
+            $rta = array(
+                "estado"=> 'exito',
+                "mensaje"=> 'Contraseña enviada su correo correctamente.'
+            );
+        }else{
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'El correo no se encuentra en nuestra base de datos.'
+            );
+        }
+        return new JsonResponse($rta);
+    }
+
+
+
+    /**
      * @Route("/hola", name="movilHola")
      */
     public function holaAction(Request $peticion){
         return new JsonResponse( array('valor' => 'hola' ));
     }
+
+    /**
+     * @Route("/categorias", name="categorias")
+     */
+    public function categoriasAction(Request $peticion){
+       $rta = array();
+       try {
+           $em = $this->getDoctrine()->getManager();
+           $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
+           $cats = array();
+           foreach ($categorias as $categoria){
+               array_push($cats,array('id' => $categoria->getId() ,'nombre' => $categoria->getNombre() ));
+           }
+           $rta=array(
+                'estado'=>1,
+                'mensaje'=> 'Categorias encontradas con exito.',
+                'categorias' => $cats
+            );
+
+       } catch (Exception $e) {
+           $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error buscando las categorias.'
+            );
+       }
+
+       return new JsonResponse( $rta);
+       
+    }
+
+    /**
+     * @Route("/categoria", name="categoria")
+     */
+    public function categoriaAction(Request $peticion){
+       $rta = array();
+       try {
+           $em = $this->getDoctrine()->getManager();
+           $id = $peticion->get('id');
+           $categoria = $em->getRepository('AppBundle:Categoria')->find($id);
+           $cat = array();
+           $establecimientos = array();
+           if($categoria){
+                $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($categoria->getId());
+                $est = array();
+
+                foreach ($establecimientos as $e) {
+                    
+                    $est[] = array(
+                        'id' => $e->getId(),
+                        'nombre' => $e->getNombre(),
+                        'logo' => $this->container->getParameter('servidor').$e->getWebPath()
+                        );
+                    
+                }
+                $cat = array('id' => $categoria->getId() ,'nombre' => $categoria->getNombre(),'establecimientos' => $est);
+            }
+
+           $rta=array(
+                'estado'=>1,
+                'mensaje'=> 'Categorias encontradas con exito.',
+                'categorias' => $cat
+            );
+
+       } catch (Exception $e) {
+           $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error buscando las categorias.'
+            );
+       }
+
+       return new JsonResponse( $rta);
+       
+    }
+
+
+    /**
+     * @Route("/direcciones", name="direcciones")
+     */
+    public function direccionesAction(Request $peticion){
+       $rta = array();
+       try {
+           $em = $this->getDoctrine()->getManager();
+           $id = $peticion->get('id');
+           $usuario = $em->getRepository('AppBundle:Usuario')->find($id);
+           $direcciones = array();
+           if($usuario){
+                foreach ($usuario->getDirecciones() as $direccion) {
+                    array_push($direcciones, array('id' => $direccion->getId(),'nombre' => $direccion->getNombre(),'direccion'=> $direccion->getDireccion()));
+                }
+                $rta=array(
+                    'estado'=>1,
+                    'mensaje'=> 'Direcciones encontradas con exito.',
+                    'direcciones' => $direcciones
+                );
+           }else{
+                $rta=array(
+                    'estado'=>0,
+                    'mensaje'=> 'Usuario no encontrado.'
+                );
+           }
+           
+           
+
+       } catch (Exception $e) {
+           $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error buscando las direcciones.'
+            );
+       }
+
+       return new JsonResponse( $rta);
+       
+    }
+
+    
     
     
 }
