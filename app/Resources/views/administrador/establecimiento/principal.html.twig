@@ -9,14 +9,13 @@ Adicionar Establecimiento
 {% block js %}
     <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyCqT2T00gk7BychSMAc0NUklRACv89qV9o">  
                         </script>
-    <script type="text/javascript">
+    <script>
     $(document).ready(function(){
 
          $.ajax({
             type: "POST",
             url: '{{path("registrosEstablecimientos")}}',
-            dataType: "html",
-            
+            dataType: "html",           
             success: function(data) {
                 $('#registros').html(data);
             }

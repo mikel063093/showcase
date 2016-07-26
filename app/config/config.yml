@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: app.yml }
+    - { resource: ivory_ck_editor.yml }
     - { resource: "@SecureBundle/Resources/config/services.yml" }
     - { resource: "@WebBundle/Resources/config/services.yml" }
 

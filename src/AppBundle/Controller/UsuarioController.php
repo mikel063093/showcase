@@ -30,7 +30,7 @@ class UsuarioController extends Controller
     public function registrosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
+        $usuarios = $em->getRepository('AppBundle:Usuario')->findUsuarioAdministrativos();
         return $this->render('administrador/usuario/registros.html.twig',array('usuarios'=>$usuarios));
     } 
 

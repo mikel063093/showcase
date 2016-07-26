@@ -1,19 +1,18 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
-
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-
-    # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: showcase
+    database_user: root
+    database_password: null
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: showcase.popayan@gmail.com
+    mailer_password: 'Show381POP*'
+    secret: 748eeb21f05ed3a02e612a19df16a9d960196ad3
+    jwt_private_key_path: %kernel.root_dir%/var/jwt/private.pem # ssh private key path
+    jwt_public_key_path:  %kernel.root_dir%/var/jwt/public.pem # ssh public key path
+    jwt_key_pass_phrase:  'showcase'                                      # ssh key pass phrase
+    jwt_token_ttl:        null
+    facebookId: "1545741209066315"
+    facebookSecret: "1579cd9225b3e95708b511160424d996"
+    servidor: https://test.showcase.com.co/

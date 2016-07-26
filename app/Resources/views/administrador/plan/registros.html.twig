@@ -3,6 +3,7 @@
     <thead>
     <tr>
         <th>Nombre</th>
+        <th>Precio</th>
         <th>Acciones</th>
     </thead>
     <tbody>
@@ -10,6 +11,7 @@
         {% for plan in planes %}
           <tr>
             <td >{{plan.nombre}}</td>
+            <td>{{plan.precio}}</td>
             <td ><a href="#" class="btn-editar" data-id="{{ plan.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ plan.id }}">Eliminar</a></td>
           </tr>
         {% else %} 

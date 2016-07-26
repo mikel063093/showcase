@@ -42,6 +42,13 @@ class Puntuacion {
     private $establecimiento;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="puntuaciones")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     **/
+    private $usuario;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -95,5 +102,29 @@ class Puntuacion {
     public function getEstablecimiento()
     {
         return $this->establecimiento;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \AppBundle\Entity\Usuario $usuario
+     *
+     * @return Puntuacion
+     */
+    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

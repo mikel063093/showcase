@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Puntuacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -263,7 +264,7 @@ class MovilController extends Controller
                         $datos["apellido"] = $user->getApellidos();
                         $datos["correo"] = $user->getCorreo();
                         if($user->getFoto()){
-                            $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto();
+                            $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$user->getFoto();
                         }
                         $datos["token"] = $jsonToken->token;
                     }elseif(isset($jsonToken->code)){
@@ -396,14 +397,8 @@ class MovilController extends Controller
                 );
         
         try{
-            
-            
-            $tamPagina = 2;
-            $pagina = $peticion->request->get('pagina', 1);
+
             $cats = $em->getRepository('AppBundle:Categoria')->findAll();
-            $totalPaginas = count($cats);
-            $datos["totalPaginas"] = round($totalPaginas/2,0,PHP_ROUND_HALF_UP);
-            $datos["pagina"] = $pagina;
             foreach ($cats as  $c) {
                 $cat = array("nombre" => $c->getNombre());
                 $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
@@ -464,7 +459,31 @@ class MovilController extends Controller
                 $datos["logo"] = $this->container->getParameter('servidor').'/'.$establecimiento->getWebPath();
             }else{
                 $datos["logo"] = "";
-            }   
+            }
+
+            $puntuacion = 0;
+            if(count($establecimiento->getPuntuaciones())>0) {
+                $total = 0;
+                foreach ($establecimiento->getPuntuaciones() as $p) {
+                    $total = $total + $p->getValor();
+                }
+                $puntuacion = $total / count($establecimiento->getPuntuaciones());
+            }
+            $puntuacionUsuario = $em->getRepository('AppBundle:Puntuacion')->findOneBy(array(
+                'usuario' => $this->getUser(),
+                'establecimiento' => $establecimiento
+            ));
+
+            if($puntuacionUsuario){
+                $datos['puntuacionUsuario'] = $puntuacionUsuario->getValor();
+            }else{
+                $datos['puntuacionUsuario'] = null;
+            }
+            if($puntuacion < 3){
+                $puntuacion = 3;
+            }
+
+            $datos['puntuacion'] = $puntuacion;
             $datos["articulos"] = [];
 
             $articulos = $em->getRepository('AppBundle:Articulo')->getArticulosEstablecimiento($establecimiento->getId());
@@ -661,7 +680,70 @@ class MovilController extends Controller
        
     }
 
-    
-    
+    /**
+     * @Route("/puntuarEstablecimiento", name="puntuarEstablecimiento")
+     */
+    public function puntuarEstablecimientoAction(Request $peticion){
+        $rta = array(
+            'estado'=>1,
+            'mensaje' => 'Exito al puntuar establecimiento',
+        );
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $id = $peticion->get('id');
+            $valor = $peticion->get('valor');
+            $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($id);
+
+            if($establecimiento){
+                $puntuacionUsuario = $em->getRepository('AppBundle:Puntuacion')->findOneBy(array(
+                    'usuario' => $this->getUser(),
+                    'establecimiento' => $establecimiento
+                ));
+
+                if($puntuacionUsuario){
+                    $puntuacionUsuario->setValor($valor);
+                }else{
+                    $puntuacionUsuario = new Puntuacion();
+                    $puntuacionUsuario->setEstablecimiento($establecimiento);
+                    $puntuacionUsuario->setUsuario($this->getUser());
+                    $puntuacionUsuario->setValor($valor);
+                }
+                $em->persist($puntuacionUsuario);
+                $em->flush();
+                $puntuacion = 0;
+                if(count($establecimiento->getPuntuaciones())>0) {
+                    $total = 0;
+                    foreach ($establecimiento->getPuntuaciones() as $p) {
+                        $total = $total + $p->getValor();
+                    }
+                    $puntuacion = $total / count($establecimiento->getPuntuaciones());
+                }
+
+                $rta['puntuacionUsuario'] = $puntuacionUsuario->getValor();
+
+                if($puntuacion < 3){
+                    $puntuacion = 3;
+                }
+                $rta['puntuacion'] = $puntuacion;
+            }else{
+                $rta=array(
+                    'estado'=>0,
+                    'mensaje'=> 'Establecimiento no encontrado.'
+                );
+            }
+
+
+
+        } catch (Exception $e) {
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al calificar el establecimiento.'
+            );
+        }
+
+        return new JsonResponse( $rta);
+
+    }
+
     
 }

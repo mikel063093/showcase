@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -108,6 +106,13 @@ class Usuario implements UserInterface, \Serializable{
      * @ORM\JoinColumn(name="id_rol", referencedColumnName="id")
      **/
     private $rol;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Puntuacion", mappedBy="usuario")
+     */
+    private $puntuaciones;
+
     /**
      * Constructor
      */
@@ -116,6 +121,7 @@ class Usuario implements UserInterface, \Serializable{
         $this->pedidos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carritos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->direcciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->puntuaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -529,5 +535,39 @@ class Usuario implements UserInterface, \Serializable{
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+    }
+
+    /**
+     * Add puntuacione
+     *
+     * @param \AppBundle\Entity\Puntuacion $puntuacione
+     *
+     * @return Usuario
+     */
+    public function addPuntuacione(\AppBundle\Entity\Puntuacion $puntuacione)
+    {
+        $this->puntuaciones[] = $puntuacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove puntuacione
+     *
+     * @param \AppBundle\Entity\Puntuacion $puntuacione
+     */
+    public function removePuntuacione(\AppBundle\Entity\Puntuacion $puntuacione)
+    {
+        $this->puntuaciones->removeElement($puntuacione);
+    }
+
+    /**
+     * Get puntuaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPuntuaciones()
+    {
+        return $this->puntuaciones;
     }
 }

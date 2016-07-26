@@ -19,4 +19,18 @@ class UsuarioRepository extends EntityRepository
                         ->from('AppBundle:Usuario', 'u');
         return $consulta->getQuery();
 	}
+
+    public function findUsuarioAdministrativos(){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQueryBuilder()
+            ->select('u')
+            ->from('AppBundle:Usuario', 'u')
+            ->innerJoin('u.rol','r')
+            ->where('r.codigo = :codigo')
+            ->setParameter('codigo','ROLE_ADMIN')
+        ;
+
+        return $consulta->getQuery()->getResult();
+    }
+
 }

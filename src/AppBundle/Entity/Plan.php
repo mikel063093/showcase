@@ -8,6 +8,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Plan
  *
@@ -35,14 +36,29 @@ class Plan {
     private $nombre;
 
     /**
+     * @var string $precio
+     *
+     * @ORM\Column(name="precio", type="integer",  nullable=false, options=
+     * {"comment" = "Precio del plan"})
+     */
+    private $precio;
+    /**
      * @var string $descripcion
      *
-     * @ORM\Column(name="descripcion", type="string", length=1000, nullable=false, options=
+     * @ORM\Column(name="descripcion", type="string", length=1000, nullable=true, options=
      * {"comment" = "Descripcion del plan"})
      */
     private $descripcion;
 
+    /**
+     * @var string $imagen
+     *
+     * @ORM\Column(name="imagen", type="string", length=255, nullable=true, options=
+     * {"comment" = "Imagen del plan"})
+     */
+    private $imagen;
 
+    private $file;
     /**
      * 
      * @ORM\OneToMany(targetEntity="Establecimiento", mappedBy="plan")
@@ -143,5 +159,137 @@ class Plan {
     public function getEstablecimientos()
     {
         return $this->establecimientos;
+    }
+
+    /**
+     * Set precio
+     *
+     * @param integer $precio
+     *
+     * @return Plan
+     */
+    public function setPrecio($precio)
+    {
+        $this->precio = $precio;
+
+        return $this;
+    }
+
+    /**
+     * Get precio
+     *
+     * @return integer
+     */
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     *
+     * @return Plan
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    
+     public function getAbsolutePath()
+    {
+        return null === $this->imagen
+            ? null
+            : $this->getUploadRootDir().'/'.$this->imagen;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->imagen
+            ? null
+            : $this->getUploadDir().'/'.$this->imagen;
+    }
+
+    public function getUploadRootDir()
+    {
+        // la ruta absoluta del directorio donde se deben
+        // guardar los archivos cargados
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        // se deshace del __DIR__ para no meter la pata
+        // al mostrar el documento/imagen cargada en la vista.
+        return 'imagenes/planes';
+    }
+    
+    public function upload()
+    {
+       
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+             
+            return;
+        }
+        
+      
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        
+            $posExten = strripos($this->getFile()->getClientOriginalName(), ".");
+            $exten = substr($this->getFile()->getClientOriginalName(), $posExten);
+            $nombrefinal = sha1_file($this->getFile()).$exten;
+
+
+        
+        
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $nombrefinal
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->imagen = $nombrefinal;
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
     }
 }
