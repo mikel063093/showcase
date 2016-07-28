@@ -12,3 +12,5 @@
 /composer.phar
 /nbproject/*
 *.php~
+/vendor/*
+.idea/workspace.xml

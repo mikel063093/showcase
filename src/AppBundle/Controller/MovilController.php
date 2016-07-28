@@ -493,7 +493,8 @@ class MovilController extends Controller
                     "id" => $a->getId(),
                     "nombre" => $a->getNombre(),
                     "precio" => $a->getPrecio(),
-                    
+                    "unidades" => $a->getUnidadMedida(),
+                    "valorUnidades" => $a->getValorMedida()
                     );
                 if ($a->getImagen()) {
                     $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
@@ -693,13 +694,11 @@ class MovilController extends Controller
             $id = $peticion->get('id');
             $valor = $peticion->get('valor');
             $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($id);
-
             if($establecimiento){
                 $puntuacionUsuario = $em->getRepository('AppBundle:Puntuacion')->findOneBy(array(
                     'usuario' => $this->getUser(),
                     'establecimiento' => $establecimiento
                 ));
-
                 if($puntuacionUsuario){
                     $puntuacionUsuario->setValor($valor);
                 }else{
@@ -718,7 +717,6 @@ class MovilController extends Controller
                     }
                     $puntuacion = $total / count($establecimiento->getPuntuaciones());
                 }
-
                 $rta['puntuacionUsuario'] = $puntuacionUsuario->getValor();
 
                 if($puntuacion < 3){
@@ -731,16 +729,136 @@ class MovilController extends Controller
                     'mensaje'=> 'Establecimiento no encontrado.'
                 );
             }
-
-
-
         } catch (Exception $e) {
             $rta=array(
                 'estado'=>0,
                 'mensaje'=> 'Error al calificar el establecimiento.'
             );
         }
+        return new JsonResponse( $rta);
+    }
 
+    /**
+     * @Route("/autoCompletarBusqueda", name="autoCompletarBusqueda")
+     */
+    public function autoCompletarBusquedaAction(Request $peticion){
+        $em = $this->getDoctrine()->getManager();
+        $palabra = $peticion->get('palabra');
+        $rta = array(
+            'estado'=>1,
+            'mensaje' => 'Exito al buscar posibles palabras',
+        );
+        try{
+            $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar($palabra);
+            $posiblesPalabras = array();
+            foreach ($palabras as $p){
+                $listaPalabras = explode(" ",$p['nombre']);
+                foreach ($listaPalabras as $lp){
+                    if(strpos($lp,$palabra)){
+                        array_push($posiblesPalabras,$lp);
+                    }
+
+                }
+                $nuevaPalabra = $listaPalabras[0];
+                foreach ( array_slice($listaPalabras,1) as $lp){
+                    $nuevaPalabra = $nuevaPalabra." ".$lp;
+                    if(strpos($lp,$palabra)){
+                        array_push($posiblesPalabras,$nuevaPalabra);
+                    }
+                }
+            }
+            $posiblesPalabras = array_unique($posiblesPalabras);
+            if(count($posiblesPalabras) > 0){
+                $rta['palabras'] = $posiblesPalabras;
+            }else{
+                $rta=array(
+                    'estado'=>0,
+                    'mensaje'=> 'No hay posibles palabras'
+                );
+            }
+
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al buscar posibles palabras'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/realizarBusqueda", name="realizarBusqueda")
+     */
+    public function realizarBusquedaAction(Request $peticion){
+        $em = $this->getDoctrine()->getManager();
+        $palabra = $peticion->get('palabra');
+        $rta = array(
+            'estado'=>1,
+            'mensaje' => 'Exito al buscar posibles palabras',
+        );
+        try{
+            $articulos = $em->getRepository('AppBundle:Articulo')->realizarBusqueda($palabra);
+            $art = array();
+            foreach ($articulos as $a){
+                $articulo = array(
+                    "id" => $a->getId(),
+                    "nombre" => $a->getNombre(),
+                    "precio" => $a->getPrecio(),
+                    "unidades" => $a->getUnidadMedida(),
+                    "valorUnidades" => $a->getValorMedida()
+                );
+                if ($a->getImagen()) {
+                    $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
+                } else {
+                    $articulo["imagen"] = "";
+                }
+                array_push($art,$articulo);
+            }
+            $rta['articulos'] = $art;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al buscar posibles palabras'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/detalleProducto", name="detalleProducto")
+     */
+    public function detalleProductoAction(Request $peticion){
+        $em = $this->getDoctrine()->getManager();
+        $id = $peticion->get('id');
+        $rta = array(
+            'estado'=>1,
+            'mensaje' => 'Exito al buscar el articulo',
+        );
+        try{
+            $a = $em->getRepository('AppBundle:Articulo')->find($id);
+            $articulo = array(
+                "id" => $a->getId(),
+                "descripcion" => $a->getDescripcion(),
+                "nombre" => $a->getNombre(),
+                "precio" => $a->getPrecio(),
+                "unidades" => $a->getUnidadMedida(),
+                "valorUnidades" => $a->getValorMedida()
+            );
+            if ($a->getImagen()) {
+                $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
+            } else {
+                $articulo["imagen"] = "";
+            }
+
+            $rta['articulo'] = $articulo;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al buscar el articulo'
+            );
+        }
         return new JsonResponse( $rta);
 
     }
