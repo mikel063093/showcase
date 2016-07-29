@@ -38,12 +38,36 @@ class Direccion {
     private $nombre;
 
     /**
-     * @var string $direccion
+     * @var string $tipo
      *
-     * @ORM\Column(name="direccion", type="string", length=120, nullable=false, options=
-     * {"comment" = "direccion fisica"})
+     * @ORM\Column(name="tipo", type="string", length=60, nullable=false, options=
+     * {"comment" = "tipo de localizacion de la direccion (Calle, carrera)"})
      */
-    private $direccion;
+    private $tipo;
+
+    /**
+     * @var string $numero
+     *
+     * @ORM\Column(name="numero", type="string", length=60, nullable=false, options=
+     * {"comment" = "el numero de localizacion de la direccion"})
+     */
+    private $numero;
+
+    /**
+     * @var string $nomenclatura
+     *
+     * @ORM\Column(name="nomenclatura", type="string", length=60, nullable=false, options=
+     * {"comment" = "la nomenclatura de la casa"})
+     */
+    private $nomenclatura;
+
+    /**
+     * @var string $informacionAdicional
+     *
+     * @ORM\Column(name="informacionAdicional", type="string", length=120, nullable=true, options=
+     * {"comment" = "informacion adicional sobre la direccion"})
+     */
+    private $informacionAdicional;
 
     /**
      * @var string $barrio
@@ -54,11 +78,10 @@ class Direccion {
     private $barrio;
 
     /**
-     * @var string $nombreCompleto
      *
-     * @ORM\Column(name="nombreCompleto", type="string", length=120, nullable=false, options=
-     * {"comment" = "Nombre de quien envio la solicitud de contactenos"})
-     */
+     * @ORM\ManyToOne(targetEntity="Ciudad", inversedBy="direcciones")
+     * @ORM\JoinColumn(name="id_ciudad", referencedColumnName="id")
+     **/
     private $ciudad;
 
     /**
@@ -82,10 +105,12 @@ class Direccion {
         $this->pedidos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,6 +121,7 @@ class Direccion {
      * Set nombre
      *
      * @param string $nombre
+     *
      * @return Direccion
      */
     public function setNombre($nombre)
@@ -108,7 +134,7 @@ class Direccion {
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -116,32 +142,106 @@ class Direccion {
     }
 
     /**
-     * Set direccion
+     * Set tipo
      *
-     * @param string $direccion
+     * @param string $tipo
+     *
      * @return Direccion
      */
-    public function setDireccion($direccion)
+    public function setTipo($tipo)
     {
-        $this->direccion = $direccion;
+        $this->tipo = $tipo;
 
         return $this;
     }
 
     /**
-     * Get direccion
+     * Get tipo
      *
-     * @return string 
+     * @return string
      */
-    public function getDireccion()
+    public function getTipo()
     {
-        return $this->direccion;
+        return $this->tipo;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param string $numero
+     *
+     * @return Direccion
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return string
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Set nomenclatura
+     *
+     * @param string $nomenclatura
+     *
+     * @return Direccion
+     */
+    public function setNomenclatura($nomenclatura)
+    {
+        $this->nomenclatura = $nomenclatura;
+
+        return $this;
+    }
+
+    /**
+     * Get nomenclatura
+     *
+     * @return string
+     */
+    public function getNomenclatura()
+    {
+        return $this->nomenclatura;
+    }
+
+    /**
+     * Set informacionAdicional
+     *
+     * @param string $informacionAdicional
+     *
+     * @return Direccion
+     */
+    public function setInformacionAdicional($informacionAdicional)
+    {
+        $this->informacionAdicional = $informacionAdicional;
+
+        return $this;
+    }
+
+    /**
+     * Get informacionAdicional
+     *
+     * @return string
+     */
+    public function getInformacionAdicional()
+    {
+        return $this->informacionAdicional;
     }
 
     /**
      * Set barrio
      *
      * @param string $barrio
+     *
      * @return Direccion
      */
     public function setBarrio($barrio)
@@ -154,7 +254,7 @@ class Direccion {
     /**
      * Get barrio
      *
-     * @return string 
+     * @return string
      */
     public function getBarrio()
     {
@@ -164,10 +264,11 @@ class Direccion {
     /**
      * Set ciudad
      *
-     * @param string $ciudad
+     * @param \AppBundle\Entity\Ciudad $ciudad
+     *
      * @return Direccion
      */
-    public function setCiudad($ciudad)
+    public function setCiudad(\AppBundle\Entity\Ciudad $ciudad = null)
     {
         $this->ciudad = $ciudad;
 
@@ -177,7 +278,7 @@ class Direccion {
     /**
      * Get ciudad
      *
-     * @return string 
+     * @return \AppBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
@@ -185,32 +286,33 @@ class Direccion {
     }
 
     /**
-     * Add pedidos
+     * Add pedido
      *
-     * @param \AppBundle\Entity\Pedido $pedidos
+     * @param \AppBundle\Entity\Pedido $pedido
+     *
      * @return Direccion
      */
-    public function addPedido(\AppBundle\Entity\Pedido $pedidos)
+    public function addPedido(\AppBundle\Entity\Pedido $pedido)
     {
-        $this->pedidos[] = $pedidos;
+        $this->pedidos[] = $pedido;
 
         return $this;
     }
 
     /**
-     * Remove pedidos
+     * Remove pedido
      *
-     * @param \AppBundle\Entity\Pedido $pedidos
+     * @param \AppBundle\Entity\Pedido $pedido
      */
-    public function removePedido(\AppBundle\Entity\Pedido $pedidos)
+    public function removePedido(\AppBundle\Entity\Pedido $pedido)
     {
-        $this->pedidos->removeElement($pedidos);
+        $this->pedidos->removeElement($pedido);
     }
 
     /**
      * Get pedidos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPedidos()
     {
@@ -221,6 +323,7 @@ class Direccion {
      * Set usuario
      *
      * @param \AppBundle\Entity\Usuario $usuario
+     *
      * @return Direccion
      */
     public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
@@ -233,7 +336,7 @@ class Direccion {
     /**
      * Get usuario
      *
-     * @return \AppBundle\Entity\Usuario 
+     * @return \AppBundle\Entity\Usuario
      */
     public function getUsuario()
     {

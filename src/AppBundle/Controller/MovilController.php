@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Direccion;
 use AppBundle\Entity\Puntuacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -654,7 +655,13 @@ class MovilController extends Controller
            $direcciones = array();
            if($usuario){
                 foreach ($usuario->getDirecciones() as $direccion) {
-                    array_push($direcciones, array('id' => $direccion->getId(),'nombre' => $direccion->getNombre(),'direccion'=> $direccion->getDireccion()));
+                    array_push($direcciones, array(
+                        'id' => $direccion->getId(),
+                        'nombre' => $direccion->getNombre(),
+                        'tipo'=> $direccion->getTipo(),
+                        'numero' => $direccion->getNumero(),
+                        'nomenclatura' => $direccion->getNomenclatura()
+                    ));
                 }
                 $rta=array(
                     'estado'=>1,
@@ -844,7 +851,8 @@ class MovilController extends Controller
                 "nombre" => $a->getNombre(),
                 "precio" => $a->getPrecio(),
                 "unidades" => $a->getUnidadMedida(),
-                "valorUnidades" => $a->getValorMedida()
+                "valorUnidades" => $a->getValorMedida(),
+                'cantidad' => $a->getCantidad()
             );
             if ($a->getImagen()) {
                 $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
@@ -857,6 +865,90 @@ class MovilController extends Controller
             $rta=array(
                 'estado'=>0,
                 'mensaje'=> 'Error al buscar el articulo'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/agregarDireccion", name="agregarDireccion")
+     */
+    public function agregarDireccionAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $nombre = $peticion->get('nombre');
+        $barrio = $peticion->get('barrio');
+        $ciudad = $peticion->get('ciudad');
+        $tipo = $peticion->get('tipo');
+        $numero = $peticion->get('numero');
+        $nomenclatura = $peticion->get('nomenclatura');
+        $informacionAdicional = $peticion->get('informacionAdicional');
+        $rta=array(
+            'estado'=>0,
+            'mensaje'=> 'Exito al agregar la direccion'
+        );
+        $direcciones = array();
+        try{
+            $direccion = new Direccion();
+            $direccion->setUsuario($this->getUser());
+            $direccion->setNombre($nombre);
+            $direccion->setBarrio($barrio);
+            $objCiudad = $em->getRepository('AppBundle:Ciudad')->find($ciudad);
+            $direccion->setCiudad($objCiudad);
+            $direccion->setTipo($tipo);
+            $direccion->setNumero($numero);
+            $direccion->setNomenclatura($nomenclatura);
+            $direccion->setInformacionAdicional($informacionAdicional);
+            $em->persist($direccion);
+            $em->flush();
+            foreach ($this->getUser()->getDirecciones() as $d) {
+                array_push($direcciones, array(
+                    'id' => $d->getId(),
+                    'nombre' => $d->getNombre(),
+                    'tipo'=> $d->getTipo(),
+                    'numero' => $d->getNumero(),
+                    'nomenclatura' => $d->getNomenclatura()
+                ));
+            }
+            $rta['direcciones'] = $direcciones;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al agregar la direccion'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/obtenerCiudades", name="obtenerCiudades")
+     */
+    public function obtenerCiudadesAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $rta=array(
+            'estado'=>0,
+            'mensaje'=> 'Exito al obtener las ciudades'
+        );
+
+        try{
+            $ciudades = $em->getRepository('AppBundle:Ciudad')->findAll();
+            echo count($ciudades);
+            $arrayCiudades = array();
+            foreach ($ciudades as $c){
+                array_push($arrayCiudades, array(
+                   'id' => $c->getId(),
+                    'nombre' => $c->getNombre()
+                ));
+            }
+            $rta['ciudades'] = $arrayCiudades;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al obtener las ciudades'
             );
         }
         return new JsonResponse( $rta);
