@@ -331,7 +331,7 @@ class MovilController extends Controller
      /**
      * @Route("/editarPerfil", name="editarPerfilMovil")
      */
-    public function subirFotoAction(Request $peticion){
+    public function editarPerfilAction(Request $peticion){
         
         $em = $this->getDoctrine()->getManager();
        
@@ -401,7 +401,7 @@ class MovilController extends Controller
 
             $cats = $em->getRepository('AppBundle:Categoria')->findAll();
             foreach ($cats as  $c) {
-                $cat = array("nombre" => $c->getNombre());
+                $cat = array("id" => $c->getId(),"nombre" => $c->getNombre());
                 $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
                 $est = array();
 
@@ -414,7 +414,7 @@ class MovilController extends Controller
                         );
                     
                 }
-                $cat[]=$est;
+                $cat['establecimientos']=$est;
 
                 $datos["categorias"][] = $cat; 
             }
@@ -885,7 +885,7 @@ class MovilController extends Controller
         $nomenclatura = $peticion->get('nomenclatura');
         $informacionAdicional = $peticion->get('informacionAdicional');
         $rta=array(
-            'estado'=>0,
+            'estado'=>1,
             'mensaje'=> 'Exito al agregar la direccion'
         );
         $direcciones = array();
@@ -930,13 +930,12 @@ class MovilController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $rta=array(
-            'estado'=>0,
+            'estado'=>1,
             'mensaje'=> 'Exito al obtener las ciudades'
         );
 
         try{
             $ciudades = $em->getRepository('AppBundle:Ciudad')->findAll();
-            echo count($ciudades);
             $arrayCiudades = array();
             foreach ($ciudades as $c){
                 array_push($arrayCiudades, array(
@@ -953,6 +952,105 @@ class MovilController extends Controller
         }
         return new JsonResponse( $rta);
 
+    }
+
+    /**
+     * @Route("/pedidos", name="pedidos")
+     */
+    public function pedidosAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al obtener los pedidos del usuario'
+        );
+
+        try{
+            $pedidos = $em->getRepository('AppBundle:Pedido')->findBy(array('usuario' => $this->getUser()));
+
+            $arrayPedidos = array();
+            foreach ($pedidos as $p){
+                array_push($arrayPedidos, array(
+                    'id' => $p->getId(),
+                    'fechaCreacion' => $p->getFechaCreacion()->format('j de F Y'),
+                    'estado' => $p->getEstado()
+                ));
+            }
+            $rta['pedidos'] = $arrayPedidos;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al obtener los pedidos'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/categoriasLocalizacion", name="categoriasLocalizacion")
+     */
+    public function categoriasLocalizacionAction(Request $peticion){
+        $rta = array();
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $filtro = $peticion->getFiltro();
+            $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
+            $cats = array();
+            foreach ($categorias as $categoria){
+                array_push($cats,array('id' => $categoria->getId() ,'nombre' => $categoria->getNombre() ));
+            }
+            $rta=array(
+                'estado'=>1,
+                'mensaje'=> 'Categorias encontradas con exito.',
+                'categorias' => $cats
+            );
+
+        } catch (Exception $e) {
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error buscando las categorias.'
+            );
+        }
+
+        return new JsonResponse( $rta);
+        /*
+         * {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#f5a623",
+        "marker-size": "small",
+        "marker-symbol": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6298828125,
+          2.152813583128846
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#f5a623",
+        "marker-size": "small",
+        "marker-symbol": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.6298828125,
+          2.152813583128846
+        ]
+      }
+    }
+  ]
+}
+         * */
     }
 
     
