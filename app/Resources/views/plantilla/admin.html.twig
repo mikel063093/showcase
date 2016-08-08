@@ -52,6 +52,35 @@
                     });
 
                 };
+                $(document).ready(function () {
+                    $('#menu-btn').click(function () {
+
+                        if ($('#sidebar > ul').is(":visible") === true) {
+                            $('#main-content').css({
+                                'margin-left': '0px'
+                            });
+                            $('#sidebar').css({
+                                'margin-left': '-210px'
+                            });
+                            $('#sidebar > ul').hide();
+                            $("#container").addClass("sidebar-closed");
+                        } else {
+                            $('#main-content').css({
+                                'margin-left': '210px'
+                            });
+                            $('#sidebar > ul').show();
+                            $('#sidebar').css({
+                                'margin-left': '0'
+                            });
+                            $("#container").removeClass("sidebar-closed");
+                        }
+                    });
+                    $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
+
+                    $("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
+
+                });
+
 
 
 
@@ -65,7 +94,7 @@
         <section id="container" >
              <header class="header black-bg">
                   <div class="sidebar-toggle-box">
-                      <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+                      <div class="fa fa-bars tooltips" id="menu-btn" data-placement="right" data-original-title="Toggle Navigation"></div>
                   </div>
                 <!--logo start-->
                 <a href="index.html" class="logo"><b>SHOWCASE</b></a>

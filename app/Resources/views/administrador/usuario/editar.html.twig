@@ -93,6 +93,12 @@
 	  </div>
 	</div>
 	<div class="form-group">
+		<label class="col-sm-3 col-sm-3 control-label">Telefono</label>
+		<div class="col-sm-9">
+			{{ form_widget(form.telefono, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="form-group">
 	  <label class="col-sm-3 col-sm-3 control-label">Contraseña (*)</label>
 	  <div class="col-sm-9">
 	      {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}

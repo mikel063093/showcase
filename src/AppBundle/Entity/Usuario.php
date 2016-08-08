@@ -47,6 +47,13 @@ class Usuario implements UserInterface, \Serializable{
      */
     private $correo;
 
+    /**
+     * @var string $telefono
+     *
+     * @ORM\Column(name="telefono", type="string", length=120, nullable=true, options=
+     * {"comment" = "Telefono del usuario"})
+     */
+    private $telefono;
 
     /**
      * @var string $foto
@@ -570,4 +577,29 @@ class Usuario implements UserInterface, \Serializable{
     {
         return $this->puntuaciones;
     }
+
+    /**
+     * Set telefono
+     *
+     * @param string $telefono
+     * @return Usuario
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return string
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+
 }

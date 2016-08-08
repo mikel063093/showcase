@@ -28,6 +28,14 @@ class InformacionApp {
     private $id;
 
     /**
+     * @var integer $precioDomicilio
+     *
+     * @ORM\Column(name="precioDomicilio", type="integer", nullable=false, options=
+     * {"comment" = "Precio del domicio de showcase"})
+     */
+    private $precioDomicilio;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -35,5 +43,29 @@ class InformacionApp {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set precioDomicilio
+     *
+     * @param integer $precioDomicilio
+     *
+     * @return InformacionApp
+     */
+    public function setPrecioDomicilio($precioDomicilio)
+    {
+        $this->precioDomicilio = $precioDomicilio;
+
+        return $this;
+    }
+
+    /**
+     * Get precioDomicilio
+     *
+     * @return integer
+     */
+    public function getPrecioDomicilio()
+    {
+        return $this->precioDomicilio;
     }
 }

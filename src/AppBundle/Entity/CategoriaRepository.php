@@ -23,4 +23,18 @@ class CategoriaRepository extends EntityRepository
 		$consulta->setMaxResults($limit);
         return $consulta->getQuery()->getResult();
 	}
+
+    public function findByFiltro($filtro){
+
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->addSelect('c')
+            ->from('AppBundle:Categoria', 'c')
+            ->innerJoin('c.establecimientos','e')
+            ->where('e.zona = :filtro')
+            ->setParameter('filtro',$filtro);
+
+        return $consulta->getQuery()->getResult();
+    }
 }

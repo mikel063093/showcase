@@ -45,6 +45,7 @@ class FotosEstablecimiento {
      */
     private $ruta;
 
+    private $file;
     /**
      * 
      * @ORM\ManyToOne(targetEntity="Establecimiento", inversedBy="fotosEstablecimientos")
@@ -130,5 +131,89 @@ class FotosEstablecimiento {
     public function getEstablecimiento()
     {
         return $this->establecimiento;
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+
+    public function getAbsolutePath()
+    {
+        return null === $this->ruta
+            ? null
+            : $this->getUploadRootDir().'/'.$this->ruta;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->ruta
+            ? null
+            : $this->getUploadDir().'/'.$this->ruta;
+    }
+
+    public function getUploadRootDir()
+    {
+        // la ruta absoluta del directorio donde se deben
+        // guardar los archivos cargados
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        // se deshace del __DIR__ para no meter la pata
+        // al mostrar el documento/imagen cargada en la vista.
+        return 'imagenes/establecimiento';
+    }
+
+    public function upload()
+    {
+
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+
+            return;
+        }
+
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+
+        $posExten = strripos($this->getFile()->getClientOriginalName(), ".");
+        $exten = substr($this->getFile()->getClientOriginalName(), $posExten);
+        $nombrefinal = sha1_file($this->getFile()).$exten;
+
+
+
+
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $nombrefinal
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->logo = $nombrefinal;
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
     }
 }

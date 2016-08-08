@@ -16,6 +16,7 @@ class UsuarioType extends AbstractType{
             ->add('nombres','text', array('attr' => array('size' => '30px')))
             ->add('apellidos','text', array('attr' => array('size' => '30px')))
             ->add('correo','text', array('attr' => array('size' => '30px')))
+            ->add('telefono','text', array('attr' => array('size' => '30px'),'required' => false))
             ->add('password','repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'El campo confirmación no coincide con el de la contraseña.',
