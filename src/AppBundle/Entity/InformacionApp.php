@@ -30,7 +30,7 @@ class InformacionApp {
     /**
      * @var integer $precioDomicilio
      *
-     * @ORM\Column(name="precioDomicilio", type="integer", nullable=false, options=
+     * @ORM\Column(name="precioDomicilio", type="integer", nullable=true, options=
      * {"comment" = "Precio del domicio de showcase"})
      */
     private $precioDomicilio;

@@ -20,8 +20,13 @@ class ArticuloController extends Controller
      */
     public function indexAction(Request $request)
     {
-        
-        return $this->render('administrador/articulo/principal.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $idEstablecimiento = $request->get('idElemento');
+        $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($idEstablecimiento);
+        return $this->render('administrador/articulo/principal.html.twig',array(
+            'idEstablecimiento' => $idEstablecimiento,
+            'establecimiento' => $establecimiento
+        ));
     }
 
     /**
@@ -30,8 +35,12 @@ class ArticuloController extends Controller
     public function registrosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $articulos = $em->getRepository('AppBundle:Articulo')->findAll();
-        return $this->render('administrador/articulo/registros.html.twig',array('articulos'=>$articulos));
+        $idEstablecimiento = $request->get('idElemento');
+        $articulos = $em->getRepository('AppBundle:Articulo')->findBy(array('establecimiento' => $idEstablecimiento));
+        return $this->render('administrador/articulo/registros.html.twig',array(
+            'articulos' => $articulos,
+            'idEstablecimiento' => $idEstablecimiento
+        ));
     } 
 
     /**
@@ -40,13 +49,14 @@ class ArticuloController extends Controller
     */
     public function nuevoaAction(Request $request){
     	$em = $this->getDoctrine()->getManager();
-    	$establecimientos = $em->getRepository('AppBundle:Establecimiento')->findAll();
+        $idEstablecimiento = $request->get('idElemento');
+
     	$entity = new Articulo();
         $form   = $this->formularioCrear($entity);
 		return $this->render('administrador/articulo/nuevo.html.twig',array(
 			'form'=>$form->createView(),
 			'entity'=>$entity,
-			'establecimientos'=>$establecimientos,
+			'idEstablecimiento'=>$idEstablecimiento,
 			));
 
     }
@@ -96,10 +106,10 @@ class ArticuloController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Articulo')->find($idUsuario);
         $form   = $this->formularioEditar($entity);
-        $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findAll();
+        $idEstablecimiento = $peticion->get('idEstablecimiento');
         
         return $this->render('administrador/articulo/editar.html.twig', array(
-            'establecimientos'=>$establecimientos,
+            'idEstablecimiento'=>$idEstablecimiento,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -124,9 +134,8 @@ class ArticuloController extends Controller
         }
         $entity->upload();
         if ($form->isValid()) {
-            
-           
-            $establecimiento=$em->getRepository('AppBundle:Establecimiento')->find($request->get('zona'));
+
+            $establecimiento=$em->getRepository('AppBundle:Establecimiento')->find($peticion->get('establecimiento'));
             $entity->setEstablecimiento($establecimiento);
         
             $em->persist($entity);
@@ -138,7 +147,7 @@ class ArticuloController extends Controller
         }
         return new JsonResponse(array(
             'valor'=>false,
-            'mensaje'=>'El articulo no se pudo actualizar.'
+            'mensaje'=>$form->createView()
         ));
     }
 

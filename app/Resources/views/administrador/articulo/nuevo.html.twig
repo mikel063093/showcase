@@ -50,7 +50,7 @@
 			            type: "POST",
 			            url: '{{path("registrosArticulos")}}',
 			            dataType: "html",
-			            
+			            data:{idElemento:{{idEstablecimiento }}},
 			            success: function(data) {
 			                $('#registros').html(data);
 			            }
@@ -89,7 +89,7 @@
       var extensiones=["JPG", "JPEG", "PNG"];
       var ext=nombre.substring(nombre.indexOf('.')+1).toUpperCase();
       if (extensiones.indexOf(ext) === -1){
-          crearMensaje(0, 'Las extensiones permitidas son: jpg, jpeg y png.');
+          mostrarMensaje(0, 'Las extensiones permitidas son: jpg, jpeg y png.');
           $(this).val('');
           validacion= false;
       }else{
@@ -142,16 +142,7 @@
       </div>
     </div>
     
-	<div class="form-group">
-	  <label class="col-sm-3 col-sm-3 control-label">Establecimiento (*)</label>
-	  <div class="col-sm-9">
-	     	<select class="form-control" name="establecimiento" id="establecimiento">
-			  {% for establecimiento in establecimientos %}
-			  	<option value="{{establecimiento.id}}">{{establecimiento.nombre}}</option>
-			  {% endfor %}
-			</select>
-	  </div>
-	</div>
+	<input type="hidden" name="establecimiento" value="{{ idEstablecimiento }}">
     
     <div class="form-group">
       <label class="col-sm-3 col-sm-3 control-label">Imagen (*)</label>

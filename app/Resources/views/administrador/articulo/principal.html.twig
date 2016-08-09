@@ -1,6 +1,6 @@
 {% extends "plantilla/principal.html.twig" %}
 
-{% block tituloLocal %}Gestion de Articulos{% endblock %}
+{% block tituloLocal %}Gestion de Articulos - {{ establecimiento.nombre }}{% endblock %}
 
 {% block lblAdicionar %}
 Adicionar Articulo
@@ -14,7 +14,9 @@ Adicionar Articulo
             type: "POST",
             url: '{{path("registrosArticulos")}}',
             dataType: "html",
-            
+            data:{
+                idElemento:{{ idEstablecimiento }}
+            },
             success: function(data) {
                 $('#registros').html(data);
             }
@@ -27,6 +29,9 @@ Adicionar Articulo
             url: '{{path("nuevoArticulo")}}',
             type: 'POST',
             dataType: 'html',
+            data:{
+                idElemento:{{ idEstablecimiento }}
+            },
             success:function(data){
                 
                 $('#modal-title').html('Registo de Articulo');

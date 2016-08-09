@@ -18,7 +18,8 @@
             <td >{{establecimiento.telefono}}</td>
             <td >{{establecimiento.peso}}</td>
             <td >{{establecimiento.plan.nombre}}</td>
-            <td ><a href="#" class="btn-editar" data-id="{{ establecimiento.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ establecimiento.id }}">Eliminar</a></td>
+            <td ><a href="#" class="btn-editar" data-id="{{ establecimiento.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ establecimiento.id }}">Eliminar</a>|<a href="#" class="btn-articulos" data-id="{{ establecimiento.id }}">Articulos</a>|<a href="#" class="btn-fotos" data-id="{{ establecimiento.id }}">Fotos</a></td>
+
           </tr>
         {% else %} 
            <tr> 
@@ -114,4 +115,19 @@
               $('#modalConfirm-footer').html('');
         });
       });
+
+    $('.btn-articulos').click(function (e) {
+        e.preventDefault();
+        var id=$(this).data("id");
+        $.ajax({
+            url: '{{path("articuloPrincipal")}}',
+            type: 'POST',
+            dataType: 'html',
+            data: { idElemento:id},
+            success:function(data){
+
+                $('#contenido').html(data);
+            }
+        });
+    });
 </script>

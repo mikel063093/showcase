@@ -31,7 +31,6 @@
       $('.btn-editar').click(function(e){
         e.preventDefault();
         var id=$(this).data("id");
-        
         $.ajax({
           url: '{{path("editarUsuario")}}',
           type: 'POST',

@@ -44,7 +44,10 @@
           url: '{{path("editarArticulo")}}',
           type: 'POST',
           dataType: 'html',
-          data: { idElemento:id},
+          data: {
+              idElemento:id,
+              idEstablecimiento:{{ idEstablecimiento }}
+          },
           success:function(data){
             
             $('#modal-title').html('Editar de Articulo');
@@ -95,7 +98,9 @@
                           type: "POST",
                           url: '{{path("registrosArticulos")}}',
                           dataType: "html",
-                          
+                          data:{
+                            idElemento:{{ idEstablecimiento }}
+                          },
                           success: function(data) {
                               $('#registros').html(data);
                           }
