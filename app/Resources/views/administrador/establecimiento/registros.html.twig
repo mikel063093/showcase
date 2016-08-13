@@ -130,4 +130,19 @@
             }
         });
     });
+
+      $('.btn-fotos').click(function (e) {
+          e.preventDefault();
+          var id=$(this).data("id");
+          $.ajax({
+              url: '{{path("fotoPrincipal")}}',
+              type: 'POST',
+              dataType: 'html',
+              data: { idElemento:id},
+              success:function(data){
+
+                  $('#contenido').html(data);
+              }
+          });
+      });
 </script>

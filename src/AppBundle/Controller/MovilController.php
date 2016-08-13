@@ -1077,8 +1077,8 @@ class MovilController extends Controller
                         "geometry" => array(
                                         "type" => "Point",
                                         "coordinates" => array(
-                                                        $coordenadas[0],
-                                                        $coordenadas[1]
+                                                        doubleval($coordenadas[0]),
+                                                        doubleval($coordenadas[1])
                                                     )
                                     )
 
@@ -1100,43 +1100,7 @@ class MovilController extends Controller
             ));
         }
         return new JsonResponse($datos);
-        /*
-         * {
-              "type": "FeatureCollection",
-              "features": [
-                {
-                  "type": "Feature",
-                  "properties": {
-                    "marker-color": "#f5a623",
-                    "marker-size": "small",
-                    "marker-symbol": 1
-                  },
-                  "geometry": {
-                    "type": "Point",
-                    "coordinates": [
-                      -75.6298828125,
-                      2.152813583128846
-                    ]
-                  }
-                },
-                {
-                  "type": "Feature",
-                  "properties": {
-                    "marker-color": "#f5a623",
-                    "marker-size": "small",
-                    "marker-symbol": 2
-                  },
-                  "geometry": {
-                    "type": "Point",
-                    "coordinates": [
-                      -77.6298828125,
-                      2.152813583128846
-                    ]
-                  }
-                }
-              ]
-            }
-                     * */
+
     }
 
     /**
