@@ -1,0 +1,57 @@
+<div class="content-panel">
+    <h4><i class="fa fa-angle-right"></i>Información de Showcase</h4>
+
+    <div id="registros">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <strong>Valor Domicilio:</strong>
+            </div>
+            <div class="col-sm-4">
+                {{ informacion.precioDomicilio|default('NO DEFINIDO') }}
+            </div>
+        </div>
+    </div>
+    <div>
+
+            <button id="btn-editar" type="button" class="btn btn-danger btn-principal">
+                Editar
+            </button>
+
+
+    </div>
+    <script>
+        $(document).ready(function () {
+           $('#btn-editar').click(function (e) {
+               e.preventDefault();
+               var id={{ informacion.id }}
+               $.ajax({
+                   url: '{{path("editarInformacion")}}',
+                   type: 'POST',
+                   dataType: 'html',
+                   data: { idElemento:id},
+                   success:function(data){
+
+                       $('#modal-title').html('Editar Información');
+                       $('#modal-content').html(data);
+                       $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
+                       $('#modal').modal('show');
+                       $('#btn-actualizar').click(function(){
+                           $('#form-editar').submit();
+                       });
+                       $('#btn-cancelar').click(function(){
+                           $('#btn-cancelar').unbind();
+                           $('#btn-actualizar').unbind();
+                           $('#modal').modal('hide');
+                           $('#modal-title').html('');
+                           $('#modal-content').html('<br>CARGANDO . . .');
+                           $('#modal-footer').html('');
+                       });
+
+                   }
+
+               });
+           });
+        });
+    </script>
+</div>
+
