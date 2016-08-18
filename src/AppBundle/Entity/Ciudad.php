@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\AppBundle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,8 +40,12 @@ class Ciudad
      * })
      */
     private $depto;
-    
-   
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Direccion", mappedBy="ciudad")
+     */
+    private $direcciones;
     
     
     /**
@@ -92,9 +97,9 @@ class Ciudad
     /**
      * Set depto
      *
-     * @param Entidades\Depto $depto
+     * @param Depto $depto
      */
-    public function setDepto(\Entidades\Depto $depto)
+    public function setDepto(Depto $depto)
     {
         $this->depto = $depto;
     }
@@ -102,159 +107,46 @@ class Ciudad
     /**
      * Get depto
      *
-     * @return Entidades\Depto $depto
+     * @return Depto $depto
      */
     public function getDepto()
     {
         return $this->depto;
     }
+
     
-    /**
-     * Add terminal
-     *
-     * @param Terminal $terminales
-     *
-     * @return $this
-     */
-    public function addTerminal(Terminal $terminal){
-        $this->terminales[] = $terminal;
-
-        return $this;
-    }
 
     /**
-     * Remove Terminal
+     * Add direccione
      *
-     * @param Terminal $terminal
+     * @param \AppBundle\Entity\Direccion $direccione
+     *
+     * @return Ciudad
      */
-    public function removeTerminal(Terminal $terminal)    {
-        $this->terminal->removeElement($terminal);
-    }
-
-    /**
-     * Get Terminal
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTerminales(){
-        return $this->terminales;
-    }
-    
-    /**
-     * Add LugarRuta
-     *
-     * @param LugarRuta $lugarRuta
-     *
-     * @return $this
-     */
-    public function addLugarRuta(LugarRuta $lugarRuta){
-        $this->lugaresRuta[] = $lugarRuta;
-
-        return $this;
-    }
-
-    /**
-     * Remove LugarRuta
-     *
-     * @param Terminal $terminal
-     */
-    public function removeLugarRuta(LugarRuta $lugarRuta)    {
-        $this->lugaresRuta->removeElement($lugarRuta);
-    }
-
-    /**
-     * Get LugarRuta
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getLugaresRuta(){
-        return $this->lugaresRuta;
-    }
-    
-    /**
-     * Add Trayecto
-     *
-     * @param Trayecto $trayecto
-     *
-     * @return $this
-     */
-    public function addTrayectoOrigen(Trayecto $trayecto){
-        $this->trayectosOrigen[] = $trayecto;
-
-        return $this;
-    }
-
-    /**
-     * Remove Trayecto
-     *
-     * @param Trayecto $trayecto
-     */
-    public function removeTrayectoOrigen(Trayecto $trayecto)    {
-        $this->trayectosOrigen->removeElement($trayecto);
-    }
-
-    /**
-     * Get Trayecto
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTrayectosOrigen(){
-        return $this->trayectosOrigen;
-    }
-    
-    /**
-     * Add Trayecto
-     *
-     * @param Trayecto $trayecto
-     *
-     * @return $this
-     */
-    public function addTrayectoDestino(Trayecto $trayecto){
-        $this->trayectosDestino[] = $trayecto;
-
-        return $this;
-    }
-
-    /**
-     * Remove Trayecto
-     *
-     * @param Trayecto $trayecto
-     */
-    public function removeTrayectoDestino(Trayecto $trayecto)    {
-        $this->trayectosDestino->removeElement($trayecto);
-    }
-
-    /**
-     * Get Trayecto
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTrayectosDestino(){
-        return $this->trayectosDestino;
-    }
-    
-    /**
-     * Set Empresa
-     *
-     * @param mixed $empresa
-     *
-     * @return $this
-     */
-    public function setEmpresa($empresa = null)
+    public function addDireccione(\AppBundle\Entity\Direccion $direccione)
     {
-        $this->empresa = $empresa;
-    
+        $this->direcciones[] = $direccione;
+
         return $this;
     }
 
     /**
-     * Get Empresa
+     * Remove direccione
      *
-     * @return Empresa
+     * @param \AppBundle\Entity\Direccion $direccione
      */
-    public function getEmpresa()
+    public function removeDireccione(\AppBundle\Entity\Direccion $direccione)
     {
-        return $this->empresa;
+        $this->direcciones->removeElement($direccione);
     }
-    
+
+    /**
+     * Get direcciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDirecciones()
+    {
+        return $this->direcciones;
+    }
 }

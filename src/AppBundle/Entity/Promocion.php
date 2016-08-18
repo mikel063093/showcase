@@ -8,35 +8,45 @@
 
 namespace AppBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
- * FotosEstablecimiento
- * 
- * @ORM\Table(name="fotosEstablecimiento", options={"comment" = "Fotos del establecimiento"})
- * @ORM\Entity(repositoryClass="FotosEstablecimientoRepository") 
+ * Promocion
+ *
+ * @ORM\Table(name="promocion", options={"comment" = "Se almacena las promociones de la aplicacion"})
+ * @ORM\Entity(repositoryClass="PromocionRepository")
  *
  * @author ALEJANDRO
  */
-class FotosEstablecimiento {
+class Promocion {
     
 	/**
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
+
+
     /**
-     * @var string $titulo
+     * @var string $fechaInicio
      *
-     * @ORM\Column(name="titulo", type="string", length=120, nullable=false, options=
-     * {"comment" = "titulo del video"})
+     * @ORM\Column(name="fechaInicio", type="datetime", nullable=true, options=
+     * {"comment" = "fecha cuando empieza aparecer la promocion"})
      */
-    private $titulo;
-    
+    private $fechaInicio;
+
+    /**
+     * @var string $fechaFin
+     *
+     * @ORM\Column(name="fechaFin", type="datetime", nullable=true, options=
+     * {"comment" = "fecha cuando termina de aparecer la promocion"})
+     */
+    private $fechaFin;
+
     /**
      * @var string $ruta
      *
@@ -46,46 +56,20 @@ class FotosEstablecimiento {
     private $ruta;
 
     private $file;
-    /**
-     * 
-     * @ORM\ManyToOne(targetEntity="Establecimiento", inversedBy="fotosEstablecimientos")
-     * @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
-     **/
-    private $establecimiento;
+
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set titulo
-     *
-     * @param string $titulo
-     * @return FotosEstablecimiento
-     */
-    public function setTitulo($titulo)
-    {
-        $this->titulo = $titulo;
-
-        return $this;
-    }
-
-    /**
-     * Get titulo
-     *
-     * @return string 
-     */
-    public function getTitulo()
-    {
-        return $this->titulo;
-    }
+    
 
     /**
      * Set ruta
@@ -103,35 +87,14 @@ class FotosEstablecimiento {
     /**
      * Get ruta
      *
-     * @return string 
+     * @return string
      */
     public function getRuta()
     {
         return $this->ruta;
     }
 
-    /**
-     * Set establecimiento
-     *
-     * @param \AppBundle\Entity\Establecimiento $establecimiento
-     * @return FotosEstablecimiento
-     */
-    public function setEstablecimiento(\AppBundle\Entity\Establecimiento $establecimiento = null)
-    {
-        $this->establecimiento = $establecimiento;
 
-        return $this;
-    }
-
-    /**
-     * Get establecimiento
-     *
-     * @return \AppBundle\Entity\Establecimiento 
-     */
-    public function getEstablecimiento()
-    {
-        return $this->establecimiento;
-    }
 
     /**
      * Sets file.
@@ -179,7 +142,7 @@ class FotosEstablecimiento {
     {
         // se deshace del __DIR__ para no meter la pata
         // al mostrar el documento/imagen cargada en la vista.
-        return 'imagenes/establecimiento';
+        return 'imagenes/promociones';
     }
 
     public function upload()
@@ -211,5 +174,55 @@ class FotosEstablecimiento {
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+    }
+
+
+
+    /**
+     * Set fechaInicio
+     *
+     * @param \DateTime $fechaInicio
+     *
+     * @return Promocion
+     */
+    public function setFechaInicio($fechaInicio)
+    {
+        $this->fechaInicio = $fechaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaInicio
+     *
+     * @return \DateTime
+     */
+    public function getFechaInicio()
+    {
+        return $this->fechaInicio;
+    }
+
+    /**
+     * Set fechaFin
+     *
+     * @param \DateTime $fechaFin
+     *
+     * @return Promocion
+     */
+    public function setFechaFin($fechaFin)
+    {
+        $this->fechaFin = $fechaFin;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaFin
+     *
+     * @return \DateTime
+     */
+    public function getFechaFin()
+    {
+        return $this->fechaFin;
     }
 }

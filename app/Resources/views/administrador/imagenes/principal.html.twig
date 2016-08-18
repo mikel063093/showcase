@@ -1,0 +1,54 @@
+{% extends "plantilla/principal.html.twig" %}
+
+{% block tituloLocal %}Gestion de Fotos de Establecimiento - {{ establecimiento.nombre }}{% endblock %}
+
+{% block lblAdicionar %}
+Adicionar Foto
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+         $.ajax({
+            type: "POST",
+            url: '{{path("registrosFotos")}}',
+            dataType: "html",
+            data:{
+                idElemento:{{ idEstablecimiento }}
+            },
+            success: function(data) {
+                $('#registros').html(data);
+            }
+        });
+    });
+
+    $('#btn-adicionar').click(function(){
+        
+        $.ajax({
+            url: '{{path("nuevoFoto")}}',
+            type: 'POST',
+            dataType: 'html',
+            data:{
+                idElemento:{{ idEstablecimiento }}
+            },
+            success:function(data){
+                
+                $('#modal-title').html('Registo de Foto');
+                $('#modal-content').html(data);
+                $('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
+                $('#modal').modal('show');
+                $('#btn-guardar').click(function(){
+                    $('#form-registro').submit();
+                });
+
+            }
+
+        });
+    });
+
+
+    
+
+    </script>
+{% endblock %}

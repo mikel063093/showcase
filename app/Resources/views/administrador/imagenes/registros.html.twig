@@ -1,0 +1,118 @@
+<section id="unseen">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Imagen</th>
+        <th>Establecimiento</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody>
+    
+        {% for foto in fotos %}
+          <tr>
+            <td >{{foto.titulo}}</td>
+            <td ><img src="{{ asset(foto.webPath) }}" style="height: 150px;"></td>
+            <td >{{foto.establecimiento.nombre}}</td>
+            <td ><a href="#" class="btn-editar" data-id="{{ foto.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ foto.id }}">Eliminar</a></td>
+          </tr>
+        {% else %} 
+           <tr> 
+              <td colspan="6">No hay fotos registradas</td>
+           </tr>
+        {% endfor %}
+        
+   
+    
+    </tbody>
+  </table>
+</section>
+<script>
+      $('.btn-editar').click(function(e){
+        e.preventDefault();
+        var id=$(this).data("id");
+        $('#modal-title').html('');
+        $('#modal-content').html('<br>CARGANDO . . .');
+        $('#modal-footer').html('');
+        $.ajax({
+          url: '{{path("editarFoto")}}',
+          type: 'POST',
+          dataType: 'html',
+          data: {
+              idElemento:id,
+              idEstablecimiento:{{ idEstablecimiento }}
+          },
+          success:function(data){
+            
+            $('#modal-title').html('Editar de Foto');
+            $('#modal-content').html(data);
+            $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
+            $('#modal').modal('show');
+            $('#btn-actualizar').click(function(){
+              $('#form-editar').submit();
+            });
+            $('#btn-cancelar').click(function(){
+                  $('#btn-cancelar').unbind();
+                  $('#btn-actualizar').unbind();
+                  $('#modal').modal('hide');
+                  $('#modal-title').html('');
+                  $('#modal-content').html('<br>CARGANDO . . .');
+                  $('#modal-footer').html('');
+            });
+
+          }
+
+        });
+      });
+      $('.btn-eliminar').click(function(e){
+        e.preventDefault();
+        var id=$(this).data("id");
+        $('#modalConfirm-title').html('Confirmacion');
+        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta foto?</h4>');
+        $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
+        $('#modalConfirmacion').modal('show');
+        $('#btn-si').click(function(){
+            $.ajax({
+              url: '{{path("eliminarFoto")}}',
+              type: 'POST',
+              dataType: 'json',
+              data: { idElemento:id},
+              success:function(data){
+                $('#btn-si').unbind();
+                $('#btn-no').unbind();
+                $('#modalConfirmacion').modal('hide');
+                $('#modalConfirm-title').html('');
+                $('#modalConfirm-content').html('<br>CARGANDO . . .');
+                $('#modalConfirm-footer').html('');
+                if(data.valor){
+                  mostrarMensaje(data.mensaje,'Exito');
+                 
+
+                       $.ajax({
+                          type: "POST",
+                          url: '{{path("registrosFotos")}}',
+                          dataType: "html",
+                          data:{
+                            idElemento:{{ idEstablecimiento }}
+                          },
+                          success: function(data) {
+                              $('#registros').html(data);
+                          }
+                      });
+                  
+                }else{
+                  mostrarMensaje(data.mensaje,'Error');
+                }
+              }
+            });
+        });
+        $('#btn-no').click(function(){
+              $('#btn-si').unbind();
+              $('#btn-no').unbind();
+              $('#modalConfirmacion').modal('hide');
+              $('#modalConfirm-title').html('');
+              $('#modalConfirm-content').html('<br>CARGANDO . . .');
+              $('#modalConfirm-footer').html('');
+        });
+      });
+</script>

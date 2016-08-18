@@ -46,12 +46,22 @@ class Cupon {
     private $valor;
 
     /**
+     * @var string $fechaLimite
+     *
+     * @ORM\Column(name="fechaLimite", type="datetime", nullable=true, options=
+     * {"comment" = "fecha limite para redimir un cupon"})
+     */
+    private $fechaLimite;
+
+    /**
      * @var string $estado
      *
      * @ORM\Column(name="estado", type="string", length=120, nullable=true, options=
-     * {"comment" = "estado por el cual se identifica si un cupon ya fue redimido"})
+     * {"comment" = "estado por el cual se identifica si un cupon sepueden redimir o no"})
      */
     private $estado;
+
+
 
     /**
      * 
@@ -177,5 +187,29 @@ class Cupon {
     public function getPedidos()
     {
         return $this->pedidos;
+    }
+
+    /**
+     * Set fechaLimite
+     *
+     * @param \DateTime $fechaLimite
+     *
+     * @return Cupon
+     */
+    public function setFechaLimite($fechaLimite)
+    {
+        $this->fechaLimite = $fechaLimite;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaLimite
+     *
+     * @return \DateTime
+     */
+    public function getFechaLimite()
+    {
+        return $this->fechaLimite;
     }
 }
