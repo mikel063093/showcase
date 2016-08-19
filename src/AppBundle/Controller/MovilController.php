@@ -1062,7 +1062,7 @@ class MovilController extends Controller
                     $est[] = array(
                         'id' => $e->getId(),
                         'nombre' => $e->getNombre(),
-                        'logo' => $this->container->getParameter('servidor').$e->getWebPath(),
+                        'logo' => array($this->container->getParameter('servidor').$e->getWebPath()),
                         'marcador' => $marcador
                     );
 

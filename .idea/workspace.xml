@@ -4,9 +4,6 @@
     <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Ciudad.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Ciudad.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Cupon.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Cupon.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/FotosEstablecimiento.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/FotosEstablecimiento.php" />
     </list>
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,11 +23,11 @@
     <favorites_list name="showcase" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="FotosEstablecimiento.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/FotosEstablecimiento.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2854">
+            <state relative-caret-position="238">
               <caret line="19" column="3" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
               <folding />
             </state>
@@ -40,8 +37,8 @@
       <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="420" column="100" selection-start-line="420" selection-start-column="100" selection-end-line="420" selection-end-column="100" />
+            <state relative-caret-position="-306">
+              <caret line="1061" column="35" selection-start-line="1061" selection-start-column="35" selection-end-line="1061" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -115,7 +112,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1358" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
@@ -145,6 +142,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -411,8 +410,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -500,15 +497,16 @@
       <workItem from="1470710219099" duration="4993000" />
       <workItem from="1471098770166" duration="7910000" />
       <workItem from="1471212984748" duration="4678000" />
-      <workItem from="1471484354976" duration="113000" />
+      <workItem from="1471484354976" duration="706000" />
+      <workItem from="1471573473841" duration="68000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45926000" />
+    <option name="totallyTimeSpent" value="46587000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22254759" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -881,7 +879,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/FotosEstablecimiento.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2854">
+        <state relative-caret-position="238">
           <caret line="19" column="3" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
           <folding />
         </state>
@@ -889,8 +887,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="420" column="100" selection-start-line="420" selection-start-column="100" selection-end-line="420" selection-end-column="100" />
+        <state relative-caret-position="-306">
+          <caret line="1061" column="35" selection-start-line="1061" selection-start-column="35" selection-end-line="1061" selection-end-column="35" />
           <folding />
         </state>
       </provider>
