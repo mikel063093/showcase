@@ -54,13 +54,6 @@ $(document).ready(function() {
 	hoverBotones("form.pedido div.contDer button");
 	hoverBotones("div.reservas a.pedir");
 
-	if($(window).width() >= 780) {
-		$altoPlanes = $("#planes").outerHeight();
-		$borde = $("#planes").height() - 130;
-		$("#planes > li").css('height', $altoPlanes + 'px');
-		$("#planes > li div").css('height', $borde + 'px');
-	}
-
 	$("#header div.centrar div.contInf a.reservas").click(function() {
 		$("#header div.centrar div.contInf div.reservas").slideToggle();
 		return false;

@@ -13,4 +13,4 @@
 /nbproject/*
 *.php~
 /vendor/*
-.idea/workspace.xml
+.idea/*

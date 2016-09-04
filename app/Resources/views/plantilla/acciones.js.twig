@@ -1,9 +1,13 @@
 <script>
 $(document).ready(function() {
+    $(".establecimientos a").click(function(e){
+        e.preventDefault();
+        alert('h');
+    });
+
 	$("#menu-categoria a").click(function (e) {
         e.preventDefault();
         var id = $(this).attr('value');
-
         $.ajax({
             type: "GET",
             url: "{{ path('establecimientosCategoria') }}/"+id,
@@ -11,11 +15,14 @@ $(document).ready(function() {
             success: function(data) {
                 $("#item-establecimientos").parent().children().removeClass('active');
                 $("#item-establecimientos").addClass('active');
-                $(this).parent().children().removeClass('active');
-                $(this).addClass('active');
+                $(this).parent().parent().children().removeClass('activo');
+                $(this).addClass('activo');
+                $("#carrusel").cycle('stop');
                 $('#home').html(data);
-            }
+            },
         });
     });
+
+
 });
 </script>
