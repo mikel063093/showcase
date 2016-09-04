@@ -24,4 +24,19 @@ class EstablecimientoRepository extends EntityRepository
 
                 return $consulta->getQuery()->getResult();
 	}
+
+	public function obtenerEstablecimintosDestacados($idCategoria = null){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+                       ->select('e')
+                       ->from('AppBundle:Establecimiento','e')
+                       ->setMaxResults(4);
+        if($idCategoria){
+            $consulta->innerJoin('e.categoria','c')
+                     ->andWhere('c.id = :id')
+                     ->setParameter('id',$idCategoria);
+        }
+        return $consulta->getQuery()->getResult();
+    }
 }

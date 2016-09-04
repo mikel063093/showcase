@@ -4,7 +4,10 @@ namespace WebBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Usuario;
 
 /**
@@ -18,7 +21,7 @@ class HomeController extends Controller
     public function indexAction()
     {
         
-
+        /*
         //Codigo para crear el usuario administrador
         $factory = $this->get('security.encoder_factory');
         $user = new Usuario();
@@ -56,7 +59,36 @@ class HomeController extends Controller
         $user->setRol($rol);
         $em->persist($user);
         $em->flush();
-        
-        return new Response('Bienvenido a showcase');
+        */
+        $em = $this->getDoctrine()->getManager();
+        $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
+        return $this->render('web/home.html.twig',array(
+            'categorias' => $categorias
+        ));
+    }
+
+    /**
+     * @Route("/establecimientos/{idCategoria}", name="establecimientosCategoria",defaults={"idCategoria" = null})
+     * @Method({"GET"})
+     */
+    public function establecimientosCategoriaAction(Request $peticion, $idCategoria){
+        $em = $this->getDoctrine()->getManager();
+        $categoria = null;
+        $establecimientos = array();
+        if($idCategoria < 0){
+            $idCategoria = 0;
+        }
+        if($idCategoria == 0){
+            $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findAll();
+        }else{
+            $categoria = $em->getRepository('AppBundle:Categoria')->find($idCategoria);
+            $establecimientos = $categoria->getEstablecimientos();
+        }
+        $establecimientosDestacados = $em->getRepository('AppBundle:Establecimiento')->obtenerEstablecimintosDestacados($idCategoria);
+        return $this->render('web/establecimiento/registros.html.twig',array(
+            'categoria' => $categoria,
+            'establecimientos' => $establecimientos,
+            'establecimientosDestacado' => $establecimientosDestacados
+        ));
     }
 }

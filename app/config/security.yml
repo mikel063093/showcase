@@ -28,6 +28,9 @@ security:
             pattern:  ^/web/registro$
             security: false
 
+        registrarWeb:
+            pattern:  ^/web/registrar$
+            security: false
         registro:
             pattern: ^/movil/registrar
             security: false

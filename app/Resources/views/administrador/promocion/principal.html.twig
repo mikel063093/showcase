@@ -1,9 +1,9 @@
 {% extends "plantilla/principal.html.twig" %}
 
-{% block tituloLocal %}Gestion de Fotos de Establecimiento - {{ establecimiento.nombre }}{% endblock %}
+{% block tituloLocal %}Gestion de Promociones{% endblock %}
 
 {% block lblAdicionar %}
-Adicionar Foto
+Adicionar Promoción
 {% endblock %}
 
 {% block js %}
@@ -12,11 +12,9 @@ Adicionar Foto
 
          $.ajax({
             type: "POST",
-            url: '{{path("registrosFotos")}}',
+            url: '{{path("registrosPromociones")}}',
             dataType: "html",
-            data:{
-                idElemento:{{ idEstablecimiento }}
-            },
+
             success: function(data) {
                 $('#registros').html(data);
             }
@@ -26,22 +24,17 @@ Adicionar Foto
     $('#btn-adicionar').click(function(){
         
         $.ajax({
-            url: '{{path("nuevoFoto")}}',
+            url: '{{path("nuevoPromocion")}}',
             type: 'POST',
             dataType: 'html',
-            data:{
-                idElemento:{{ idEstablecimiento }}
-            },
             success:function(data){
-                
-                $('#modal-title').html('Registo de Foto');
+                $('#modal-title').html('Registo de Promoción');
                 $('#modal-content').html(data);
                 $('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
                 $('#modal').modal('show');
                 $('#btn-guardar').click(function(){
                     $('#form-registro').submit();
                 });
-
             }
 
         });

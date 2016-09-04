@@ -1,12 +1,12 @@
 <script type="text/javascript">
 	$('#form-registro').validate({
         rules: {
-            'articulo[titulo]': {  required: true },
-
+            'fechaInicio':  {  required: true },
+            'fechaFin':  {  required: true }
         },
         messages:{
-            'articulo[titulo]': {  required: 'El campo Titulo es obligatorio' },
-
+            'fechaInicio': {  required: 'El campo Fecha de Inicio es obligatorio' },
+            'fechaFin': {  required: 'El campo Fecha de Fin es obligatorio' },
         },
         submitHandler: function(form) {
            enviar(form);
@@ -32,7 +32,7 @@
      	$('#modal-cargando').modal('show');
         var datos = new FormData(form);
         $.ajax({
-            url:"{{path('guardarFoto')}}",
+            url:"{{path('guardarPromocion')}}",
             type: 'post',
             dataType: 'json',
             data: datos,
@@ -42,9 +42,8 @@
                 if(data.valor){
                 	$.ajax({
 			            type: "POST",
-			            url: '{{path("registrosFotos")}}',
+			            url: '{{path("registrosPromociones")}}',
 			            dataType: "html",
-			            data:{idElemento:{{idEstablecimiento }}},
 			            success: function(data) {
 			                $('#registros').html(data);
 			            }
@@ -75,7 +74,7 @@
     
   });
 
-  $('#articulo_file').change(function (){         
+  $('#promocion_file').change(function (){
       validacion=true;
       var sizeByte = this.files[0].size;
       var nombre = this.files[0].name;
@@ -93,6 +92,24 @@
           $("#imgPreviewEmpresa").fadeIn("fast").attr('src',URL.createObjectURL(this.files[0]));
       }
   });
+    
+    $(document).ready(function () {
+        $("#txtFechaInicio").datetimepicker({
+            lang:'es',
+            format: 'd-m-Y',
+            timepicker:false,
+            minDate: 0,
+
+            onChangeDateTime:function(){$("#txtFechaInicio").datetimepicker('hide')}
+        });
+        $("#txtFechaFin").datetimepicker({
+            lang:'es',
+            format: 'd-m-Y',
+            timepicker:false,
+            minDate: 0,
+            onChangeDateTime:function(){$("#txtFechaFin").datetimepicker('hide')}
+        });
+    });
 
 
 
@@ -100,15 +117,17 @@
 
 {{ form_start(form, {'attr': {'id': 'form-registro','class':'form-horizontal style-form' }}) }}
 	<div class="form-group">
-	  <label class="col-sm-3 col-sm-3 control-label"><strong>Titulo (*)</strong></label>
+	  <label class="col-sm-3 col-sm-3 control-label"><strong>Fecha Inicio (*)</strong></label>
 	  <div class="col-sm-9">
-	      {{ form_widget(form.titulo, {'attr': {'class': 'form-control'}}) }}
+	      <input id="txtFechaInicio" name="fechaInicio" class="form-control">
 	  </div>
 	</div>
-
-    
-	<input type="hidden" name="establecimiento" value="{{ idEstablecimiento }}">
-    
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label"><strong>Fecha Fin (*)</strong></label>
+        <div class="col-sm-9">
+            <input id="txtFechaFin" name="fechaFin" class="form-control">
+        </div>
+    </div>
     <div class="form-group">
       <label class="col-sm-3 col-sm-3 control-label">Imagen (*)</label>
       <div class="col-sm-9">

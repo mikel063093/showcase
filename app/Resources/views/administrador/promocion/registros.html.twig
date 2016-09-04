@@ -1,24 +1,22 @@
 <section id="unseen">
   <table class="table table-bordered table-striped table-condensed">
     <thead>
-    <tr>
-        <th>Nombre</th>
+
         <th>Imagen</th>
-        <th>Establecimiento</th>
+        <th>Vigencia</th>
         <th>Acciones</th>
     </thead>
     <tbody>
     
-        {% for foto in fotos %}
+        {% for promocion in promociones %}
           <tr>
-            <td >{{foto.titulo}}</td>
-            <td ><img src="{{ asset(foto.webPath) }}" style="height: 150px;"></td>
-            <td >{{foto.establecimiento.nombre}}</td>
-            <td ><a href="#" class="btn-editar" data-id="{{ foto.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ foto.id }}">Eliminar</a></td>
+            <td ><img src="{{ asset(promocion.webPath) }}" style="height: 150px;"></td>
+            <td >{{promocion.fechaInicio|date('d-m-Y')}} - {{promocion.fechaFin|date('d-m-Y')}} </td>
+            <td ><a href="#" class="btn-editar" data-id="{{ promocion.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ promocion.id }}">Eliminar</a></td>
           </tr>
         {% else %} 
            <tr> 
-              <td colspan="6">No hay fotos registradas</td>
+              <td colspan="6">No hay promociones registradas</td>
            </tr>
         {% endfor %}
         
@@ -35,16 +33,15 @@
         $('#modal-content').html('<br>CARGANDO . . .');
         $('#modal-footer').html('');
         $.ajax({
-          url: '{{path("editarFoto")}}',
+          url: '{{path("editarPromocion")}}',
           type: 'POST',
           dataType: 'html',
           data: {
-              idElemento:id,
-              idEstablecimiento:{{ idEstablecimiento }}
+              idElemento:id
           },
           success:function(data){
             
-            $('#modal-title').html('Editar de Foto');
+            $('#modal-title').html('Editar de Promoción');
             $('#modal-content').html(data);
             $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
             $('#modal').modal('show');
@@ -68,12 +65,12 @@
         e.preventDefault();
         var id=$(this).data("id");
         $('#modalConfirm-title').html('Confirmacion');
-        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta foto?</h4>');
+        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta promoción?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');
         $('#btn-si').click(function(){
             $.ajax({
-              url: '{{path("eliminarFoto")}}',
+              url: '{{path("eliminarPromocion")}}',
               type: 'POST',
               dataType: 'json',
               data: { idElemento:id},
@@ -90,11 +87,8 @@
 
                        $.ajax({
                           type: "POST",
-                          url: '{{path("registrosFotos")}}',
+                          url: '{{path("registrosPromociones")}}',
                           dataType: "html",
-                          data:{
-                            idElemento:{{ idEstablecimiento }}
-                          },
                           success: function(data) {
                               $('#registros').html(data);
                           }

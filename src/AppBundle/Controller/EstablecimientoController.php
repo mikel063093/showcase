@@ -203,4 +203,6 @@ class EstablecimientoController extends Controller
 
         return $form;
     }
+
+
 }

@@ -1,0 +1,21 @@
+<script>
+$(document).ready(function() {
+	$("#menu-categoria a").click(function (e) {
+        e.preventDefault();
+        var id = $(this).attr('value');
+
+        $.ajax({
+            type: "GET",
+            url: "{{ path('establecimientosCategoria') }}/"+id,
+            dataType: "html",
+            success: function(data) {
+                $("#item-establecimientos").parent().children().removeClass('active');
+                $("#item-establecimientos").addClass('active');
+                $(this).parent().children().removeClass('active');
+                $(this).addClass('active');
+                $('#home').html(data);
+            }
+        });
+    });
+});
+</script>

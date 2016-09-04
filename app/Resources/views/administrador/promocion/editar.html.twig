@@ -1,10 +1,12 @@
 <script type="text/javascript">
   $('#form-editar').validate({
         rules: {
-            'articulo[titulo]': {  required: true },
+            'fechaInicio':  {  required: true },
+            'fechaFin':  {  required: true }
         },
         messages:{
-            'articulo[titulo]': {  required: 'El campo Titulo es obligatorio' },
+            'fechaInicio': {  required: 'El campo Fecha de Inicio es obligatorio' },
+            'fechaFin': {  required: 'El campo Fecha de Fin es obligatorio' },
         },
         submitHandler: function(form) {
            enviar(form);
@@ -30,7 +32,7 @@
       $('#modal-cargando').modal('show');
         var datos = new FormData(form);
         $.ajax({
-            url:"{{path('actualizarFoto')}}",
+            url:"{{path('actualizarPromocion')}}",
             type: 'post',
             dataType: 'json',
             data: datos,
@@ -40,11 +42,9 @@
                 if(data.valor){
                   $.ajax({
                   type: "POST",
-                  url: '{{path("registrosFotos")}}',
+                  url: '{{path("registrosPromociones")}}',
                   dataType: "html",
-                  data:{
-                    idElemento:{{ idEstablecimiento }}
-                  },
+
                   success: function(data) {
                       $('#registros').html(data);
                   }
@@ -76,7 +76,7 @@
     
   });
 
-  $('#articulo_file').change(function (){         
+  $('#promocion_file').change(function (){
       validacion=true;
       var sizeByte = this.files[0].size;
       var nombre = this.files[0].name;
@@ -94,28 +94,48 @@
           $("#imgPreviewEmpresa").fadeIn("fast").attr('src',URL.createObjectURL(this.files[0]));
       }
   });
+  $(document).ready(function () {
+      $("#txtFechaInicio").datetimepicker({
+          lang:'es',
+          format: 'd-m-Y',
+          timepicker:false,
+          minDate: 0,
+
+          onChangeDateTime:function(){$("#txtFechaInicio").datetimepicker('hide')}
+      });
+      $("#txtFechaFin").datetimepicker({
+          lang:'es',
+          format: 'd-m-Y',
+          timepicker:false,
+          minDate: 0,
+          onChangeDateTime:function(){$("#txtFechaFin").datetimepicker('hide')}
+      });
+  });
 
 
 
 </script>
 
 {{ form_start(form, {'attr': {'id': 'form-editar','class':'form-horizontal style-form' }}) }}
-  <div class="form-group">
-    <label class="col-sm-3 col-sm-3 control-label"><strong>Titulo (*)</strong></label>
-    <div class="col-sm-9">
-        {{ form_widget(form.titulo, {'attr': {'class': 'form-control'}}) }}
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label"><strong>Fecha Inicio (*)</strong></label>
+        <div class="col-sm-9">
+            <input id="txtFechaInicio" name="fechaInicio" value="{{ entity.fechaInicio|date('d-m-Y') }}" class="form-control">
+        </div>
     </div>
-  </div>
-
-
-<input type="hidden" name="establecimiento" value="{{ idEstablecimiento }}">
-<input type="hidden" name="id_entity" value="{{ entity.id }}">
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label"><strong>Fecha Fin (*)</strong></label>
+        <div class="col-sm-9">
+            <input id="txtFechaFin" name="fechaFin" value="{{ entity.fechaFin|date('d-m-Y') }}" class="form-control">
+        </div>
+    </div>
+    <input type="hidden" name="id_entity" value="{{ entity.id }}">
     
     <div class="form-group">
       <label class="col-sm-3 col-sm-3 control-label">Imagen (*)</label>
       <div class="col-sm-9">
           {{ form_widget(form.file,{'attr':{'class':'input-file'}}) }}
-          <img {% if not (entity.ruta) or entity.ruta == ""%}style="display: none"{%endif%} id="imgPreviewEmpresa" src="{% if entity.ruta and entity.ruta != ""%}{{asset('imagenes/establecimiento/' ~ entity.ruta)}}{%endif%}" alt="" height="80" />
+          <img {% if not (entity.ruta) or entity.ruta == ""%}style="display: none"{%endif%} id="imgPreviewEmpresa" src="{% if entity.ruta and entity.ruta != ""%}{{asset(entity.webPath)}}{%endif%}" alt="" height="80" />
       </div>
     </div>
     

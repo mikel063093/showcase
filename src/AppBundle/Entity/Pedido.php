@@ -44,18 +44,46 @@ class Pedido {
     private $estado;
 
     /**
+     * @var string $direccion
+     *
+     * @ORM\Column(name="direccion", type="string", length=120, nullable=false, options=
+     * {"comment" = "direccion donde se debe entregar el pedido"})
+     */
+    private $direccion;
+
+    /**
+     * @var string $informacionAdicional
+     *
+     * @ORM\Column(name="informacionAdicional", type="string", length=120, nullable=true, options=
+     * {"comment" = "informacion adicional de la direccion"})
+     */
+    private $informacionAdicional;
+
+    /**
+     * @var string $observaciones
+     *
+     * @ORM\Column(name="observaciones", type="string", length=255, nullable=true, options=
+     * {"comment" = "observaciones sobre el pedido"})
+     */
+    private $observaciones;
+
+    /**
+     * @var string $metodoPago
+     *
+     * @ORM\Column(name="metodoPago", type="string", length=63, nullable=true, options=
+     * {"comment" = "metodoPago del pedido"})
+     */
+    private $metodoPago;
+
+    /**
      * 
      * @ORM\ManyToOne(targetEntity="Cupon", inversedBy="pedidos")
      * @ORM\JoinColumn(name="id_cupon", referencedColumnName="id")
      **/
     private $cupon;
 
-    /**
-     * 
-     * @ORM\ManyToOne(targetEntity="Direccion", inversedBy="pedidos")
-     * @ORM\JoinColumn(name="id_direccion", referencedColumnName="id")
-     **/
-    private $direccion;
+
+
 
     /**
      * 
@@ -156,28 +184,7 @@ class Pedido {
         return $this->cupon;
     }
 
-    /**
-     * Set direccion
-     *
-     * @param \AppBundle\Entity\Direccion $direccion
-     * @return Pedido
-     */
-    public function setDireccion(\AppBundle\Entity\Direccion $direccion = null)
-    {
-        $this->direccion = $direccion;
 
-        return $this;
-    }
-
-    /**
-     * Get direccion
-     *
-     * @return \AppBundle\Entity\Direccion 
-     */
-    public function getDireccion()
-    {
-        return $this->direccion;
-    }
 
     /**
      * Set usuario
@@ -233,5 +240,77 @@ class Pedido {
     public function getArticulosPedidos()
     {
         return $this->articulosPedidos;
+    }
+
+    /**
+     * Set direccion
+     *
+     * @param string $direccion
+     *
+     * @return Pedido
+     */
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+
+        return $this;
+    }
+
+    /**
+     * Get direccion
+     *
+     * @return string
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * Set informacionAdicional
+     *
+     * @param string $informacionAdicional
+     *
+     * @return Pedido
+     */
+    public function setInformacionAdicional($informacionAdicional)
+    {
+        $this->informacionAdicional = $informacionAdicional;
+
+        return $this;
+    }
+
+    /**
+     * Get informacionAdicional
+     *
+     * @return string
+     */
+    public function getInformacionAdicional()
+    {
+        return $this->informacionAdicional;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     *
+     * @return Pedido
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
     }
 }

@@ -1,0 +1,28 @@
+<h2 class="titulo">Establecimientos</h2>
+{% include "web/establecimiento/destacados.html.twig" %}
+
+<div class="contenedor" >
+    <h2>{% if categoria is null %}Todos los establecimientos{% else %}{{ categoria.nombre|capitalize }}{% endif %} </h2>
+    <ul class="lista establecimientos">
+        {% for establecimiento in establecimientos %}
+        <li>
+            <img src="{{ asset(establecimiento.webPath) }}" alt="{{ establecimiento.nombre }}" />
+            <h3>{{ establecimiento.nombre }}</h3>
+            <a href="#" value="{{ establecimiento.id }}">Ver más</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <ul class="paginador">
+        <li><a class="activo" href="">1</a></li>
+        <li><a href="">2</a></li>
+        <li><a href="">3</a></li>
+        <li><a href="">4</a></li>
+    </ul>
+</div>
+<script>
+    $(document).ready(function() {
+        hoverLista("div.contenedor ul.establecimientos li", "img", "h3");
+        hoverLista("div.destacados ul.articulos li", "img", "div.informacion");
+        hoverLista("div.contArticulos ul.articulos li", "img", "div.informacion");
+    });
+</script>

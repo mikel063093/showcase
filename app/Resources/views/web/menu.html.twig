@@ -1,0 +1,4 @@
+<li><a  href="#" value="0">Todos</a></li>
+{% for categoria in categorias%}
+    <li><a  href="#" value="{{ categoria.id }}">{{ categoria.nombre }}</a></li>
+{% endfor %}

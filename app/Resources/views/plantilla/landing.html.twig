@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>Showcase</title>
+    <meta name="viewport" content="width-device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="{{ asset('bundles/web/css/genericos.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/lib/colorbox/colorbox.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/css/estilos.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/css/responsive.css') }}" />
+    <link rel="shortcut icon" href="{{ asset('bundles/web/favicon.ico') }}">
+
+    <script src="{{ asset('bundles/web/lib/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/bootstrap/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/cycle2/cycle2.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/transit/transit.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/colorbox/colorbox.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/rating/rating.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/smoothscroll/smoothscroll.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/showcase.js') }}"></script>
+    {% include "plantilla/acciones.js.twig" %}
+</head>
+
+<body>
+<!-- Header (inicio) -->
+<header id="header">
+    <div class="centrar">
+        <h1>
+            <a title="Showcase" href="index.html">
+                <img src="{{ asset('bundles/web/img/logo_showcase.png') }}" alt="Logo">
+            </a>
+        </h1>
+        <div class="contSup">
+            <a href="#menu" class="menumovil"></a>
+            <nav>
+                <ul id="menuPrincipal">
+                    <li><a id="item-establecimientos" href="establecimientos.html">Establecimientos </a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="planes.html">Planes</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="usuario">Paola Gómez
+                <span class="flecha"></span>
+                <a class="salir" href="">Cerrar sesión</a>
+            </div>
+        </div>
+        <div class="contInf">
+            <form class="buscar" action="" method="post">
+                <label for="">Ingrese el almacén o artículo a buscar</label>
+                <input type="text" placeholder="Ingrese el almacén o artículo a buscar" />
+                <button type="submit">Buscar</button>
+            </form>
+            <a class="reservas" href="#">RESERVAS<span class="cantidad">2</span></a>
+            <div class="reservas">
+                <span class="triangulo"></span>
+                <h2>Hay <span>2</span> artículo(s) en reserva</h2>
+                <ul class="articulos">
+                    <li>
+                        <div class="img"><img src="{{ asset('bundles/web/img/articulo1.png') }}" alt="Imagen" /></div>
+                        <h3>Chaqueta de jean</h3>
+                        <h4>$66.500</h4>
+                        <div>Cantidad<span> 2</span></div>
+                    </li>
+                    <li>
+                        <div class="img"><img src="{{ asset('bundles/web/img/articulo4.png') }}" alt="Imagen" /></div>
+                        <h3>Chaqueta azul</h3>
+                        <h4>$150.000</h4>
+                        <div>Cantidad<span> 1</span></div>
+                    </li>
+                </ul>
+                <div class="subtotal">Subtotal: <span>$230.500</span></div>
+                <a class="pedir" href="pedido.html">Pedir</a>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header (fin) -->
+
+<div class="centrar">
+    <section class="categorias">
+        <h3>ESTABLECIMIENTOS</h3>
+        <a href="#menu" class="submenumovil"></a>
+        <ul class="menu" id="menu-categoria">
+            {% include "web/menu.html.twig" %}
+        </ul>
+    </section>
+    <!-- Home (inicio) -->
+    <section class="home" id="home">
+        {% block contenidoWeb %}
+        {% endblock %}
+    </section>
+    <!-- Home (fin) -->
+</div>
+
+<!-- Footer (inicio) -->
+<div class="franjaverde">
+    <div class="centrar">
+        <div class="celular"></div>
+        <div class="informacion">
+            <h2>Más de 20 establecimientos</h2>
+            <h3>por todo Popayán</h3>
+            <p>Descarga la aplicación que te conectará con miles de artículos y lo mejor es que no tendrás que que desplazarte a comprarlos. ¡Nosotros te los llevarémos!</p>
+            <a href="#">Disponoble en Google Play</a>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="centrar">
+        <div class="informacion">
+            <img src="{{ asset('bundles/web/img/logo_showcase.png') }}" alt="Logo Showcase" />
+            <p><strong>Ubícados en:</strong> <br /> Carrera 9 # 18N-343 Catay <br /> 300-5757050 <br /> info@showcase.com.co</p>
+            <div class="clearFix"></div>
+        </div>
+        <ul id="redes">
+            <li class="facebook">
+                <a href="https://www.facebook.com" target="_blank" title="Facebook">Facebook</a>
+            </li>
+            <li class="twitter">
+                <a href="https://twitter.com" target="_blank" title="Twitter">Twitter</a>
+            </li>
+            <li class="instagram">
+                <a href="https://www.instagram.com" target="_blank" title="Instagram">Instagram</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+<!-- Footer (fin) -->
+</body>
+</html>

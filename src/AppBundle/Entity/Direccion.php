@@ -84,11 +84,7 @@ class Direccion {
      **/
     private $ciudad;
 
-    /**
-     * 
-     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="direccion")
-     */
-    private $pedidos;
+
 
     /**
      * 
@@ -102,7 +98,7 @@ class Direccion {
      */
     public function __construct()
     {
-        $this->pedidos = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     
@@ -285,39 +281,7 @@ class Direccion {
         return $this->ciudad;
     }
 
-    /**
-     * Add pedido
-     *
-     * @param \AppBundle\Entity\Pedido $pedido
-     *
-     * @return Direccion
-     */
-    public function addPedido(\AppBundle\Entity\Pedido $pedido)
-    {
-        $this->pedidos[] = $pedido;
 
-        return $this;
-    }
-
-    /**
-     * Remove pedido
-     *
-     * @param \AppBundle\Entity\Pedido $pedido
-     */
-    public function removePedido(\AppBundle\Entity\Pedido $pedido)
-    {
-        $this->pedidos->removeElement($pedido);
-    }
-
-    /**
-     * Get pedidos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPedidos()
-    {
-        return $this->pedidos;
-    }
 
     /**
      * Set usuario

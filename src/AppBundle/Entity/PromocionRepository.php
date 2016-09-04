@@ -10,4 +10,16 @@ namespace AppBundle\Entity;
  */
 class PromocionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findPromocionesActivas(){
+        $em = $this->getEntityManager();
+        $fecha = new \DateTime();
+        $fecha->setTime("00","00","00");
+        $consulta = $em->createQueryBuilder()
+            ->addSelect('p')
+            ->from('AppBundle:Promocion', 'p')
+            ->where(':fecha BETWEEN p.fechaInicio AND p.fechaFin')
+            ->setParameter('fecha',$fecha);
+        return $consulta->getQuery()->getResult();
+    }
+
 }

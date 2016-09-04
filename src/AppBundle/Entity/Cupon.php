@@ -61,6 +61,11 @@ class Cupon {
      */
     private $estado;
 
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="CuponUsuario", mappedBy="cupon")
+     */
+    private $cuponUsuarios;
 
 
     /**
@@ -75,6 +80,7 @@ class Cupon {
     public function __construct()
     {
         $this->pedidos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cuponUsuarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -211,5 +217,39 @@ class Cupon {
     public function getFechaLimite()
     {
         return $this->fechaLimite;
+    }
+
+    /**
+     * Add cuponUsuario
+     *
+     * @param \AppBundle\Entity\CuponUsuario $cuponUsuario
+     *
+     * @return Cupon
+     */
+    public function addCuponUsuario(\AppBundle\Entity\CuponUsuario $cuponUsuario)
+    {
+        $this->cuponUsuarios[] = $cuponUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove cuponUsuario
+     *
+     * @param \AppBundle\Entity\CuponUsuario $cuponUsuario
+     */
+    public function removeCuponUsuario(\AppBundle\Entity\CuponUsuario $cuponUsuario)
+    {
+        $this->cuponUsuarios->removeElement($cuponUsuario);
+    }
+
+    /**
+     * Get cuponUsuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCuponUsuarios()
+    {
+        return $this->cuponUsuarios;
     }
 }

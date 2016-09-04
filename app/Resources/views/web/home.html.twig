@@ -1,0 +1,91 @@
+{% extends "plantilla/landing.html.twig" %}
+{% block contenidoWeb %}
+<div id="carrusel">
+    <img src="{{ asset('bundles/web/img/carrusel.png') }}" alt="Imagen carrusel">
+    <img src="{{ asset('bundles/web/img/carrusel1.png') }}" alt="Imagen carrusel">
+    <img src="{{ asset('bundles/web/img/carrusel.png') }}" alt="Imagen carrusel">
+    <div class="cycle-pager"></div>
+</div>
+<div class="contenedor destacados">
+    <h2>Establecimientos destacados<a href="#">VER MÁS DESTACADOS</a></h2>
+    <ul class="lista establecimientos">
+        <li>
+            <img src="{{ asset('bundles/web/img/levis.png') }}" alt="Levi's" />
+            <h3>Levi's</h3>
+            <a href="establecimiento.html">Ver más</a>
+        </li>
+        <li>
+            <img src="{{ asset('bundles/web/img/pilatos.png') }}" alt="Pilatos" />
+            <h3>Pilatos</h3>
+            <a href="establecimiento.html">Ver más</a>
+        </li>
+        <li>
+            <img src="{{ asset('bundles/web/img/falabella.png') }}" alt="Falabella" />
+            <h3>Falabella</h3>
+            <a href="establecimiento.html">Ver más</a>
+        </li>
+        <li>
+            <img src="{{ asset('bundles/web/img/tennis.png') }}" alt="Tennis" />
+            <h3>Tennis</h3>
+            <a href="establecimiento.html">Ver más</a>
+        </li>
+    </ul>
+</div>
+<div class="contenedor destacados">
+    <h2>Artículos destacados <a href="#">VER MÁS ARTÍCULOS</a> </h2>
+    <ul class="lista articulos">
+        <li>
+            <img src="{{ asset('bundles/web/img/articulo1.png') }}" alt="Artículo" />
+            <div class="informacion">
+                <h3>Chaqueta de jean</h3>
+                <h4>$66.500</h4>
+                <span>2 unidades</span>
+            </div>
+            <div class="contador">
+                <a class="menos" href="#">Menos</a>
+                <span class="cantidad">2</span>
+                <a class="mas" href="#">Mas</a>
+            </div>
+        </li>
+        <li>
+            <img src="{{ asset('bundles/web/img/articulo2.png') }}" alt="Artículo" />
+            <div class="informacion">
+                <h3>Vestido de jean</h3>
+                <h4>$80.000</h4>
+                <span>Talla M</span>
+            </div>
+            <div class="contador">
+                <a class="menos" href="#">Menos</a>
+                <span class="cantidad">1</span>
+                <a class="mas" href="#">Mas</a>
+            </div>
+        </li>
+        <li>
+            <img src="{{ asset('bundles/web/img/articulo3.png') }}" alt="Artículo" />
+            <div class="informacion">
+                <h3>Jean Skinny + Zapatos</h3>
+                <h4>$360.000</h4>
+                <span>4 unidades</span>
+            </div>
+            <div class="contador">
+                <a class="menos" href="#">Menos</a>
+                <span class="cantidad">1</span>
+                <a class="mas" href="#">Mas</a>
+            </div>
+        </li>
+        <li>
+            <img src="{{ asset('bundles/web/img/articulo4.png') }}" alt="Artículo" />
+            <div class="informacion">
+                <h3>Chaqueta azul</h3>
+                <h4>$150.000</h4>
+                <span>Talla S, M, L</span>
+            </div>
+            <div class="contador">
+                <a class="menos" href="#">Menos</a>
+                <span class="cantidad">2</span>
+                <a class="mas" href="#">Mas</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock %}

@@ -3,15 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\FotosEstablecimiento;
-use AppBundle\Form\FotoType;
+use AppBundle\Entity\Promocion;
+use AppBundle\Form\PromocionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AppBundle\Entity\Articulo;
-use AppBundle\Form\ArticuloType;
 
 /**
 * @Route("/administracion/promociones")
@@ -24,12 +23,7 @@ class PromocionController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $idEstablecimiento = $request->get('idElemento');
-        $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($idEstablecimiento);
-        return $this->render('administrador/imagenes/principal.html.twig',array(
-            'idEstablecimiento' => $idEstablecimiento,
-            'establecimiento' => $establecimiento
-        ));
+        return $this->render('administrador/promocion/principal.html.twig');
     }
 
     /**
@@ -38,11 +32,10 @@ class PromocionController extends Controller
     public function registrosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $idEstablecimiento = $request->get('idElemento');
-        $fotos = $em->getRepository('AppBundle:FotosEstablecimiento')->findBy(array('establecimiento' => $idEstablecimiento));
-        return $this->render('administrador/imagenes/registros.html.twig',array(
-            'fotos' => $fotos,
-            'idEstablecimiento' => $idEstablecimiento
+
+        $promociones = $em->getRepository('AppBundle:Promocion')->findAll();
+        return $this->render('administrador/promocion/registros.html.twig',array(
+            'promociones' => $promociones
         ));
     } 
 
@@ -52,14 +45,11 @@ class PromocionController extends Controller
     */
     public function nuevoaAction(Request $request){
     	$em = $this->getDoctrine()->getManager();
-        $idEstablecimiento = $request->get('idElemento');
-
-    	$entity = new FotosEstablecimiento();
+    	$entity = new Promocion();
         $form   = $this->formularioCrear($entity);
-		return $this->render('administrador/imagenes/nuevo.html.twig',array(
+		return $this->render('administrador/promocion/nuevo.html.twig',array(
 			'form'=>$form->createView(),
 			'entity'=>$entity,
-			'idEstablecimiento'=>$idEstablecimiento,
 			));
 
     }
@@ -69,8 +59,10 @@ class PromocionController extends Controller
     * @Route("/guardar", name="guardarPromocion")
     */
     public function guardarAction(Request $request){
-        $entity = new FotosEstablecimiento();
+        $entity = new Promocion();
         $form   = $this->formularioCrear($entity);
+        $fechaInicio = $request->get('fechaInicio');
+        $fechaFin = $request->get('fechaFin');
         $form->handleRequest($request);
         $errors = $this->get('validator')->validate($entity);
         if (count($errors) > 0){
@@ -82,19 +74,20 @@ class PromocionController extends Controller
         $entity->upload();
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $establecimiento=$em->getRepository('AppBundle:Establecimiento')->find($request->get('establecimiento'));
-            $entity->setEstablecimiento($establecimiento);
+
+            $entity->setFechaInicio(new \DateTime($fechaInicio));
+            $entity->setFechaFin(new \DateTime($fechaFin));
             $em->persist($entity);
             $em->flush();
 
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,
-                'mensaje'=>'Foto creada satisfactoriamente'
+                'mensaje'=>'Promoción creada satisfactoriamente'
             ));
         }
         return new JsonResponse(array(
             'valor'=>false,
-            'mensaje'=>'La foto no se pudo crear.'
+            'mensaje'=>'La promocion no se pudo crear.'
         ));
 
     }
@@ -107,12 +100,12 @@ class PromocionController extends Controller
     public function editarAction(Request $peticion){
         $idElemento=$peticion->request->get('idElemento');
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:FotosEstablecimiento')->find($idElemento);
+        $entity = $em->getRepository('AppBundle:Promocion')->find($idElemento);
         $form   = $this->formularioEditar($entity);
-        $idEstablecimiento = $peticion->get('idEstablecimiento');
+
         
-        return $this->render('administrador/imagenes/editar.html.twig', array(
-            'idEstablecimiento'=>$idEstablecimiento,
+        return $this->render('administrador/promocion/editar.html.twig', array(
+
             'entity' => $entity,
             'form'   => $form->createView(),
         ));

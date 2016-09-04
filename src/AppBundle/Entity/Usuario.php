@@ -121,6 +121,13 @@ class Usuario implements UserInterface, \Serializable{
     private $puntuaciones;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="CuponUsuario", mappedBy="usuario")
+     */
+    private $cuponUsuarios;
+
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -129,6 +136,7 @@ class Usuario implements UserInterface, \Serializable{
         $this->carritos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->direcciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->puntuaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cuponUsuarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -602,4 +610,38 @@ class Usuario implements UserInterface, \Serializable{
     }
 
 
+
+    /**
+     * Add cuponUsuario
+     *
+     * @param \AppBundle\Entity\CuponUsuario $cuponUsuario
+     *
+     * @return Usuario
+     */
+    public function addCuponUsuario(\AppBundle\Entity\CuponUsuario $cuponUsuario)
+    {
+        $this->cuponUsuarios[] = $cuponUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove cuponUsuario
+     *
+     * @param \AppBundle\Entity\CuponUsuario $cuponUsuario
+     */
+    public function removeCuponUsuario(\AppBundle\Entity\CuponUsuario $cuponUsuario)
+    {
+        $this->cuponUsuarios->removeElement($cuponUsuario);
+    }
+
+    /**
+     * Get cuponUsuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCuponUsuarios()
+    {
+        return $this->cuponUsuarios;
+    }
 }

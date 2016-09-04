@@ -427,6 +427,12 @@ class MovilController extends Controller
                 $datos["categorias"][] = $cat; 
             }
 
+            $promociones = $em->getRepository('AppBundle:Promocion')->findPromocionesActivas();
+            $promocionesArray = array();
+            foreach($promociones as $promocion){
+                $promocionesArray[] = $this->container->getParameter('servidor').$promocion->getWebPath();
+            }
+            $datos['promociones'] = $promocionesArray;
 
         } catch (\Exception $e) {
             return new JsonResponse(array(
@@ -628,7 +634,7 @@ class MovilController extends Controller
                     $est[] = array(
                         'id' => $e->getId(),
                         'nombre' => $e->getNombre(),
-                        'logo' => $this->container->getParameter('servidor').$e->getWebPath()
+                        'logo' => array($this->container->getParameter('servidor').$e->getWebPath())
                         );
                     
                 }

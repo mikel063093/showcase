@@ -1,0 +1,21 @@
+<div class="contenedor destacados">
+    <h2>Establecimientos destacados<a href="#">VER MÁS DESTACADOS</a></h2>
+    <ul class="lista establecimientos">
+        {% for establecimiento in establecimientos %}
+            <li>
+                <img src="{{ asset(establecimiento.webPath) }}" alt="{{ establecimiento.nombre }}" />
+                <h3>{{ establecimiento.nombre }}</h3>
+                <a href="#" value="{{ establecimiento.id }}">Ver más</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        hoverLista("div.contenedor ul.establecimientos li", "img", "h3");
+        hoverLista("div.destacados ul.articulos li", "img", "div.informacion");
+        hoverLista("div.contArticulos ul.articulos li", "img", "div.informacion");
+    });
+</script>

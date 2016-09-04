@@ -1,0 +1,95 @@
+@font-face {
+	font-family: 'robotomedium';
+	src: url('../fonts/roboto-medium.eot') format('eot'),
+		 url('../fonts/roboto-medium.svg') format('svg'),
+		 url('../fonts/roboto-medium.ttf') format('ttf'),
+		 url('../fonts/roboto-medium.woff2') format('woff2'),
+		 url('../fonts/roboto-medium.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'robotobold';
+	src: url('../fonts/roboto-bold.eot') format('eot'),
+		 url('../fonts/roboto-bold.svg') format('svg'),
+		 url('../fonts/roboto-bold.ttf') format('ttf'),
+		 url('../fonts/roboto-bold.woff2') format('woff2'),
+		 url('../fonts/roboto-bold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'robotoregular';
+	src: url('../fonts/roboto-regular.eot') format('eot'),
+		 url('../fonts/roboto-regular.svg') format('svg'),
+		 url('../fonts/roboto-regular.ttf') format('ttf'),
+		 url('../fonts/roboto-regular.woff2') format('woff2'),
+		 url('../fonts/roboto-regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'latobold';
+	src: url('../fonts/lato-bold.eot') format('eot'),
+		 url('../fonts/lato-bold.svg') format('svg'),
+		 url('../fonts/lato-bold.ttf') format('ttf'),
+		 url('../fonts/lato-bold.woff2') format('woff2'),
+		 url('../fonts/lato-bold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'latomedium';
+	src: url('../fonts/lato-medium.eot') format('eot'),
+		 url('../fonts/lato-medium.svg') format('svg'),
+		 url('../fonts/lato-medium.ttf') format('ttf'),
+		 url('../fonts/lato-medium.woff2') format('woff2'),
+		 url('../fonts/lato-medium.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'latoregular';
+	src: url('../fonts/lato-regular.eot') format('eot'),
+		 url('../fonts/lato-regular.svg') format('svg'),
+		 url('../fonts/lato-regular.ttf') format('ttf'),
+		 url('../fonts/lato-regular.woff2') format('woff2'),
+		 url('../fonts/lato-regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'opensansregular';
+	src: url('../fonts/opensans-regular.eot') format('eot'),
+		 url('../fonts/opensans-regular.svg') format('svg'),
+		 url('../fonts/opensans-regular.ttf') format('ttf'),
+		 url('../fonts/opensans-regular.woff2') format('woff2'),
+		 url('../fonts/opensans-regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'opensanssemibold';
+	src: url('../fonts/opensans-semibold.eot') format('eot'),
+		 url('../fonts/opensans-semibold.svg') format('svg'),
+		 url('../fonts/opensans-semibold.ttf') format('ttf'),
+		 url('../fonts/opensans-semibold.woff2') format('woff2'),
+		 url('../fonts/opensans-semibold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'opensansbold';
+	src: url('../fonts/opensans-bold.eot') format('eot'),
+		 url('../fonts/opensans-bold.svg') format('svg'),
+		 url('../fonts/opensans-bold.ttf') format('ttf'),
+		 url('../fonts/opensans-bold.woff2') format('woff2'),
+		 url('../fonts/opensans-bold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}

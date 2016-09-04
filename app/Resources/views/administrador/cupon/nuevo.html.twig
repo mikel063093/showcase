@@ -1,0 +1,121 @@
+<script type="text/javascript">
+	$('#form-registro').validate({
+        rules: {
+            'fechaLimite':  {  required: true },
+            'cupon[codigo]': {required:true},
+            'cupon[valor]': {required:true,number:true},
+        },
+        messages:{
+            'fechaLimite': {  required: 'El campo Fecha Limite es obligatorio' },
+            'cupon[codigo]': {required: 'El campo Codigo es obligatorio'},
+            'cupon[valor]': {required: 'El campo Valor es obligatorio',number:'El campo Valor solo recibe valores numericos'},
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+            	for (var i = 0; i < validator.errorList.length; i++) {
+            		mostrarMensaje(validator.errorList[i].message,'Error');
+            	};
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+     	$('#modal-cargando').modal('show');
+        var datos = new FormData(form);
+        $.ajax({
+            url:"{{path('guardarCupon')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            processData: false,
+            contentType: false,
+            success: function (data){
+                if(data.valor){
+                	$.ajax({
+			            type: "POST",
+			            url: '{{path("registrosCupones")}}',
+			            dataType: "html",
+			            success: function(data) {
+			                $('#registros').html(data);
+			            }
+			        });
+                 	$('#btn-guardar').unbind();
+                	$('#modal').modal('hide');
+                    $('#modal-title').html('');
+        					$('#modal-content').html('<br>CARGANDO . . .');
+        					$('#modal-footer').html('');
+        					mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+                	mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+                  
+  $('#close-modal').click(function(){
+    $('#btn-guardar').unbind();
+    $('#modal-title').html('');
+    $('#modal-content').html('<br>CARGANDO . . .');
+    $('#modal-footer').html('');
+    
+  });
+
+
+    
+    $(document).ready(function () {
+        $("#txtFechaLimite").datetimepicker({
+            lang:'es',
+            format: 'd-m-Y',
+            timepicker:false,
+            minDate: 0,
+
+            onChangeDateTime:function(){$("#txtFechaInicio").datetimepicker('hide')}
+        });
+
+    });
+
+
+
+</script>
+
+{{ form_start(form, {'attr': {'id': 'form-registro','class':'form-horizontal style-form' }}) }}
+
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label"><strong>Codigo (*)</strong></label>
+        <div class="col-sm-9">
+            {{ form_widget(form.codigo,{'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label"><strong>Valor (*)</strong></label>
+        <div class="col-sm-9">
+            {{ form_widget(form.valor,{'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+	  <label class="col-sm-3 col-sm-3 control-label"><strong>Fecha Limite (*)</strong></label>
+	  <div class="col-sm-9">
+	      <input id="txtFechaLimite" name="fechaLimite" class="form-control">
+	  </div>
+	</div>
+
+
+    
+
+{{ form_rest(form) }}

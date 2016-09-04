@@ -1,0 +1,1308 @@
+@import url(fonts.css);
+
+body { font-family: 'latoregular'; }
+.clearFix { clear: both; }
+
+::-webkit-input-placeholder { color: #BABABA; } /* WebKit */
+:-moz-placeholder { color: #BABABA; } /* Firefox 18- */
+::-moz-placeholder { color: #BABABA; } /* Firefox 19+ */
+:-ms-input-placeholder { color: #BABABA; } /* IE 10+ */
+
+div, section, ul, li, input, select, h3, textarea, ol {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;/* Firefox */
+	-webkit-box-sizing: border-box; /* Safari */ 
+}
+a:link, a:visited { text-decoration: none; }
+form input, form textarea, form select {
+	height: 50px;
+	width: 100%;
+	background-color: #FFFFFF;
+	border-radius: 4px;
+	font-family: 'latoregular';
+	border: 1px solid rgba(186, 186, 186, 1);
+}
+form button {
+	cursor: pointer;
+	border: none;
+	color: #FFFFFF;
+	font-family: 'latobold';
+	display: block;
+}
+form.pedido select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+div.centrar {
+	width: 95%;
+	max-width: 1170px;
+	margin: 0 auto;
+	position: relative;
+}
+#header a.menumovil, section.categorias a.submenumovil {
+	display: none;
+}
+#breadcrumb {
+	font-size: 14px;
+	color: rgba(155, 155, 155, 1);
+	margin: -9px 0 26px;
+}
+	#breadcrumb a:link, #breadcrumb a:visited {	color: rgba(155, 155, 155, 1); }
+section h2.titulo {
+	background-color: rgba(255, 161, 0, 1);
+	border-radius: 4px;
+	box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+	font-family: 'latobold';
+	font-size: 32px;
+	color: rgba(255, 255, 255, 1);
+	padding: 18px 0 20px 35px;
+	margin-bottom: 20px;
+}
+section h3 {
+	font-family: 'latobold';
+	font-size: 39px;
+	color: rgba(103, 186, 11, 1);
+	line-height: 49px;
+}
+ul.articulos li, div.contenedor ul.lista li {
+	border: 1px solid rgba(228, 228, 228, 1);
+    border-radius: 4px;
+    box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+}
+	ul.articulos li h3 {
+		font-family: 'latobold';
+		color: rgba(55, 55, 56, 1);
+	}
+	ul.articulos li h4 { color: rgba(247, 167, 11, 1); }
+	ul.articulos li div, ul.articulos li span { color: rgba(155, 155, 155, 1); }
+
+/* ***** Header (inicio) ***** */
+#header {
+	background-color: #67BA0B;
+	font-family: 'latobold';
+	font-size: 14px;
+	margin-bottom: 37px;
+}
+	#header div.centrar { min-height: 144px; }
+		#header div.centrar h1 {
+			display: inline-block;
+			margin-top: 11px;
+		}
+			#header div.centrar h1 a:link, #header div.centrar h1 a:visited {
+				display: block;
+				width: 115px;
+				height: 118px;
+				margin-left: 82px;
+			}
+			#header div.centrar h1 a img {
+				display: block;
+				width: 100%;
+			}
+		#header div.centrar div.contSup {
+			position: absolute;
+			right: 0;
+			top: 28px;
+		}
+			#header div.centrar div.contSup nav { display: inline-block; }
+				#menuPrincipal {}
+					#menuPrincipal li {
+						display: inline-block;
+						margin: 0 14px;
+					}
+						#menuPrincipal li a:link, #menuPrincipal li a:visited {
+							color: #FFFFFF;
+							padding-bottom: 1px;
+						}
+						#menuPrincipal li a:hover { border-bottom: 3px solid #2E9E3D; }
+						#menuPrincipal li a.active { border-bottom: 3px solid #FFA100; }			
+			#header div.centrar div.contSup .usuario {
+				position: relative;
+				display: inline-block;
+				border-left: 1px solid #325805;
+				padding-left: 15px;
+				color: #F8E71C;
+				line-height: 25px;
+				height: 25px;
+			}
+				#header div.centrar div.contSup .usuario .flecha {
+					display: inline-block;
+					width: 17px;
+					height: 9px;
+					background-image: url('../img/flecha_usuario.png');
+					background-size: 17px 9px;
+					margin-left: 11px;
+					cursor: pointer;
+				}
+				#header div.centrar div.contSup .usuario a.salir {
+					display: none;
+					position: absolute;
+					top: 31px;
+					right: 0;
+					width: 155px;
+					padding: 21px 0 21px 47px;
+					background: url("../img/ico_salir.png") no-repeat 18px center;
+					background-size: 20px 17px;
+					background-color: rgba(248, 231, 28, 1);
+					border-radius: 4px;
+					box-shadow: 0px 8px 30px 6px rgba(121, 121, 121, 0.2);
+					font-family: 'opensansregular';
+					font-size: 15px;
+					color: rgba(102, 102, 102, 1);
+					z-index: 10;
+				}
+				#header div.centrar div.contSup .usuarioa.salir:hover {
+					text-decoration: underline;
+				}
+		#header div.centrar div.contInf {
+			width: 100%;
+			position: absolute;
+			bottom: 12px;
+			right: 0;
+			text-align: right;
+		}
+			#header div.centrar div.contInf form.buscar {
+				width: 60%;
+				max-width: 600px;
+				display: inline-block;
+				vertical-align: top;				
+			}
+				#header div.centrar div.contInf form.buscar label {
+					display: none;
+				}
+				#header div.centrar div.contInf form.buscar input {
+					background: url('../img/ico_lupa.png') no-repeat 18px center;
+					background-size: 17px 18px;
+					background-color: #FFFFFF;
+					border: none;
+					font-size: 15px;
+					padding: 0 10px 0 52px;
+				}
+				#header div.centrar div.contInf form.buscar button { display: none; }			
+				#header div.centrar div.contInf a.reservas:link,
+				#header div.centrar div.contInf a.reservas:visited {
+					display: inline-block;
+					position: relative;
+					width: 136px;
+					height: 50px;
+					padding-left: 40px;
+					background: url('../img/ico_carrito.png') no-repeat 8px center;
+					background-size: 24px 24px;
+					background-color: #FE5339;
+					color: #FFFFFF;
+					border-radius: 4px;
+					text-align: left;
+					color: #FFFFFF;
+					font-size: 13px;
+					line-height: 49px;
+					margin-left: 15px;
+				}				
+				#header div.centrar div.contInf span.cantidad {
+					position: absolute;
+					right: 0;
+					top: 0;
+					display: inline-block;
+					width: 50px;
+					height: 50px;
+					text-align: center;
+					font-size: 16px;
+					line-height: 49px;
+					background-color: #FFA100;
+					border-radius: 0 4px 4px 0;
+				}
+			div.reservas {
+				display: none;
+				position: absolute;
+				width: 280px;
+				top: 67px;
+				right: 0;
+				z-index: 160;
+				background-color: rgba(255, 255, 255, 1);
+				border: 1px solid rgba(245, 166, 35, 1);
+				border-top: none;
+				border-radius: 8px 8px 6px 6px;
+				box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+				text-align: left;
+			}
+				div.reservas span.triangulo {
+					position: absolute;
+					top: -11px;
+					left: 50%;
+					margin-left: -11px;
+					display: block;
+					width: 22px;
+					height: 22px;
+					background-color: rgba(254, 83, 57, 1);
+					transform : rotate(45deg);
+				}
+				div.reservas h2 {
+					background-color: rgba(254, 83, 57, 1);
+					font-family: 'opensansbold';
+					font-size: 17px;
+					color: rgba(255, 255, 255, 1);
+					text-align: center;
+					padding: 23px 0 20px;
+					border-radius: 6px 6px 0 0;
+				}
+				div.reservas ul.articulos {
+					text-align: center;
+					margin-top: 13px;
+				}
+					div.reservas ul.articulos li {
+						position: relative;
+						display: inline-block;
+						min-height: 116px;
+						width: 260px;
+						margin-bottom: 4px;
+						text-align: left;
+						padding:0 10px 0 105px;
+					}
+						div.reservas ul.articulos li div.img {
+							position: absolute;
+							top: 50%;
+							left: 0;
+							margin-top: -45px;
+							display: block;
+							width: 100px;
+							height: 90px;
+							overflow: hidden;
+						}
+							div.reservas ul.articulos li img {
+								display: block;
+								width: 100%;
+							}
+						div.reservas ul.articulos li h3 {
+							font-size: 17px;
+							margin: 22px 0 7px;
+							line-height: 21px;
+						}
+						div.reservas ul.articulos li h4 { font-size: 15px; }
+						div.reservas ul.articulos li div {
+							font-size: 16px;
+							margin-top: 4px;
+						}
+				div.reservas div.subtotal {
+					text-align: center;
+					width: 260px;
+					margin: 15px auto 0;
+					padding-top: 21px;
+					font-family: 'opensanssemibold';
+					font-size: 18px;
+					color: rgba(74, 74, 74, 1);
+					border-top: 1px solid rgba(231, 231, 231, 1);
+				}
+					div.reservas div.subtotal span {
+						font-family: 'opensansbold';
+						font-size: 22px;
+					}
+				div.reservas a.pedir:link, div.reservas a.pedir:visited {
+					display: block;
+					text-align: center;
+					width: 146px;
+					background-color: rgba(254, 83, 57, 1);
+					color: #FFFFFF;
+					border-radius: 10px;
+					box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+					font-family: 'latobold';
+					font-size: 19px;
+					margin: 29px auto 22px;
+					padding: 18px 0 17px; 
+				}
+/* ***** Header (fin) ***** */
+/* ***** Footer (inicio) ***** */
+div.franjaverde {
+	margin-top: 170px;
+	background-color: #67BA0B;
+	color: #FFFFFF;
+}
+	div.franjaverde div.celular {
+		position: absolute;
+		width: 348px;
+		height: 615px;
+		top: -102px;
+		left: 0;
+		background-image: url('../img/img_celular.png');
+		background-size: 348px 615px;
+	}
+	div.franjaverde div.informacion {
+		min-height: 497px;
+		text-align: right;
+		margin-left: 369px;
+	}
+		div.franjaverde div.informacion h2 {
+			display: inline-block;
+			margin: 105px 0 4px;
+			font-size: 56px;
+			line-height: 49px;
+			font-family: 'latobold';
+		}
+		div.franjaverde div.informacion h3 {
+			font-size: 40px;
+			line-height: 49px;		
+		}
+		div.franjaverde div.informacion p {
+			color: #D3FBA2;
+			font-size: 20px;
+			line-height: 29px;
+			max-width: 650px;
+			width: 100%;
+			float: right;
+			margin: 17px 0 34px;
+		}
+		div.franjaverde div.informacion a:link, div.franjaverde div.informacion a:visited {
+			display: inline-block;
+			width: 240px;
+			height: 74px;
+			text-indent: -9999px;
+			background-image: url('../img/btn_googleplay.png');
+			background-size: 240px 74px;
+			text-align: left;
+		}
+#footer { background-color: #F7F7F7; }
+	#footer div.centrar { min-height: 213px; }
+		#footer div.centrar div.informacion {
+			position: absolute;
+			display: inline-block;
+			color: #4A4A4A;
+			font-size: 13px;
+			top: 50%;
+			left: 0;
+			margin-top: -58px;
+		}
+			#footer div.centrar div.informacion img {
+			display: inline-block;
+			vertical-align: middle;
+			margin-left: 82px;
+			width: 115px;
+		}
+			#footer div.centrar div.informacion p {
+				display: inline-block;
+				vertical-align: middle;
+				line-height: 18px;
+				margin-left: 80px;
+			}
+				#footer div.centrar div.informacion p strong { font-family: 'latobold'; }
+		#redes {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			margin-top: -24px;
+		}
+			#redes li {
+				display: inline-block;
+				margin-left: 11px;
+			}
+			#redes li a:link, #redes li a:visited {
+				display: inline-block;
+				width: 47px;
+				height: 46px;
+				text-indent: -9999px;
+			}
+				#redes li.facebook a:link, #redes li.facebook a:visited {
+					background-image: url('../img/btn_facebook.png');
+					background-size: 47px 46px;
+				}
+				#redes li.twitter a:link, #redes li.twitter a:visited {
+					background-image: url('../img/btn_twitter.png');
+					background-size: 47px 46px;
+				}
+				#redes li.instagram a:link, #redes li.instagram a:visited {
+					background-image: url('../img/btn_instagram.png');
+					background-size: 47px 46px;
+				}
+/* ***** Footer (fin) ***** */
+section {
+	display: inline-block;
+	vertical-align: top;
+	width: 73%;
+}
+/* ***** Menú establecimientos (inicio) ***** */
+section.categorias {
+	width: 24%;
+	margin-right: 2%;
+	padding: 54px 30px 103px;
+	border: 1px solid rgba(228, 228, 228, 1);
+	border-radius: 4px;
+	box-shadow: 0px 1px 19px 5px rgba(121, 121, 121, 0.09); 
+}
+	section.categorias h3 {
+		font-size: 14px;
+		color: #171717;
+		margin-bottom: 22px;
+		line-height: 14px;
+	}
+		section.categorias ul.menu li {	margin-bottom: 17px; }
+			section.categorias ul.menu li a:link, section.categorias ul.menu li a:visited {
+				font-size: 13px;
+				color: #9B9B9B;
+			}
+			section.categorias ul.menu li a:hover {text-decoration: underline;  }
+			section.categorias ul.menu li a.activo { color: #FE5339; }
+/* ***** Menú establecimientos (fin) ***** */
+/* ***** Home (inicio) ***** */
+section.home {}
+	#carrusel { width: 100%; }
+		#carrusel img {
+			display: block;
+			width: 100%;
+			box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+		}
+		.cycle-pager {
+			display: inline-block;
+			width: 100%;
+			position: absolute;
+			text-align: center;
+			bottom: 8px;
+			z-index: 150;
+		}
+			.cycle-pager span {
+				display: inline-block;
+				width: 21px;
+				height: 20px;
+				margin: 0 -2px;
+				background-image: url('../img/ico_circulo_vacio.png');
+				background-size: 21px 21px;
+				cursor: pointer;
+				text-indent: -9999px;
+			}
+			.cycle-pager span.cycle-pager-active {
+				width: 20px;
+				height: 20px;
+				background-image: url('../img/ico_circulo_lleno.png');
+				background-size: 20px 21px;
+			}
+	div.contenedor { margin-top: 35px; }
+		div.contenedor h2 {
+			position: relative;
+			font-size: 25px;
+			color: rgba(45, 45, 45, 1);
+			border-bottom: 1px solid rgba(225, 225, 225, 1);
+			padding: 17px 0;
+		}
+		div.contenedor ul.lista { margin: 32px -3% 0 0; }
+			div.contenedor ul.lista li {
+				position: relative;
+				display: inline-block;
+				width: 193px;
+				height: 264px;
+				vertical-align: top;
+				margin: 0 2.2% 15px 0;
+			}
+				div.contenedor ul.establecimientos li img {
+					display: block;
+					margin: 70px auto 0;
+				}
+				div.contenedor ul.establecimientos li h3 {
+					position: absolute;
+					display: block;
+					width: 100%;
+					bottom: 72px;
+					left: 0;
+					padding: 0 15px;
+					color: #373738;
+					font-family: 'latobold';
+					font-size: 16px;
+					text-align: center; 
+				}
+				div.contenedor ul.establecimientos li a:link,
+				div.contenedor ul.establecimientos li a:visited {
+					display: none;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					text-align: center;
+					color: #FFFFFF;
+					background-color: #FE5339;
+					font-size: 14px;
+					border-radius: 0px 0px 4px 4px;
+					padding: 17px 0;
+					font-family: 'latobold';
+				}
+				div.contenedor ul.establecimientos li:hover a {	display: block;	}
+			div.destacados h2 a:link, div.destacados h2 a:visited {
+				position: absolute;
+				right: 0;
+				bottom: 19px;
+				font-size: 12px;
+				color: rgba(143, 143, 143, 1);
+			}
+			div.destacados h2 a:hover { text-decoration: underline; }
+		div.destacados ul.articulos {}
+			div.destacados ul.articulos li, div.contArticulos ul.articulos li {
+				height: 310px;
+				overflow: hidden;
+			}
+				div.destacados ul.articulos li img, div.contArticulos ul.articulos li img {
+					display: block;
+					max-height: 182px;
+					margin: 0 auto;
+				}
+				div.destacados ul.articulos li div.informacion,
+				div.contArticulos ul.articulos li div.informacion {
+					text-align: center;
+					padding: 0 10px;
+					margin-top: 20px;
+				}
+					ul.articulos li div.informacion h3 {
+						font-size: 16px;
+						line-height: 23px;
+					}
+					ul.articulos li div.informacion h4 {
+						font-size: 14px;
+						margin: 5px 0 2px;
+					}
+					ul.articulos li div.informacion span { font-size: 12px; }
+				ul.articulos li div.contador {
+					display: none;
+					position: absolute;
+					width: 100%;
+					text-align: center;
+					bottom: 9px;
+				}
+				ul.articulos li:hover div.contador { display: block; }
+					ul.articulos li div.contador a:link, ul.articulos li div.contador a:visited {
+						display: inline-block;
+						width: 40px;
+						height: 40px;
+						background-size: 40px 40px;
+						text-indent: -9999px;
+						vertical-align: top;
+					}
+					ul.articulos li div.contador a.mas { background-image: url('../img/btn_mas.png'); }
+					ul.articulos li div.contador a.menos { background-image: url('../img/btn_menos.png');}
+					ul.articulos li div.contador span.cantidad {
+						display: inline-block;
+						height: 20px;
+						width: 37px;
+						padding: 10px 0;
+						margin: 0 4px;
+						border: 1px solid rgba(231, 231, 231, 1);
+						border-radius: 7px;
+						font-size: 18px;
+						color: rgba(74, 74, 74, 1);
+						vertical-align: top;
+					}
+/* ***** Home (fin) ***** */
+/* ***** Vista estableciminetos (inicio) ***** */
+div.contenedor ul.paginador {
+	text-align: center;
+	margin-top: 30px;
+}
+	div.contenedor ul.paginador li {
+		display: inline-block;
+		margin: 0 3px;
+	}
+		div.contenedor ul.paginador li a:link, div.contenedor ul.paginador li a:visited {
+			display: inline-block;
+			width: 46px;
+			background-color: rgba(254, 83, 57, 1);
+			border-radius: 4px;
+			color: #FFFFFF;
+			font-size: 20px;
+			font-family: 'latobold';
+			text-align: center;
+			padding: 15px 0;
+		}
+		div.contenedor ul.paginador li a.activo{ background-color: rgba(255, 161, 0, 1); }
+/* ***** Vista estableciminetos (fin) ***** */
+/* ***** Vista nosotros (inicio) ***** */
+section.vistaNosotros {}	
+	section.vistaNosotros img {
+		display: block;
+		width: 100%;
+		border-radius: 4px;
+		box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+	}
+	section.vistaNosotros h3, section.vistaNosotros p {
+		display: block;
+		width: 100%;
+		max-width: 750px;
+		margin: 0 auto;
+	}
+	section.vistaNosotros h3 { margin: 30px auto 19px; }
+	section.vistaNosotros p {
+		font-family: 'opensansregular';
+		font-size: 16px;
+		color: rgba(74, 74, 74, 1);
+		text-align: left;
+		line-height: 31px;
+		margin-bottom: 31px;
+	}
+/* ***** Vista nosotros (fin) ***** */
+
+/* ***** Vista contacto (inicio) ***** */
+section.vistaContacto { width: 100%; }
+	section.vistaContacto div.centrar {
+		width: 100%;
+		max-width: 705px;
+		margin: 0 auto
+	}
+		section.vistaContacto h3 { margin-top: 60px; }
+		section.vistaContacto p {
+			font-family: 'robotoregular';
+			font-size: 16px;
+			color: rgba(74, 74, 74, 1);
+			line-height: 31px;
+			margin: 16px auto 38px;
+		}
+		#formContacto { width: 100%; }
+			#formContacto div.form { width: 100%; }
+				#formContacto div.form label {
+					display: block;
+					font-family: 'robotoregular';
+					font-size: 16px;
+					color: rgba(74, 74, 74, 1);
+					line-height: 31px;
+					margin: 7px 0 2px;
+				}
+				#formContacto div.form input, #formContacto div.form textarea {
+					font-size: 16px;
+					padding: 10px;
+				}
+				#formContacto div.form textarea {
+					height: 123px;
+					resize: none;
+				}
+			#formContacto button {
+				height: 50px;
+				width: 139px;
+				background-color: rgba(255, 161, 0, 1);
+				border-radius: 4px;
+				font-family: 'latoregular';
+				font-size: 20px;
+				float: right;
+				margin-top: 15px;
+			}
+			#formContacto span.error {
+				color: red;
+				display: inline-block;
+				margin-bottom: 2px;
+			}
+			.msg {
+				border-radius: 10px;
+				color: white;
+				display: none;
+				font-weight: bold;
+				margin-top: 13px;
+				padding: 10px 15px;
+				text-align: center;
+				text-transform: uppercase;
+			}
+			.msg-ok {
+				background: #589d05;
+			}
+			.msg-error {
+				background: red;
+			}
+
+/* ***** Vista contacto (fin) ***** */
+/* ***** Vista planes (inicio) ***** */
+section.vistaPlanes { width: 100%; }
+	section.vistaPlanes h3 { text-align: center; }
+	#planes {
+		border: 1px solid rgba(231, 231, 231, 1);
+		border-radius: 4px;
+		box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+		margin-top: 36px;
+	}
+		#planes > li {
+			float: left;
+			width: 25%;
+			vertical-align: top;
+			padding: 50px 0px 0 38px;			
+		}
+		#planes li div {
+			border-right: 1px solid rgba(231, 231, 231, 1);
+			padding-top: 40px;
+			padding-right: 38px;
+		}
+		#planes li div.ultimo { border-right: none;	}
+		#planes > li:hover {
+			background-color: rgba(254, 83, 57, 1);
+			box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+			color: #FFFFFF;
+		}
+		#planes > li:hover h3, #planes > li:hover h4, #planes > li:hover ol { color: #FFFFFF; }
+		#planes > li:hover div { border: none; }
+			#planes li h3 {
+				font-family: 'latoregular';
+				font-size: 22px;
+				color: rgba(254, 83, 57, 1);
+				letter-spacing: 3px;
+				line-height: 35px;
+			}
+			#planes li h4 {
+				text-align: center;
+				font-family: 'robotomedium';
+				font-size: 46px;
+				color: rgba(0, 0, 0, 1);
+			}
+			#planes li ol {
+				font-family: 'robotoregular';
+				font-size: 14px;
+				color: rgba(74, 74, 74, 1);
+				text-align: left;
+				line-height: 26px;
+				list-style-type: decimal;
+				margin-top: 29px;
+			}
+				#planes li ol > li {
+					width: 100%;
+					float: none;
+					padding-left: 7px;
+				}
+					#planes li ol > li span { font-family: 'robotobold'; }
+					#planes li ol li ul {
+						list-style: disc url("../img/vineta_amarilla.png");
+						margin: 11px 0 15px 18px;			
+					}
+			#planes li a.meInteresa:link, #planes li a.meInteresa:visited {
+				display: block;
+				height: 48px;
+				width: 160px;
+				margin: 22px auto 44px;
+				background-color: rgba(255, 255, 255, 1);
+				border: 1px solid rgba(255, 161, 0, 1);
+				border-radius: 4px;
+				font-size: 17px;
+				line-height: 45px;
+				color: rgba(255, 161, 0, 1);
+				text-align: center;
+			}
+			#planes li a.meInteresa:hover {
+				color: rgba(255, 255, 255, 1);
+				background-color: rgba(255, 161, 0, 1);
+			}
+/* ***** Vista planes (fin) ***** */
+/* ***** Vista ver mas establecimientos (inicio) ***** */
+section.vistaEstable {}
+	section.vistaEstable div.carrusel {
+		width: 100%;
+		position: relative;
+		border-radius: 4px;
+		box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+		overflow: hidden;
+		margin: 38px 0 27px;
+	}
+		section.vistaEstable div.carrusel img {
+			display: block;
+			width: 100%;
+		}
+	section.vistaEstable h3 { display: inline-block; }
+	section.vistaEstable div.descripcion, section.vistaEstable ul.informacion {
+		display: inline-block;
+		width: 49%;
+		vertical-align: top;
+		font-family: 'opensansregular';
+		font-size: 15px;
+		color: rgba(51, 51, 51, 1);
+		line-height: 31px;
+		margin-top: 21px;
+	}
+	section.vistaEstable div.descripcion { padding-right: 15px; }
+	section.vistaEstable ul.informacion { padding-left: 40px; }
+		section.vistaEstable ul.informacion li { padding-left: 34px; }
+		section.vistaEstable ul.informacion li.ubicacion {
+			background: url('../img/ico_ubicacion_2x.png') no-repeat left 9px;
+			background-size: 17px 21px;
+		}
+		section.vistaEstable ul.informacion li.telefono {
+			background: url('../img/ico_telefono_2x.png') no-repeat left 9px;
+			background-size: 19px 20px;
+		}
+		section.vistaEstable ul.informacion li.whatsapp {
+			background: url('../img/ico_whatsapp_2x.png') no-repeat left 9px;
+			background-size: 18px 19px;
+		}
+		section.vistaEstable ul.informacion li.correo {
+			background: url('../img/ico_correo_2x.png') no-repeat left 10px;
+			background-size: 20px 15px;
+		}
+		section.vistaEstable ul.informacion li.sitioWeb {
+			background: url('../img/ico_sitioweb_2x.png') no-repeat left 7px;
+			background-size: 19px 19px;
+		}
+	section.vistaEstable div.redes {
+		font-family: 'opensanssemibold';
+		font-size: 16px;
+		color: rgba(155, 155, 155, 1);
+		line-height: 31px;
+		text-align: center;
+		margin-top: 30px;
+	}
+		section.vistaEstable div.redes ul {
+			text-align: center;
+			margin: 15px 0 48px;
+		}
+			section.vistaEstable div.redes ul li {
+				display: inline-block;
+				margin: 0 1px;
+			}
+				section.vistaEstable div.redes ul li a {
+					display: inline-block;					
+					height: 64px;
+					text-indent: -9999px;
+				}
+				div.redes ul li.facebook a:link, div.redes ul li.facebook a:visited {
+					width: 168px;
+					background-image: url('../img/btn_facebook_establecimientos.png');
+					background-size: 168px 64px;
+				}
+				div.redes ul li.twitter a:link, div.redes ul li.twitter a:visited {
+					width: 155px;
+					background-image: url('../img/btn_twitter_establecimientos.png');
+					background-size: 155px 64px;
+				}
+.rating, section.vistaEstable h3 { vertical-align: bottom; }
+.rating {
+	cursor: pointer;
+	clear: both;
+	display: inline-block;
+	margin-bottom: 5px;
+	margin-left: 30px
+}
+.rating:after {
+	content: '.';
+	display: block;
+	height: 0;
+	width: 0;
+	clear: both;
+	visibility: hidden;
+}
+.star {
+	float: left;
+	width: 28px;
+	height: 28px;
+	overflow: hidden;
+	text-indent: -999em;
+	cursor: pointer;
+	padding: 0;
+}
+.cancel, .cancel a {display: none;}
+.star,.star a {
+	background: url('../img/ico_estrella_vacia.png') no-repeat 0 0px;
+	background-size: 28px 28px;
+}	
+.cancel a, .star a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+div.rating div.on a {
+	background: url('../img/ico_estrella_llena.png') no-repeat 0px 0px;
+	background-size: 28px 28px;
+}
+div.rating div.hover a, div.rating div a:hover {
+ background: url('../img/ico_estrella_llena.png') no-repeat 0px 0px;
+	background-size: 28px 28px;
+}
+/* ***** Vista ver mas establecimientos (fin) ***** */
+/* ***** Vista pedido (inicio) ***** */
+section.vistaPedido { width: 100%; }
+	section.vistaPedido form.pedido { width: 100%; }
+		section.vistaPedido form.pedido div.contIzq,
+		section.vistaPedido form.pedido div.contDer {
+			display: inline-block;
+			width: 49%;
+			vertical-align: top;
+		}
+		section.vistaPedido form.pedido div.contIzq { padding-right: 17px; }
+				form.pedido div.contIzq div.list h2 {
+					background-color: rgba(254, 83, 57, 1);
+					border-radius: 4px;
+					box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+					font-family: 'latobold';
+					font-size: 20px;
+					color: rgba(255, 255, 255, 1);
+					padding: 25px 0 21px 37px;
+				}
+				form.pedido div.contIzq div.list ul.articulos { margin-top: 20px; }
+					div.contIzq div.list ul.articulos li {
+						position: relative;
+						border: 1px solid rgba(228, 228, 228, 1);
+						border-radius: 4px;
+						box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+						margin-bottom: 10px;
+						padding: 0 120px 0 100px;
+						min-height: 120px;
+					}
+						div.list ul.articulos li div.cantidad {
+							position: absolute;
+							height: 44px;
+							width: 60px;
+							top: 50%;
+							margin-top: -22px;
+							left: 20px;
+							padding-right: 24px;
+							background-color: rgba(255, 255, 255, 1);
+							border: 1px solid rgba(231, 231, 231, 1);
+							border-radius: 7px;
+							font-family: 'latomedium';
+							font-size: 20px;
+							line-height: 41px;
+							color: rgba(74, 74, 74, 1);
+							text-align: center;
+						}	
+							ul.articulos li div.cantidad a {
+								position: absolute;
+								display: block;
+								width: 16px;
+								height: 9px;
+								right: 8px;
+								text-indent: -9999px;
+								background-size: 16px 9px;							
+							}
+							ul.articulos li div.cantidad a.mas:link,
+							ul.articulos li div.cantidad a.mas:visited {
+								background-image: url('../img/ico_flecha_arriba.png');
+								top: 8px;
+							}
+							ul.articulos li div.cantidad a.menos:link,
+							ul.articulos li div.cantidad a.menos:visited {
+								background-image: url('../img/ico_flecha_abajo.png');
+								bottom: 8px;
+							}						
+						div.list ul.articulos li div.informacion {
+							position: relative;
+							min-height: 90px;
+							padding-left: 110px;
+							margin-top: 14px;
+						}
+							div.list ul.articulos li div.informacion img {
+								position: absolute;
+								top: 0;
+								left: 0;
+								display: inline-block;
+								width: 110px;
+							}
+							ul.articulos li div.informacion h3 {
+								display: inline-block;
+								font-size: 19px;
+								margin-top: 5px;
+							}
+							ul.articulos li div.informacion h4 {
+								font-size: 17px;
+								margin: 5px 0 4px;
+							}
+							ul.articulos li div.informacion div,
+							ul.articulos li div.informacion div span { font-size: 17px; }
+						div.list ul.articulos li div.valor {
+							position: absolute;
+							right: 30px;
+							top: 50%;
+							margin-top: -10px;
+							display: inline-block;
+							height: 20px;
+							font-family: 'latomedium';
+							font-size: 18px;
+							color: rgba(254, 83, 57, 1);
+						}
+						div.list ul.articulos li a.eliminar:link,
+						div.list ul.articulos li a.eliminar:visited {
+							position: absolute;
+							top: 8px;
+							right: 11px;
+							display: block;
+							height: 26px;
+							width: 26px;
+							background: url('../img/ico_eliminar.png');
+							background-size: 26px 26px;
+							text-indent: -9999px;
+						}
+				form.pedido div.contIzq div.list div.resumenTotal {
+					background-color: rgba(255, 255, 255, 1);
+					border: 1px solid rgba(228, 228, 228, 1);
+					border-radius: 4px;
+					box-shadow: 0 1px 19px 5px rgba(121, 121, 121, 0.09);
+					font-family: 'latomedium';
+					font-size: 19px;
+					color: rgba(74, 74, 74, 1);
+					text-align: left;
+					line-height: 37px;
+					padding: 18px 35px 20px;
+					margin-bottom: 57px;
+				}
+					div.contIzq div.list div.resumenTotal div { position: relative; }
+						div.contIzq div.list div.resumenTotal div span {
+							position: absolute;
+							top: 0;
+							right: 0;
+							font-size: 18px;
+						}
+					div.contIzq div.list div.resumenTotal div.subtotal {
+						padding-left: 40px;
+						background: url('../img/ico_subtotal.png') no-repeat left 9px;
+						background-size: 21px 22px;
+					}						
+					div.contIzq div.list div.resumenTotal div.domicilio {
+						padding-left: 40px;
+						background: url('../img/ico_domicilio.png') no-repeat left 8px;
+						background-size: 25px 20px;
+						margin-bottom: 4px;
+					}
+					div.contIzq div.list div.resumenTotal div.total {
+						font-family: 'latobold';
+						font-size: 20px;
+						color: rgba(254, 83, 57, 1);
+						text-align: left;
+						line-height: 51px;
+						border-top: 1px solid rgba(228, 170, 0, 1);
+					}
+			section.vistaPedido form.pedido div h2 {
+				font-family: 'robotomedium';
+				font-size: 26px;
+				color: rgba(74, 74, 74, 1);
+				line-height: 31px;
+				border-bottom: 1px solid rgba(228, 228, 228, 1);
+				padding-bottom: 12px;
+				margin-bottom: 10px;
+			}
+				form.pedido div.contIzq div.form label {display: none; }
+				form.pedido div.contIzq div.form textarea {
+					resize: none;
+					height: 123px;
+					border: 1px solid rgba(228, 228, 228, 1);
+					padding: 2px 5px;
+				}
+		section.vistaPedido form.pedido div.contDer {
+			padding-left: 17px;
+			width: 50%;
+		}
+			section.vistaPedido form.pedido div.contDer a.ingFacebook,
+			section.vistaPedido form.pedido div.contDer a.ingShowcase {
+				display: block;
+				width: 380px;
+				height: 56px;
+				text-indent: -9999px;
+				margin: 0 auto 15px;
+				background-size: 380px 56px;
+			}
+			section.vistaPedido form.pedido div.contDer a.ingFacebook:link,
+			section.vistaPedido form.pedido div.contDer a.ingFacebook:visited {
+				margin-top: 53px;
+				background-image: url('../img/btn_facebook_pedido.png');
+			}
+			section.vistaPedido form.pedido div.contDer a.ingShowcase:link,
+			section.vistaPedido form.pedido div.contDer a.ingShowcase:visited {
+				background-image: url('../img/btn_ingresar_pedido.png');
+			}
+				form.pedido div.contDer div.nuevaCuenta { margin: 50px 0 47px; } 
+				form.pedido div.contDer div.form div {
+					display: inline-block;
+					width: 49%;
+				}
+				form.pedido div.contDer div.form div.izq { padding-right: 17px; }
+				form.pedido div.contDer div.form div.der { padding-left: 17px; }
+					form.pedido div.contDer div.form div input { width: 103%; }
+				form.pedido div.contDer div.form label {
+					display: block;
+					font-family: 'robotomedium';
+					font-size: 17px;
+					color: rgba(74, 74, 74, 1);
+					margin: 14px 0 10px;
+				}
+				form.pedido div.contDer div.form input {
+					font-size: 17px;
+					padding: 2px 5px;
+					color: rgba(74, 74, 74, 1);
+					padding-left: 18px;
+				}
+				form.pedido div.contDer div.direccion {
+					font-family: 'robotomedium';
+					font-size: 17px;
+					color: rgba(74, 74, 74, 1);
+					margin-bottom: 35px;
+					width: 100%;
+				}
+				form.pedido div.contDer div.direccion div.select { margin-top: 26px; }
+				form.pedido div.contDer div.direccion div.select select {
+					width: 30%;
+					font-size: 17px;					
+					background: url('../img/ico_flecha_abajo_verde.png') no-repeat 90% center;
+					background-size: 18px 11px;
+					color: rgba(74, 74, 74, 1);
+					padding-left: 18px;
+				}
+				form.pedido div.contDer div.direccion div.select input {
+					width: 15%;
+					margin: 0 3%;
+				}
+				form.pedido div.contDer div.direccion div.select input.ultimo { margin: 0 0 0 3%; }
+				form.pedido div.contDer div.direccion div.select span {
+					display: inline-block;
+					width: 3%;
+					text-align: center;
+				}
+				form.pedido div.contDer div.pago,
+				form.pedido div.contDer div.cupon { margin: 26px 0 35px; }
+				form.pedido div.contDer div.pago label,
+				form.pedido div.contDer div.cupon label	{ display: none; }
+				form.pedido div.contDer div.pago select {				
+					font-size: 17px;
+					background: url('../img/ico_flecha_abajo_verde.png') no-repeat 97% center;
+					background-size: 18px 11px;
+					color: rgba(74, 74, 74, 1);
+					padding-left: 18px;
+				}
+				form.pedido div.contDer div input[type="checkbox"] { display: none;	}
+				form.pedido div.contDer div input[type="checkbox"] + label span {
+					display: inline-block;
+					width: 26px;
+					height: 26px;
+					background: url('../img/check_vacio.png') left top no-repeat;
+					background-size: 26px 26px;
+					margin: 0 11px 0 0;
+					vertical-align: middle;
+					cursor:pointer;
+				}
+				form.pedido div.contDer div input[type="checkbox"]:checked + label span {
+					background: url('../img/check_lleno.png') left top no-repeat;
+					background-size: 26px 26px;
+				}
+				form.pedido div.contDer div.checkbox label {
+					font-family: 'robotoregular';
+					font-size: 17px;
+					color: rgba(74, 74, 74, 1);
+				}
+			section.vistaPedido form.pedido div.contDer button {
+				height: 54px;
+				width: 200px;
+				background-color: rgba(254, 83, 57, 1);
+				border-radius: 10px;
+				box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+				font-family: 'latobold';
+				font-size: 19px;
+				margin: 26px auto;
+			}
+			section.vistaPedido form.pedido div.contDer a.cancelar:link,
+			section.vistaPedido form.pedido div.contDer a.cancelar:visited {
+				display: block;
+				width: 155px;
+				margin: 0 auto;
+				font-size: 18px;
+				color: rgba(184, 233, 134, 1);
+			}
+			section.vistaPedido form.pedido div.contDer a.cancelar:hover{ text-decoration: underline;}
+	section.vistaPedido .confirmacion {
+		display: none;
+		width: 100%;
+		max-width: 459px;
+		margin: 125px auto;
+		text-align: center;
+	}
+		section.vistaPedido .confirmacion img {
+			display: block;
+			width: 169px;
+			margin: 0 auto;
+		}
+		section.vistaPedido .confirmacion h3 {
+			font-family: 'latoregular';
+			font-size: 34px;
+			color: rgba(74, 74, 74, 1);
+			margin: 35px auto 7px;
+		}
+		section.vistaPedido .confirmacion p {
+			font-family: 'opensansregular';
+			font-size: 18px;
+			color: rgba(155, 155, 155, 1);
+			line-height: 31px;
+		}
+		section.vistaPedido .confirmacion a {
+			display: inline-block;
+			background-color: rgba(254, 83, 57, 1);
+			border-radius: 6px;
+			box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.22);
+			color: #FFFFFF;
+			font-family: 'latobold';
+			font-size: 19px;
+			padding: 14px 26px 16px;
+			margin-top: 32px;
+		}
+/* ***** Vista pedido (fin) ***** */
+/* ***** Ventana modal (inicio) ***** */
+#cboxOverlay { background-color: rgba(103, 186, 11, 1); }
+#cboxWrapper { border-radius: 10px; }
+#cboxLoadedContent { padding: 0; }
+#cboxContent {
+	background: #FFFFFF;
+	margin-top: 0px;
+}
+#cboxClose, #cboxClose:hover {
+	top: 0;
+	right: 17px;
+	height: 41px;
+	width: 30px;	
+	background: url('../img/ico_cerrar.png') no-repeat center 16px;
+	background-size: 13px 13px;
+	background-color: rgba(247, 247, 247, 1);
+	border-radius: 0 0 15px 15px;
+}
+div.cancelar {}
+	div.cancelar p {
+		font-family: 'latobold';
+		font-size: 20px;
+		color: rgba(55, 55, 56, 1);
+		text-align: center;
+		margin: 75px 0 32px;
+	}
+	div.cancelar div.enlaces { text-align: center; }
+		div.cancelar div.enlaces a:link, div.cancelar div.enlaces a:visited {
+			display: inline-block;
+			height: 47px;
+			width: 111px;
+			font-family: 'latobold';
+			font-size: 19px;
+			color: rgba(255, 255, 255, 1);
+			text-align: center;
+			line-height: 44px;
+			background-color: rgba(254, 83, 57, 1);
+			border-radius: 6px;
+			box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.09);
+			margin: 0 8px;
+		}
+div.login {
+	width: 100%;
+	height: 100%;
+}
+	div.login h2 {
+		background-color: rgba(255, 161, 0, 1);
+		font-family: 'latobold';
+		font-size: 28px;
+		color: rgba(255, 255, 255, 1);
+		text-align: center;
+		padding: 28px 0 21px;
+	}
+	div.login form.login {
+		width: 100%;
+		max-width: 380px;
+		margin: 60px auto 0;
+	}
+		div.login form.login div.form {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+			div.login form.login div.form label { display: none; }
+			div.login form.login div.form input {
+				font-size: 17px;
+				padding: 0 18px;
+			}
+		div.login form.login div.enlace { text-align: right; }
+			div.login form.login div.enlace a:link, div.login form.login div.enlace a:visited {
+				display: inline-block;
+				font-family: 'robotoregular';
+				font-size: 15px;
+				color: rgba(186, 186, 186, 1);
+			}
+			div.login form.login div.enlace a:hover { text-decoration: underline; }
+			div.login form.login div.enlace button {
+				height: 48px;
+				width: 130px;
+				background-color: rgba(254, 83, 57, 1);
+				border-radius: 6px;
+				box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+				font-family: 'latobold';
+				font-size: 19px;
+				margin: 16px auto 0;
+			}
+/* ***** Ventana modal (fin) ***** */
