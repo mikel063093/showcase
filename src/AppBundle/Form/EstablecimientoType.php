@@ -23,6 +23,8 @@ class EstablecimientoType extends AbstractType{
             ->add('snapchat','text', array('attr' => array('size' => '30px'), 'required' => false))
             ->add('youtube','text', array('attr' => array('size' => '30px'), 'required' => false))
             ->add('instagram','text', array('attr' => array('size' => '30px'), 'required' => false))
+            ->add('correo','text', array('attr' => array('size' => '30px'), 'required' => false))
+            ->add('whatsapp','text', array('attr' => array('size' => '30px'), 'required' => false))
             ->add('peso',NumberType::class, array('attr' => array('size' => '30px')))
             ->add('file','file',array('required' => false))
             

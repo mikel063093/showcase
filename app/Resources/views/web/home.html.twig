@@ -1,14 +1,15 @@
 {% extends "plantilla/landing.html.twig" %}
 {% block contenidoWeb %}
 <div id="carrusel">
-    <img src="{{ asset('bundles/web/img/carrusel.png') }}" alt="Imagen carrusel">
-    <img src="{{ asset('bundles/web/img/carrusel1.png') }}" alt="Imagen carrusel">
-    <img src="{{ asset('bundles/web/img/carrusel.png') }}" alt="Imagen carrusel">
+    {% for promocion in promociones %}
+    <img src="{{ asset(promocion.webPath) }}" alt="promocion">
+    {% endfor %}
     <div class="cycle-pager"></div>
 </div>
 <div class="contenedor destacados">
     <h2>Establecimientos destacados<a href="#">VER MÁS DESTACADOS</a></h2>
     <ul class="lista establecimientos">
+        
         <li>
             <img src="{{ asset('bundles/web/img/levis.png') }}" alt="Levi's" />
             <h3>Levi's</h3>

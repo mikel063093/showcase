@@ -1,9 +1,6 @@
 <script>
 $(document).ready(function() {
-    $(".establecimientos a").click(function(e){
-        e.preventDefault();
-        alert('h');
-    });
+    setVerMas();
 
 	$("#menu-categoria a").click(function (e) {
         e.preventDefault();
@@ -25,4 +22,22 @@ $(document).ready(function() {
 
 
 });
+
+    function setVerMas(){
+    $(".establecimientos a").click(function(e){
+        e.preventDefault();
+        var id = $(this).attr('value');
+        $.ajax({
+            type: "GET",
+            url: "{{ path('establecimiento') }}/"+id,
+            dataType: "html",
+            success: function(data) {
+                var divContenerdor = $(".home");
+                divContenerdor.removeClass('home');
+                divContenerdor.addClass('vistaEstable');
+                $('#home').html(data);
+            },
+        });
+    });
+}
 </script>

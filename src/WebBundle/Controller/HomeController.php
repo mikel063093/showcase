@@ -62,8 +62,13 @@ class HomeController extends Controller
         */
         $em = $this->getDoctrine()->getManager();
         $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
+        $promociones = $em->getRepository('AppBundle:Promocion')->findPromocionesActivas();
+        $establecimientosDestacados = $em->getRepository('AppBundle:Establecimiento')->obtenerEstablecimintosDestacados();
         return $this->render('web/home.html.twig',array(
-            'categorias' => $categorias
+            'categorias' => $categorias,
+            'promociones' => $promociones,
+            'establecimientosDestacados' => $establecimientosDestacados,
+            
         ));
     }
 
@@ -89,6 +94,20 @@ class HomeController extends Controller
             'categoria' => $categoria,
             'establecimientos' => $establecimientos,
             'establecimientosDestacado' => $establecimientosDestacados
+        ));
+    }
+
+    /**
+     * @Route("/establecimiento/{idEstablecimiento}", name="establecimiento",defaults={"idEstablecimiento" = null})
+     * @Method({"GET"})
+     */
+    public function establecimientoAction(Request $peticion, $idEstablecimiento){
+        $em = $this->getDoctrine()->getManager();
+        $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($idEstablecimiento);
+        $articulos= $em->getRepository('AppBundle:Articulo')->obtenerArticulosEstablecimiento($idEstablecimiento);
+        return $this->render('web/establecimiento/ver.html.twig',array(
+            'establecimiento' => $establecimiento,
+            'articulos' => $articulos
         ));
     }
 }

@@ -110,6 +110,22 @@ class Establecimiento {
     private $instagram;
 
     /**
+     * @var string $correo
+     *
+     * @ORM\Column(name="correo", type="string", length=63, nullable=true, options=
+     * {"comment" = "Correo del establecimiento"})
+     */
+    private $correo;
+
+    /**
+     * @var string $whatsapp
+     *
+     * @ORM\Column(name="whatsapp", type="string", length=63, nullable=true, options=
+     * {"comment" = "Whatsapp del establecimiento"})
+     */
+    private $whatsapp;
+
+    /**
      * @var float $peso
      *
      * @ORM\Column(name="peso", type="float", nullable=true, options=
@@ -738,5 +754,53 @@ class Establecimiento {
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+    }
+
+    /**
+     * Set correo
+     *
+     * @param string $correo
+     *
+     * @return Establecimiento
+     */
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
+
+        return $this;
+    }
+
+    /**
+     * Get correo
+     *
+     * @return string
+     */
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    /**
+     * Set whatsapp
+     *
+     * @param string $whatsapp
+     *
+     * @return Establecimiento
+     */
+    public function setWhatsapp($whatsapp)
+    {
+        $this->whatsapp = $whatsapp;
+
+        return $this;
+    }
+
+    /**
+     * Get whatsapp
+     *
+     * @return string
+     */
+    public function getWhatsapp()
+    {
+        return $this->whatsapp;
     }
 }

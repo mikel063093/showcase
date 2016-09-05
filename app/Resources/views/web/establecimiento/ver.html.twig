@@ -1,0 +1,92 @@
+
+    <h2 class="titulo">Establecimiento</h2>
+    <div class="carrusel">
+        {% for foto in establecimiento.fotosEstablecimientos %}
+        <img src="{{ asset(foto.webPath) }}" alt="{{ foto.titulo }}" />
+        {% endfor %}
+        <div class="cycle-pager"></div>
+    </div>
+    <div>
+        <h3>{{ establecimiento.nombre }}</h3>
+        <div id="star" class="rating">&nbsp;</div>
+    </div>
+    <div class="descripcion">
+        <p>
+        {{ establecimiento.descripcion }}
+        </p>
+    </div>
+    <ul class="informacion">
+        <li class="ubicacion">{{ establecimiento.direccion }}</li>
+        <li class="telefono">{{ establecimiento.telefono }}</li>
+        <li class="whatsapp">{{ establecimiento.whatsapp|default('No definido') }}</li>
+        <li class="correo">{{ establecimiento.correo|default('No definido') }}</li>
+        <li class="sitioWeb">{{ establecimiento.sitioWeb }}</li>
+    </ul>
+    <div class="redes">
+        Síguenos en:
+        <ul>
+            <li class="facebook">
+                <a href="{{ establecimiento.facebook }}" target="_blank" title="Facebook">Facebook</a>
+            </li>
+            <li class="twitter">
+                <a href="{{ establecimiento.twitter }}" target="_blank" title="Twitter">Twitter</a>
+            </li>
+        </ul>
+    </div>
+    <div class="contenedor contArticulos ">
+        <h2>Artículos de este establecimiento</h2>
+        <ul class="lista articulos">
+            <li>
+                <img src="img/articulo1.png" alt="Artículo" />
+                <div class="informacion">
+                    <h3>Chaqueta de jean</h3>
+                    <h4>$66.500</h4>
+                    <span>2 unidades</span>
+                </div>
+                <div class="contador">
+                    <a class="menos" href="#">Menos</a>
+                    <span class="cantidad">2</span>
+                    <a class="mas" href="#">Mas</a>
+                </div>
+            </li>
+            <li>
+                <img src="img/articulo2.png" alt="Artículo" />
+                <div class="informacion">
+                    <h3>Vestido de jean</h3>
+                    <h4>$80.000</h4>
+                    <span>Talla M</span>
+                </div>
+                <div class="contador">
+                    <a class="menos" href="#">Menos</a>
+                    <span class="cantidad">1</span>
+                    <a class="mas" href="#">Mas</a>
+                </div>
+            </li>
+            <li>
+                <img src="img/articulo3.png" alt="Artículo" />
+                <div class="informacion">
+                    <h3>Jean Skinny + Zapatos</h3>
+                    <h4>$360.000</h4>
+                    <span>4 unidades</span>
+                </div>
+                <div class="contador">
+                    <a class="menos" href="#">Menos</a>
+                    <span class="cantidad">1</span>
+                    <a class="mas" href="#">Mas</a>
+                </div>
+            </li>
+            <li>
+                <img src="img/articulo4.png" alt="Artículo" />
+                <div class="informacion">
+                    <h3>Chaqueta azul</h3>
+                    <h4>$150.000</h4>
+                    <span>Talla S, M, L</span>
+                </div>
+                <div class="contador">
+                    <a class="menos" href="#">Menos</a>
+                    <span class="cantidad">2</span>
+                    <a class="mas" href="#">Mas</a>
+                </div>
+            </li>
+        </ul>
+    </div>

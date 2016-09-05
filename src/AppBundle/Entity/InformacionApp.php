@@ -36,6 +36,22 @@ class InformacionApp {
     private $precioDomicilio;
 
     /**
+     * @var integer $imagenNosotros
+     *
+     * @ORM\Column(name="imagenNosotros", type="string", nullable=true, options=
+     * {"comment" = "Imagen para la pagina Nosotros"})
+     */
+    private $imagenNosotros;
+
+    /**
+     * @var integer $nosotros
+     *
+     * @ORM\Column(name="nosotros", type="string", nullable=true, options=
+     * {"comment" = "texto para la pagina Nosotros"})
+     */
+    private $nosotros;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -67,5 +83,53 @@ class InformacionApp {
     public function getPrecioDomicilio()
     {
         return $this->precioDomicilio;
+    }
+
+    /**
+     * Set imagenNosotros
+     *
+     * @param string $imagenNosotros
+     *
+     * @return InformacionApp
+     */
+    public function setImagenNosotros($imagenNosotros)
+    {
+        $this->imagenNosotros = $imagenNosotros;
+
+        return $this;
+    }
+
+    /**
+     * Get imagenNosotros
+     *
+     * @return string
+     */
+    public function getImagenNosotros()
+    {
+        return $this->imagenNosotros;
+    }
+
+    /**
+     * Set nosotros
+     *
+     * @param string $nosotros
+     *
+     * @return InformacionApp
+     */
+    public function setNosotros($nosotros)
+    {
+        $this->nosotros = $nosotros;
+
+        return $this;
+    }
+
+    /**
+     * Get nosotros
+     *
+     * @return string
+     */
+    public function getNosotros()
+    {
+        return $this->nosotros;
     }
 }

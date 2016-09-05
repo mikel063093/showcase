@@ -44,7 +44,7 @@ class Puntuacion {
     /**
      *
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="puntuaciones")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id",nullable=true)
      **/
     private $usuario;
 

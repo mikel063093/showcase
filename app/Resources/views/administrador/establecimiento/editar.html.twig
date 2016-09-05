@@ -5,12 +5,14 @@
             'establecimiento[direccion]': {  required: true },
             'establecimiento[telefono]': {  required: true },
             'establecimiento[peso]': {  required: true , number: true },
+            'establecimiento[correo]': {  email:true },
         },
         messages:{
             'establecimiento[nombre]': {  required: 'El campo Nombre es obligatorio' },
             'establecimiento[direccion]': {  required: 'El campo Direccion es obligatorio' },
             'establecimiento[telefono]': {  required: 'El campo Telefono es obligatorio' },
             'establecimiento[peso]': {  required: 'El campo Peso es obligatorio',number:'El campo Peso solo recibe numeros' },
+            'establecimiento[correo]': {  email: 'El campo Correo no tiene el formato correcto' },
         },
         submitHandler: function(form) {
            enviar(form);
@@ -177,6 +179,18 @@
       <div class="col-sm-9">
           {{ form_widget(form.telefono, {'attr': {'class': 'form-control'}}) }}
       </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label">Whatsapp</label>
+        <div class="col-sm-9">
+            {{ form_widget(form.whatsapp, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label">Correo</label>
+        <div class="col-sm-9">
+            {{ form_widget(form.correo, {'attr': {'class': 'form-control'}}) }}
+        </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 col-sm-3 control-label">Peso (*)</label>

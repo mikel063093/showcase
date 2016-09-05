@@ -1143,7 +1143,7 @@ class MovilController extends Controller
             $items = array();
             $subtotal = 0;
             foreach ($carrito->getItems() as $item){
-                $subtotal = $subtotal + $item->getArticulo()->getPrecio();
+                $subtotal = $subtotal + $item->getCantidad() * $item->getArticulo()->getPrecio();
                 $items[] = array(
                     'id' => $item->getId(),
                     'idArticulo' => $item->getArticulo()->getId(),
@@ -1170,5 +1170,212 @@ class MovilController extends Controller
 
     }
 
-    
+    /**
+     * @Route("/agregarProductoCarrito", name="agregarProductoCarrito")
+     */
+    public function agregarProductoCarritoAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $idArticulo = $peticion->get('idArticulo');
+        $cantidad = $peticion->get('cantidad');
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al agregar el producto al carrito'
+        );
+
+        try{
+            $articulo = $em->getRepository('AppBundle:Articulo')->find($idArticulo);
+            if($articulo->getCantidad() < $cantidad){
+                return new JsonResponse(array(
+                    'estado'=>0,
+                    'mensaje'=> 'No se puede reservar esta cantidad para este articulo, cantidad disponible: '.$articulo->getCantidad()
+                ));
+            }
+            $articulo->setCantidad($articulo->getCantidad() - $cantidad );
+            $em->persist($articulo);
+            $usuario = $this->getUser();
+            $carritos = $usuario->getCarritos();
+            if(count($carritos) == 0){
+                $carrito = new Carrito();
+                $carrito->setFechaCreacion(new \DateTime());
+                $carrito->setUsuario($usuario);
+                $em->persist($carrito);
+
+            }else{
+                $carrito = $carritos[0];
+            }
+            $item = new Item();
+            $item->setCantidad($cantidad);
+            $item->setCarrito($carrito);
+            $item->setArticulo($articulo);
+            $em->persist($item);
+            $em->flush();
+            $carro = array(
+                'id' => $carrito->getId(),
+                'fechaCreacion' => $carrito->getFechaCreacion()->format('Y-m-d H:i:s')
+            );
+            $rta['carrito'] = $carro;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al agregar el producto al carrito'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+
+    /**
+     * @Route("/eliminarProductoCarrito", name="eliminarProductoCarrito")
+     */
+    public function eliminarProductoCarritoAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $idItem = $peticion->get('idItem');
+
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al eliminar el producto del carrito'
+        );
+
+        try{
+            $item = $em->getRepository('AppBundle:Item')->find($idItem);
+            $articulo = $item->getArticulo();
+            $articulo->setCantidad($articulo->getCantidad() + $item->getCantidad() );
+
+
+            $usuario = $this->getUser();
+            $carritos = $usuario->getCarritos();
+            if(count($carritos) == 0){
+                $carrito = new Carrito();
+                $carrito->setFechaCreacion(new \DateTime());
+                $carrito->setUsuario($usuario);
+
+
+            }else{
+                $carrito = $carritos[0];
+            }
+
+            $carrito->removeItem($item);
+            $em->persist($carrito);
+            $em->persist($articulo);
+            $em->remove($item);
+            $em->flush();
+            $carro = array(
+                'id' => $carrito->getId(),
+                'fechaCreacion' => $carrito->getFechaCreacion()->format('Y-m-d H:i:s')
+            );
+            $rta['carrito'] = $carro;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al eliminar el articulo del carrito'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/editarProductoCarrito", name="editarProductoCarrito")
+     */
+    public function editarProductoCarritoAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $idItem = $peticion->get('idItem');
+        $cantidad = $peticion->get('cantidad');
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al editar el producto del carrito'
+        );
+
+        try{
+            $item = $em->getRepository('AppBundle:Item')->find($idItem);
+            $articulo = $item->getArticulo();
+            if($articulo->getCantidad() + $item->getCantidad() < $cantidad){
+                return new JsonResponse(array(
+                    'estado'=>0,
+                    'mensaje'=> 'No se puede reservar esta cantidad para este articulo, cantidad disponible: '.($articulo->getCantidad() + $item->getCantidad())
+                ));
+            }
+
+            $cantidadArticulo = ($articulo->getCantidad() + $item->getCantidad()) - $cantidad;
+            $articulo->setCantidad(($articulo->getCantidad() + $item->getCantidad()) - $cantidad );
+            $item->setCantidad($cantidad);
+
+            $usuario = $this->getUser();
+            $carritos = $usuario->getCarritos();
+            if(count($carritos) == 0){
+                $carrito = new Carrito();
+                $carrito->setFechaCreacion(new \DateTime());
+                $carrito->setUsuario($usuario);
+
+
+            }else{
+                $carrito = $carritos[0];
+            }
+
+            $em->persist($articulo);
+            $em->persist($item);
+            $em->flush();
+            $carro = array(
+                'id' => $carrito->getId(),
+                'fechaCreacion' => $carrito->getFechaCreacion()->format('Y-m-d H:i:s')
+            );
+            $rta['carrito'] = $carro;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al editar el articulo del carrito'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/cancelarCarrito", name="cancelarCarrito")
+     */
+    public function cancelarCarritoAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al cancelar el pedido'
+        );
+
+        try{
+            $usuario = $this->getUser();
+            $carritos = $usuario->getCarritos();
+            if(count($carritos) == 0){
+                $carrito = new Carrito();
+                $carrito->setFechaCreacion(new \DateTime());
+                $carrito->setUsuario($usuario);
+
+
+            }else{
+                $carrito = $carritos[0];
+            }
+            foreach($carrito->getItems() as $item){
+                $em->remove($item);
+            }
+
+            $em->remove($carrito);
+            $em->flush();
+
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al cancelar el pedido'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+
+
+
 }

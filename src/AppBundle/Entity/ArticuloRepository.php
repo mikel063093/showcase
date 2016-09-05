@@ -44,4 +44,14 @@ class ArticuloRepository extends EntityRepository
 
         return $consulta->getQuery()->getResult();
     }
+
+    public function obtenerArticulosEstablecimiento($idEstablecimiento){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Articulo','a')
+            ->where('a.establecimiento = :idEstablecimiento')
+            ->setParameter('idEstablecimiento',$idEstablecimiento);
+        return $consulta->getQuery()->getResult();
+    }
 }
