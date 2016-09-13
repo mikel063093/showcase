@@ -76,6 +76,22 @@ class Pedido {
     private $metodoPago;
 
     /**
+     * @var string $telefonoContacto
+     *
+     * @ORM\Column(name="telefonoContacto", type="string", length=63, nullable=true, options=
+     * {"comment" = "telefono de contacto del pedido"})
+     */
+    private $telefonoContacto;
+
+    /**
+     * @var string $valorDomicilio
+     *
+     * @ORM\Column(name="valorDomicilio", type="integer", nullable=true, options=
+     * {"comment" = "valor domicilio del  pedido"})
+     */
+    private $valorDomicilio;
+
+    /**
      * 
      * @ORM\ManyToOne(targetEntity="Cupon", inversedBy="pedidos")
      * @ORM\JoinColumn(name="id_cupon", referencedColumnName="id")
@@ -312,5 +328,77 @@ class Pedido {
     public function getObservaciones()
     {
         return $this->observaciones;
+    }
+
+    /**
+     * Set metodoPago
+     *
+     * @param string $metodoPago
+     *
+     * @return Pedido
+     */
+    public function setMetodoPago($metodoPago)
+    {
+        $this->metodoPago = $metodoPago;
+
+        return $this;
+    }
+
+    /**
+     * Get metodoPago
+     *
+     * @return string
+     */
+    public function getMetodoPago()
+    {
+        return $this->metodoPago;
+    }
+
+    /**
+     * Set telefonoContacto
+     *
+     * @param string $telefonoContacto
+     *
+     * @return Pedido
+     */
+    public function setTelefonoContacto($telefonoContacto)
+    {
+        $this->telefonoContacto = $telefonoContacto;
+
+        return $this;
+    }
+
+    /**
+     * Get telefonoContacto
+     *
+     * @return string
+     */
+    public function getTelefonoContacto()
+    {
+        return $this->telefonoContacto;
+    }
+
+    /**
+     * Set valorDomicilio
+     *
+     * @param integer $valorDomicilio
+     *
+     * @return Pedido
+     */
+    public function setValorDomicilio($valorDomicilio)
+    {
+        $this->valorDomicilio = $valorDomicilio;
+
+        return $this;
+    }
+
+    /**
+     * Get valorDomicilio
+     *
+     * @return integer
+     */
+    public function getValorDomicilio()
+    {
+        return $this->valorDomicilio;
     }
 }

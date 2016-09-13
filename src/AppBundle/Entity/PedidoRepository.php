@@ -12,4 +12,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class PedidoRepository extends EntityRepository
 {
+    public function listarPedidos($usuario){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQueryBuilder()
+            ->select('p')
+            ->from('AppBundle:Pedido','p')
+            ->where('p.usuario = :usuario')
+            ->andWhere('p.estado <> :estado')
+            ->setParameter('usuario',$usuario)
+            ->setParameter('estado','En Progreso');
+        return $consulta->getQuery()->getResult();
+    }
+
+    public function listarPedidosActivos($usuario){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQueryBuilder()
+            ->select('p')
+            ->from('AppBundle:Pedido','p')
+            ->where('p.usuario = :usuario')
+            ->andWhere('p.estado = :estado')
+            ->setParameter('usuario',$usuario)
+            ->setParameter('estado','En Progreso');
+        return $consulta->getQuery()->getResult();
+    }
 }

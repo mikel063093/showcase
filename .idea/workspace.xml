@@ -3,20 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/plantilla/acciones.js.twig" afterPath="$PROJECT_DIR$/app/Resources/views/plantilla/acciones.js.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/web/establecimiento/destacados.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/web/establecimiento/destacados.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/web/establecimiento/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/web/establecimiento/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/web/home.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/web/home.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/ArticuloRepository.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/ArticuloRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Establecimiento.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Establecimiento.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/InformacionApp.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/InformacionApp.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Puntuacion.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Puntuacion.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/EstablecimientoType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/EstablecimientoType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" afterPath="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/CuponRepository.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/CuponRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Pedido.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Pedido.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/PedidoRepository.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/PedidoRepository.php" />
     </list>
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,26 +27,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ver.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/web/establecimiento/ver.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="59" column="55" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InformacionApp.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/InformacionApp.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2193">
-              <caret line="133" column="5" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="editar.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/informacion/editar.html.twig">
           <provider selected="true" editor-type-id="text-editor">
@@ -72,16 +42,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
               <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EstablecimientoType.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/EstablecimientoType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -110,8 +70,40 @@
       <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="1353" column="60" selection-start-line="1353" selection-start-column="60" selection-end-line="1353" selection-end-column="60" />
+            <state relative-caret-position="-143">
+              <caret line="1557" column="60" selection-start-line="1557" selection-start-column="60" selection-end-line="1557" selection-end-column="60" />
+              <folding>
+                <element signature="e#39#69#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Pedido.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Pedido.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="388" column="5" selection-start-line="388" selection-start-column="5" selection-end-line="388" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PedidoRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/PedidoRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="444">
+              <caret line="33" column="46" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CuponRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/CuponRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -145,8 +137,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/registros.html.twig" />
-        <option value="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/registros.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/principal.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/FotoType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/FotosEstablecimiento.php" />
@@ -167,7 +157,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Direccion.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Usuario.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/CuponUsuario.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Pedido.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/administrador/cupon/principal.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/administrador/cupon/registros.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/administrador/menu.html.twig" />
@@ -195,6 +184,9 @@
         <option value="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editar.html.twig" />
         <option value="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/web/home.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/CuponRepository.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/PedidoRepository.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Pedido.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
       </list>
     </option>
@@ -245,7 +237,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -848,6 +839,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -954,12 +946,14 @@
       <workItem from="1472693550508" duration="2835000" />
       <workItem from="1472945304762" duration="7180000" />
       <workItem from="1473002896643" duration="10441000" />
-      <workItem from="1473035482277" duration="5733000" />
+      <workItem from="1473035482277" duration="5940000" />
+      <workItem from="1473552427286" duration="597000" />
+      <workItem from="1473730646400" duration="8223000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87377000" />
+    <option name="totallyTimeSpent" value="96404000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1378" height="744" extended-state="0" />
@@ -1002,27 +996,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Pedido.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="92" column="21" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Direccion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4590">
-          <caret line="274" column="17" selection-start-line="274" selection-start-column="17" selection-end-line="274" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Usuario.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10404">
-          <caret line="614" column="23" selection-start-line="614" selection-start-column="23" selection-end-line="614" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Ciudad.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
@@ -1286,22 +1259,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2975">
-          <caret line="175" column="10" selection-start-line="164" selection-start-column="4" selection-end-line="175" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3094">
-          <caret line="182" column="4" selection-start-line="182" selection-start-column="4" selection-end-line="193" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/web/establecimiento/ver.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1003">
@@ -1342,6 +1299,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2975">
+          <caret line="175" column="10" selection-start-line="164" selection-start-column="4" selection-end-line="175" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3094">
+          <caret line="182" column="4" selection-start-line="182" selection-start-column="4" selection-end-line="193" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/web/home.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1350,11 +1323,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/CuponRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/PedidoRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="33" column="46" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Pedido.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="388" column="5" selection-start-line="388" selection-start-column="5" selection-end-line="388" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="1353" column="60" selection-start-line="1353" selection-start-column="60" selection-end-line="1353" selection-end-column="60" />
-          <folding />
+        <state relative-caret-position="-143">
+          <caret line="1557" column="60" selection-start-line="1557" selection-start-column="60" selection-end-line="1557" selection-end-column="60" />
+          <folding>
+            <element signature="e#39#69#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

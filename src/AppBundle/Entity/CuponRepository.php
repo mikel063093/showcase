@@ -12,4 +12,34 @@ use Doctrine\ORM\EntityRepository;
  */
 class CuponRepository extends EntityRepository
 {
+    public function buscarCupon($codigo){
+        $em = $this->getEntityManager();
+        $fecha = new \DateTime();
+        $consulta = $em->createQueryBuilder()
+            ->select('c')
+            ->from('AppBundle:Cupon','c')
+            ->where('c.codigo = :codigo')
+            ->andWhere('c.estado = :estado')
+            ->andWhere('c.fechaLimite >= :fecha')
+            ->setParameter('codigo',$codigo)
+            ->setParameter('estado','Activo')
+            ->setParameter('fecha',$fecha);
+        return $consulta->getQuery()->getOneOrNullResult();
+    }
+
+    public function validarCupon($cupon,$usuario){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->select('cu')
+            ->from('AppBundle:CuponUsuario','cu')
+            ->where('cu.cupon = :cupon')
+            ->andWhere('cu.usuario = :usuario')
+            ->setParameter('cupon',$cupon)
+            ->setParameter('usuario',$usuario)
+            ;
+        return $consulta->getQuery()->getOneOrNullResult();
+    }
+
+
 }

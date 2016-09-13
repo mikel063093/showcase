@@ -1,9 +1,14 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Articulo;
+use AppBundle\Entity\ArticulosPedido;
 use AppBundle\Entity\Carrito;
+use AppBundle\Entity\CuponUsuario;
 use AppBundle\Entity\Direccion;
+use AppBundle\Entity\InformacionApp;
 use AppBundle\Entity\Item;
+use AppBundle\Entity\Pedido;
 use AppBundle\Entity\Puntuacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -985,7 +990,7 @@ class MovilController extends Controller
         );
 
         try{
-            $pedidos = $em->getRepository('AppBundle:Pedido')->findBy(array('usuario' => $this->getUser()));
+            $pedidos = $em->getRepository('AppBundle:Pedido')->listarPedidos($this->getUser());
 
             $arrayPedidos = array();
             foreach ($pedidos as $p){
@@ -1369,6 +1374,213 @@ class MovilController extends Controller
             $rta=array(
                 'estado'=>0,
                 'mensaje'=> 'Error al cancelar el pedido'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/redimirCupon", name="redimirCupon")
+     */
+    public function redimirCuponAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $codigo = $peticion->get('codigo');
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Cupon Valido'
+        );
+
+        try{
+            $usuario = $this->getUser();
+            $cupon = $em->getRepository('AppBundle:Cupon')->buscarCupon($codigo);
+            if($cupon){
+                $validar = $em->getRepository('AppBundle:Cupon')->validarCupon($cupon,$usuario);
+                if(!$validar) {
+                    $cuponUsuario = new CuponUsuario();
+                    $cuponUsuario->setCupon($cupon);
+                    $cuponUsuario->setUsuario($usuario);
+                    $em->persist($cuponUsuario);
+                    $em->flush();
+                    $rta['id'] = $cupon->getId();
+                    $rta['valor'] = $cupon->getValor();
+                }else{
+                    $rta=array(
+                        'estado'=>0,
+                        'mensaje'=> 'Este cupon ya fue redimido'
+                    );
+                }
+            }else{
+                $rta=array(
+                    'estado'=>0,
+                    'mensaje'=> 'Cupon No Valido'
+                );
+            }
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al validar el cupon'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/pedidosActivos", name="pedidosActivos")
+     */
+    public function pedidosActivosAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al obtener los pedidos del usuario'
+        );
+
+        try{
+            $pedidos = $em->getRepository('AppBundle:Pedido')->listarPedidosActivos($this->getUser());
+
+            $arrayPedidos = array();
+            foreach ($pedidos as $p){
+                array_push($arrayPedidos, array(
+                    'id' => $p->getId(),
+                    'fechaCreacion' => $p->getFechaCreacion()->format('j de F Y'),
+                    'estado' => $p->getEstado()
+                ));
+            }
+            $rta['pedidos'] = $arrayPedidos;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al obtener los pedidos'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/detallePedido", name="detallePedido")
+     */
+    public function detallePedidoAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $peticion->get('id');
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al obtener el detalle del pedido'
+        );
+
+        try{
+            $pedidoUsuario = $em->getRepository('AppBundle:Pedido')->find($id);
+            if($pedidoUsuario) {
+                $pedido = array(
+                    'id' => $pedidoUsuario->getId(),
+                    'estado' => $pedidoUsuario->getEstado(),
+                    'direccion' => $pedidoUsuario->getDireccion(),
+                    'telefono' => $pedidoUsuario->getTelefonoContacto(),
+                    'metodoPago' => $pedidoUsuario->getMetodoPago(),
+
+                    'nombres' => $pedidoUsuario->getUsuario()->getNombres(),
+                    'apellidos' => $pedidoUsuario->getUsuario()->getApellidos(),
+
+                );
+                $items = array();
+                $subtotal = 0;
+                foreach ($pedidoUsuario->getArticulosPedidos() as $item) {
+
+                    $subtotal = $subtotal + $item->getCantidad() * $item->getPrecio();
+                    $items[] = array(
+                        'nombre' => $item->getArticulo()->getNombre(),
+                        'imagen' => $this->container->getParameter('servidor') . '/' . $item->getArticulo()->getWebPath(),
+                        'precio' => $item->getPrecio(),
+                        'cantidad' => $item->getCantidad()
+                    );
+                }
+                $descuento = 0;
+                if($pedidoUsuario->getCupon()){
+                    $descuento = $pedidoUsuario->getCupon()->getValor();
+                    $pedido['cupon'] = $pedidoUsuario->getCupon()->getCodigo() . " - $" . $descuento;
+                }else{
+                    $pedido['cupon'] = 'Sin cupón';
+                }
+                $pedido['subtotal'] = $subtotal - $descuento;
+                $domicilio = $pedidoUsuario->getValorDomicilio();
+                $pedido['domicilio'] = $domicilio;
+                $pedido['total'] = $subtotal + $domicilio;
+                $pedido['items'] = $items;
+
+                $rta['pedido'] = $pedido;
+            }else{
+                $rta=array(
+                    'estado'=>0,
+                    'mensaje'=> 'No existe el pedido'
+                );
+            }
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al obtener el detalle del pedido'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/realizarPedido", name="realizarPedido")
+     */
+    public function realizarPedidoAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $peticion->get('datosPedido');
+        $datosPedido = json_decode($id);
+
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al realizar el pedido',
+
+        );
+
+        try{
+
+            $pedido = new Pedido();
+            $direccion = $em->getRepository('AppBundle:Direccion')->find($datosPedido->direccion);
+            $cupon = $em->getRepository('AppBundle:Cupon')->find($datosPedido->cupon);
+            $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+
+            $strDireccion = $direccion->getTipo()." ".$direccion->getNumero()." # ".$direccion->getNomenclatura();
+
+            $pedido->setDireccion($strDireccion);
+            $pedido->setInformacionAdicional($direccion->getInformacionAdicional());
+            $pedido->setTelefonoContacto($datosPedido->telefono);
+            $pedido->setMetodoPago($datosPedido->formaPago);
+            $pedido->setUsuario($this->getUser());
+            $pedido->setFechaCreacion(new \DateTime());
+            $pedido->setEstado('Activo');
+            $pedido->setCupon($cupon);
+            $pedido->setValorDomicilio($infoApp->getPrecioDomicilio());
+            foreach ($datosPedido->items as $item ){
+                $articuloPedido = new ArticulosPedido();
+                $articulo = $em->getRepository('AppBundle:Articulo')->find($item->id);
+                $articulo->setCantidad($articulo->getCantidad() - $item->cantidad);
+                $articuloPedido->setArticulo($articulo);
+                $articuloPedido->setPrecio($articulo->getPrecio());
+                $articuloPedido->setCantidad($item->cantidad);
+                $articuloPedido->setPedido($pedido);
+                $pedido->addArticulosPedido($articuloPedido);
+                $em->persist($articulo);
+                $em->persist($articuloPedido);
+            }
+            $em->persist($pedido);
+            $em->flush();
+            $rta['ordenPedido'] = $pedido->getId();
+
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al realizar el pedido'
             );
         }
         return new JsonResponse( $rta);
