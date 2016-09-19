@@ -44,12 +44,12 @@ class Contactenos {
     private $correo;
 
     /**
-     * @var string $telefono
+     * @var string $asunto
      *
-     * @ORM\Column(name="telefono", type="string", length=31, nullable=false, options=
-     * {"comment" = "Telefono de quien envio la solicitud de contactenos"})
+     * @ORM\Column(name="asunto", type="string", length=31, nullable=false, options=
+     * {"comment" = "Asunto la solicitud de contactenos"})
      */
-    private $telefono;
+    private $asunto;
 
     /**
      * @var string $comentario
@@ -62,7 +62,7 @@ class Contactenos {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="datetime",nullable=false, options=
+     * @ORM\Column(name="fecha", type="datetime",nullable=true, options=
      * {"comment" = "fecha en que se envio la  solicitud"})
      */
     private $fecha;
@@ -124,28 +124,7 @@ class Contactenos {
         return $this->correo;
     }
 
-    /**
-     * Set telefono
-     *
-     * @param string $telefono
-     * @return Contactenos
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-
-        return $this;
-    }
-
-    /**
-     * Get telefono
-     *
-     * @return string 
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
+    
 
     /**
      * Set comentario
@@ -191,5 +170,29 @@ class Contactenos {
     public function getFecha()
     {
         return $this->fecha;
+    }
+
+    /**
+     * Set asunto
+     *
+     * @param string $asunto
+     *
+     * @return Contactenos
+     */
+    public function setAsunto($asunto)
+    {
+        $this->asunto = $asunto;
+
+        return $this;
+    }
+
+    /**
+     * Get asunto
+     *
+     * @return string
+     */
+    public function getAsunto()
+    {
+        return $this->asunto;
     }
 }

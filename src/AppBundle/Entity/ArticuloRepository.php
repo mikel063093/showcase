@@ -28,7 +28,7 @@ class ArticuloRepository extends EntityRepository
         $consulta = $em->createQueryBuilder()
             ->addSelect('a.nombre')
             ->from('AppBundle:Articulo', 'a')
-            ->where('a.nombre like :palabra')->setParameter('palabra','%'.$palabra.'%')
+            ->where('lower(a.nombre) like :palabra')->setParameter('palabra','%'.$palabra.'%')
             ->andWhere('a.cantidad > 0');
         return $consulta->getQuery()->getResult();
     }
@@ -51,7 +51,20 @@ class ArticuloRepository extends EntityRepository
             ->select('a')
             ->from('AppBundle:Articulo','a')
             ->where('a.establecimiento = :idEstablecimiento')
+            ->andWhere('a.cantidad > 0')
             ->setParameter('idEstablecimiento',$idEstablecimiento);
+        return $consulta->getQuery()->getResult();
+    }
+
+    public function obtenerArticulosDestacados($idCategoria = null){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Articulo','a')
+            ->andWhere('a.cantidad > 0')
+            ->setMaxResults(4);
+
         return $consulta->getQuery()->getResult();
     }
 }

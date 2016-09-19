@@ -1,12 +1,14 @@
 <script type="text/javascript">
   $('#form-editar').validate({
         rules: {
-            'precio': {  required: true },
-
+            'info[precioDomicilio]': {  required: true },
+            'info[nosotros]': {  required: true },
+            'info[file]': {  required: true },
         },
         messages:{
-            'precio': {  required: 'El campo Precio es obligatorio' },
-
+            'info[precioDomicilio]': {  required: 'El campo Precio es obligatorio' },
+            'info[nosotros]': {  required: 'El campo Nosotros es obligatorio' },
+            'info[file]': {  required: 'El campo Imagen Nosotros es obligatorio' },
         },
         submitHandler: function(form) {
            enviar(form);
@@ -67,6 +69,25 @@
 
     }
 
+  $('#info_file').change(function (){
+      validacion=true;
+      var sizeByte = this.files[0].size;
+      var nombre = this.files[0].name;
+      var file,img;
+      var extensiones=["JPG", "JPEG", "PNG"];
+      var ext=nombre.substring(nombre.indexOf('.')+1).toUpperCase();
+      if (extensiones.indexOf(ext) === -1){
+          crearMensaje(0, 'Las extensiones permitidas son: jpg, jpeg y png.');
+          $(this).val('');
+          validacion= false;
+      }else{
+          $("#imgPreviewEmpresa").attr("style","display:block;");
+          var file = $("#articulo_file").val();
+          var ruta = URL.createObjectURL(this.files[0]);
+          $("#imgPreviewEmpresa").fadeIn("fast").attr('src',URL.createObjectURL(this.files[0]));
+      }
+  });
+
                   
   $('#close-modal').click(function(){
     $('#btn-guardar').unbind();
@@ -82,16 +103,28 @@
 
 </script>
 
-<form id='form-editar' class='form-horizontal style-form' >
-  <div class="form-group">
-    <label class="col-sm-3 col-sm-3 control-label"><strong>Precio (*)</strong></label>
+{{ form_start(form, {'attr': {'id': 'form-editar','class':'form-horizontal style-form' }}) }}
+<div class="form-group">
+    <label class="col-sm-3 col-sm-3 control-label"><strong>Valor Domicilio (*)</strong></label>
     <div class="col-sm-9">
-        <input type="hidden" name="id_entity" value="{{ entity.id }}">
-        <input type="number" class='form-control' name="precio" id="precio" value="{{ entity.precioDomicilio|default(0) }}">
+        {{ form_widget(form.precioDomicilio, {'attr': {'class': 'form-control'}}) }}
     </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-3 col-sm-3 control-label"><strong>Nosotros</strong></label>
+    <div class="col-sm-9">
+        {{ form_widget(form.nosotros, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
 
-  </div>
+<input type="hidden" name="id_entity" value="{{ entity.id }}">
 
-    
+<div class="form-group">
+    <label class="col-sm-3 col-sm-3 control-label"><strong>Imagen Nosotros(*)</strong></label>
+    <div class="col-sm-9">
+        {{ form_widget(form.file,{'attr':{'class':'input-file'}}) }}
+        <img {% if not (entity.imagenNosotros) or entity.imagenNosotros == ""%}style="display: none"{%endif%} id="imgPreviewEmpresa" src="{% if entity.imagenNosotros and entity.imagenNosotros != ""%}{{asset('imagenes/nosotros/' ~ entity.imagenNosotros)}}{%endif%}" alt="" height="80" />
+    </div>
+</div>
 
-</form>
+{{ form_rest(form) }}

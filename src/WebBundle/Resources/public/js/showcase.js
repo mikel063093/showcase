@@ -53,6 +53,7 @@ $(document).ready(function() {
 	hoverBotones("section.vistaPedido form.pedido div.contDer a.ingShowcase");
 	hoverBotones("form.pedido div.contDer button");
 	hoverBotones("div.reservas a.pedir");
+	hoverBotones("#login button");
 
 	$("#header div.centrar div.contInf a.reservas").click(function() {
 		$("#header div.centrar div.contInf div.reservas").slideToggle();
@@ -104,117 +105,7 @@ $(document).ready(function() {
 	});
 
 
-	/*Envio y validacion formulario de contacto */
-	var valiEmailReg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
-	$("#formContacto").submit( function() { 
-		var valid = true;
-		var nombre = $.trim($("#nombre").val());
-			email = $.trim($("#email").val());
-			asunto = $.trim($("#asunto").val());
-			mensaje = $.trim($("#mensaje").val());
 
-		$("#formContacto .error").remove();
-		if( nombre == "" ) {
-			valid = false;
-			$("#nombre").focus().before("<span class='error nombre'>Ingrese su nombre</span>");
-			$("#nombre").css('border', '1px solid red');
-		}
-		if( email == "" || !valiEmailReg.test(email) ) {
-			valid = false;
-			$("#email").focus().before("<span class='error email'>Ingrese un correo electrónico válido</span>");
-			$("#email").css('border', '1px solid red');
-		} 
-		if( mensaje == "" ) {
-			valid = false;
-			$("#mensaje").focus().before("<span class='error mensaje'>Ingrese un mensaje</span>");
-			$("#mensaje").css('border', '1px solid red');
-		}
-
-		if(!valid) {
-			return false;
-		} else {
-			var $btn = $("#enviarMensaje").button('loading');
-			var datos = 'nombre='+ nombre + '&email=' + email + '&asunto=' + asunto + '&mensaje=' + mensaje;
-			$.ajax({
-				type: "POST",
-				url: "contacto-enviado.php",
-				data: datos,
-				success: function(data) {
-					var respuesta = JSON.parse(data);
-					console.log(respuesta);
-					$btn.button('reset');
-					if (respuesta.status == 'success'){
-						$('.msg').text('Mensaje enviado').addClass('msg-ok').fadeIn(300);
-						$('.msg').css("display", "inline-block");
-						$("#formContacto")[0].reset();
-						$("#email").css('border','1px solid rgba(186, 186, 186, 1)');
-						setTimeout(function() {
-							$('.msg').fadeOut(300);
-						}, 2000);
-					} else if (respuesta.status == 'error') {
-						$('.msg').text('Hubo un error').addClass('msg-error').fadeIn(300);
-						$('.msg').css("display", "inline-block");
-						setTimeout(function() {
-							$('.msg').fadeOut(300);
-						}, 2000);
-					}
-				},
-				error: function() {
-					$btn.button('reset');
-					$('.msg').text('Hubo un error').addClass('msg-error').fadeIn(300);
-					setTimeout(function() {
-						$('.msg').fadeOut(300);
-					}, 2000);
-				}
-			});
-			return false;
-		}
-	});
-
-	$("#nombre").keyup( function() {
-		if( $.trim($(this).val()) != "" ) {
-			$(".error.nombre").fadeOut();
-			$("#nombre").css('border','1px solid rgba(186, 186, 186, 1)');
-		}
-	});
-
-	$("#nombre").change( function() {
-		if( $.trim($(this).val()) == "" ) {
-			$(".error.nombre").hide();
-			$("#nombre").focus().before("<span class='error nombre'>Ingrese su nombre</span>");
-			$("#nombre").css('border', '1px solid red');
-		}
-	});
-
-	$("#mensaje").keyup( function() {
-		if( $.trim($(this).val()) != "" ) {
-			$(".error.mensaje").fadeOut();
-			$("#mensaje").css('border','1px solid rgba(186, 186, 186, 1)');
-		}
-	});
-
-	$("#mensaje").change( function() {
-		if( $.trim($(this).val()) == "" ) {
-			$(".error.mensaje").hide();
-			$("#mensaje").focus().before("<span class='error comentario'>Ingrese un mensaje</span>");
-			$("#mensaje").css('border', '1px solid red');
-		}
-	});
-
-	$("#email").keyup( function() {
-		if( $.trim($(this).val()) != "" && valiEmailReg.test($.trim($(this).val()))) {
-			$(".error.email").fadeOut();
-			$("#email").css('border','1px solid rgba(186, 186, 186, 1)');
-		}
-	});
-
-	$("#email").change( function() {
-		if( $.trim($(this).val()) == "" && !valiEmailReg.test($.trim($(this).val()))) {
-			$(".error.email").hide();
-			$("#email").focus().before("<span class='error email'>Ingrese un correo electrónico válido</span>");
-			$("#email").css('border', '1px solid red');
-		}
-	});
 });
 
 

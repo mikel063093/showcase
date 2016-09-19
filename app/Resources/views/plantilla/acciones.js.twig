@@ -1,43 +1,150 @@
 <script>
+
+
 $(document).ready(function() {
     setVerMas();
-
+    setReservaArticulos();
 	$("#menu-categoria a").click(function (e) {
         e.preventDefault();
-        var id = $(this).attr('value');
+        var elemento = $(this);
+        var id = elemento.attr('value');
         $.ajax({
             type: "GET",
             url: "{{ path('establecimientosCategoria') }}/"+id,
             dataType: "html",
             success: function(data) {
+                $("#carrusel").cycle('stop');
                 $("#item-establecimientos").parent().children().removeClass('active');
                 $("#item-establecimientos").addClass('active');
-                $(this).parent().parent().children().removeClass('activo');
-                $(this).addClass('activo');
+                elemento.parent().parent().children().children().removeClass('activo');
+                elemento.addClass('activo');
+
+                $('#home').html(data);
+            },
+        });
+    });
+
+    $("#item-establecimientos").click(function (e) {
+        e.preventDefault();
+        var id = 0;
+        $.ajax({
+            type: "GET",
+            url: "{{ path('establecimientosCategoria') }}/"+id,
+            dataType: "html",
+            success: function(data) {
+                removerClase('vistaEstable');
+                $("#item-establecimientos").parent().children().removeClass('active');
+                $("#item-establecimientos").addClass('active');
+                $('#menu-categoria a').removeClass('activo');
+                $('#menu-categoria a[value=0]').addClass('activo');
                 $("#carrusel").cycle('stop');
                 $('#home').html(data);
             },
         });
     });
+    $("#item-nosotros").click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "GET",
+            url: "{{ path('nosotros') }}",
+            dataType: "html",
+            success: function(data) {
+                $("#carrusel").cycle('stop');
+                removerClase('vistaNosotros');
+
+                $('#home').html(data);
+            },
+        });
+    });
+
+    $("#item-planes").click(function (e) {
+        e.preventDefault();
+
+            $.ajax({
+            type: "GET",
+            url: "{{ path('planes') }}",
+            dataType: "html",
+            success: function(data) {
+                $("#carrusel").cycle('stop');
+                removerClase('vistaPlanes');
+
+                $('#home').html(data);
+            },
+        });
+    });
+
+    $("#item-contacto").click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "GET",
+            url: "{{ path('contacto') }}",
+            dataType: "html",
+            success: function(data) {
+                $("#carrusel").cycle('stop');
+                removerClase('vistaContacto');
+
+                $('#home').html(data);
+            },
+        });
+    });
+
 
 
 });
 
     function setVerMas(){
-    $(".establecimientos a").click(function(e){
-        e.preventDefault();
-        var id = $(this).attr('value');
-        $.ajax({
-            type: "GET",
-            url: "{{ path('establecimiento') }}/"+id,
-            dataType: "html",
-            success: function(data) {
-                var divContenerdor = $(".home");
-                divContenerdor.removeClass('home');
-                divContenerdor.addClass('vistaEstable');
-                $('#home').html(data);
-            },
+        $(".establecimientos a").click(function(e){
+            e.preventDefault();
+            var id = $(this).attr('value');
+            $.ajax({
+                type: "GET",
+                url: "{{ path('establecimiento') }}/"+id,
+                dataType: "html",
+                success: function(data) {
+                    removerClase('vistaEstable');
+                    $('#home').html(data);
+                },
+            });
+        })
+    }
+
+    function setReservaArticulos(){
+        $('.menos').click(function (e) {
+            e.preventDefault();
+            let elemento = $(this);
+            let contador = elemento.siblings('.cantidad');
+            let cantidad = contador.text();
+
+            if(cantidad > 0){
+                contador.text(parseInt(cantidad) - 1);
+            }
+
         });
-    });
-}
+
+        $('.mas').click(function (e){
+            e.preventDefault();
+            let elemento = $(this);
+            let contador = elemento.siblings('.cantidad');
+            let cantidad = contador.text();
+
+            contador.text( parseInt(cantidad) + 1);
+
+
+        });
+    }
+
+
+    function removerClase(clase){
+        var categorias = $('.categorias');
+        categorias.css('display','');
+        if(clase == "vistaPlanes" || clase == "vistaContacto"){
+            categorias.css('display','none');
+        }
+        var divContenedor = $("#home");
+        divContenedor.removeAttr('class');
+        divContenedor.addClass(clase);
+
+    }
 </script>

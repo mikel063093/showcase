@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CarritoRepository extends EntityRepository
 {
+    public function buscarCarritosVencidos(){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQueryBuilder()
+            ->select('c')
+            ->from('AppBundle:Carrito','c')
+            ->where('c.usuario IS NULL')
+            ->andWhere('c.fechaLimite = :fecha')
+            ->setParameter('fecha',new \DateTime());
+        return $consulta->getQuery()->getResult();
+    }
 }

@@ -18,8 +18,11 @@
     <script src="{{ asset('bundles/web/lib/colorbox/colorbox.js') }}"></script>
     <script src="{{ asset('bundles/web/lib/rating/rating.js') }}"></script>
     <script src="{{ asset('bundles/web/lib/smoothscroll/smoothscroll.js') }}"></script>
+    <script src="{{asset('bundles/app/js/jquery-validate/jquery.validate.js')}}" type="text/javascript"></script>
     <script src="{{ asset('bundles/web/js/showcase.js') }}"></script>
     {% include "plantilla/acciones.js.twig" %}
+    <script type="text/javascript" src="{{asset('bundles/app/js/gritter/js/jquery.gritter.js')}}"></script>
+
 </head>
 
 <body>
@@ -27,7 +30,7 @@
 <header id="header">
     <div class="centrar">
         <h1>
-            <a title="Showcase" href="index.html">
+            <a title="Showcase" href="{{ path('home') }}">
                 <img src="{{ asset('bundles/web/img/logo_showcase.png') }}" alt="Logo">
             </a>
         </h1>
@@ -36,26 +39,31 @@
             <nav>
                 <ul id="menuPrincipal">
                     <li><a id="item-establecimientos" href="establecimientos.html">Establecimientos </a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="planes.html">Planes</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a id="item-nosotros" href="nosotros.html">Nosotros</a></li>
+                    <li><a id="item-planes" href="planes.html">Planes</a></li>
+                    <li><a id="item-contacto" href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
-            <div class="usuario">Paola Gómez
+
+            {% if app.user is not null %}
+            <div class="usuario">{{ app.user.nombres| capitalize ~' '~app.user.apellidos|capitalize }}
                 <span class="flecha"></span>
-                <a class="salir" href="">Cerrar sesión</a>
+                <a class="salir" href="{{path('web_logout')}}">Cerrar sesión</a>
             </div>
+            {% endif %}
         </div>
         <div class="contInf">
             <form class="buscar" action="" method="post">
-                <label for="">Ingrese el almacén o artículo a buscar</label>
-                <input type="text" placeholder="Ingrese el almacén o artículo a buscar" />
+                <label for="">Ingrese el artículo a buscar</label>
+                <input type="text" placeholder="Ingrese el artículo a buscar" />
                 <button type="submit">Buscar</button>
             </form>
-            <a class="reservas" href="#">RESERVAS<span class="cantidad">2</span></a>
+            {% set carrito = app.session.get('carrito') %}
+            <a class="reservas" href="#">RESERVAS<span class="cantidad">{{ carrito.items|length }}</span></a>
             <div class="reservas">
                 <span class="triangulo"></span>
-                <h2>Hay <span>2</span> artículo(s) en reserva</h2>
+                <h2>Hay <span>{{ carrito.items|length }}</span> artículo(s) en reserva</h2>
+                {% if carrito.items|length > 0 %}
                 <ul class="articulos">
                     <li>
                         <div class="img"><img src="{{ asset('bundles/web/img/articulo1.png') }}" alt="Imagen" /></div>
@@ -70,8 +78,10 @@
                         <div>Cantidad<span> 1</span></div>
                     </li>
                 </ul>
+
                 <div class="subtotal">Subtotal: <span>$230.500</span></div>
                 <a class="pedir" href="pedido.html">Pedir</a>
+                {% endif %}
             </div>
         </div>
     </div>

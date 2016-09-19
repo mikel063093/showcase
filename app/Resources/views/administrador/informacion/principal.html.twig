@@ -3,11 +3,42 @@
 
     <div id="registros">
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                <strong>Valor Domicilio:</strong>
+            <div class="col-sm-10 col-md-offset-2 ">
+                <strong>DOMICILIOS</strong>
             </div>
-            <div class="col-sm-4">
+            <br/>
+            <br/>
+            <div class="col-sm-2 col-md-offset-2">
+                Valor Domicilio:
+            </div>
+            <div class="col-sm-8">
                 {{ informacion.precioDomicilio|default('NO DEFINIDO') }}
+            </div>
+
+            <br/>
+            <br/>
+            <div class="col-sm-10 col-md-offset-2">
+                <strong>NOSOTROS</strong>
+            </div>
+            <br/>
+            <br/>
+            <div class="col-sm-2 col-md-offset-2">
+                Imagen :
+            </div>
+            <div class="col-sm-8">
+                 {% if not (informacion.imagenNosotros) or informacion.imagenNosotros == ""%}
+                     NO DEFINIDO
+                 {% else %}
+                     <img  src="{{asset('imagenes/nosotros/' ~ informacion.imagenNosotros)}}" alt=""  height="150"/>
+                 {%endif%}
+            </div>
+            <div class="col-sm-2 col-md-offset-2">
+                Descripción :
+            </div>
+            <div class="col-sm-8">
+                <p>
+                    {{ informacion.nosotros|default('NO DEFINIDO') }}
+                </p>
             </div>
         </div>
     </div>

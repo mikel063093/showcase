@@ -1,15 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    
-  </head>
 
-  <body>
-<form id="form-iniciar" action="{{ path("web_login_check") }}" method="post">
-    <input type="text" class="form-control"  name="_username"  placeholder="usuario" value="{{ ultimo_usuario }}">
-    <input type="password" class="form-control" name="_password" placeholder="Contraseña">
-    <a href="{{path('registro')}}">Registrarse</a>
-    <button type="submit" class="btn">Ingresar</button>
-</form>
-  </body>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>Showcase</title>
+    <meta name="viewport" content="width-device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="{{ asset('bundles/web/css/genericos.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/lib/colorbox/colorbox.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/css/estilos.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/css/responsive.css') }}" />
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <script src="{{ asset('bundles/web/lib/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/bootstrap/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/cycle2/cycle2.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/transit/transit.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/colorbox/colorbox.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/rating/rating.js') }}"></script>
+    <script src="{{ asset('bundles/web/lib/smoothscroll/smoothscroll.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/showcase.js') }}"></script>
+</head>
+
+<body class="fondoLogin">
+<!-- Login (inicio) -->
+<section class="login">
+    <img src="{{ asset('bundles/web/img/logo_showcase.png') }}" alt="Logo Showcase" />
+    <h3>Iniciar sesión</h3>
+    <form id="login" action="{{ path("web_login_check") }}" method="post">
+        <div class="form">
+            <label>Nombre de usuario</label>
+            <input type="text" name="_username" placeholder="Nombre de usuario" value="{{ ultimo_usuario }}"/>
+        </div>
+        <div class="form">
+            <label>Contraseña</label>
+            <input type="password" name="_password" placeholder="Contraseña" />
+        </div>
+        <button type="submit">Ingresar</button>
+    </form>
+</section>
+<!-- Login (fin) -->
+</body>
 </html>

@@ -377,8 +377,8 @@ class MovilController extends Controller
                 $em->flush();
                 $datos["id"] = $user->getId();
                 $datos["foto"] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$user->getFoto();
-                $datos["nombres"] = $user->getNombres();
-                $datos["apellidos"] = $user->getApellidos();
+                $datos["nombre"] = $user->getNombres();
+                $datos["apellido"] = $user->getApellidos();
                 $datos["telefono"] = $user->getTelefono();
                 $datos["correo"] = $user->getCorreo();
             }else {
@@ -777,7 +777,7 @@ class MovilController extends Controller
             'mensaje' => 'Exito al buscar posibles palabras',
         );
         try{
-            $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar($palabra);
+            $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar(strtolower($palabra));
 
             $posiblesPalabras = array();
             foreach ($palabras as $p){
@@ -918,7 +918,7 @@ class MovilController extends Controller
             $direccion->setUsuario($this->getUser());
             $direccion->setNombre($nombre);
             $direccion->setBarrio($barrio);
-            $objCiudad = $em->getRepository('AppBundle:Ciudad')->find($ciudad);
+            $objCiudad = $em->getRepository('AppBundle:Ciudad')->findBy(array('nombre' => strtoupper($ciudad)));
             $direccion->setCiudad($objCiudad);
             $direccion->setTipo($tipo);
             $direccion->setNumero($numero);

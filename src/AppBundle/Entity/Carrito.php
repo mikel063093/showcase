@@ -33,6 +33,13 @@ class Carrito {
      */
     private $fechaCreacion;
 
+    /**
+     * @var datetime $fechaLimite
+     *
+     * @ORM\Column(name="fechaLimite", type="datetime", nullable=true)
+     */
+    private $fechaLimite;
+
      /**
      * 
      * @ORM\OneToMany(targetEntity="Item", mappedBy="carrito")
@@ -142,5 +149,29 @@ class Carrito {
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Set fechaLimite
+     *
+     * @param \DateTime $fechaLimite
+     *
+     * @return Carrito
+     */
+    public function setFechaLimite($fechaLimite)
+    {
+        $this->fechaLimite = $fechaLimite;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaLimite
+     *
+     * @return \DateTime
+     */
+    public function getFechaLimite()
+    {
+        return $this->fechaLimite;
     }
 }

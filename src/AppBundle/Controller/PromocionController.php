@@ -118,7 +118,9 @@ class PromocionController extends Controller
     public function actualizarAction(Request $peticion){
         $em = $this->getDoctrine()->getManager();
         $idEntidad=$peticion->request->get('id_entity');
-        $entity = $em->getRepository('AppBundle:FotosEstablecimiento')->find($idEntidad);
+        $entity = $em->getRepository('AppBundle:Promocion')->find($idEntidad);
+        $fechaInicio = $peticion->get('fechaInicio');
+        $fechaFin = $peticion->get('fechaFin');
         $form   = $this->formularioCrear($entity);
         $form->handleRequest($peticion);
         $errors = $this->get('validator')->validate($entity);
@@ -131,14 +133,14 @@ class PromocionController extends Controller
         $entity->upload();
         if ($form->isValid()) {
 
-            $establecimiento=$em->getRepository('AppBundle:Establecimiento')->find($peticion->get('establecimiento'));
-            $entity->setEstablecimiento($establecimiento);
+            $entity->setFechaInicio(new \DateTime($fechaInicio));
+            $entity->setFechaFin(new \DateTime($fechaFin));
         
             $em->persist($entity);
             $em->flush();
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,
-                'mensaje'=>'Foto actualizada satisfactoriamente'
+                'mensaje'=>'Promocion actualizada satisfactoriamente'
             ));
         }
         return new JsonResponse(array(

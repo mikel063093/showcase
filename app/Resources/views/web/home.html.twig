@@ -9,84 +9,34 @@
 <div class="contenedor destacados">
     <h2>Establecimientos destacados<a href="#">VER MÁS DESTACADOS</a></h2>
     <ul class="lista establecimientos">
-        
+        {% for establecimiento in establecimientosDestacados %}
         <li>
-            <img src="{{ asset('bundles/web/img/levis.png') }}" alt="Levi's" />
-            <h3>Levi's</h3>
-            <a  href="#">Ver más</a>
+            <img src="{{ asset(establecimiento.webPath) }}" alt="{{ establecimiento.nombre }}" />
+            <h3>{{ establecimiento.nombre }}</h3>
+            <a href="#" value="{{ establecimiento.id }}">Ver más</a>
         </li>
-        <li>
-            <img src="{{ asset('bundles/web/img/pilatos.png') }}" alt="Pilatos" />
-            <h3>Pilatos</h3>
-            <a  href="establecimiento.html">Ver más</a>
-        </li>
-        <li>
-            <img src="{{ asset('bundles/web/img/falabella.png') }}" alt="Falabella" />
-            <h3>Falabella</h3>
-            <a  href="establecimiento.html">Ver más</a>
-        </li>
-        <li>
-            <img src="{{ asset('bundles/web/img/tennis.png') }}" alt="Tennis" />
-            <h3>Tennis</h3>
-            <a  href="establecimiento.html">Ver más</a>
-        </li>
+        {% endfor %}
     </ul>
 </div>
 <div class="contenedor destacados">
     <h2>Artículos destacados <a href="#">VER MÁS ARTÍCULOS</a> </h2>
     <ul class="lista articulos">
+        {% for articulo in articulosDestacados %}
         <li>
-            <img src="{{ asset('bundles/web/img/articulo1.png') }}" alt="Artículo" />
+            <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
             <div class="informacion">
-                <h3>Chaqueta de jean</h3>
-                <h4>$66.500</h4>
-                <span>2 unidades</span>
+                <h3>{{ articulo.nombre }}</h3>
+                <h4>{{ articulo.precio|number_format(0,',','.') }}</h4>
+                <span>{{ articulo.unidadMedida~' '~articulo.valorMedida }}</span><br />
+                <span>{{ articulo.cantidad }} unidades</span>
             </div>
             <div class="contador">
-                <a class="menos" href="#">Menos</a>
-                <span class="cantidad">2</span>
-                <a class="mas" href="#">Mas</a>
+                <a class="menos" href="#" value="{{ articulo.id }}">Menos</a>
+                <span class="cantidad" id="cantidadArticulo">0</span>
+                <a class="mas" href="#" value="{{ articulo.id }}">Mas</a>
             </div>
         </li>
-        <li>
-            <img src="{{ asset('bundles/web/img/articulo2.png') }}" alt="Artículo" />
-            <div class="informacion">
-                <h3>Vestido de jean</h3>
-                <h4>$80.000</h4>
-                <span>Talla M</span>
-            </div>
-            <div class="contador">
-                <a class="menos" href="#">Menos</a>
-                <span class="cantidad">1</span>
-                <a class="mas" href="#">Mas</a>
-            </div>
-        </li>
-        <li>
-            <img src="{{ asset('bundles/web/img/articulo3.png') }}" alt="Artículo" />
-            <div class="informacion">
-                <h3>Jean Skinny + Zapatos</h3>
-                <h4>$360.000</h4>
-                <span>4 unidades</span>
-            </div>
-            <div class="contador">
-                <a class="menos" href="#">Menos</a>
-                <span class="cantidad">1</span>
-                <a class="mas" href="#">Mas</a>
-            </div>
-        </li>
-        <li>
-            <img src="{{ asset('bundles/web/img/articulo4.png') }}" alt="Artículo" />
-            <div class="informacion">
-                <h3>Chaqueta azul</h3>
-                <h4>$150.000</h4>
-                <span>Talla S, M, L</span>
-            </div>
-            <div class="contador">
-                <a class="menos" href="#">Menos</a>
-                <span class="cantidad">2</span>
-                <a class="mas" href="#">Mas</a>
-            </div>
-        </li>
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}

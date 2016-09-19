@@ -1,0 +1,19 @@
+<script>
+$(document).ready(function() {
+    $(".meInteresa").click(function (e) {
+        e.preventDefault();
+        var elemento = $(this);
+        var id = elemento.attr('value');
+        $.ajax({
+            type: "GET",
+            url: "{{ path('contacto') }}/"+id,
+            dataType: "html",
+            success: function(data) {
+                $('#home').html(data);
+            },
+        });
+    });
+});
+
+
+</script>

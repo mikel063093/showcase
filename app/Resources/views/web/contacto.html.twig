@@ -1,0 +1,30 @@
+
+<h2 class="titulo">Contacto</h2>
+<div class="centrar">
+    <h3>Comunícate con nosotros</h3>
+    <p>
+        Si tienes alguna inquietud o deseas comunicate con nosotros, no dudes en escribirnos. Estarémos atentos a responderte.
+    </p>
+    {{ form_start(form, {'attr': {'id': 'formContacto','class':'form-horizontal style-form' }}) }}
+        <div class="form">
+            <label for="contacto_nombreCompleto">Nombre completo:</label>
+            {{ form_widget(form.nombreCompleto) }}
+        </div>
+        <div class="form">
+            <label for="contacto_correo">Correo eletrónico:</label>
+            {{ form_widget(form.correo) }}
+        </div>
+        <div class="form">
+            <label for="contacto_asunto" >Asunto:</label>
+            {{ form_widget(form.asunto) }}
+        </div>
+        <div class="form">
+            <label for="contacto_comentario">Mensaje:</label>
+            {{ form_widget(form.comentario) }}
+        </div>
+        <button type="submit" class="btn btn-default" id="enviarmMensaje" data-loading-text="Enviando..." autocomplete="off">Enviar</button>
+        <div class="msg"></div>
+        <div class="clearFix"></div>
+    {{ form_rest(form) }}
+</div>
+{% include "web/contacto.js.twig" %}
