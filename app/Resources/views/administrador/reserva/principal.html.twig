@@ -1,0 +1,30 @@
+{% extends "plantilla/principal.html.twig" %}
+
+{% block tituloLocal %}Gestion de Reservas{% endblock %}
+
+{% block btnAdicionar  %}
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+         $.ajax({
+            type: "POST",
+            url: '{{path("registrosReservas")}}',
+            dataType: "html",
+
+            success: function(data) {
+                $('#registros').html(data);
+            }
+        });
+    });
+
+
+
+
+    
+
+    </script>
+{% endblock %}

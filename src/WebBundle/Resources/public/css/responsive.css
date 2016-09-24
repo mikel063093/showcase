@@ -1,0 +1,347 @@
+@media (max-width: 1024px) {
+	div.centrar { width: 96%; }
+	#header div.centrar h1 a:link, #header div.centrar h1 a:visited,
+	#footer div.centrar div.informacion img {
+		margin-left: 0px;
+	}
+	div.contenedor ul.lista li { width: 30%; }
+		div.contenedor ul.lista li { margin: 0 2.8% 15px 0; }
+	section.categorias { padding: 54px 20px 103px; }
+	div.contIzq div.list ul.articulos li { padding: 0 120px 10px 100px; }
+	section.vistaPedido form.pedido div.contIzq, section.vistaPedido form.pedido div.contDer {
+		display: block;
+		width: 100%;
+		max-width: 750px;
+		padding: 0;
+		margin: 0 auto 25px;
+	}
+	div.franjaverde div.informacion h2 { font-size: 49px; }
+	div.franjaverde div.informacion h3 {
+		font-size: 38px;
+		line-height: 45px;
+	}
+	section.vistaEstable div.descripcion { padding: 0; }
+	#planes > li { padding: 50px 0 0 28px; }
+	#planes li h4 {
+		font-size: 35px;
+		margin-left: -8px;
+	}
+	#planes li div { padding-right: 28px; }
+}
+
+@media (max-width: 768px) {
+	div.centrar {
+		width: 100%;
+		padding: 0 20px;
+	}
+	section.vistaContacto div.centrar {	padding: 0;	}
+	section h3 {
+		font-size: 35px;
+		line-height: 45px;
+	}	
+	#header a.menumovil, section.categorias a.submenumovil { display: inline-block;	}
+	#header { padding-bottom: 10px; }
+	#header a.menumovil {
+		width: 26px;
+		height: 23px;
+		background: url("../img/movil/bt-menu.png") no-repeat;
+		background-size: 26px 23px;
+		position: absolute;
+		right: 20px;
+		vertical-align: middle;
+	}
+	#header div.centrar h1 a:link, #header div.centrar h1 a:visited {
+		width: 85px;
+		height: 87px;
+	}
+	#menuPrincipal {
+		position: absolute;
+		top: 57px;
+		right: 0;
+		display: none;
+		width: 119%;
+		background-color: #67BA0B;
+		z-index: 110;
+	}
+	#menuPrincipal li {
+		text-align: center;
+		display: block;
+		margin: 20px 0;
+	}
+	#header div.centrar div.contSup {
+		display: inline-block;
+		top: 41px;
+		width: 84%;
+		text-align: right;
+		padding-right: 58px;
+	}
+		#header div.centrar div.contSup .usuario {
+			vertical-align: middle;
+			border-right: 1px solid #325805;
+			border-left: none;
+			padding-right: 15px;
+			padding-left: 0;
+		}
+		#header div.centrar div.contSup .usuario a.salir {
+			text-align: left;			
+			z-index: 113;
+		}
+	#header div.centrar div.contInf {
+		position: relative;
+		text-align: left;
+		bottom: 0;
+		margin-top: 10px;
+		padding-right: 180px;
+	}
+		#header div.centrar div.contInf form.buscar { width: 98%; }
+	div.franjaverde {
+		margin-top: 60px;
+		padding: 20px 0 30px;
+	}
+		div.franjaverde div.celular {
+			position: relative;
+			background: url("../img/img_celular.png");
+			background-size: 234px 415px;
+			height: 415px;
+			width: 234px;
+			top: auto;
+			margin: 0 auto;
+		}
+		div.franjaverde div.informacion {
+			margin-left: 0px;
+			text-align: center;
+			min-height: auto;
+		}
+			div.franjaverde div.informacion h2 {
+				font-size: 45px;
+				margin: 25px 0 4px;
+			}
+			div.franjaverde div.informacion h3 {
+				font-size: 35px;
+				line-height: 37px;
+			}
+			div.franjaverde div.informacion p {
+				float: none;
+				margin: 17px auto 34px;
+			}
+	#footer div.centrar div.informacion {
+		left: 20px;
+		margin-top: -45px;
+	}
+		#footer div.centrar div.informacion img { width: 85px; }
+		#footer div.centrar div.informacion p { margin-left: 27px; }
+	#redes { right: 20px; }
+	#header div.centrar div.contInf a.reservas:link,
+	#header div.centrar div.contInf a.reservas:visited {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+		div.contenedor ul.lista li { margin: 0 2.8% 15px 0; }
+	section { width: 100%; }
+	section.categorias {
+		position: relative;
+		margin-right: 0;
+		margin-bottom: 30px;
+		width: 100%;
+		padding: 24px 30px 0;
+	}
+		section.categorias a.submenumovil {
+			width: 18px;
+			height: 11px;
+			position: absolute;
+			top: 25px;
+			right: 15px;
+			background: url("../img/ico_flecha_abajo_verde.png") no-repeat;
+			background-size: 18px 11px;
+		}
+		section.categorias ul.menu { display: none; }
+	section.vistaPlanes > h3 { margin: 45px auto 0;	}
+	#planes > li {
+		width: 50%;
+		padding: 50px 0 0 48px;
+	}
+	#planes li div { padding-right: 48px; }
+	#planes li h4 {
+		font-size: 44px;
+		margin-left: 0px;
+	}
+}
+
+@media (max-width: 640px) {
+	section h2.titulo {
+		font-size: 26px;
+		padding: 16px 0 18px 18px;
+	}
+	div.contenedor ul.lista li {
+		margin: 0px 1% 15px 0;
+		width: 31%;
+	}
+		div.contenedor ul.establecimientos li img { width: 90%; }
+	div.destacados ul.articulos li, div.contArticulos ul.articulos li { height: 290px; }
+		div.destacados ul.articulos li img, div.contArticulos ul.articulos li img {	width: 90%; }
+	section.vistaPedido .confirmacion {	margin: 70px auto;}
+}
+
+@media (max-width: 560px) {
+	div.contenedor ul.lista {
+		display: block;
+		width: 430px;
+		margin: 32px auto 0;
+	}
+	div.contenedor ul.lista li {
+		margin: 0px 10px 15px;
+		width: 193px;
+	}
+	#planes > li {
+		padding: 50px 0 0 60px;
+		width: 100%;
+		border-bottom: 1px solid rgba(231, 231, 231, 1);
+	}
+		#planes li div {
+			border-right: none;
+			padding-right: 60px;
+		}
+}
+
+@media (max-width: 480px) {
+	#header div.centrar div.contInf a.reservas:link,
+	#header div.centrar div.contInf a.reservas:visited {
+		width: 110px;
+	}
+	#header div.centrar div.contInf span.cantidad { width: 40px; }
+	#header div.centrar div.contInf { padding-right: 150px; }
+	div.franjaverde div.informacion h2 { font-size: 35px; }
+	div.franjaverde div.informacion h3 {
+		font-size: 27px;
+		line-height: 27px;
+	}
+	div.franjaverde div.informacion p {
+		float: none;
+		margin: 13px auto 30px;
+		font-size: 17px;
+		line-height: 26px;
+	}
+	#footer { padding-bottom: 30px;	}
+	#footer div.centrar div.informacion {
+		margin: 0;
+		position: relative;
+		width: 100%;
+		text-align: center;
+		left: auto;
+		top: auto;
+	}
+		#footer div.centrar div.informacion img {
+			display: block;
+			margin: 30px auto 20px;
+		}
+		#footer div.centrar div.informacion p { margin: 0; }
+	#redes {
+		position: relative;
+		margin: 25px 0 0;
+		text-align: center;
+		right: auto;
+		top: auto;
+	}
+	div.contenedor h2 {
+		text-align: center;
+		font-size: 23px;
+	}
+	div.destacados h2 a:link, div.destacados h2 a:visited {
+		bottom: auto;
+		position: relative;
+		right: auto;
+		display: block;
+		margin-top: 15px;
+		font-size: 10px;
+	}
+	div.contenedor ul.lista { width: 100%; }
+	div.contenedor ul.lista li {
+		margin: 0 1% 15px;
+		width: 47%;
+	}
+	div.destacados ul.articulos li, div.contArticulos ul.articulos li { height: 310px; }	
+	section h3 {
+		font-size: 32px;
+		line-height: 40px;
+	}
+	form.pedido div.contDer div.direccion div.select select { width: 28%; }
+		section.vistaPedido form.pedido div h2 {
+			font-size: 23px;
+			line-height: 25px;
+		}
+	form.pedido div.contDer div.direccion div.select input { margin: 0 2%; }
+	section.vistaEstable div.descripcion, section.vistaEstable ul.informacion { width: 100%; }
+	form.pedido div.contDer div.form div { width: 100%; }
+	form.pedido div.contDer div.form div.der, form.pedido div.contDer div.form div.izq {
+		padding: 0;
+	}
+		form.pedido div.contDer div.form div input { width: 100%; }
+	form.pedido div.contDer div.pago select { padding-left: 2px; }
+	#formContacto button {
+		float: none;
+		margin: 15px auto 0;
+	}
+	div.login form.login {
+		margin: 40px auto 0;
+		max-width: 260px;
+	}
+}
+
+@media (max-width: 390px) {
+	div.contenedor ul.lista {
+		text-align: center;
+	}
+	div.contenedor ul.lista li {
+		display: inline-block;
+		margin: 0 2% 15px;
+		width: 193px;
+	}
+	div.contenedor ul.establecimientos li img {	width: auto; }
+		div.destacados ul.articulos li img, div.contArticulos ul.articulos li img { width: auto;}
+	#planes > li { padding: 50px 0 0 48px; }
+		#planes li div { padding-right: 48px; }
+}
+
+@media (max-width: 360px) {	
+	#header div.centrar div.contInf { padding-right: 90px; }		
+		#header div.centrar div.contInf a.reservas:link,
+		#header div.centrar div.contInf a.reservas:visited {
+			text-indent: -9999px;
+			width: 45px;
+			margin: 0;
+		}
+		#header div.centrar div.contInf span.cantidad { text-indent: initial; }
+	div.reservas span.triangulo { left: 75%; }	
+	section.vistaEstable ul.informacion { padding-left: 0px; }
+	section.vistaEstable div.redes ul li { margin: 0px 1px 8px; }
+	section.vistaEstable div.redes ul { margin: 15px 0 25px; }
+	section.vistaPedido form.pedido div.contDer a.ingFacebook,
+	section.vistaPedido form.pedido div.contDer a.ingShowcase {
+		height: 45px;
+		width: 280px;
+		background-size: 280px 45px;
+	}
+	form.pedido div.contDer div.direccion div.select select {
+		width: 34%;
+		padding-left: 2px;
+	}
+	form.pedido div.contDer div.direccion div.select input {
+		margin: 0 1%;
+		width: 15%;
+	}
+	form.pedido div.contDer div.form input { padding: 2px 5px 2px 2px; }
+	div.contIzq div.list ul.articulos li { padding: 0 45px 70px 15px; }
+		div.list ul.articulos li div.cantidad {
+			margin-top: 0px;
+			margin-bottom: 15px;
+			top: auto;
+			bottom: 0;
+		}
+		div.list ul.articulos li div.valor {
+			margin-top: 0px;
+			margin-bottom: 20px;
+			bottom: 0;
+			top: auto;
+		}
+}

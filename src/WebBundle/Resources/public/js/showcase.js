@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 	hoverLista("div.contenedor ul.establecimientos li", "img", "h3");
 	hoverLista("div.destacados ul.articulos li", "img", "div.informacion");
-	hoverLista("div.contArticulos ul.articulos li", "img", "div.informacion");	
+
 
 	hoverRedes("facebook");
 	hoverRedes("twitter");
@@ -45,20 +45,17 @@ $(document).ready(function() {
 	hoverBotones("div.franjaverde div.informacion a");
 	hoverBotones("div.contenedor ul.paginador li a");
 	hoverBotones("#contacto button");
-	hoverBotones("#planes li a.meInteresa");
+
 	hoverBotones("section.vistaPedido .confirmacion a");
 	hoverBotones("section.vistaEstable div.redes ul li.facebook a");
 	hoverBotones("section.vistaEstable div.redes ul li.twitter a");
 	hoverBotones("section.vistaPedido form.pedido div.contDer a.ingFacebook");
 	hoverBotones("section.vistaPedido form.pedido div.contDer a.ingShowcase");
 	hoverBotones("form.pedido div.contDer button");
-	hoverBotones("div.reservas a.pedir");
+
 	hoverBotones("#login button");
 
-	$("#header div.centrar div.contInf a.reservas").click(function() {
-		$("#header div.centrar div.contInf div.reservas").slideToggle();
-		return false;
-	});
+
 
 	$("section.vistaPedido form.pedido div.contDer button").click( function() {
 		$("section.vistaPedido form.pedido").hide();
@@ -85,24 +82,7 @@ $(document).ready(function() {
 		}
 	});
 
-	// Selector con el cual se hace el llamado a la ventana de cancelar pedido
-	var $enlaceCancelar = $("section.vistaPedido form.pedido div.contDer a.cancelar");
-	//Llama a la ventana modal
-	$enlaceCancelar.click(function() {
-		$string='<div class="cancelar"><p>¿Desea cancelar este pedido?</p><div class="enlaces"><a href="index.html">Si</a><a href="">No</a></div></div>';
 
-		modalCancelar($string);
-		return false;
-	});
-	// Selector con el cual se hace el llamado a la ventana de iniciar sesion
-	var $enlaceSesion = $("section.vistaPedido form.pedido div.contDer a.ingShowcase");
-	//Llama a la ventana modal
-	$enlaceSesion.click(function() {
-		$string1='<div class="login"><h2>Iniciar sesión</h2><form class="login" action="" method="post"><div class="form"><label for="email" >Correo electrónico</label><input id="email" type="email" placeholder="Correo electrónico" /></div><div class="form"><label for="password">Contraseña</label><input id="password" type="password" placeholder="Contraseña" /></div><div class="form enlace"><a href="#">¿Olvidó su contraseña?</a><button type="submit">Ingresar</button></div></form></div>';
-
-		modalLogin($string1);
-		return false;
-	});
 
 
 
@@ -187,4 +167,22 @@ function modalLogin(cadena) {
 		});
 	}
 	hoverBotones("div.login form.login div.enlace button");
+}
+
+function modalRecuperar(cadena) {
+
+	if($(window).width() <= 480) {
+		$.colorbox({
+			width: "300px", // Ancho de la ventana puede se auto, un % o un tamaño fijo
+			height: "360px", // Alto de la ventana puede se auto, un % o un tamaño fijo
+			html: cadena // html que se muestra en la ventana
+		});
+	} else {
+		$.colorbox({
+			width: "550px", // Ancho de la ventana puede se auto, un % o un tamaño fijo
+			height: "390px", // Alto de la ventana puede se auto, un % o un tamaño fijo
+			html: cadena // html que se muestra en la ventana
+		});
+	}
+	hoverBotones("div.recuperar div.login form.login div.enlace button");
 }

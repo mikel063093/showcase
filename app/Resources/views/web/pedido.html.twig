@@ -1,0 +1,102 @@
+
+{% extends ajax ? "plantilla/ajax.html.twig" : "plantilla/landing.html.twig" %}
+{% block contenidoWeb %}
+<span id="marcaPedido"></span>
+<h2 class="titulo">Resumen de tu pedido</h2>
+<form class="pedido" action="" method="post">
+    <div class="contIzq">
+        <div class="list" id="lista">
+            {% include "web/carrito/pedido.html.twig" %}
+        </div>
+        <h2>Observaciones de tu pedido</h2>
+        <div class="form">
+            <label>Observaciones</label>
+            <textarea></textarea>
+        </div>
+    </div>
+    <div class="contDer">
+        {% if app.user is null %}
+        <h2>¿Ya tienes una cuenta?</h2>
+        <a class="ingFacebook" id="ingFacebook" href="#">Ingresar o Registrarse con Facebook</a>
+        <a class="ingShowcase" id="ingShowcase" href="#">Ingresar con tu cuenta de Showcase</a>
+
+        <div class="nuevaCuenta">
+            <h2>Crear una nueva cuenta</h2>
+            <div class="form">
+                <div class="izq">
+                    <label>Nombres</label>
+                    <input type="text" />
+                </div>
+                <div class="der">
+                    <label>Apellidos</label>
+                    <input type="text" />
+                </div>
+            </div>
+            <div class="form">
+                <label>Correo electrónico</label>
+                <input type="email" />
+            </div>
+            <div class="form">
+                <label>Confirmar correo electrónico</label>
+                <input type="email" />
+            </div>
+            <div class="form">
+                <label>Celular</label>
+                <input type="text" />
+            </div>
+            <div class="form">
+                <label>Contraseña</label>
+                <input type="password" />
+            </div>
+        </div>
+        {% endif %}
+        <div class="direccion">
+            <h2>Dirección de envío</h2>
+            <div class="form select">
+                <select>
+                    <option value="carrera">Carrera</option>
+                    <option value="calle">Calle</option>
+                </select>
+                <input type="text" />
+                <span>#</span>
+                <input type="text" />
+                <span>-</span>
+                <input class="ultimo" type="text" />
+            </div>
+            <div class="form">
+                <label>Información adicional</label>
+                <input type="text" placeholder="Ej: Apartamento 301, Bloque D" />
+            </div>
+        </div>
+        <h2>Método de pago</h2>
+        <div class="form pago">
+            <label>Selecciona el método de pago</label>
+            <select>
+                <option value="vacio">Selecciona el método de pago</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="tarjeta">Tarjeta</option>
+            </select>
+        </div>
+        {% if app.user is not null %}
+        <h2>Remidir cupón</h2>
+        <div class="form cupon">
+            <label>Cupón</label>
+            <input class="valido" type="text" placeholder="Agregue un cupón" />
+        </div>
+        {% endif %}
+        <div class="form checkbox">
+            <input type="checkbox" id="chex2" /><label for="chex2"><span></span>He leído y estoy de acuerdo con los términos y condiciones</label>
+        </div>
+        <button type="submit">Realizar pedido</button>
+        <a class="cancelar" href="#">- Cancelar pedido -</a>
+    </div>
+</form>
+<div class="confirmacion">
+    <img src="{{ asset('bundles/web/img/sonrisa.png') }}" alt="Carita feliz">
+    <h3>Hemos recibido tu pedido</h3>
+    <p>En este momento nuestro personal organizará tu pedido y los recibirás en la dirección suministrada</p>
+    <a href="index.html">Regresar al inicio</a>
+</div>
+{% include "web/pedido.js.twig" %}
+
+{% endblock %}

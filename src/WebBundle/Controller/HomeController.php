@@ -3,6 +3,7 @@
 namespace WebBundle\Controller;
 
 use AppBundle\Entity\Carrito;
+use AppBundle\Entity\Puntuacion;
 use AppBundle\Entity\Contactenos;
 use AppBundle\Entity\Item;
 use AppBundle\Form\ContactoType;
@@ -68,6 +69,8 @@ class HomeController extends Controller
         $em->persist($user);
         $em->flush();
         */
+        $banderaPedido = $peticion->get('pedido');
+
         $em = $this->getDoctrine()->getManager();
         $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
         $promociones = $em->getRepository('AppBundle:Promocion')->findPromocionesActivas();
@@ -80,12 +83,23 @@ class HomeController extends Controller
 
             $session = new Session();
         }
+        $fecha = new \DateTime();
         $carrito = $session->get('carrito');
+        if($carrito) {
+            $carroCompras = $em->getRepository('AppBundle:Carrito')->find($carrito['id']);
+            if ($carroCompras && $carroCompras->getFechaLimite() <= $fecha) {
+                $carroCompras->vaciarCarrito();
+                $em->remove($carroCompras);
+                $em->flush();
 
+                $carrito = null;
+
+            }
+        }
         if(!$carrito){
 
             $carro = new Carrito();
-            $fecha = new \DateTime();
+
             $fechaLimite =  new \DateTime();
             $fechaLimite->add(new \DateInterval('PT60M'));
             $carro->setFechaCreacion($fecha);
@@ -94,17 +108,31 @@ class HomeController extends Controller
             $em->flush();
             $carrito = array(
                 'id' => $carro->getId(),
-                'items' => array()
+                'items' => array(),
+                'subTotal' => 0
+
             );
             $session->set('carrito',$carrito);
         }
-        return $this->render('web/home.html.twig',array(
-            'categorias' => $categorias,
-            'promociones' => $promociones,
-            'establecimientosDestacados' => $establecimientosDestacados,
-            'articulosDestacados' => $articulosDestacados,
-            
-        ));
+        if($banderaPedido){
+            $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+            return $this->render('web/pedido.html.twig', array(
+                'categorias' => $categorias,
+                'promociones' => $promociones,
+                'establecimientosDestacados' => $establecimientosDestacados,
+                'articulosDestacados' => $articulosDestacados,
+                'info' => $infoApp,
+                'ajax' => false
+            ));
+        }else {
+            return $this->render('web/home.html.twig', array(
+                'categorias' => $categorias,
+                'promociones' => $promociones,
+                'establecimientosDestacados' => $establecimientosDestacados,
+                'articulosDestacados' => $articulosDestacados,
+
+            ));
+        }
     }
 
     /**
@@ -252,6 +280,7 @@ class HomeController extends Controller
     private function limpiarCarritos(){
         $em = $this->getDoctrine()->getManager();
         $carritos = $em->getRepository('AppBundle:Carrito')->buscarCarritosVencidos();
+
         foreach ($carritos as $carrito){
             foreach($carrito->getItems() as $item){
 
@@ -268,15 +297,16 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("/agregarProductoCarrito", name="agregarProductoCarritoWeb")
-     */
+ * @Route("/agregarProductoCarrito", name="agregarProductoCarritoWeb")
+ */
     public function agregarProductoCarritoAction(Request $peticion)
     {
         $this->limpiarCarritos();
         $em = $this->getDoctrine()->getManager();
         $idArticulo = $peticion->get('idArticulo');
-        $idCarrito = $peticion->get();
-        $cantidad = $peticion->get('cantidad');
+        $idCarrito = $peticion->get('idCarrito');
+        $cantidad = $peticion->get('cantidad'); //la cantidad corresponde a 1, desde la web solo se podra reservar uno a uno las unidades de un articulo
+        $banderaPedido = $peticion->get('pedido');
         $rta=array(
             'estado'=>1,
             'mensaje'=> 'Exito al agregar el producto al carrito',
@@ -284,20 +314,20 @@ class HomeController extends Controller
         );
 
         try{
-            $articulo = $em->getRepository('AppBundle:Articulo')->find($idArticulo);
-            if($articulo->getCantidad() < $cantidad){
-                return new JsonResponse(array(
-                    'estado'=>0,
-                    'mensaje'=> 'No se puede reservar esta cantidad para este articulo, cantidad disponible: '.$articulo->getCantidad(),
-                    'borrado' => false
-                ));
-            }
-            $articulo->setCantidad($articulo->getCantidad() - $cantidad );
-            $em->persist($articulo);
+
+            $session = $peticion->getSession();
 
             $carrito = $em->getRepository('AppBundle:Carrito')->find($idCarrito);
-            $sesion = $peticion->getSession();
+            $articulo = $em->getRepository('AppBundle:Articulo')->find($idArticulo);
+            $fecha = new \DateTime();
+            if($carrito && $carrito->getFechaLimite() <= $fecha){
+                $carrito->vaciarCarrito();
+                $em->remove($carrito);
+                $em->flush();
 
+                $carrito = null;
+
+            }
             if(!$carrito){
                 $carrito = new Carrito();
                 $carrito->setFechaCreacion(new \DateTime());
@@ -305,22 +335,93 @@ class HomeController extends Controller
                 $fechaLimite->add(new \DateInterval('PT60M'));
                 $carrito->setFechaLimite($fechaLimite);
                 $em->persist($carrito);
-
+                $em->flush();
+                $carro = array(
+                    'id' => $carrito->getId(),
+                    'items' => array()
+                );
+                $session->set('carrito',$carro);
+                $rta = array(
+                    'estado'=>0,
+                    'mensaje'=> 'El carro de compras a expirado',
+                    'cantidadArticulo' => $articulo->getCantidad(),
+                    'borrado' => true
+                );
             }else{
-                $rta['borrado'] = true;
+                $carro = array(
+                    'id' => $carrito->getId(),
+                    'items' => array()
+                );
+
+                if($articulo->getCantidad() < $cantidad){
+                    return new JsonResponse(array(
+                        'estado'=>0,
+                        'mensaje'=> 'No se puede reservar esta cantidad para este articulo, cantidad disponible: '.$articulo->getCantidad(),
+                        'cantidadArticulo' => $articulo->getCantidad(),
+                        'borrado' => false
+                    ));
+                }
+                $articulo->setCantidad($articulo->getCantidad() - $cantidad );
+                $em->persist($articulo);
+                $banderaExisteItem = false;
+                $subTotal = 0;
+                foreach($carrito->getItems() as $item){
+                    if($item->getArticulo()->getId() == $idArticulo ){
+                        $item->setCantidad($item->getCantidad() + $cantidad);
+                        $em->persist($item);
+                        $em->flush();
+                        $banderaExisteItem = true;
+
+                    }
+
+                    $carro['items'][] = array(
+                        'id' => $item->getId(),
+                        'articulo' => $item->getArticulo()->getId(),
+                        'nombre' => $item->getArticulo()->getNombre(),
+                        'imagen' => $item->getArticulo()->getWebPath(),
+                        'cantidad' => $item->getCantidad(),
+                        'precio' => $item->getArticulo()->getPrecio()
+                    );
+
+                    $subTotal = $subTotal + $item->getArticulo()->getPrecio()*$item->getCantidad();
+                }
+
+                if(!$banderaExisteItem){
+                    $item = new Item();
+                    $item->setCantidad($cantidad);
+                    $item->setCarrito($carrito);
+                    $item->setArticulo($articulo);
+
+                    $em->persist($item);
+                    $em->flush();
+                    $subTotal = $subTotal + $item->getArticulo()->getPrecio()*$item->getCantidad();
+
+                    $carro['items'][] = array(
+                        'id' => $item->getId(),
+                        'articulo' => $item->getArticulo()->getId(),
+                        'nombre' => $item->getArticulo()->getNombre(),
+                        'imagen' => $item->getArticulo()->getWebPath(),
+                        'cantidad' => $item->getCantidad(),
+                        'precio' => $item->getArticulo()->getPrecio()
+                    );
+                }
+                $carro['subTotal'] = $subTotal;
+                $session->set('carrito',$carro);
+                $rta=array(
+                    'estado'=>1,
+                    'mensaje'=> 'Articulo reservado con exito',
+                    'borrado' => false,
+                    'cantidadArticulo' => $articulo->getCantidad(),
+                    'carro' => $this->renderView("web/carrito/carro.html.twig")
+                );
+
+                if($banderaPedido){
+                    $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+                    $rta['pedido'] = $this->renderView("web/carrito/pedido.html.twig",array('info'=>$infoApp,'ajax'=>true));
+                }
             }
 
-            $item = new Item();
-            $item->setCantidad($cantidad);
-            $item->setCarrito($carrito);
-            $item->setArticulo($articulo);
-            $em->persist($item);
-            $em->flush();
-            $carro = array(
-                'id' => $carrito->getId(),
 
-            );
-            $rta['carrito'] = $carro;
         }catch (Exception $e){
             $rta=array(
                 'estado'=>0,
@@ -331,4 +432,278 @@ class HomeController extends Controller
         return new JsonResponse( $rta);
 
     }
+
+    /**
+     * @Route("/eliminarProductoCarrito", name="eliminarProductoCarritoWeb")
+     */
+    public function eliminarProductoCarritoAction(Request $peticion)
+    {
+        $this->limpiarCarritos();
+        $em = $this->getDoctrine()->getManager();
+        $idArticulo = $peticion->get('idArticulo');
+        $idCarrito = $peticion->get('idCarrito');
+        $cantidad = $peticion->get('cantidad'); //la cantidad corresponde a 1, desde la web solo se podra disminuir uno a uno las unidades de un articulo
+        $banderaPedido = $peticion->get('pedido');
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al eliminar el producto al carrito',
+            'borrado' => false
+        );
+
+        try{
+
+            $session = $peticion->getSession();
+
+            $carrito = $em->getRepository('AppBundle:Carrito')->find($idCarrito);
+            $articulo = $em->getRepository('AppBundle:Articulo')->find($idArticulo);
+            $fecha = new \DateTime();
+            if($carrito && $carrito->getFechaLimite() <= $fecha){
+                $carrito->vaciarCarrito();
+                $em->remove($carrito);
+                $em->flush();
+
+                $carrito = null;
+
+            }
+            if(!$carrito){
+                $carrito = new Carrito();
+                $carrito->setFechaCreacion(new \DateTime());
+                $fechaLimite = new \DateTime();
+                $fechaLimite->add(new \DateInterval('PT60M'));
+                $carrito->setFechaLimite($fechaLimite);
+                $em->persist($carrito);
+                $em->flush();
+                $carro = array(
+                    'id' => $carrito->getId(),
+                    'items' => array()
+                );
+                $session->set('carrito',$carro);
+                $rta = array(
+                    'estado'=>0,
+                    'mensaje'=> 'El carro de compras a expirado',
+                    'cantidadArticulo' => $articulo->getCantidad(),
+                    'borrado' => true
+                );
+            }else{
+                $carro = array(
+                    'id' => $carrito->getId(),
+                    'items' => array()
+                );
+                $articulo->setCantidad($articulo->getCantidad() + $cantidad );
+                $em->persist($articulo);
+
+                $subTotal = 0;
+                $banderaBorrar = false;
+                foreach($carrito->getItems() as $item){
+                    if($item->getArticulo()->getId() == $idArticulo ){
+                        if($item->getCantidad() - $cantidad == 0) {
+                            $em->remove($item);
+                            $banderaBorrar = true;
+                        }else{
+                            $item->setCantidad($item->getCantidad() - $cantidad);
+                            $em->persist($item);
+                        }
+                        $em->flush();
+                    }
+                    if(!$banderaBorrar) {
+                        $carro['items'][] = array(
+                            'id' => $item->getId(),
+                            'articulo' => $item->getArticulo()->getId(),
+                            'nombre' => $item->getArticulo()->getNombre(),
+                            'imagen' => $item->getArticulo()->getWebPath(),
+                            'cantidad' => $item->getCantidad(),
+                            'precio' => $item->getArticulo()->getPrecio()
+                        );
+
+                        $subTotal = $subTotal + $item->getArticulo()->getPrecio() * $item->getCantidad();
+                    }
+                }
+
+
+                $carro['subTotal'] = $subTotal;
+                $session->set('carrito',$carro);
+                $rta=array(
+                    'estado'=>1,
+                    'mensaje'=> 'Articulo eliminado con exito',
+                    'borrado' => false,
+                    'cantidadArticulo' => $articulo->getCantidad(),
+                    'carro' => $this->renderView("web/carrito/carro.html.twig")
+                );
+                if($banderaPedido){
+                    $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+                    $rta['pedido'] = $this->renderView("web/carrito/pedido.html.twig",array('info'=>$infoApp,'ajax' => true));
+                }
+            }
+
+
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al agregar el producto al carrito',
+                'borrado' => false
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/puntuarEstablecimiento", name="puntuarEstablecimientoWeb")
+     */
+    public function puntuarEstablecimientoAction(Request $peticion){
+        $rta = array(
+            'estado'=>1,
+            'mensaje' => 'Exito al puntuar establecimiento',
+        );
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $id = $peticion->get('id');
+            $valor = $peticion->get('rating');
+            $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($id);
+            if($establecimiento){
+
+                $puntuacionUsuario = new Puntuacion();
+                $puntuacionUsuario->setEstablecimiento($establecimiento);
+                $puntuacionUsuario->setValor($valor);
+
+                $em->persist($puntuacionUsuario);
+                $em->flush();
+                $puntuacion = 0;
+                if(count($establecimiento->getPuntuaciones())>0) {
+                    $total = 0;
+                    foreach ($establecimiento->getPuntuaciones() as $p) {
+                        $total = $total + $p->getValor();
+                    }
+                    $puntuacion = $total / count($establecimiento->getPuntuaciones());
+                }
+                $rta['puntuacionUsuario'] = $puntuacionUsuario->getValor();
+
+                if($puntuacion < 3){
+                    $puntuacion = 3;
+                }
+                $rta['puntuacion'] = $puntuacion;
+            }else{
+                $rta=array(
+                    'estado'=>0,
+                    'mensaje'=> 'Establecimiento no encontrado.'
+                );
+            }
+        } catch (Exception $e) {
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al calificar el establecimiento.'
+            );
+        }
+        return new JsonResponse( $rta);
+    }
+
+    /**
+     * @Route("/autoCompletarBusqueda", name="autoCompletarBusquedaWeb")
+     */
+    public function autoCompletarBusquedaAction(Request $peticion){
+        $em = $this->getDoctrine()->getManager();
+        $palabra = $peticion->get('term');
+
+        $rta = array(
+
+        );
+        try{
+            $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar(strtolower($palabra));
+
+            $posiblesPalabras = array();
+            foreach ($palabras as $p){
+                $listaPalabras = explode(" ",$p['nombre']);
+                foreach ($listaPalabras as $lp){
+                    $bandera = strpos($lp,$palabra);
+                    if(gettype($bandera) == "integer"){
+                        array_push($posiblesPalabras,$lp);
+                    }
+
+                }
+                $nuevaPalabra = $listaPalabras[0];
+                foreach ( array_slice($listaPalabras,1) as $lp){
+                    $nuevaPalabra = $nuevaPalabra." ".$lp;
+                    if(strpos($lp,$palabra)){
+                        array_push($posiblesPalabras,$nuevaPalabra);
+                    }
+                }
+            }
+            $posiblesPalabras = array_unique($posiblesPalabras);
+            if(count($posiblesPalabras) > 0){
+                $rta = $posiblesPalabras;
+            }else{
+                $rta=array(
+
+                );
+            }
+
+        }catch (Exception $e){
+            $rta=array(
+
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/realizarBusqueda", name="realizarBusquedaWeb")
+     */
+    public function realizarBusquedaAction(Request $peticion){
+        $em = $this->getDoctrine()->getManager();
+        $palabra = $peticion->get('palabra');
+
+        try{
+            $articulos = $em->getRepository('AppBundle:Articulo')->realizarBusqueda($palabra);
+            return $this->render('web/articulos.html.twig',array(
+                'articulos' => $articulos
+            ));
+        }catch (Exception $e){
+
+        }
+
+
+    }
+
+    /**
+     * @Route("/pedido", name="pedido")
+     */
+    public function pedidoAction(Request $peticion){
+        $em = $this->getDoctrine()->getManager();
+        $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+            return $this->render('web/pedido.html.twig',array(
+                'info' => $infoApp,
+                'ajax'=>true
+            ));
+
+
+    }
+
+    /**
+     * @Route("/obtenerLogin", name="obtenerLogin")
+     */
+    public function obtenerLoginAction(Request $peticion){
+        return new JsonResponse(array(
+            'login' => $this->renderView('validacion/loginModal.html.twig')
+        ));
+    }
+
+    /**
+     * @Route("/obtenerCancelar", name="obtenerCancelar")
+     */
+    public function obtenerCancelarAction(Request $peticion){
+        return new JsonResponse(array(
+            'cancelar' => $this->renderView('validacion/cancelar.html.twig')
+        ));
+    }
+
+    /**
+     * @Route("/obtenerRecuperar", name="obtenerRecuperar")
+     */
+    public function obtenerRecuperarAction(Request $peticion){
+        return new JsonResponse(array(
+            'recuperar' => $this->renderView('validacion/recuperarContrasena.html.twig')
+        ));
+    }
 }
+

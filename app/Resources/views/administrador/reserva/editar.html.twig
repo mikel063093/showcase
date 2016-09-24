@@ -1,0 +1,101 @@
+<script type="text/javascript">
+  $('#form-editar').validate({
+        rules: {
+
+        },
+        messages:{
+
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+              for (var i = 0; i < validator.errorList.length; i++) {
+                mostrarMensaje(validator.errorList[i].message,'Error');
+              };
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+      $('#modal-cargando').modal('show');
+        var datos = new FormData(form);
+        $.ajax({
+            url:"{{path('actualizarReserva')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            processData: false,
+            contentType: false,
+            success: function (data){
+                if(data.valor){
+                  $.ajax({
+                  type: "POST",
+                  url: '{{path("registrosReservas")}}',
+                  dataType: "html",
+
+                  success: function(data) {
+                      $('#registros').html(data);
+                  }
+              });
+                  $('#btn-guardar').unbind();
+                  $('#modal').modal('hide');
+                    $('#modal-title').html('');
+                  $('#modal-content').html('<br>CARGANDO . . .');
+                  $('#modal-footer').html('');
+                  mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+
+                  mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+                  
+  $('#close-modal').click(function(){
+    $('#btn-guardar').unbind();
+    $('#modal-title').html('');
+    $('#modal-content').html('<br>CARGANDO . . .');
+    $('#modal-footer').html('');
+    
+  });
+
+
+  $(document).ready(function () {
+
+  });
+
+
+
+</script>
+
+<form id="form-editar" class="form-horizontal style-form">
+    <input type="hidden" name="id_entity" value="{{entity.id}}">
+    <div class="form-group">
+        <label class="col-sm-3 col-sm-3 control-label">Categoria</label>
+        <div class="col-sm-9">
+            <select class="form-control" name="estado" id="estado">
+                {% for estado in estados %}
+                    <option value="{{estado}}" {% if entity.estado == estado%}selected {% endif %}>{{estado}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+
+
+</form>

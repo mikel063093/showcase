@@ -1,0 +1,38 @@
+{% set currentPath = path(app.request.get('_route'), app.request.get('_route_params')) %}
+{% set currentPage = paginador.getCurrentPage() %}
+{% set totalPages = paginador.getTotalPages() %}
+
+<div class="{{ clase }}" id="{{ clase }}">
+    <table class="table table-bordered" style="width: 400px;">
+        <tr>
+            <td style="width: 25%">
+                {% if currentPage > 1 %}
+                    
+                    <button class="{{ clase }} button button-blue" data-page="1">&laquo;</button>
+                    <button class="{{ clase }} button button-blue" href="#" data-page="{{ currentPage > 1 ? currentPage - 1 : 1 }}"><</button>
+                {% else %}
+                
+                {% endif %}
+            </td>
+            <td style="width: 50%; text-align: center;">
+                {{ currentPage }} de {{ totalPages }} páginas
+            </td>
+            <td style="width: 25%">
+                {% if currentPage < totalPages %}
+                    <button class="{{ clase }} button button-blue" href="#" data-page="{{ currentPage < totalPages ? currentPage + 1 : currentPage }}">></button>
+                    <button class="{{ clase }} button button-blue" href="#" data-page="{{ totalPages }}">&raquo;</button>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        // evento click de la paginacion, cambiar de hoja
+        
+        
+        
+            
+    });
+</script>        

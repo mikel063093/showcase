@@ -35,4 +35,14 @@ class PedidoRepository extends EntityRepository
             ->setParameter('estado','En Progreso');
         return $consulta->getQuery()->getResult();
     }
+
+    public function buscarReservas(){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQueryBuilder()
+            ->select('p')
+            ->from('AppBundle:Pedido','p')
+            ->andWhere('p.estado NOT IN (:estado)')
+            ->setParameter('estado',"'Finalizado','Cancelado'");
+        return $consulta->getQuery()->getResult();
+    }
 }

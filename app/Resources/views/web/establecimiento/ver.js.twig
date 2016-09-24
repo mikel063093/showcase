@@ -1,0 +1,10 @@
+<script>
+    $(document).ready(function (e){
+            hoverBotones("section.vistaEstable div.redes ul li.facebook a");
+            hoverBotones("section.vistaEstable div.redes ul li.twitter a");
+            hoverLista("div.contArticulos ul.articulos li", "img", "div.informacion");
+            setReservaArticulos();
+    });
+
+    $('#star').rating("{{ path('puntuarEstablecimientoWeb') }}", {maxvalue: 5, curvalue:{{ establecimiento.promedio }}, id:{{ establecimiento.id }}});
+</script>

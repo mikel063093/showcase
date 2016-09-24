@@ -1,0 +1,19 @@
+
+<h2 class="titulo">Planes</h2>
+<h3>Encuentra una variedad de opciones para hacer crecer a tu establecimiento comercial</h3>
+<ul id="planes">
+    {% for plan in planes %}
+    <li>
+        <div {% if loop.last  %}class="ultimo"{% endif %}>
+            <h3>{{ plan.nombre|upper }}</h3>
+            <h4>{{ plan.precio|number_format(0,',','.') }}</h4>
+            <ol>
+                {{ plan.descripcion|raw }}
+            </ol>
+            <a class="meInteresa" href="#" value="{{ plan.id }}">Me interesa</a>
+        </div>
+    </li>
+    {% endfor %}
+    <div class="clearFix"></div>
+</ul>
+{% include "web/planes.js.twig" %}

@@ -18,7 +18,7 @@ class CarritoRepository extends EntityRepository
             ->select('c')
             ->from('AppBundle:Carrito','c')
             ->where('c.usuario IS NULL')
-            ->andWhere('c.fechaLimite = :fecha')
+            ->andWhere('c.fechaLimite <= :fecha')
             ->setParameter('fecha',new \DateTime());
         return $consulta->getQuery()->getResult();
     }

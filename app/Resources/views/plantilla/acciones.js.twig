@@ -1,5 +1,5 @@
 <script>
-
+var carrito = {{ app.session.get('carrito').id }};
 
 $(document).ready(function() {
     setVerMas();
@@ -90,6 +90,38 @@ $(document).ready(function() {
         });
     });
 
+    $('#buscar').autocomplete({
+        source: "{{ path('autoCompletarBusquedaWeb') }}",
+            minLength: 1,
+            select: function(e, ui){
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('realizarBusquedaWeb') }}",
+                    dataType: "html",
+                    data:{palabra:ui.item.value},
+                    success: function(data) {
+                        $("#carrusel").cycle('stop');
+                        removerClase('vistaEstable');
+                        $('#home').html(data);
+                    },
+                });
+            }
+
+
+    }).focusout(function() {
+        $.ajax({
+            type: "POST",
+            url: "{{ path('realizarBusquedaWeb') }}",
+            dataType: "html",
+            data:{palabra:$(this).val()},
+            success: function(data) {
+                $("#carrusel").cycle('stop');
+                removerClase('vistaEstable');
+                $('#home').html(data);
+            },
+        });
+    })
 
 
 });
@@ -118,7 +150,29 @@ $(document).ready(function() {
             let cantidad = contador.text();
 
             if(cantidad > 0){
-                contador.text(parseInt(cantidad) - 1);
+
+                let unidades = elemento.parent().siblings('.informacion').children('#unidades');
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('eliminarProductoCarritoWeb') }}",
+                    dataType: "json",
+                    data: {
+                        idArticulo: elemento.attr('value'),
+                        idCarrito: carrito,
+                        cantidad:1
+                    },
+                    success: function (data){
+                        if(data.estado){
+                            contador.text(parseInt(cantidad) - 1);
+                            $('#carrito').html(data.carro);
+                            mostrarMensaje(data.mensaje,'Exito');
+                        }else{
+                            mostrarMensaje(data.mensaje,'Fallo');
+                        }
+                        unidades.text(data.cantidadArticulo+' unidades');
+                    }
+                });
             }
 
         });
@@ -126,10 +180,33 @@ $(document).ready(function() {
         $('.mas').click(function (e){
             e.preventDefault();
             let elemento = $(this);
+
             let contador = elemento.siblings('.cantidad');
             let cantidad = contador.text();
 
-            contador.text( parseInt(cantidad) + 1);
+
+            let unidades = elemento.parent().siblings('.informacion').children('#unidades');
+
+            $.ajax({
+                type: "POST",
+                url: "{{ path('agregarProductoCarritoWeb') }}",
+                dataType: "json",
+                data: {
+                    idArticulo: elemento.attr('value'),
+                    idCarrito: carrito,
+                    cantidad:1
+                },
+                success: function (data){
+                    if(data.estado){
+                        contador.text( parseInt(cantidad) + 1);
+                        $('#carrito').html(data.carro);
+                        mostrarMensaje(data.mensaje,'Exito');
+                    }else{
+                        mostrarMensaje(data.mensaje,'Fallo');
+                    }
+                    unidades.text(data.cantidadArticulo+' unidades');
+                }
+            });
 
 
         });
@@ -139,7 +216,7 @@ $(document).ready(function() {
     function removerClase(clase){
         var categorias = $('.categorias');
         categorias.css('display','');
-        if(clase == "vistaPlanes" || clase == "vistaContacto"){
+        if(clase == "vistaPlanes" || clase == "vistaContacto" || clase == "vistaPedido"){
             categorias.css('display','none');
         }
         var divContenedor = $("#home");

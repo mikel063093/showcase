@@ -1,0 +1,52 @@
+{% set carrito = app.session.get('carrito') %}
+<a class="reservas" href="#">RESERVAS<span class="cantidad">{{ carrito.items|length }}</span></a>
+<div class="reservas">
+    <span class="triangulo"></span>
+    <h2>Hay <span>{{ carrito.items|length }}</span> artículo(s) en reserva</h2>
+    {% if carrito.items|length > 0 %}
+    <ul class="articulos">
+        {% for item in carrito.items %}
+        <li>
+            <div class="img"><img src="{{ asset(item.imagen) }}" alt="{{ item.nombre }}" /></div>
+            <h3>{{ item.nombre }}</h3>
+            <h4>${{ item.precio|number_format(0,',','.') }}</h4>
+            <div>Cantidad<span> {{ item.cantidad }}</span></div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="subtotal">Subtotal: <span>${{ carrito.subTotal|number_format(0,',','.') }}</span></div>
+    <a class="pedir" href="#">Pedir</a>
+    {% endif %}
+</div>
+<script>
+    $(document).ready(function () {
+        hoverBotones("div.reservas a.pedir");
+        $("#header div.centrar div.contInf a.reservas").click(function() {
+            $("#header div.centrar div.contInf div.reservas").slideToggle();
+            return false;
+        });
+
+    });
+
+    $('.pedir').click(function (e) {
+
+        e.preventDefault();
+
+        $.ajax({
+            type: "GET",
+            url: "{{ path('pedido') }}",
+            dataType: "html",
+            success: function(data) {
+                $("#carrusel").cycle('stop');
+                removerClase('vistaPedido');
+                $("#header div.centrar div.contInf div.reservas").slideToggle();
+                $('#home').html(data);
+            },
+        });
+
+    });
+
+
+
+</script>

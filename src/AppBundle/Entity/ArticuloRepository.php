@@ -30,6 +30,7 @@ class ArticuloRepository extends EntityRepository
             ->from('AppBundle:Articulo', 'a')
             ->where('lower(a.nombre) like :palabra')->setParameter('palabra','%'.$palabra.'%')
             ->andWhere('a.cantidad > 0');
+
         return $consulta->getQuery()->getResult();
     }
 

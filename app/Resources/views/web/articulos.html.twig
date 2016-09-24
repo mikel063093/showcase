@@ -1,0 +1,51 @@
+
+    <div class="contenedor contArticulos ">
+        {% set carrito = app.session.get('carrito') %}
+        <h2>Artículos de este establecimiento</h2>
+        {% if articulos|length == 0 %}
+            <h3>No hay resultados</h3>
+        {% else %}
+        <ul class="lista articulos">
+            {% for articulo in articulos %}
+                <li>
+                    <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
+                    <div class="informacion">
+                        <h3>{{ articulo.nombre }}</h3>
+                        <h4>{{ articulo.precio|number_format(0,',','.') }}</h4>
+                        <span>{{ articulo.unidadMedida~' '~articulo.valorMedida }}</span><br />
+                        <span id="unidades">{{ articulo.cantidad }} unidades</span>
+                    </div>
+                    <div class="contador">
+                        <a class="menos" href="#" value="{{ articulo.id }}">Menos</a>
+                        <span class="cantidad" id="cantidadArticulo">
+                            {% if carrito.items|length == 0 %}
+                                0
+                            {% else %}
+                                {% set break = false %}
+                                {% for item in carrito.items if not break %}
+                                    {% if item.articulo == articulo.id %}
+                                        {{ item.cantidad }}
+                                        {% set break = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not break %}
+                                    0
+                                {% endif %}
+                            {% endif %}
+                        </span>
+                        <a class="mas" href="#" value="{{ articulo.id }}">Mas</a>
+                    </div>
+                </li>
+
+            {% endfor %}
+
+        </ul>
+            {% endif %}
+    </div>
+    <script>
+        $(document).ready(function () {
+            hoverLista("div.contArticulos ul.articulos li", "img", "div.informacion");
+            setReservaArticulos();
+        })
+    </script>
+

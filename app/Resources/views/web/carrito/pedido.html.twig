@@ -1,0 +1,107 @@
+{% set carrito = app.session.get('carrito') %}
+<h2>Artículos solicitados</h2>
+<ul class="articulos">
+    {% for item in carrito.items %}
+        <li>
+            <div class="cantidad">
+                <span class="cantidad" id="cantidadArticulo">{{ item.cantidad }}</span>
+                <a class="mas" href="#" value="{{ item.articulo }}">Mas</a>
+                <a class="menos" href="#" value="{{ item.articulo }}">Menos</a>
+            </div>
+            <div class="informacion">
+                <img src="{{ asset(item.imagen) }}" alt="{{ item.nombre }}" />
+                <h3>{{ item.nombre }}</h3>
+                <h4>${{ item.precio|number_format(0,',','.') }}</h4>
+                <div>Cantidad<span id="unidades"> {{ item.cantidad }}</span></div>
+            </div>
+            {% set totalProducto  = item.precio * item.cantidad %}
+            <div class="valor">${{ totalProducto |number_format(0,',','.') }}</div>
+            <a class="eliminar" href="#" title="Eliminar">Eliminar</a>
+        </li>
+    {% endfor %}
+
+</ul>
+<div class="resumenTotal">
+    <div class="subtotal">Subtotal<span>${{ carrito.subTotal|number_format(0,',','.') }}</span></div>
+    <div class="domicilio">Domicilio<span>${{ info.precioDomicilio|number_format(0,',','.') }}</span></div>
+    {% set total = info.precioDomicilio + carrito.subTotal %}
+    <div class="total">Valor total<span>${{ total |number_format(0,',','.') }}</span></div>
+</div>
+
+<script>
+    $(document).ready(function (){
+        $('.menos').click(function (e) {
+            e.preventDefault();
+            let elemento = $(this);
+            let contador = elemento.siblings('.cantidad');
+            let cantidad = contador.text();
+
+            if(cantidad > 0){
+
+                let unidades = elemento.parent().siblings('.informacion').children('#unidades');
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('eliminarProductoCarritoWeb') }}",
+                    dataType: "json",
+                    data: {
+                        idArticulo: elemento.attr('value'),
+                        idCarrito: carrito,
+                        cantidad:1,
+                        pedido:1
+                    },
+                    success: function (data){
+                        if(data.estado){
+                            contador.text(parseInt(cantidad) - 1);
+                            $('#carrito').html(data.carro);
+                            $('#lista').html(data.pedido);
+
+                            mostrarMensaje(data.mensaje,'Exito');
+                        }else{
+                            mostrarMensaje(data.mensaje,'Fallo');
+                        }
+                        unidades.text(parseInt(cantidad) - 1);
+                    }
+                });
+            }
+
+        });
+
+        $('.mas').click(function (e){
+            e.preventDefault();
+            let elemento = $(this);
+
+            let contador = elemento.siblings('.cantidad');
+            let cantidad = contador.text();
+
+
+            let unidades = elemento.parent().siblings('.informacion').children('#unidades');
+
+            $.ajax({
+                type: "POST",
+                url: "{{ path('agregarProductoCarritoWeb') }}",
+                dataType: "json",
+                data: {
+                    idArticulo: elemento.attr('value'),
+                    idCarrito: carrito,
+                    cantidad:1,
+                    pedido:1
+                },
+                success: function (data){
+                    if(data.estado){
+                        contador.text( parseInt(cantidad) + 1);
+                        $('#carrito').html(data.carro);
+                        $('#lista').html(data.pedido);
+                        mostrarMensaje(data.mensaje,'Exito');
+
+                    }else{
+                        mostrarMensaje(data.mensaje,'Fallo');
+                    }
+                    unidades.text(parseInt(cantidad) + 1);
+                }
+            });
+
+
+        });
+    });
+</script>

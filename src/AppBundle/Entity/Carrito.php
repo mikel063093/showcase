@@ -174,4 +174,15 @@ class Carrito {
     {
         return $this->fechaLimite;
     }
+
+    public function vaciarCarrito(){
+        $em = $GLOBALS['kernel']->getContainer()->get('doctrine.orm.entity_manager');
+        foreach ($this->items as $item){
+            $articulo = $item->getArticulo();
+            $articulo->setCantidad($articulo->getCantidad() + $item->getCantidad());
+            $em->persist($articulo);
+            $em->remove($item);
+
+        }
+    }
 }

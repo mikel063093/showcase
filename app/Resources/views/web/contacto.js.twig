@@ -1,0 +1,113 @@
+<script>
+/*Envio y validacion formulario de contacto */
+var valiEmailReg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+$("#formContacto").submit( function() {
+
+    var valid = true;
+    var nombre = $.trim($("#contacto_nombreCompleto").val());
+    email = $.trim($("#contacto_correo").val());
+    asunto = $.trim($("#contacto_asunto").val());
+    mensaje = $.trim($("#contacto_comentario").val());
+
+    $("#formContacto .error").remove();
+    if( nombre == "" ) {
+        valid = false;
+        $("#contacto_nombreCompleto").focus().before("<span class='error nombre'>Ingrese su nombre</span>");
+        $("#contacto_nombreCompleto").css('border', '1px solid red');
+    }
+    if( email == "" || !valiEmailReg.test(email) ) {
+        valid = false;
+        $("#contacto_correo").focus().before("<span class='error email'>Ingrese un correo electrónico válido</span>");
+        $("#contacto_correo").css('border', '1px solid red');
+    }
+    if( mensaje == "" ) {
+        valid = false;
+        $("#contacto_comentario").focus().before("<span class='error mensaje'>Ingrese un mensaje</span>");
+        $("#contacto_comentario").css('border', '1px solid red');
+    }
+
+    if(!valid) {
+        return false;
+    } else {
+        var $btn = $("#enviarMensaje").button('loading');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ path('enviarContacto') }}",
+            data: $(this).serialize(),
+            success: function(data) {
+
+                $btn.button('reset');
+                if (data.estado){
+                    $('.msg').text('Mensaje enviado').addClass('msg-ok').fadeIn(300);
+                    $('.msg').css("display", "inline-block");
+                    $("#formContacto")[0].reset();
+                    $("#contacto_correo").css('border','1px solid rgba(186, 186, 186, 1)');
+                    setTimeout(function() {
+                        $('.msg').fadeOut(300);
+                    }, 2000);
+                } else{
+                    $('.msg').text('Hubo un error').addClass('msg-error').fadeIn(300);
+                    $('.msg').css("display", "inline-block");
+                    setTimeout(function() {
+                        $('.msg').fadeOut(300);
+                    }, 2000);
+                }
+            },
+            error: function() {
+                $btn.button('reset');
+                $('.msg').text('Hubo un error').addClass('msg-error').fadeIn(300);
+                setTimeout(function() {
+                    $('.msg').fadeOut(300);
+                }, 2000);
+            }
+        });
+        return false;
+    }
+});
+
+$("#contacto_nombreCompleto").keyup( function() {
+    if( $.trim($(this).val()) != "" ) {
+        $(".error.nombre").fadeOut();
+        $("#contacto_nombreCompleto").css('border','1px solid rgba(186, 186, 186, 1)');
+    }
+});
+
+$("#contacto_nombreCompleto").change( function() {
+    if( $.trim($(this).val()) == "" ) {
+        $(".error.nombre").hide();
+        $("#contacto_nombreCompleto").focus().before("<span class='error nombre'>Ingrese su nombre</span>");
+        $("#contacto_nombreCompleto").css('border', '1px solid red');
+    }
+});
+
+$("#contacto_comentario").keyup( function() {
+    if( $.trim($(this).val()) != "" ) {
+        $(".error.mensaje").fadeOut();
+        $("#contacto_comentario").css('border','1px solid rgba(186, 186, 186, 1)');
+    }
+});
+
+$("#contacto_comentario").change( function() {
+    if( $.trim($(this).val()) == "" ) {
+        $(".error.mensaje").hide();
+        $("#contacto_comentario").focus().before("<span class='error comentario'>Ingrese un mensaje</span>");
+        $("#contacto_comentario").css('border', '1px solid red');
+    }
+});
+
+$("#contacto_correo").keyup( function() {
+    if( $.trim($(this).val()) != "" && valiEmailReg.test($.trim($(this).val()))) {
+        $(".error.email").fadeOut();
+        $("#contacto_correo").css('border','1px solid rgba(186, 186, 186, 1)');
+    }
+});
+
+$("#contacto_correo").change( function() {
+    if( $.trim($(this).val()) == "" && !valiEmailReg.test($.trim($(this).val()))) {
+        $(".error.email").hide();
+        $("#contacto_correo").focus().before("<span class='error email'>Ingrese un correo electrónico válido</span>");
+        $("#contacto_correo").css('border', '1px solid red');
+    }
+});
+</script>

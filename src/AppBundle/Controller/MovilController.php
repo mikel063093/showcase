@@ -918,7 +918,8 @@ class MovilController extends Controller
             $direccion->setUsuario($this->getUser());
             $direccion->setNombre($nombre);
             $direccion->setBarrio($barrio);
-            $objCiudad = $em->getRepository('AppBundle:Ciudad')->findBy(array('nombre' => strtoupper($ciudad)));
+            $objCiudad = $em->getRepository('AppBundle:Ciudad')->findOneBy(array('nombre' => strtoupper($ciudad)));
+
             $direccion->setCiudad($objCiudad);
             $direccion->setTipo($tipo);
             $direccion->setNumero($numero);

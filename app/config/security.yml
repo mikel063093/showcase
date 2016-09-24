@@ -67,18 +67,31 @@ security:
                 target: /user
                 
         # Firewall modulo consulta web
-        secured_web:
-            pattern:    ^/web/*
+        #secured_web:
+         #   pattern:    ^/web/*
+          #  context: website
+           # provider: web_db
+            #form_login:
+             #   check_path: web_login_check
+              #  login_path: inicio
+               # default_target_path: /user
+                #always_use_default_target_path: true
+            #logout:
+             #   path:   web_logout
+              #  target: /user
+        # Firewall modulo consulta web
+        secured_home:
+            pattern:    ^/*
             context: website
             provider: web_db
+            anonymous: ~
             form_login:
                 check_path: web_login_check
                 login_path: inicio
-                default_target_path: /user
-                always_use_default_target_path: true
+                default_target_path: /
             logout:
                 path:   web_logout
-                target: /user
+                target: /
         # Firewall modulo consulta web
         login_web:
             pattern:    ^/user
@@ -114,4 +127,5 @@ security:
         - { path: ^/user, roles: [ROLE_USER, ROLE_ADMIN]}
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/*, roles: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }
         

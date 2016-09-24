@@ -803,4 +803,20 @@ class Establecimiento {
     {
         return $this->whatsapp;
     }
+
+    public function promedio(){
+        $puntuacion = 0;
+        if(count($this->getPuntuaciones())>0) {
+            $total = 0;
+            foreach ($this->getPuntuaciones() as $p) {
+                $total = $total + $p->getValor();
+            }
+            $puntuacion = $total / count($this->getPuntuaciones());
+        }
+        if($puntuacion < 3){
+            $puntuacion = 3;
+        }
+
+        return $puntuacion;
+    }
 }

@@ -35,58 +35,45 @@
     </div>
     <div class="contenedor contArticulos ">
         <h2>Artículos de este establecimiento</h2>
-        <ul class="lista articulos">
-            <li>
-                <img src="img/articulo1.png" alt="Artículo" />
-                <div class="informacion">
-                    <h3>Chaqueta de jean</h3>
-                    <h4>$66.500</h4>
-                    <span>2 unidades</span>
-                </div>
-                <div class="contador">
-                    <a class="menos" href="#">Menos</a>
-                    <span class="cantidad">2</span>
-                    <a class="mas" href="#">Mas</a>
-                </div>
-            </li>
-            <li>
-                <img src="img/articulo2.png" alt="Artículo" />
-                <div class="informacion">
-                    <h3>Vestido de jean</h3>
-                    <h4>$80.000</h4>
-                    <span>Talla M</span>
-                </div>
-                <div class="contador">
-                    <a class="menos" href="#">Menos</a>
-                    <span class="cantidad">1</span>
-                    <a class="mas" href="#">Mas</a>
-                </div>
-            </li>
-            <li>
-                <img src="img/articulo3.png" alt="Artículo" />
-                <div class="informacion">
-                    <h3>Jean Skinny + Zapatos</h3>
-                    <h4>$360.000</h4>
-                    <span>4 unidades</span>
-                </div>
-                <div class="contador">
-                    <a class="menos" href="#">Menos</a>
-                    <span class="cantidad">1</span>
-                    <a class="mas" href="#">Mas</a>
-                </div>
-            </li>
-            <li>
-                <img src="img/articulo4.png" alt="Artículo" />
-                <div class="informacion">
-                    <h3>Chaqueta azul</h3>
-                    <h4>$150.000</h4>
-                    <span>Talla S, M, L</span>
-                </div>
-                <div class="contador">
-                    <a class="menos" href="#">Menos</a>
-                    <span class="cantidad">2</span>
-                    <a class="mas" href="#">Mas</a>
-                </div>
-            </li>
-        </ul>
+        {% set carrito = app.session.get('carrito') %}
+        {% if articulos|length == 0 %}
+            <h3>No hay resultados</h3>
+        {% else %}
+            <ul class="lista articulos">
+                {% for articulo in articulos %}
+                    <li>
+                        <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
+                        <div class="informacion">
+                            <h3>{{ articulo.nombre }}</h3>
+                            <h4>{{ articulo.precio|number_format(0,',','.') }}</h4>
+                            <span>{{ articulo.unidadMedida~' '~articulo.valorMedida }}</span><br />
+                            <span id="unidades">{{ articulo.cantidad }} unidades</span>
+                        </div>
+                        <div class="contador">
+                            <a class="menos" href="#" value="{{ articulo.id }}">Menos</a>
+                            <span class="cantidad" id="cantidadArticulo">
+                            {% if carrito.items|length == 0 %}
+                                0
+                            {% else %}
+                                {% set break = false %}
+                                {% for item in carrito.items if not break %}
+                                    {% if item.articulo == articulo.id %}
+                                        {{ item.cantidad }}
+                                        {% set break = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not break %}
+                                    0
+                                {% endif %}
+                            {% endif %}
+                        </span>
+                            <a class="mas" href="#" value="{{ articulo.id }}">Mas</a>
+                        </div>
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+        {% endif %}
     </div>
+    {% include "web/establecimiento/ver.js.twig" %}

@@ -1,0 +1,70 @@
+<section id="unseen">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+
+        <th>Fecha</th>
+        <th>Dirección</th>
+        <th>Teléfono</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody>
+    
+        {% for reserva in reservas %}
+          <tr>
+            <td >{{ reserva.fechaCreacion|date('d-m-Y H:i:s') }}</td>
+              <td >{{ reserva.direccion }}</td>
+              <td >{{ reserva.telefonoContacto }}</td>
+              <td >{{ reserva.estado }}</td>
+            <td ><a href="#" class="btn-editar" data-id="{{ reserva.id }}">Cambiar Estado</a></td>
+          </tr>
+        {% else %} 
+           <tr> 
+              <td colspan="5">No hay reservas </td>
+           </tr>
+        {% endfor %}
+        
+   
+    
+    </tbody>
+  </table>
+</section>
+<script>
+      $('.btn-editar').click(function(e){
+        e.preventDefault();
+        var id=$(this).data("id");
+        $('#modal-title').html('');
+        $('#modal-content').html('<br>CARGANDO . . .');
+        $('#modal-footer').html('');
+        $.ajax({
+          url: '{{path("editarReserva")}}',
+          type: 'POST',
+          dataType: 'html',
+          data: {
+              idElemento:id
+          },
+          success:function(data){
+            
+            $('#modal-title').html('Cambiar Estado Reserva');
+            $('#modal-content').html(data);
+            $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
+            $('#modal').modal('show');
+            $('#btn-actualizar').click(function(){
+              $('#form-editar').submit();
+            });
+            $('#btn-cancelar').click(function(){
+                  $('#btn-cancelar').unbind();
+                  $('#btn-actualizar').unbind();
+                  $('#modal').modal('hide');
+                  $('#modal-title').html('');
+                  $('#modal-content').html('<br>CARGANDO . . .');
+                  $('#modal-footer').html('');
+            });
+
+          }
+
+        });
+      });
+
+
+</script>
