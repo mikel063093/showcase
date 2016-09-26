@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Establecimiento;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -86,12 +87,13 @@ class ArticuloController extends Controller
 
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,
-                'mensaje'=>'Establecimiento creado satisfactoriamente'
+                'mensaje'=>'Articulo creado satisfactoriamente'
             ));
         }
+        var_dump($form->getErrors());
         return new JsonResponse(array(
             'valor'=>false,
-            'mensaje'=>'El establecimiento no se pudo crear.'
+            'mensaje'=>'El articulo no se pudo crear.'
         ));
 
     }
@@ -157,7 +159,30 @@ class ArticuloController extends Controller
      * @Method({"POST"})
      */
     public function eliminarAction(Request $peticion){
-        
+        $em = $this->getDoctrine()->getEntityManager();
+        $idElemento = $peticion->get('idElemento');
+
+        try{
+            $articulo = $em->getRepository('AppBundle:Articulo')->find($idElemento);
+
+            if(count($articulo->getArticulosPedidos()) == 0 &&
+                count($articulo->getItems()) == 0){
+                $em->remove($articulo);
+            }else {
+                $establecimiento = $articulo->getEstablecimiento();
+
+                $establecimiento->removeArticulo($articulo);
+                $articulo->setEstablecimiento(null);
+                $em->persist($articulo);
+                $em->persist($establecimiento);
+            }
+            $em->flush();
+        }catch (\Exception $e){
+            return new JsonResponse(array(
+                'valor'=>false,
+                'mensaje'=>/*'Fallo al eliminar el articulo'*/ $e->getMessage()
+            ));
+        }
         return new JsonResponse(array(
             'valor'=>true,
             'mensaje'=>'Articulo Eliminado con exito'

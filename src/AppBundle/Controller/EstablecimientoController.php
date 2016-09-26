@@ -92,12 +92,12 @@ class EstablecimientoController extends Controller
 
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,
-                'mensaje'=>'Usuario creado satisfactoriamente'
+                'mensaje'=>'Establecimiento creado satisfactoriamente'
             ));
         }
         return new JsonResponse(array(
             'valor'=>false,
-            'mensaje'=>'El usuario no se pudo crear.'
+            'mensaje'=>'El establecimiento no se pudo crear.'
         ));
 
     }

@@ -82,7 +82,6 @@ security:
         # Firewall modulo consulta web
         secured_home:
             pattern:    ^/*
-            context: website
             provider: web_db
             anonymous: ~
             form_login:

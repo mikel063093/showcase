@@ -75,13 +75,13 @@ class InfoAppController extends Controller
             $em->flush();
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor' => true,
-                'mensaje' => 'Informacion actualizada satisfactoriamente'
+                'mensaje' => 'Información actualizada satisfactoriamente'
             ));
         }
-        var_dump($form->getErrorsAsString());
+
         return new JsonResponse(array(
             'valor'=>false,
-            'mensaje'=>'No se pudo actualizar la informacion'
+            'mensaje'=>'No se pudo actualizar la información'
         ));
 
     }

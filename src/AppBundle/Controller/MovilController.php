@@ -1548,7 +1548,10 @@ class MovilController extends Controller
 
             $pedido = new Pedido();
             $direccion = $em->getRepository('AppBundle:Direccion')->find($datosPedido->direccion);
-            $cupon = $em->getRepository('AppBundle:Cupon')->find($datosPedido->cupon);
+            $cupon = null;
+            if(isset($datosPedido->cupon)) {
+                $cupon = $em->getRepository('AppBundle:Cupon')->find($datosPedido->cupon);
+            }
             $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
 
             $strDireccion = $direccion->getTipo()." ".$direccion->getNumero()." # ".$direccion->getNomenclatura();
@@ -1560,7 +1563,9 @@ class MovilController extends Controller
             $pedido->setUsuario($this->getUser());
             $pedido->setFechaCreacion(new \DateTime());
             $pedido->setEstado('Activo');
-            $pedido->setCupon($cupon);
+            if($cupon) {
+                $pedido->setCupon($cupon);
+            }
             $pedido->setValorDomicilio($infoApp->getPrecioDomicilio());
             foreach ($datosPedido->items as $item ){
                 $articuloPedido = new ArticulosPedido();

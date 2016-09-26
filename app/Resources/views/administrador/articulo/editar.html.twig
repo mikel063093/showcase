@@ -4,14 +4,14 @@
             'articulo[nombre]': {  required: true },
             'articulo[precio]': {  required: true , number: true },
             'articulo[unidadMedida]': {  required: true },
-            'articulo[valorMedida]': {  required: true , number: true },
+            'articulo[valorMedida]': {  required: true  },
             'articulo[cantidad]': {  required: true , number: true },
         },
         messages:{
             'articulo[nombre]': {  required: 'El campo Nombre es obligatorio' },
             'articulo[precio]': {  required: 'El campo Precio es obligatorio',number:'El campo Precio solo recibe numeros' },
             'articulo[unidadMedida]': {  required: 'El campo Unidad de Medida es obligatorio' },
-            'articulo[valorMedida]': {  required: 'El campo Valor de Medida es obligatorio',number:'El campo Valor de Medida solo recibe numeros' },
+            'articulo[valorMedida]': {  required: 'El campo Valor de Medida es obligatorio' },
             'articulo[cantidad]': {  required: 'El campo Cantidad es obligatorio',number:'El campo Cantidad de Medida solo recibe numeros' },
         },
         submitHandler: function(form) {

@@ -40,7 +40,7 @@ class UsuarioController extends Controller
     */
     public function nuevoaAction(Request $request){
     	$em = $this->getDoctrine()->getManager();
-    	$roles = $em->getRepository('AppBundle:Rol')->findAll();
+    	$roles = $em->getRepository('AppBundle:Rol')->findBy(array('codigo' => 'ROLE_ADMIN'));
     	$entity = new Usuario();
         $form   = $this->formularioCrear($entity);
 		return $this->render('administrador/usuario/nuevo.html.twig',array(
@@ -108,7 +108,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Usuario')->find($idUsuario);
         $form   = $this->formularioEditar($entity);
-        $roles = $em->getRepository('AppBundle:Rol')->findAll();
+        $roles = $em->getRepository('AppBundle:Rol')->findBy(array('codigo' => 'ROLE_ADMIN'));
         
         return $this->render('administrador/usuario/editar.html.twig', array(
             'roles' => $roles,
@@ -167,11 +167,23 @@ class UsuarioController extends Controller
      * @Method({"POST"})
      */
     public function eliminarAction(Request $peticion){
-        
-        return new JsonResponse(array(
-            'valor'=>true,
-            'mensaje'=>'Usuario Eliminado con exito'
-        ));
+        $idUsuario=$peticion->request->get('idElemento');
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Usuario')->find($idUsuario);
+        try{
+            $em->remove($entity);
+            $em->flush();
+            return new JsonResponse(array(
+                'valor'=>true,
+                'mensaje'=>'Usuario Eliminado con exito'
+            ));
+        }catch (\Exception $e){
+            return new JsonResponse(array(
+                'valor'=>false,
+                'mensaje'=>'Fallo al eliminar el usuario'
+            ));
+        }
+
     }
 
     private function formularioCrear(Usuario $entity){

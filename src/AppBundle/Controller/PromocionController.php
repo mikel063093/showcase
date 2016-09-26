@@ -87,7 +87,7 @@ class PromocionController extends Controller
         }
         return new JsonResponse(array(
             'valor'=>false,
-            'mensaje'=>'La promocion no se pudo crear.'
+            'mensaje'=>'La promoción no se pudo crear.'
         ));
 
     }
@@ -140,7 +140,7 @@ class PromocionController extends Controller
             $em->flush();
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,
-                'mensaje'=>'Promocion actualizada satisfactoriamente'
+                'mensaje'=>'Promoción actualizada satisfactoriamente'
             ));
         }
         return new JsonResponse(array(
@@ -157,18 +157,18 @@ class PromocionController extends Controller
     public function eliminarAction(Request $peticion){
         $em = $this->getDoctrine()->getManager();
         $idElmento = $peticion->get('idElemento');
-        $foto = $em->getRepository('AppBundle:FotosEstablecimiento')->find($idElmento);
+        $promocion = $em->getRepository('AppBundle:Promocion')->find($idElmento);
         try{
-            $em->remove($foto);
+            $em->remove($promocion);
             $em->flush();
             return new JsonResponse(array(
                 'valor'=>true,
-                'mensaje'=>'Foto eliminada con exito'
+                'mensaje'=>'Promoción eliminada con exito'
             ));
         }catch (Exception $e){
             return new JsonResponse(array(
                 'valor'=>false,
-                'mensaje'=>'Fallo al eliminar la foto'
+                'mensaje'=>'Fallo al eliminar la promoción'
             ));
         }
 

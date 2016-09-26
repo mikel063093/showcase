@@ -60,7 +60,7 @@ class Articulo {
     /**
      * @var integer $valorMedida
      *
-     * @ORM\Column(name="valorMedida", type="integer", nullable=true, options=
+     * @ORM\Column(name="valorMedida", type="string",length=31, nullable=true, options=
      * {"comment" = "Valor unidad de medida del articulo"})
      */
     private $valorMedida;

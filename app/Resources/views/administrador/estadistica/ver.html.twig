@@ -1,0 +1,39 @@
+<section id="unseen">
+
+  <table class="table table-bordered table-striped table-condensed">
+
+    <tbody>
+    
+
+          <tr>
+            <td > Establecimientos afiliados</td>
+              <td colspan="2">{{ establecimientos  |length }}</td>
+
+
+          </tr>
+          {%  for zona in zonas %}
+          <tr >
+              {% if loop.first %}<td rowspan="{{ zonas|length }}">Establecimientos afiliados por zona</td>{% endif %}
+              <td >{{ zona.nombre }}</td>
+              <td >{{ zona.establecimientos|length }}</td>
+
+
+          </tr>
+          {% endfor %}
+          {%  for plan in planes %}
+              <tr >
+                  {% if loop.first %}<td rowspan="{{ planes|length }}">Establecimientos afiliados por plan </td>{% endif %}
+                  <td >{{ plan.nombre }}</td>
+                  <td >{{ plan.establecimientos|length }}</td>
+
+
+              </tr>
+          {% endfor %}
+        
+   
+    
+    </tbody>
+  </table>
+
+
+</section>
