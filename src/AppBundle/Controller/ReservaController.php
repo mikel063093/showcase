@@ -67,12 +67,12 @@ class ReservaController extends Controller
                     'Entregado'
                 );
                 break;
-        }
-        return $this->render('administrador/reserva/editar.html.twig', array(
+    }
+    return $this->render('administrador/reserva/editar.html.twig', array(
 
-            'entity' => $entity,
-            'estados' => $estados
-        ));
+    'entity' => $entity,
+    'estados' => $estados
+    ));
     }
 
     /**

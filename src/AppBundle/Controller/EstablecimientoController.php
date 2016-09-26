@@ -179,10 +179,36 @@ class EstablecimientoController extends Controller
      * @Method({"POST"})
      */
     public function eliminarAction(Request $peticion){
-        
+        $em = $this->getDoctrine()->getEntityManager();
+        $idElemento = $peticion->get('idElemento');
+        try{
+            $establecimiento =  $em->getRepository('AppBundle:Establecimiento')->find($idElemento);
+            $establecimiento = new Establecimiento();
+            if(count($establecimiento->getArticulos()) == 0 &&
+                count($establecimiento->getFotosEstablecimientos()) == 0 &&
+                count($establecimiento->getPuntuaciones()) == 0 &&
+                count($establecimiento->get) == 0
+            ){
+                $em->remove($articulo);
+            }else {
+                $establecimiento = $articulo->getEstablecimiento();
+
+                $establecimiento->removeArticulo($articulo);
+                $articulo->setEstablecimiento(null);
+                $em->persist($articulo);
+                $em->persist($establecimiento);
+            }
+            $em->flush();
+        }catch (\Exception $e){
+            return new JsonResponse(array(
+                'valor'=>false,
+                'mensaje'=>'Fallo al eliminar el establecimiento'
+            ));
+        }
+
         return new JsonResponse(array(
             'valor'=>true,
-            'mensaje'=>'Establecimiento Eliminado con exito'
+            'mensaje'=>'Establecimiento eliminado con exito'
         ));
     }
 
