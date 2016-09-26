@@ -52,10 +52,11 @@ class ReservaController extends Controller
         $entity = $em->getRepository('AppBundle:Pedido')->find($idElemento);
         $estados = array();
         switch ($entity->getEstado()){
-            case 'Activo':
+            case 'En Progreso':
                 $estados = array(
-                    'Activo',
+
                     'En Progreso',
+                    'Preparando',
                     'Cancelado'
                 );
                 break;
@@ -63,7 +64,7 @@ class ReservaController extends Controller
                 $estados = array(
                     'En Progreso',
                     'Cancelado',
-                    'Finalizado'
+                    'Entregado'
                 );
                 break;
         }

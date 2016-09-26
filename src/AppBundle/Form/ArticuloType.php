@@ -17,7 +17,7 @@ class ArticuloType extends AbstractType{
             ->add('descripcion','text', array('attr' => array('size' => '30px')))
             ->add('precio',NumberType::class, array('attr' => array('size' => '30px')))
             ->add('unidadMedida','text', array('attr' => array('size' => '30px')))
-            ->add('valorMedida',NumberType::class, array('attr' => array('size' => '30px'), 'required' => false))
+            ->add('valorMedida','text', array('attr' => array('size' => '30px'), 'required' => false))
             ->add('cantidad',NumberType::class, array('attr' => array('size' => '30px'), 'required' => false))
             ->add('file','file',array('required' => false))
             

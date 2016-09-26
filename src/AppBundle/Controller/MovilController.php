@@ -998,7 +998,7 @@ class MovilController extends Controller
                 array_push($arrayPedidos, array(
                     'id' => $p->getId(),
                     'fechaCreacion' => $p->getFechaCreacion()->format('j de F Y'),
-                    'estado' => $p->getEstado()
+                    'estado' => $this->obtenerEstado($p->getEstado())
                 ));
             }
             $rta['pedidos'] = $arrayPedidos;
@@ -1447,7 +1447,7 @@ class MovilController extends Controller
                 array_push($arrayPedidos, array(
                     'id' => $p->getId(),
                     'fechaCreacion' => $p->getFechaCreacion()->format('j de F Y'),
-                    'estado' => $p->getEstado()
+                    'estado' => $this->obtenerEstado($p->getEstado())
                 ));
             }
             $rta['pedidos'] = $arrayPedidos;
@@ -1459,6 +1459,26 @@ class MovilController extends Controller
         }
         return new JsonResponse( $rta);
 
+    }
+
+    public function obtenerEstado($estado){
+        $string = "";
+        switch ($estado){
+            case 'En Progreso':
+                $string = "<font color='#fff5a623'>Procesando pedido</font>";
+                break;
+            case 'Preparando':
+                $string = "<font color='#ff7ed321'>En Proceso de Entrega </font>";
+                break;
+            case 'Cancelado':
+                $string = "<font color='#fff00f0f'>Cancelado</font>";
+                break;
+            case 'Entregado' :
+                $string = "<font color='#ff7ed321'>Entregado satisfactoriamente</font>";
+                break;
+
+        }
+        return $string;
     }
 
     /**
@@ -1562,7 +1582,7 @@ class MovilController extends Controller
             $pedido->setMetodoPago($datosPedido->formaPago);
             $pedido->setUsuario($this->getUser());
             $pedido->setFechaCreacion(new \DateTime());
-            $pedido->setEstado('Activo');
+            $pedido->setEstado('En Progreso');
             if($cupon) {
                 $pedido->setCupon($cupon);
             }
