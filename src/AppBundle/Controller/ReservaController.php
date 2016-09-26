@@ -60,9 +60,9 @@ class ReservaController extends Controller
                     'Cancelado'
                 );
                 break;
-            case 'En Progreso':
+            case 'Preparando':
                 $estados = array(
-                    'En Progreso',
+                    'Preparando',
                     'Cancelado',
                     'Entregado'
                 );

@@ -4,7 +4,6 @@
     <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/ReservaController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/ReservaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/ArticuloType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/ArticuloType.php" />
     </list>
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,21 +56,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="1162" column="29" selection-start-line="1162" selection-start-column="29" selection-end-line="1162" selection-end-column="29" />
+            <state relative-caret-position="269">
+              <caret line="1448" column="161" selection-start-line="1448" selection-start-column="161" selection-end-line="1448" selection-end-column="161" />
               <folding>
-                <element signature="e#38822#39613#0#PHP" expanded="false" />
-                <element signature="e#39707#42499#0#PHP" expanded="false" />
-                <element signature="e#44753#46659#0#PHP" expanded="false" />
-                <element signature="e#46756#48234#0#PHP" expanded="false" />
-                <element signature="e#48326#50273#0#PHP" expanded="false" />
-                <element signature="e#50353#51325#0#PHP" expanded="false" />
-                <element signature="e#51399#52865#0#PHP" expanded="false" />
-                <element signature="e#54653#57262#0#PHP" expanded="false" />
-                <element signature="e#57340#59674#0#PHP" expanded="false" />
+                <element signature="e#38902#39693#0#PHP" expanded="false" />
+                <element signature="e#39787#42579#0#PHP" expanded="false" />
+                <element signature="e#42649#44739#0#PHP" expanded="false" />
+                <element signature="e#44833#46739#0#PHP" expanded="false" />
+                <element signature="e#46836#48314#0#PHP" expanded="false" />
+                <element signature="e#48406#50353#0#PHP" expanded="false" />
+                <element signature="e#50433#51405#0#PHP" expanded="false" />
+                <element signature="e#51479#52945#0#PHP" expanded="false" />
+                <element signature="e#54813#57422#0#PHP" expanded="false" />
+                <element signature="e#57500#59834#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -87,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReservaController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ReservaController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ReservaController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="58" column="31" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="31" />
+            <state relative-caret-position="249">
+              <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -194,8 +194,8 @@
         <option value="$PROJECT_DIR$/app/Resources/views/administrador/articulo/editar.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/ArticuloController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/ArticuloType.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ReservaController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ReservaController.php" />
       </list>
     </option>
   </component>
@@ -798,12 +798,12 @@
       <workItem from="1474676562891" duration="6114000" />
       <workItem from="1474728707583" duration="13668000" />
       <workItem from="1474836457168" duration="24838000" />
-      <workItem from="1474891294593" duration="7079000" />
+      <workItem from="1474891294593" duration="7893000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211136000" />
+    <option name="totallyTimeSpent" value="211950000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1222,29 +1222,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ReservaController.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="58" column="31" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="269">
+          <caret line="1448" column="161" selection-start-line="1448" selection-start-column="161" selection-end-line="1448" selection-end-column="161" />
+          <folding>
+            <element signature="e#38902#39693#0#PHP" expanded="false" />
+            <element signature="e#39787#42579#0#PHP" expanded="false" />
+            <element signature="e#42649#44739#0#PHP" expanded="false" />
+            <element signature="e#44833#46739#0#PHP" expanded="false" />
+            <element signature="e#46836#48314#0#PHP" expanded="false" />
+            <element signature="e#48406#50353#0#PHP" expanded="false" />
+            <element signature="e#50433#51405#0#PHP" expanded="false" />
+            <element signature="e#51479#52945#0#PHP" expanded="false" />
+            <element signature="e#54813#57422#0#PHP" expanded="false" />
+            <element signature="e#57500#59834#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ReservaController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="1162" column="29" selection-start-line="1162" selection-start-column="29" selection-end-line="1162" selection-end-column="29" />
-          <folding>
-            <element signature="e#38822#39613#0#PHP" expanded="false" />
-            <element signature="e#39707#42499#0#PHP" expanded="false" />
-            <element signature="e#44753#46659#0#PHP" expanded="false" />
-            <element signature="e#46756#48234#0#PHP" expanded="false" />
-            <element signature="e#48326#50273#0#PHP" expanded="false" />
-            <element signature="e#50353#51325#0#PHP" expanded="false" />
-            <element signature="e#51399#52865#0#PHP" expanded="false" />
-            <element signature="e#54653#57262#0#PHP" expanded="false" />
-            <element signature="e#57340#59674#0#PHP" expanded="false" />
-          </folding>
+        <state relative-caret-position="249">
+          <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

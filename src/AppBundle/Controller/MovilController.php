@@ -997,7 +997,7 @@ class MovilController extends Controller
             foreach ($pedidos as $p){
                 array_push($arrayPedidos, array(
                     'id' => $p->getId(),
-                    'fechaCreacion' => $p->getFechaCreacion()->format('j de F Y'),
+                    'fechaCreacion' => $p->getFechaCreacion()->format('j'). " de ".$p->getFechaCreacion()->format('F')." de ".$p->getFechaCreacion()->format('Y'),
                     'estado' => $this->obtenerEstado($p->getEstado())
                 ));
             }
@@ -1446,7 +1446,7 @@ class MovilController extends Controller
             foreach ($pedidos as $p){
                 array_push($arrayPedidos, array(
                     'id' => $p->getId(),
-                    'fechaCreacion' => $p->getFechaCreacion()->format('j de F Y'),
+                    'fechaCreacion' => $p->getFechaCreacion()->format('j'). " de ".$p->getFechaCreacion()->format('F')." de ".$p->getFechaCreacion()->format('Y'),
                     'estado' => $this->obtenerEstado($p->getEstado())
                 ));
             }
