@@ -90,6 +90,38 @@ $(document).ready(function() {
         });
     });
 
+    $("#masEstablecimientos").click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "{{ path('masEstablecimientos') }}",
+            dataType: "html",
+            success: function(data) {
+                $("#carrusel").cycle('stop');
+                removerClase('vistaEstable');
+
+                $('#home').html(data);
+            },
+        });
+    });
+
+    $("#masArticulos").click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "{{ path('masArticulos') }}",
+            dataType: "html",
+            success: function(data) {
+                $("#carrusel").cycle('stop');
+                removerClase('vistaEstable');
+
+                $('#home').html(data);
+            },
+        });
+    });
+
     $('#buscar').autocomplete({
         source: "{{ path('autoCompletarBusquedaWeb') }}",
             minLength: 1,

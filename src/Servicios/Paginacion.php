@@ -26,7 +26,7 @@ class Paginacion{
     * @return array
     */
     public function paginar($query, $page, $limit){
-        
+
         //$session = $GLOBALS['kernel']->getContainer()->get('session');
         
         
@@ -47,6 +47,7 @@ class Paginacion{
 
         // this covers the NativeQuery case
         if (is_a($query, '\Doctrine\ORM\NativeQuery'))        {
+
             // do a count for all query, create a separate NativeQuery only for that
             $sqlInitial = $query->getSQL();
  
@@ -65,6 +66,7 @@ class Paginacion{
         }
         // this covers the QueryBuilder case, turning it into Query
         elseif(is_a($query, '\Doctrine\ORM\QueryBuilder')){
+
             // set limit and offset, getting the query out of queryBuilder
             $query = $query->setFirstResult(($page -1) * $limit)->setMaxResults($limit)->getQuery();
  
@@ -76,7 +78,7 @@ class Paginacion{
  
         // set total pages
         $this->totalPages = ceil($this->count / $limit);
-        
+
         return $query->getResult();
     }
  

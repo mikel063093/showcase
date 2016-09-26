@@ -1565,7 +1565,6 @@ class MovilController extends Controller
             foreach ($datosPedido->items as $item ){
                 $articuloPedido = new ArticulosPedido();
                 $articulo = $em->getRepository('AppBundle:Articulo')->find($item->id);
-                $articulo->setCantidad($articulo->getCantidad() - $item->cantidad);
                 $articuloPedido->setArticulo($articulo);
                 $articuloPedido->setPrecio($articulo->getPrecio());
                 $articuloPedido->setCantidad($item->cantidad);
@@ -1587,6 +1586,8 @@ class MovilController extends Controller
         return new JsonResponse( $rta);
 
     }
+
+
 
 
 

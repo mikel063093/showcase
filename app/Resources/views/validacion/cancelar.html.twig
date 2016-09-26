@@ -1,7 +1,37 @@
 <div class="cancelar">
     <p>¿Desea cancelar este pedido?</p>
     <div class="enlaces">
-        <a href="index.html">Si</a>
-        <a href="">No</a>
+        <a href="index.html" id="si">Si</a>
+        <a href="" id="no">No</a>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#si").click(function (e) {
+           e.preventDefault();
+            $.ajax({
+                type: "post",
+                url: "{{ path('cancelarPedidoWeb') }}",
+                dataType: "json",
+                data:{
+                    idCarrito: carrito
+                },
+
+                success: function (data) {
+                   if(data.estado){
+                       mostrarMensaje(data.mensaje,'Exito');
+                       window.location.href = "{{ path('home') }}"
+                   }else{
+                       mostrarMensaje(data.mensaje,'Fallo');
+                   }
+                }
+            });
+        });
+
+        $("#no").click(function (e) {
+            e.preventDefault();
+            $.colorbox.remove();
+        });
+    })
+    
+</script>

@@ -68,4 +68,16 @@ class ArticuloRepository extends EntityRepository
 
         return $consulta->getQuery()->getResult();
     }
+
+    public function obtenerTodosArticulosDestacados(){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Articulo','a')
+            ->andWhere('a.cantidad > 0')
+            ->setMaxResults(4);
+
+        return $consulta->getQuery()->getResult();
+    }
 }

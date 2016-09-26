@@ -7,7 +7,7 @@
     <div class="cycle-pager"></div>
 </div>
 <div class="contenedor destacados">
-    <h2>Establecimientos destacados<a href="#">VER MÁS DESTACADOS</a></h2>
+    <h2>Establecimientos destacados<a id="masEstablecimientos" href="#">VER MÁS DESTACADOS</a></h2>
     <ul class="lista establecimientos">
         {% for establecimiento in establecimientosDestacados %}
         <li>
@@ -20,7 +20,7 @@
 </div>
 <div class="contenedor destacados">
     {% set carrito = app.session.get('carrito') %}
-    <h2>Artículos destacados <a href="#">VER MÁS ARTÍCULOS</a> </h2>
+    <h2>Artículos destacados <a id="masArticulos" href="#" >VER MÁS ARTÍCULOS</a> </h2>
     <ul class="lista articulos">
         {% for articulo in articulosDestacados %}
         <li>

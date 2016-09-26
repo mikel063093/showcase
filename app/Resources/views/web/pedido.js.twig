@@ -90,7 +90,94 @@
 
 
         });
+
+        $("div.cupon input").keyup(function(e){
+            var elemento = $(this);
+            let codigo = elemento.val();
+            if(codigo.length > 4){
+                redimirCupon(elemento);
+            }
+            if(codigo.length == 0){
+                elemento.removeAttr('class');
+            }
+        }).focusout(function(e){
+            var elemento = $(this);
+            if(codigo.length == 0){
+                elemento.removeAttr('class');
+            }else{
+                redimirCupon(elemento);
+            }
+        });
+
+        $('#pedido').validate({
+            rules: {
+
+                'numero': {  required: true  },
+                'nomenclatura': {  required: true  },
+                'casa': {  required: true  },
+                {% if app.user is null %}
+                'nombres' : { required: true},
+                'apellidos' : { required: true},
+                'email' : { required: true , email:true},
+                'emailConfirm' : { required: true, equalTo: "#email" },
+                'telefono' : { required: true},
+                'password' : { required: true },
+                {% endif %}
+            },
+            messages:{
+
+                'numero': {  required: 'Este campo es obligatorio' },
+                'nomenclatura': {  required: 'Este campo es obligatorio' },
+                'casa': {  required: 'Este campo es obligatorio' },
+                 {% if app.user is null %}
+                'nombres' : { required: 'El campo Nombres es obligtorio'},
+                'apellidos' : { required: 'El campo Apellidos es obligtorio'},
+                'email' : { required: 'El campo Correo Electronico es obligtorio' , email: 'Este correo electronico no es valido '},
+                'emailConfirm' : { equalTo: "Los correos no son iguales" },
+                'telefono' : { required: 'El campo Telefono es obligtorio'},
+                'password' : { required: 'El campo Contraseña es obligtorio' },
+                {% endif %}
+            },
+            submitHandler: function(form) {
+                enviar(form);
+            },
+            showErrors: function(errorMap, errorList) {
+                if (errorList.length > 0) {
+                }
+            },
+            invalidHandler: function(event, validator) {
+                if (validator.errorList.length > 0) {
+                    for (var i = 0; i < validator.errorList.length; i++) {
+                        mostrarMensaje(validator.errorList[i].message,'Error');
+                    };
+                    return false;
+                }
+            },
+            errorPlacement: function(error, element) {
+                return false;
+            }
+        });
     });
+
+    function redimirCupon(elemento){
+        $.ajax({
+            type: "POST",
+            url: "{{ path('redimirCuponWeb') }}",
+            dataType: "json",
+            data:{
+                codigo:elemento.val()
+            },
+            success: function (data) {
+                elemento.removeAttr('class');
+                if(data.estado) {
+                    elemento.addClass('valido');
+                }else{
+                    mostrarMensaje(data.mensaje,'Fallo');
+                    elemento.addClass('invalido');
+                }
+            }
+        });
+    }
 
     function obtenerModales(){
         $.ajax({
@@ -124,4 +211,50 @@
             }
         });
     };
+
+    function enviar(form){
+
+        var datos = $('#pedido').serialize();
+        var errores = [];
+
+
+
+        if($("#cupon").hasClass('invalido')){
+            errores.push ( 'El cupon es invalido');
+        }
+        if($("#formaPago").val() == "vacio"){
+            errores.push ( 'Debe seleccionar una forma de pago');
+        }
+
+        if(errores.length > 0){
+            for (var i = 0; i < errores.length; i++) {
+                mostrarMensaje(errores[i],'Error');
+            };
+            return false;
+        }
+
+        $.ajax({
+            url:"{{path('realizarPedidoWeb')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+
+            success: function (data){
+                if(data.estado){
+
+                    mostrarMensaje(data.mensaje,'Exito');
+                    window.location.href = "{{ path('home') }}"
+                }else{
+                    mostrarMensaje(data.mensaje,'Error');
+                    if(data.borrado){
+                        window.location.href = "{{ path('home') }}"
+                    }
+                }
+
+
+            }
+
+        });
+
+    }
 </script>

@@ -105,7 +105,7 @@ security:
             logout:
                 path:   web_logout
                 target: /user
-            #anonymous: ~
+            anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
         movil:
@@ -124,7 +124,7 @@ security:
         - { path: ^/registrar, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/web/*, roles: ROLE_USER }
         - { path: ^/administracion/*, roles: ROLE_ADMIN }
-        - { path: ^/user, roles: [ROLE_USER, ROLE_ADMIN]}
+        - { path: ^/user, roles: [ROLE_USER , ROLE_ADMIN]}
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/*, roles: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }

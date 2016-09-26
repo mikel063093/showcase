@@ -16,7 +16,7 @@
               <td >{{ reserva.direccion }}</td>
               <td >{{ reserva.telefonoContacto }}</td>
               <td >{{ reserva.estado }}</td>
-            <td ><a href="#" class="btn-editar" data-id="{{ reserva.id }}">Cambiar Estado</a></td>
+            <td ><a href="#" class="btn-editar" data-id="{{ reserva.id }}">Cambiar Estado</a> | <a href="#" class="btn-ver" data-id="{{ reserva.id }}">Ver</a></td>
           </tr>
         {% else %} 
            <tr> 
@@ -66,5 +66,29 @@
         });
       });
 
+      $('.btn-ver').click(function(e){
+          e.preventDefault();
+          var id=$(this).data("id");
+          $('#modal-title').html('');
+          $('#modal-content').html('<br>CARGANDO . . .');
+          $('#modal-footer').html('');
+          $.ajax({
+              url: '{{path("verReserva")}}',
+              type: 'POST',
+              dataType: 'html',
+              data: {
+                  idElemento:id
+              },
+              success:function(data){
+
+                  $('#modal-title').html('Información Reserva');
+                  $('#modal-content').html(data);
+                  $('#modal').modal('show');
+
+
+              }
+
+          });
+      });
 
 </script>

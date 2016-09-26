@@ -24,6 +24,7 @@ class CuponRepository extends EntityRepository
             ->setParameter('codigo',$codigo)
             ->setParameter('estado','Activo')
             ->setParameter('fecha',$fecha);
+
         return $consulta->getQuery()->getOneOrNullResult();
     }
 
@@ -33,8 +34,12 @@ class CuponRepository extends EntityRepository
         $consulta = $em->createQueryBuilder()
             ->select('cu')
             ->from('AppBundle:CuponUsuario','cu')
-            ->where('cu.cupon = :cupon')
+            ->innerJoin('cu.cupon','c')
+            ->innerJoin('c.pedidos','p')
+            ->innerJoin('p.usuario','u')
+            ->where('c.id = :cupon')
             ->andWhere('cu.usuario = :usuario')
+            ->andWhere('u.id = :usuario')
             ->setParameter('cupon',$cupon)
             ->setParameter('usuario',$usuario)
             ;

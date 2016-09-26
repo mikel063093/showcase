@@ -1,4 +1,5 @@
 <section id="unseen">
+    <h2>Datos Pedido</h2>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
 
@@ -6,65 +7,102 @@
         <th>Dirección</th>
         <th>Teléfono</th>
         <th>Estado</th>
-        <th>Acciones</th>
+
     </thead>
     <tbody>
     
-        {% for reserva in reservas %}
+
           <tr>
-            <td >{{ reserva.fechaCreacion|date('d-m-Y H:i:s') }}</td>
-              <td >{{ reserva.direccion }}</td>
-              <td >{{ reserva.telefonoContacto }}</td>
-              <td >{{ reserva.estado }}</td>
-            <td ><a href="#" class="btn-editar" data-id="{{ reserva.id }}">Cambiar Estado</a></td>
+            <td >{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
+              <td >{{ entity.direccion }}</td>
+              <td >{{ entity.telefonoContacto }}</td>
+              <td >{{ entity.estado }}</td>
+
           </tr>
-        {% else %} 
-           <tr> 
-              <td colspan="5">No hay reservas </td>
-           </tr>
-        {% endfor %}
+
         
    
     
     </tbody>
   </table>
+    <h2>Articulos</h2>
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+
+        </thead>
+        <tbody>
+        {% set subtotal = 0 %}
+        {% for articulo  in entity.articulosPedidos %}
+            <tr>
+                <td >{{ articulo.articulo.nombre}}</td>
+                <td >${{ articulo.precio|number_format(0,',','.') }}</td>
+                <td >{{ articulo.cantidad }}</td>
+
+            </tr>
+            {% set subtotal = subtotal + (articulo.precio * articulo.cantidad ) %}
+        {% else %}
+            <tr>
+                <td colspan="5">No hay articulos </td>
+            </tr>
+        {% endfor %}
+
+
+
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-striped table-condensed">
+
+        <tbody>
+
+            <tr>
+                <td >SubTotal</td>
+                <td >${{ subtotal|number_format(0,',','.') }}</td>
+
+
+            </tr>
+            <tr>
+                <td >Precio Domicilio</td>
+                <td >${{ entity.valorDomicilio|number_format(0,',','.') }}</td>
+
+
+            </tr>
+            <tr>
+                {% set cupon = entity.cupon %}
+                {% set valorCupon = 0 %}
+                {% if cupon is not null %}
+                    {% set valorCupon = cupon.valor %}
+                {% endif %}
+                <td >Cupon</td>
+                <td >
+
+                    ${{ valorCupon|number_format(0,',','.') }}
+                </td>
+
+
+            </tr>
+            <tr>
+                {% set total = subtotal + entity.valorDomicilio - valorCupon %}
+                <td >Total</td>
+                <td >${{ total|number_format(0,',','.') }}</td>
+
+
+            </tr>
+            <tr>
+
+                <td >Observaciones</td>
+                <td >{{ entity.observaciones|default('') }}</td>
+
+            </tr>
+
+
+
+
+        </tbody>
+    </table>
+
 </section>
-<script>
-      $('.btn-editar').click(function(e){
-        e.preventDefault();
-        var id=$(this).data("id");
-        $('#modal-title').html('');
-        $('#modal-content').html('<br>CARGANDO . . .');
-        $('#modal-footer').html('');
-        $.ajax({
-          url: '{{path("editarReserva")}}',
-          type: 'POST',
-          dataType: 'html',
-          data: {
-              idElemento:id
-          },
-          success:function(data){
-            
-            $('#modal-title').html('Cambiar Estado Reserva');
-            $('#modal-content').html(data);
-            $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
-            $('#modal').modal('show');
-            $('#btn-actualizar').click(function(){
-              $('#form-editar').submit();
-            });
-            $('#btn-cancelar').click(function(){
-                  $('#btn-cancelar').unbind();
-                  $('#btn-actualizar').unbind();
-                  $('#modal').modal('hide');
-                  $('#modal-title').html('');
-                  $('#modal-content').html('<br>CARGANDO . . .');
-                  $('#modal-footer').html('');
-            });
-
-          }
-
-        });
-      });
-
-
-</script>

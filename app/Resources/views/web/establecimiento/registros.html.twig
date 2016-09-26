@@ -12,12 +12,9 @@
         </li>
         {% endfor %}
     </ul>
-    <ul class="paginador">
-        <li><a class="activo" href="">1</a></li>
-        <li><a href="">2</a></li>
-        <li><a href="">3</a></li>
-        <li><a href="">4</a></li>
-    </ul>
+    {% if paginador|length > 0 and paginador.getTotalPages() > 1 %}
+        {{ include('paginacion/paginacion.html.twig', {'paginator' : establecimientos}) }}
+    {% endif %}
 </div>
 <script>
     $(document).ready(function() {
@@ -25,5 +22,26 @@
         hoverLista("div.contenedor ul.establecimientos li", "img", "h3");
         hoverLista("div.destacados ul.articulos li", "img", "div.informacion");
         hoverLista("div.contArticulos ul.articulos li", "img", "div.informacion");
+
+        $('ul.paginador a').click(function(e){
+            e.preventDefault();
+            let pagina = $(this).attr('value');
+            e.preventDefault();
+            {% if categoria is null %}
+            var id = 0;
+            {% else %}
+            var id = {{ categoria.id }};
+            {% endif %}
+            $.ajax({
+                type: "GET",
+                url: "{{ path('establecimientosCategoria') }}/"+id +"/"+pagina,
+                dataType: "html",
+                success: function(data) {
+
+                    $('#home').html(data);
+                },
+            });
+
+        })
     });
 </script>

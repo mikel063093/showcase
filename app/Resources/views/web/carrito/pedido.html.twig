@@ -16,7 +16,7 @@
             </div>
             {% set totalProducto  = item.precio * item.cantidad %}
             <div class="valor">${{ totalProducto |number_format(0,',','.') }}</div>
-            <a class="eliminar" href="#" title="Eliminar">Eliminar</a>
+            <a class="eliminar" href="#" title="Eliminar" value="{{ item.articulo }}">Eliminar</a>
         </li>
     {% endfor %}
 
@@ -98,6 +98,35 @@
                         mostrarMensaje(data.mensaje,'Fallo');
                     }
                     unidades.text(parseInt(cantidad) + 1);
+                }
+            });
+
+
+        });
+
+        $('.eliminar').click(function (e){
+            e.preventDefault();
+            let elemento = $(this);
+            $.ajax({
+                type: "POST",
+                url: "{{ path('vaciarProductoCarritoWeb') }}",
+                dataType: "json",
+                data: {
+                    idArticulo: elemento.attr('value'),
+                    idCarrito: carrito,
+                    pedido:1
+                },
+                success: function (data){
+                    if(data.estado){
+
+                        $('#carrito').html(data.carro);
+                        $('#lista').html(data.pedido);
+                        mostrarMensaje(data.mensaje,'Exito');
+
+                    }else{
+                        mostrarMensaje(data.mensaje,'Fallo');
+                    }
+
                 }
             });
 

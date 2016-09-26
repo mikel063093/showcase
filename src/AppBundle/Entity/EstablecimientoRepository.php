@@ -12,6 +12,34 @@ use Doctrine\ORM\EntityRepository;
  */
 class EstablecimientoRepository extends EntityRepository
 {
+    public function findTodos(){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->addSelect('e')
+            ->from('AppBundle:Establecimiento', 'e');
+
+
+        $consulta->orderBy('e.peso', 'ASC');
+
+        return $consulta;
+    }
+
+    public function findTodosCategoria($idCategoria){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->addSelect('e')
+            ->from('AppBundle:Establecimiento', 'e')
+            ->where('e.categoria = :categoria')->setParameter('categoria',$idCategoria);
+
+
+        $consulta->orderBy('e.peso', 'ASC');
+
+        return $consulta;
+    }
+
+
 	public function findEstablecimientosCategoria($id){
 		$em = $this->getEntityManager();
 
@@ -19,7 +47,7 @@ class EstablecimientoRepository extends EntityRepository
                         ->addSelect('e')
                         ->from('AppBundle:Establecimiento', 'e')
                         ->where('e.categoria = :categoria')->setParameter('categoria',$id);
-                $consulta->setMaxResults(4);
+                $consulta->setMaxResults(3);
                 $consulta->orderBy('e.peso', 'ASC');
 
                 return $consulta->getQuery()->getResult();
@@ -37,6 +65,18 @@ class EstablecimientoRepository extends EntityRepository
                      ->andWhere('c.id = :id')
                      ->setParameter('id',$idCategoria);
         }
+
+        return $consulta->getQuery()->getResult();
+    }
+    public function obtenerTodosEstablecimintosDestacados(){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->select('e')
+            ->from('AppBundle:Establecimiento','e')
+            ->setMaxResults(12);
+
+
         return $consulta->getQuery()->getResult();
     }
 }

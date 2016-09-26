@@ -3,7 +3,7 @@
 {% block contenidoWeb %}
 <span id="marcaPedido"></span>
 <h2 class="titulo">Resumen de tu pedido</h2>
-<form class="pedido" action="" method="post">
+<form id="pedido" class="pedido" action="" method="post">
     <div class="contIzq">
         <div class="list" id="lista">
             {% include "web/carrito/pedido.html.twig" %}
@@ -11,7 +11,7 @@
         <h2>Observaciones de tu pedido</h2>
         <div class="form">
             <label>Observaciones</label>
-            <textarea></textarea>
+            <textarea name="observaciones"></textarea>
         </div>
     </div>
     <div class="contDer">
@@ -25,53 +25,53 @@
             <div class="form">
                 <div class="izq">
                     <label>Nombres</label>
-                    <input type="text" />
+                    <input type="text" name="nombres"/>
                 </div>
                 <div class="der">
                     <label>Apellidos</label>
-                    <input type="text" />
+                    <input type="text" name="apellidos"/>
                 </div>
             </div>
             <div class="form">
                 <label>Correo electrónico</label>
-                <input type="email" />
+                <input type="email"  id="email" name="email"/>
             </div>
             <div class="form">
                 <label>Confirmar correo electrónico</label>
-                <input type="email" />
+                <input type="email" name="emailConfirm"/>
             </div>
             <div class="form">
                 <label>Celular</label>
-                <input type="text" />
+                <input type="text" name="telefono"/>
             </div>
             <div class="form">
                 <label>Contraseña</label>
-                <input type="password" />
+                <input type="password" name="password"/>
             </div>
         </div>
         {% endif %}
         <div class="direccion">
             <h2>Dirección de envío</h2>
             <div class="form select">
-                <select>
+                <select name="tipo">
                     <option value="carrera">Carrera</option>
                     <option value="calle">Calle</option>
                 </select>
-                <input type="text" />
+                <input name="numero" type="text" />
                 <span>#</span>
-                <input type="text" />
+                <input name="nomenclatura" type="text" />
                 <span>-</span>
-                <input class="ultimo" type="text" />
+                <input class="ultimo" name="casa" type="text" />
             </div>
             <div class="form">
                 <label>Información adicional</label>
-                <input type="text" placeholder="Ej: Apartamento 301, Bloque D" />
+                <input type="text" name="infoAdicional" placeholder="Ej: Apartamento 301, Bloque D" />
             </div>
         </div>
         <h2>Método de pago</h2>
         <div class="form pago">
             <label>Selecciona el método de pago</label>
-            <select>
+            <select name="formaPago" id="formaPago">
                 <option value="vacio">Selecciona el método de pago</option>
                 <option value="efectivo">Efectivo</option>
                 <option value="tarjeta">Tarjeta</option>
@@ -81,11 +81,11 @@
         <h2>Remidir cupón</h2>
         <div class="form cupon">
             <label>Cupón</label>
-            <input class="valido" type="text" placeholder="Agregue un cupón" />
+            <input type="text" name="codigo" id="cupon" placeholder="Agregue un cupón" />
         </div>
         {% endif %}
         <div class="form checkbox">
-            <input type="checkbox" id="chex2" /><label for="chex2"><span></span>He leído y estoy de acuerdo con los términos y condiciones</label>
+            <input type="checkbox" id="chex2" name="terminos" /><label for="chex2"><span></span>He leído y estoy de acuerdo con los términos y condiciones</label>
         </div>
         <button type="submit">Realizar pedido</button>
         <a class="cancelar" href="#">- Cancelar pedido -</a>

@@ -103,4 +103,20 @@ class ReservaController extends Controller
         }
     }
 
+    /**
+     * @Route("/ver", name="verReserva")
+     * @Method({"POST"})
+     */
+    public function verAction(Request $peticion){
+        $idElemento=$peticion->request->get('idElemento');
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Pedido')->find($idElemento);
+
+        return $this->render('administrador/reserva/ver.html.twig', array(
+
+            'entity' => $entity,
+
+        ));
+    }
+
 }
