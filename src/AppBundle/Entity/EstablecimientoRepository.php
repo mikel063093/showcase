@@ -79,4 +79,18 @@ class EstablecimientoRepository extends EntityRepository
 
         return $consulta->getQuery()->getResult();
     }
+
+    public function buscarEstablecimientos(){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->select('e')
+            ->from('AppBundle:Establecimiento','e')
+            ->where('e.categoria is NOT NULL');
+
+
+        return $consulta->getQuery()->getResult();
+    }
+
+
 }

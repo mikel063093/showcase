@@ -1465,16 +1465,16 @@ class MovilController extends Controller
         $string = "";
         switch ($estado){
             case 'En Progreso':
-                $string = "<font color=#fff5a623>Procesando pedido</font>";
+                $string = "<font color=#f5a623>Procesando pedido</font>";
                 break;
             case 'Preparando':
-                $string = "<font color=#ff7ed321>En Proceso de Entrega </font>";
+                $string = "<font color=#7ed321>En Proceso de Entrega </font>";
                 break;
             case 'Cancelado':
-                $string = "<font color=#fff00f0f>Cancelado</font>";
+                $string = "<font color=#f00f0f>Cancelado</font>";
                 break;
             case 'Entregado' :
-                $string = "<font color=#ff7ed321>Entregado satisfactoriamente</font>";
+                $string = "<font color=#7ed321>Entregado satisfactoriamente</font>";
                 break;
 
         }

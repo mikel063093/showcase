@@ -30,7 +30,7 @@ class EstablecimientoController extends Controller
     public function registrosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findAll();
+        $establecimientos = $em->getRepository('AppBundle:Establecimiento')->buscarEstablecimientos();
         return $this->render('administrador/establecimiento/registros.html.twig',array('establecimientos'=>$establecimientos));
     } 
 
@@ -135,7 +135,7 @@ class EstablecimientoController extends Controller
         $entity = $em->getRepository('AppBundle:Establecimiento')->find($idEntidad);
         $form   = $this->formularioCrear($entity);
         $form->handleRequest($peticion);
-        $coordenadas = $request->get('coordenadas');
+        $coordenadas = $peticion->get('coordenadas');
         $errors = $this->get('validator')->validate($entity);
         if (count($errors) > 0){
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
@@ -152,10 +152,10 @@ class EstablecimientoController extends Controller
         $entity->upload();
         if ($form->isValid()) {
             
-            $rol=$em->getRepository('AppBundle:Rol')->find($peticion->get('rol'));
-            $plan=$em->getRepository('AppBundle:Plan')->find($request->get('plan'));
-            $categoria=$em->getRepository('AppBundle:Categoria')->find($request->get('categoria'));
-            $zona=$em->getRepository('AppBundle:Zona')->find($request->get('zona'));
+
+            $plan=$em->getRepository('AppBundle:Plan')->find($peticion->get('plan'));
+            $categoria=$em->getRepository('AppBundle:Categoria')->find($peticion->get('categoria'));
+            $zona=$em->getRepository('AppBundle:Zona')->find($peticion->get('zona'));
             $entity->setPlan($plan);
             $entity->setCategoria($categoria);
             $entity->setZona($zona);
@@ -183,19 +183,25 @@ class EstablecimientoController extends Controller
         $idElemento = $peticion->get('idElemento');
         try{
             $establecimiento =  $em->getRepository('AppBundle:Establecimiento')->find($idElemento);
-            $establecimiento = new Establecimiento();
+
             if(count($establecimiento->getArticulos()) == 0 &&
                 count($establecimiento->getFotosEstablecimientos()) == 0 &&
-                count($establecimiento->getPuntuaciones()) == 0 &&
-                count($establecimiento->get) == 0
-            ){
-                $em->remove($articulo);
+                count($establecimiento->getPuntuaciones()) == 0 ){
+                $em->remove($establecimiento);
             }else {
-                $establecimiento = $articulo->getEstablecimiento();
+                $plan = $establecimiento->getPlan();
+                $zona = $establecimiento->getZona();
+                $categoria = $establecimiento->getCategoria();
 
-                $establecimiento->removeArticulo($articulo);
-                $articulo->setEstablecimiento(null);
-                $em->persist($articulo);
+                $plan->removeEstablecimiento($establecimiento);
+                $zona->removeEstablecimiento($establecimiento);
+                $categoria->removeEstablecimiento($establecimiento);
+                $establecimiento->setCategoria(null);
+                $establecimiento->setPlan(null);
+                $establecimiento->setZona(null);
+                $em->persist($plan);
+                $em->persist($categoria);
+                $em->persist($zona);
                 $em->persist($establecimiento);
             }
             $em->flush();
