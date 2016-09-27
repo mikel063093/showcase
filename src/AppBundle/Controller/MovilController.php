@@ -83,6 +83,7 @@ class MovilController extends Controller
             }
             
             $url = $this->generateUrl('api_login_check', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+            
             $par = array(
                 '_username' => $existe->getUsername(),
                 '_password' => $clave
@@ -104,6 +105,7 @@ class MovilController extends Controller
                 
                 $jsonStr = strpbrk($response, "{");
                 $jsonToken = json_decode($jsonStr);
+
                 if (isset($jsonToken->token)) {
                     $datos["token"] = $jsonToken->token;
                 }

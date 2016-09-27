@@ -47,6 +47,15 @@ security:
             pattern: ^/movil/recuperarContrasena
             security: false    
 
+        movil:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
         api:
             pattern:   ^/movil
             stateless: true
@@ -107,15 +116,7 @@ security:
             anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
-        movil:
-            pattern:  ^/api/login
-            stateless: true
-            anonymous: true
-            form_login:
-                check_path:               /api/login_check
-                success_handler:          lexik_jwt_authentication.handler.authentication_success
-                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
-                require_previous_session: false
+
 
     access_control:
         - { path: ^/user/seguridad/inicioSesion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
