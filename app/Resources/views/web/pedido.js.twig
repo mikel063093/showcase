@@ -3,6 +3,11 @@
     var cancelar = "";
     var recuperar = "";
     $(document).ready(function (){
+
+    hoverBotones("section.vistaPedido form.pedido div.contDer a.ingFacebook");
+    hoverBotones("section.vistaPedido form.pedido div.contDer a.ingShowcase");
+    hoverBotones("form.pedido div.contDer button");
+    hoverBotones("section.vistaPedido .confirmacion a");
         {% if not app.request.isXmlHttpRequest %}
             removerClase('vistaPedido');
 

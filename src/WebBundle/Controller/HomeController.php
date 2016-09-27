@@ -7,6 +7,7 @@ use AppBundle\Entity\Puntuacion;
 use AppBundle\Entity\Contactenos;
 use AppBundle\Entity\Item;
 use AppBundle\Form\ContactoType;
+use Facebook\Facebook;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -719,10 +720,26 @@ class HomeController extends Controller
      */
     public function pedidoAction(Request $peticion){
         $em = $this->getDoctrine()->getManager();
+        $session = $peticion->getSession();
+        $session->start();
+        $facebookApp = new \Facebook\FacebookApp($this->container->getParameter('facebookId'), $this->container->getParameter('facebookSecret'));
+        $fb = new \Facebook\Facebook([
+            'app_id' => $this->container->getParameter('facebookId'),
+            'app_secret' => $this->container->getParameter('facebookSecret'),
+            'default_graph_version' => 'v2.6',
+            'persistent_data_handler'=>'session'
+        ]);
+
+        $helper = $fb->getRedirectLoginHelper();
+
+        $permissions = ['email'];
+        $loginUrl = $helper->getLoginUrl('https://c4da0880.ngrok.io/app_dev.php/redes',$permissions);
+
         $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
             return $this->render('web/pedido.html.twig',array(
                 'info' => $infoApp,
-                'ajax'=>true
+                'ajax'=>true,
+                'loginUrl' => $loginUrl
             ));
 
 
@@ -1206,6 +1223,82 @@ class HomeController extends Controller
             );
         }
         return new JsonResponse($rta);
+    }
+
+    /**
+     * @Route("/redes", name="redes")
+     *
+     */
+    public function redesAction(Request $peticion){
+        $session = $peticion->getSession();
+        $session->start();
+        $facebookApp = new \Facebook\FacebookApp($this->container->getParameter('facebookId'), $this->container->getParameter('facebookSecret'));
+        $fb = new \Facebook\Facebook([
+            'app_id' => $this->container->getParameter('facebookId'),
+            'app_secret' => $this->container->getParameter('facebookSecret'),
+            'default_graph_version' => 'v2.6',
+            'persistent_data_handler'=>'session'
+        ]);
+        $email = "";
+        $nombres = "";
+        $apellidos = "";
+        $helper = $fb->getRedirectLoginHelper();
+
+        try {
+            $accessToken = $helper->getAccessToken();
+        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            // When Graph returns an error
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            // When validation fails or other local issues
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
+
+        if (! isset($accessToken)) {
+            if ($helper->getError()) {
+                header('HTTP/1.0 401 Unauthorized');
+                echo "Error: " . $helper->getError() . "\n";
+                echo "Error Code: " . $helper->getErrorCode() . "\n";
+                echo "Error Reason: " . $helper->getErrorReason() . "\n";
+                echo "Error Description: " . $helper->getErrorDescription() . "\n";
+            } else {
+                header('HTTP/1.0 400 Bad Request');
+                echo 'Bad request';
+            }
+            exit;
+        }
+        $oAuth2Client = $fb->getOAuth2Client();
+        if (! $accessToken->isLongLived()) {
+            // Exchanges a short-lived access token for a long-lived one
+            try {
+                $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
+            } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
+                exit;
+            }
+
+            echo '<h3>Long-lived</h3>';
+            var_dump($accessToken->getValue());
+        }
+        $request = new \Facebook\FacebookRequest($facebookApp, $accessToken->getValue(), 'GET', '/me', array(
+            'fields' => 'id,email,first_name,last_name'
+        ));
+        $response = $fb->getClient()->sendRequest($request);
+
+        if (isset($response->getGraphUser()["email"])) {
+            $email = $response->getGraphUser()["email"];
+            $nombres = $response->getGraphUser()["first_name"];
+            $apellidos = $response->getGraphUser()["last_name"];
+        }
+
+        return new Response($email);
+
+
+
+
+
     }
 }
 
