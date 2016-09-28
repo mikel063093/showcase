@@ -74,7 +74,7 @@ class HomeController extends Controller
         $em->flush();
         */
         $banderaPedido = $peticion->get('pedido');
-
+        $rta = $peticion->get('rta');
         $em = $this->getDoctrine()->getManager();
         $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
         $promociones = $em->getRepository('AppBundle:Promocion')->findPromocionesActivas();
@@ -119,6 +119,9 @@ class HomeController extends Controller
             $session->set('carrito',$carrito);
         }
         if($banderaPedido){
+            if(count($rta)>0) {
+                $session->getFlashBag()->add('rta', $rta);
+            }
             $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
             return $this->render('web/pedido.html.twig', array(
                 'categorias' => $categorias,
@@ -733,7 +736,7 @@ class HomeController extends Controller
         $helper = $fb->getRedirectLoginHelper();
 
         $permissions = ['email'];
-        $loginUrl = $helper->getLoginUrl('https://c4da0880.ngrok.io/app_dev.php/redes',$permissions);
+        $loginUrl = $helper->getLoginUrl('https://017247a7.ngrok.io/app_dev.php/redes',$permissions);
 
         $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
             return $this->render('web/pedido.html.twig',array(
@@ -1230,6 +1233,7 @@ class HomeController extends Controller
      *
      */
     public function redesAction(Request $peticion){
+        $em = $this->getDoctrine()->getEntityManager();
         $session = $peticion->getSession();
         $session->start();
         $facebookApp = new \Facebook\FacebookApp($this->container->getParameter('facebookId'), $this->container->getParameter('facebookSecret'));
@@ -1243,44 +1247,33 @@ class HomeController extends Controller
         $nombres = "";
         $apellidos = "";
         $helper = $fb->getRedirectLoginHelper();
-
+        $rta =array();
         try {
             $accessToken = $helper->getAccessToken();
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        } catch(\Facebook\Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
             echo 'Graph returned an error: ' . $e->getMessage();
             exit;
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            $rta =array('estado' => false,'mensaje'=>'Error al obtener la informacion del usuario' );
+        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
+            $rta =array('estado' => false,'mensaje'=>'Error al obtener la validar el usuario' );
         }
 
         if (! isset($accessToken)) {
-            if ($helper->getError()) {
-                header('HTTP/1.0 401 Unauthorized');
-                echo "Error: " . $helper->getError() . "\n";
-                echo "Error Code: " . $helper->getErrorCode() . "\n";
-                echo "Error Reason: " . $helper->getErrorReason() . "\n";
-                echo "Error Description: " . $helper->getErrorDescription() . "\n";
-            } else {
-                header('HTTP/1.0 400 Bad Request');
-                echo 'Bad request';
-            }
-            exit;
+            $rta =array('estado' => false,'mensaje'=>'Usuario no tiene permisos' );
         }
+
         $oAuth2Client = $fb->getOAuth2Client();
         if (! $accessToken->isLongLived()) {
             // Exchanges a short-lived access token for a long-lived one
             try {
                 $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
-            } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
-                exit;
+            } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+                $rta =array('estado' => false,'mensaje'=>'Error al obtener la autorización' );
             }
 
-            echo '<h3>Long-lived</h3>';
-            var_dump($accessToken->getValue());
+
         }
         $request = new \Facebook\FacebookRequest($facebookApp, $accessToken->getValue(), 'GET', '/me', array(
             'fields' => 'id,email,first_name,last_name'
@@ -1293,12 +1286,40 @@ class HomeController extends Controller
             $apellidos = $response->getGraphUser()["last_name"];
         }
 
-        return new Response($email);
+        if ($email != "") {
+            $password = $response->getGraphUser()["id"];
+            $user = $em->getRepository('AppBundle:Usuario')->findOneBy(array('username' => $email));
+            if (!$user) {
+                $user = new \AppBundle\Entity\Usuario();
+                $user->setCorreo($email);
+                $user->setNombres($nombres);
+                $user->setApellidos($apellidos);
+                $user->setUsername($email);
+                $user->setSalt(md5(time()));
+                $rol = $em->getRepository('AppBundle:Rol')->findOneBy(array('codigo' => "ROLE_USER"));
+                $user->setRol($rol);
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+                $passwordCodificado = $encoder->encodePassword($password, $user->getSalt());
+                $user->setPassword($passwordCodificado);
+                $em->persist($user);
+                $em->flush();
 
+            }
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+            $passwordCodificado = $encoder->encodePassword($password,$user->getSalt());
+            if($passwordCodificado == $user->getPassword()){
+                $token = new UsernamePasswordToken($user, null, 'secured_home', array('ROLE_USER'));
+                $this->container->get('security.context')->setToken($token);
+                $session->set('_security_secured_home', serialize($token));
+            }else{
+                $datos['estado'] = 0;
+                $datos['mensaje'] = 'Contraseña incorrecta.';
+            }
+        }else{
+            $rta = array('estado' => false,'mensaje'=>'Imposible acceder a la informacion del usuario' );
+        }
 
-
-
-
+        return $this->forward('AppBundle:Home:Index',array('pedido' => true ,'rta' => $rta ));
     }
 }
 

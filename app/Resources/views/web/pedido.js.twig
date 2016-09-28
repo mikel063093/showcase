@@ -12,6 +12,15 @@
             removerClase('vistaPedido');
 
         {% endif %}
+
+        {% for flashMessage in app.session.flashbag.get('rta') %}
+            {% if flashMessage['estado'] %}
+                mostrarMensaje("{{ flashMessage['mensaje'] }}",'Exito');
+            {% else %}
+                mostrarMensaje("{{ flashMessage['mensaje'] }}",'Fallo');
+            {% endif %}
+
+        {% endfor %}
         obtenerModales();
         // Selector con el cual se hace el llamado a la ventana de cancelar pedido
         var $enlaceCancelar = $("section.vistaPedido form.pedido div.contDer a.cancelar");
