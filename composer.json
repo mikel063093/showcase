@@ -23,7 +23,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "lexik/jwt-authentication-bundle": "^1.4",
         "facebook/php-sdk-v4" : "~5.0",
-        "egeloen/ckeditor-bundle": "dev-master"
+        "egeloen/ckeditor-bundle": "dev-master",
+        "facebook/graph-sdk": "^5.3"
         
     },
     "require-dev": {

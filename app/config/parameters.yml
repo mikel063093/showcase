@@ -15,5 +15,5 @@ parameters:
     jwt_key_pass_phrase: showcase
     jwt_token_ttl: null
     facebookId: '1545741209066315'
-    facebookSecret: '1579cd9225b3e95708b511160424d996'
+    facebookSecret: 1579cd9225b3e95708b511160424d996
     servidor: 'https://test.showcase.com.co/'

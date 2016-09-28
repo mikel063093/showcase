@@ -3,10 +3,24 @@
     var cancelar = "";
     var recuperar = "";
     $(document).ready(function (){
+
+    hoverBotones("section.vistaPedido form.pedido div.contDer a.ingFacebook");
+    hoverBotones("section.vistaPedido form.pedido div.contDer a.ingShowcase");
+    hoverBotones("form.pedido div.contDer button");
+    hoverBotones("section.vistaPedido .confirmacion a");
         {% if not app.request.isXmlHttpRequest %}
             removerClase('vistaPedido');
 
         {% endif %}
+
+        {% for flashMessage in app.session.flashbag.get('rta') %}
+            {% if flashMessage['estado'] %}
+                mostrarMensaje("{{ flashMessage['mensaje'] }}",'Exito');
+            {% else %}
+                mostrarMensaje("{{ flashMessage['mensaje'] }}",'Fallo');
+            {% endif %}
+
+        {% endfor %}
         obtenerModales();
         // Selector con el cual se hace el llamado a la ventana de cancelar pedido
         var $enlaceCancelar = $("section.vistaPedido form.pedido div.contDer a.cancelar");
