@@ -555,20 +555,23 @@ class MovilController extends Controller
         ));
         
         if ($entity){
-            
+
             $str = rand(0, 9999999999);
             $clave = str_pad($str, 10, "0", STR_PAD_LEFT);
-            $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
-            $passwordCodificado = $encoder->encodePassword($clave,$entity->getSalt());
-            $entity->setPassword($passwordCodificado);    
+
+            $entity->setCodigoCambio($clave);
             $em->persist($entity);
             $em->flush();
-            
+            $link = $this->generateUrl('cambiarContrasenaWeb',array(
+                'clave' => $clave,
+                'correo' => $correo
+            ));
+
             $mail=$this->get('correo');
             $mail->setVista('web/correo.html.twig')
                 ->setPara(array($correo))
                 ->setTitulo("Nueva Contraseña")
-                ->setContenido("Su nueva contraseña es: ".$clave);
+                ->setContenido("Para cambiar su contraseña por favor ingrese a este <a href='http://test.showcase.com.co".$link."'>link</a>");
             $mail->enviar();
             $rta = array(
                 "estado"=> 'exito',
@@ -908,6 +911,7 @@ class MovilController extends Controller
         $ciudad = $peticion->get('ciudad');
         $tipo = $peticion->get('tipo');
         $numero = $peticion->get('numero');
+
         $nomenclatura = $peticion->get('nomenclatura');
         $informacionAdicional = $peticion->get('informacionAdicional');
         $rta=array(
@@ -926,6 +930,7 @@ class MovilController extends Controller
             $direccion->setTipo($tipo);
             $direccion->setNumero($numero);
             $direccion->setNomenclatura($nomenclatura);
+
             $direccion->setInformacionAdicional($informacionAdicional);
             $em->persist($direccion);
             $em->flush();

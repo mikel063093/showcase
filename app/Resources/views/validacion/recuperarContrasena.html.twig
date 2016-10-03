@@ -19,9 +19,25 @@
 
 <script >
     $(document).ready(function () {
-        $('div.recuperar div.login div.enlace a').click(function(e){
+        $('div.recuperar div.login div.enlace button').click(function(e){
             e.preventDefault();
-            $.colorbox.close()
+            let correo = $('div.recuperar div.login div.form input').val();
+
+
+            $.ajax({
+                type: "POST",
+                url:"{{ path('recuperarContrasenaWeb') }}",
+                data: {correo:correo},
+                success: function (data) {
+                    if(data.estado){
+                        $.colorbox.close()
+                        mostrarMensaje(data.mensaje,'Exito');;
+                    }else{
+                        mostrarMensaje(data.mensaje,'Fallo');
+                    }
+                }
+            });
+
         });
     })
 

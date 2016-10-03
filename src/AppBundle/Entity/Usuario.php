@@ -90,6 +90,15 @@ class Usuario implements UserInterface, \Serializable{
     protected $salt;
 
     private $file;
+
+    /**
+     * @ORM\Column(name="codigoCambio", type="string", nullable=true, length=255, options=
+     * {"comment" = "codigo para cambiar contraseña"})
+     */
+    private $codigoCambio;
+
+
+
     /**
      * 
      * @ORM\OneToMany(targetEntity="Pedido", mappedBy="usuario")
@@ -643,5 +652,29 @@ class Usuario implements UserInterface, \Serializable{
     public function getCuponUsuarios()
     {
         return $this->cuponUsuarios;
+    }
+
+    /**
+     * Set codigoCambio
+     *
+     * @param string $codigoCambio
+     *
+     * @return Usuario
+     */
+    public function setCodigoCambio($codigoCambio)
+    {
+        $this->codigoCambio = $codigoCambio;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoCambio
+     *
+     * @return string
+     */
+    public function getCodigoCambio()
+    {
+        return $this->codigoCambio;
     }
 }

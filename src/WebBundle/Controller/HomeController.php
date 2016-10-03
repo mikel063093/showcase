@@ -119,6 +119,19 @@ class HomeController extends Controller
             $session->set('carrito',$carrito);
         }
         if($banderaPedido){
+            $session->start();
+            $facebookApp = new \Facebook\FacebookApp($this->container->getParameter('facebookId'), $this->container->getParameter('facebookSecret'));
+            $fb = new \Facebook\Facebook([
+                'app_id' => $this->container->getParameter('facebookId'),
+                'app_secret' => $this->container->getParameter('facebookSecret'),
+                'default_graph_version' => 'v2.6',
+                'persistent_data_handler'=>'session'
+            ]);
+
+            $helper = $fb->getRedirectLoginHelper();
+
+            $permissions = ['email'];
+            $loginUrl = $helper->getLoginUrl('https://test.showcase.com.co/redes',$permissions);
             if(count($rta)>0) {
                 $session->getFlashBag()->add('rta', $rta);
             }
@@ -129,6 +142,7 @@ class HomeController extends Controller
                 'establecimientosDestacados' => $establecimientosDestacados,
                 'articulosDestacados' => $articulosDestacados,
                 'info' => $infoApp,
+                'loginUrl' => $loginUrl,
                 'ajax' => false
             ));
         }else {
@@ -736,7 +750,7 @@ class HomeController extends Controller
         $helper = $fb->getRedirectLoginHelper();
 
         $permissions = ['email'];
-        $loginUrl = $helper->getLoginUrl('https://017247a7.ngrok.io/app_dev.php/redes',$permissions);
+        $loginUrl = $helper->getLoginUrl('https://test.showcase.com.co/redes',$permissions);
 
         $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
             return $this->render('web/pedido.html.twig',array(
@@ -1188,12 +1202,13 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("/recuperarContrasena", name="recuperarContrasenaWeb")
+     * @Route("/recuperarContrasenaWEB", name="recuperarContrasenaWeb")
      *
      */
     public function recuperarContrasenaAction(Request $peticion)
     {
-        $correo=  ($peticion->request->get('correo'));
+        $correo=  $peticion->request->get('correo');
+
         $em=$this->getDoctrine()->getManager();
         $entity= $em->getRepository('AppBundle:Usuario')->findOneBy(array(
             'correo'=>$correo
@@ -1203,21 +1218,24 @@ class HomeController extends Controller
 
             $str = rand(0, 9999999999);
             $clave = str_pad($str, 10, "0", STR_PAD_LEFT);
-            $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
-            $passwordCodificado = $encoder->encodePassword($clave,$entity->getSalt());
-            $entity->setPassword($passwordCodificado);
+
+            $entity->setCodigoCambio($clave);
             $em->persist($entity);
             $em->flush();
+            $link = $this->generateUrl('cambiarContrasenaWeb',array(
+                'clave' => $clave,
+                'correo' => $correo
+            ));
 
             $mail=$this->get('correo');
             $mail->setVista('web/correo.html.twig')
                 ->setPara(array($correo))
                 ->setTitulo("Nueva Contraseña")
-                ->setContenido("Su nueva contraseña es: ".$clave);
+                ->setContenido("Para cambiar su contraseña por favor ingrese a este <a href='http://test.showcase.com.co".$link."'>link</a>");
             $mail->enviar();
             $rta = array(
-                "estado"=> 'exito',
-                "mensaje"=> 'Contraseña enviada su correo correctamente.'
+                "estado"=> 1,
+                "mensaje"=> 'Instrucciones para cambiar la contraeña enviadas a su correo correctamente.'
             );
         }else{
             $rta=array(
@@ -1320,6 +1338,88 @@ class HomeController extends Controller
         }
 
         return $this->forward('AppBundle:Home:Index',array('pedido' => true ,'rta' => $rta ));
+    }
+
+    /**
+     * @Route("/cambiarContrasena/{clave}/{correo}", name="cambiarContrasenaWeb")
+     *
+     */
+    public function cambiarContrasenaAction(Request $peticion,$clave,$correo)
+    {
+
+        $em=$this->getDoctrine()->getManager();
+        $entity= $em->getRepository('AppBundle:Usuario')->findOneBy(array(
+            'correo'=>$correo
+        ));
+
+        if ($entity){
+
+            if($clave == $entity->getCodigoCambio()){
+
+                return $this->render('validacion/cambiarContrasena.html.twig',array(
+                    'valido'=>1,
+                    'clave' => $clave,
+                    'correo' => $correo
+
+                ));
+            }else{
+                return $this->render('validacion/cambiarContrasena.html.twig',array(
+                    'valido'=>0,
+                    'mensaje'=> 'No se puede cambiar la contraseña.'
+                ));
+            }
+
+        }else{
+            return $this->render('validacion/cambiarContrasena.html.twig',array(
+                'valido'=>0,
+                'mensaje'=> 'El correo no se encuentra en nuestra base de datos.'
+            ));
+        }
+
+    }
+
+    /**
+     * @Route("/realizarCambio", name="realizarCambio")
+     *
+     */
+    public function realizarCambioAction(Request $peticion)
+    {
+        $clave = $peticion->get('clave');
+        $correo = $peticion->get('correo');
+        $password = $peticion->get('_password');
+        $em=$this->getDoctrine()->getManager();
+        $entity= $em->getRepository('AppBundle:Usuario')->findOneBy(array(
+            'correo'=>$correo
+        ));
+
+        if ($entity){
+
+            if($clave == $entity->getCodigoCambio()){
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
+                $passwordCodificado = $encoder->encodePassword($password,$entity->getSalt());
+                $entity->setPassword($passwordCodificado);
+                $entity->setCodigoCambio(null);
+                $em->persist($entity);
+                $em->flush();
+                return new JsonResponse(array(
+                    'estado'=>1,
+                    'mensaje' => 'Contraseña cambiada correctamente, será enviado a la pagina de inicio en 5 segundos'
+
+                ));
+            }else{
+                return new JsonResponse(array(
+                    'estado'=>0,
+                    'mensaje'=> 'No se puede cambiar la contraseña.'
+                ));
+            }
+
+        }else{
+            return new JsonResponse(array(
+                'estado'=>0,
+                'mensaje'=> 'El correo no se encuentra en nuestra base de datos.'
+            ));
+        }
+
     }
 }
 

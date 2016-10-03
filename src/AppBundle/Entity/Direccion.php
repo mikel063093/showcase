@@ -61,6 +61,8 @@ class Direccion {
      */
     private $nomenclatura;
 
+
+
     /**
      * @var string $informacionAdicional
      *
@@ -306,4 +308,6 @@ class Direccion {
     {
         return $this->usuario;
     }
+
+
 }
