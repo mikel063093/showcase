@@ -5,7 +5,7 @@
     <ul class="lista articulos">
         {% for articulo in articulos %}
             <li>
-                <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
+                <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" data-id="{{ articulo.id }}"/>
                 <div class="informacion">
                     <h3>{{ articulo.nombre }}</h3>
                     <h4>{{ articulo.precio|number_format(0,',','.') }}</h4>
@@ -43,5 +43,24 @@
     $(document).ready(function () {
         hoverLista("div.destacados ul.articulos li", "img", "div.informacion");
         setReservaArticulos();
+        $(".articulos img").click(function (e) {
+            $string2="";
+            var id = $(this).data('id');
+            articuloModal = $(this).parent();
+            $.ajax({
+                type: "POST",
+                url: "{{ path('articuloWeb') }}",
+                dataType: "json",
+                data:{
+                    idElemento: id
+                },
+                success: function (data) {
+                    $string2 = data.vista;
+                    modalArticulo($string2);
+                    return false;
+                }
+            });
+
+        });
     })
 </script>

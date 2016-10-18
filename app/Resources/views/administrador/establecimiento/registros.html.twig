@@ -1,4 +1,15 @@
 <section id="unseen">
+    <br>
+    <h5><strong>Buscar por:</strong></h5>
+    <table class="table table-bordered table-striped tab-condensed">
+        <tr>
+            <td><strong>Nombre</strong></td>
+            <td>
+                <input id="filtroNombre" value="{{ filtro|default('') }}">
+            </td>
+            <td><button type="button" id="btn-buscar" class="btn btn-danger" >Buscar</button></td>
+        </tr>
+    </table>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
     <tr>
@@ -142,6 +153,19 @@
               success:function(data){
 
                   $('#contenido').html(data);
+              }
+          });
+      });
+
+      $('#btn-buscar').click(function(e){
+          e.preventDefault();
+          $.ajax({
+              type: "POST",
+              url: '{{path("registrosEstablecimientos")}}',
+              dataType: "html",
+              data:{filtroNombre:$('#filtroNombre').val()},
+              success: function(data) {
+                  $('#registros').html(data);
               }
           });
       });

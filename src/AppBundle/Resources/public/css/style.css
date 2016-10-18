@@ -7,7 +7,7 @@ Premium: http://www.gridgum.com
 */
 
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+@import url(https://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
 /* BASIC THEME CONFIGURATION */
 body {
@@ -184,7 +184,7 @@ hr {
 }
 
 .mt {
-	margin-top: 25px;
+	margin-top: 5px;
 }
 
 .mb {
@@ -318,7 +318,7 @@ ul.sidebar-menu li ul.sub li:last-child{
 
 ul.sidebar-menu li ul.sub li a {
     font-size: 12px;
-    padding: 6px 0;
+    /*padding: 6px 0;*/
     line-height: 35px;
     height: 35px;
     -webkit-transition: all 0.3s ease;
@@ -363,7 +363,7 @@ ul.sidebar-menu li a{
     color: #aeb2b7;
     text-decoration: none;
     display: block;
-    padding: 15px 0 15px 10px;
+    padding: 5px 0 5px 10px;
     font-size: 12px;
     outline: none;
     -webkit-transition: all 0.3s ease;

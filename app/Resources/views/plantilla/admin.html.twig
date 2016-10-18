@@ -34,7 +34,7 @@
             <script src="{{asset('bundles/app/js/datetimepicker/build/jquery.datetimepicker.full.min.js')}}"></script>
             <!--common script for all pages-->
             <script src="{{asset('bundles/app/js/common-scripts.js')}}"></script>
-            <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyCqT2T00gk7BychSMAc0NUklRACv89qV9o">
+            <script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCqT2T00gk7BychSMAc0NUklRACv89qV9o">
             </script>
             <!--script for this page-->
             <script type="text/javascript" src="{{asset('bundles/app/js/gritter/js/jquery.gritter.js')}}"></script>
@@ -48,7 +48,7 @@
                         // (bool | optional) if you want it to fade out on its own or just sit there
                         sticky: true,
                         // (int | optional) the time you want it to be alive for before fading out
-                        time: '',
+                        time: 5000,
                         // (string | optional) the class name you want to apply to that specific message
                         class_name: 'my-sticky-class'
                     });

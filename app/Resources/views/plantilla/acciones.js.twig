@@ -155,6 +155,26 @@ $(document).ready(function() {
         });
     })
 
+    $(".articulos img").click(function (e) {
+        $string2="";
+        var id = $(this).data('id');
+        articuloModal = $(this).parent();
+        $.ajax({
+            type: "POST",
+            url: "{{ path('articuloWeb') }}",
+            dataType: "json",
+            data:{
+                idElemento: id
+            },
+            success: function (data) {
+                $string2 = data.vista;
+                modalArticulo($string2);
+                return false;
+            }
+        });
+
+    });
+
 
 });
 

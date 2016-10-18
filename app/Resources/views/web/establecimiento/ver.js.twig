@@ -4,6 +4,26 @@
             hoverBotones("section.vistaEstable div.redes ul li.twitter a");
             hoverLista("div.contArticulos ul.articulos li", "img", "div.informacion");
             setReservaArticulos();
+
+        $(".articulos img").click(function (e) {
+            $string2="";
+            var id = $(this).data('id');
+            articuloModal = $(this).parent();
+            $.ajax({
+                type: "POST",
+                url: "{{ path('articuloWeb') }}",
+                dataType: "json",
+                data:{
+                idElemento: id
+            },
+                success: function (data) {
+                    $string2 = data.vista;
+                    modalArticulo($string2);
+                    return false;
+                }
+            });
+
+        });
     });
 
     $('#star').rating("{{ path('puntuarEstablecimientoWeb') }}", {maxvalue: 5, curvalue:{{ establecimiento.promedio }}, id:{{ establecimiento.id }}});

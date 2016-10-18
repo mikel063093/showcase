@@ -19,11 +19,10 @@ class DefaultController extends Controller
         $user = $this->getUser();
 
         if($user->getRol()->getCodigo()=="ROLE_ADMIN"){
+
         	return $this->redirectToRoute('principal');
-        }else if($user->getRol()->getCodigo()=="ROLE_USER"){
-        	return new Response('Usuario Comprador');
         }
 
-        return new Response('no usuario');
+        return new Response('Acceso Denegado');
     }
 }

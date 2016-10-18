@@ -2,4 +2,4 @@ ivory_ck_editor:
     input_sync: true
     configs:
         my_config:
-            toolbar: [ ['Source','-', 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ],[ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ],[ 'Link','Unlink','Anchor' ],[ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ],[ 'Styles','Format','Font','FontSize' ],[ 'TextColor','BGColor' ], [ 'Maximize', 'ShowBlocks','-','About' ]]
+            toolbar: [ ['Bold','Italic','Underline'],[ 'NumberedList','BulletedList' ], ['About' ]]

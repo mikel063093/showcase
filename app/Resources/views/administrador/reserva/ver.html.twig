@@ -2,7 +2,8 @@
     <h2>Datos Pedido</h2>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
-
+    <th>Consecutivo</th>
+    <th>Usuario</th>
         <th>Fecha</th>
         <th>Dirección</th>
         <th>Teléfono</th>
@@ -13,6 +14,8 @@
     
 
           <tr>
+              <td >{{ entity.id }}</td>
+              <td >{{ entity.usuario.nombres|capitalize ~' '~entity.usuario.apellidos|capitalize }}</td>
             <td >{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
               <td >{{ entity.direccion }}</td>
               <td >{{ entity.telefonoContacto }}</td>

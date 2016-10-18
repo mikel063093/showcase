@@ -1,0 +1,97 @@
+{% set carrito = app.session.get('carrito') %}
+<div class="modalArticulo">
+    <div id="carruArticulo">
+
+        <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
+        <div class="cycle-pager">
+
+        </div>
+    </div>
+    <h3>{{ articulo.nombre }}</h3>
+    <p>{{ articulo.descripcion|raw }}</p>
+    <h4>${{ articulo.precio|number_format(0,',','.') }}</h4>
+    <span>{{ articulo.unidadMedida~' '~articulo.valorMedida }}</span>
+    <div class="contador">
+        <a class="menos" href="#" >Menos</a>
+        <span class="cantidad" id="cantidadArticulo">
+        {% if carrito.items|length == 0 %}
+            0
+        {% else %}
+            {% set break = false %}
+            {% for item in carrito.items if not break %}
+                {% if item.articulo == articulo.id %}
+                    {{ item.cantidad }}
+                    {% set break = true %}
+                {% endif %}
+            {% endfor %}
+            {% if not break %}
+                0
+            {% endif %}
+        {% endif %}
+        </span>
+        <a class="mas" href="#" >Mas</a>
+    </div>
+    <a class="reservar" href="" value="{{ articulo.id }}">Reservar</a>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.menos').click(function (e) {
+            e.preventDefault();
+            let elemento = $(this);
+            let contador = elemento.siblings('.cantidad');
+            let cantidad = contador.text();
+
+            if(cantidad > 0){
+                contador.text(parseInt(cantidad) - 1);
+
+            }
+
+        });
+
+        $('.mas').click(function (e){
+            e.preventDefault();
+            let elemento = $(this);
+
+            let contador = elemento.siblings('.cantidad');
+            let cantidad = contador.text();
+            contador.text( parseInt(cantidad) + 1);
+
+
+        });
+
+        $('.reservar').click(function (e){
+            var carrito = {{ app.session.get('carrito').id }};
+            e.preventDefault();
+            let elemento = $(this);
+
+            let contador = elemento.siblings('.contador').find('#cantidadArticulo');
+            let cantidad = contador.text();
+
+            let unidades = articuloModal.find('#unidades');
+            let cantidadArticulo = articuloModal.find('#cantidadArticulo');
+            $.ajax({
+                type: "POST",
+                url:"{{ path('reservarProductoCarritoWeb') }}",
+                dataType: "json",
+                data:{
+                    idArticulo: elemento.attr('value'),
+                    idCarrito: carrito,
+                    cantidad:cantidad
+                },
+                success: function (data){
+                    if(data.estado){
+
+                        $('#carrito').html(data.carro);
+                        mostrarMensaje(data.mensaje,'Exito');
+                    }else{
+                        mostrarMensaje(data.mensaje,'Fallo');
+                    }
+                    cantidadArticulo.text(cantidad);
+                    unidades.text(data.cantidadArticulo+' unidades');
+                }
+            });
+
+
+        });
+    })
+</script>

@@ -9,3 +9,5 @@ services:
     correo:
         class: Servicios\Email
         arguments: ['@mailer', '@templating', '@service_container']
+    notificaciones:
+        class: Servicios\Notificaciones

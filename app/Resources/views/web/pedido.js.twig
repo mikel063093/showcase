@@ -255,9 +255,24 @@
 
             success: function (data){
                 if(data.estado){
+                    removerClase('vistaPedido');
+                    $.ajax({
+                        url:"{{ path('carro') }}",
+                        type: 'post',
+                        dataType: 'html',
+                        success:function(dataCarro){
+                            $('#carrito').html(dataCarro);
+                        }
+                    });
+                    $.ajax({
+                        url:"{{ path('pedidoExitoso') }}",
+                        type: 'post',
+                        dataType: 'html',
+                        success:function(dataVista){
+                            $('#home').html(dataVista);
+                        }
+                    });
 
-                    mostrarMensaje(data.mensaje,'Exito');
-                    window.location.href = "{{ path('home') }}"
                 }else{
                     mostrarMensaje(data.mensaje,'Error');
                     if(data.borrado){

@@ -92,5 +92,19 @@ class EstablecimientoRepository extends EntityRepository
         return $consulta->getQuery()->getResult();
     }
 
+    public function buscarEstablecimientosNombre($filtro){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->select('e')
+            ->from('AppBundle:Establecimiento','e')
+            ->where('e.categoria is NOT NULL')
+            ->andWhere('e.nombre LIKE :filtro')
+            ->setParameter('filtro','%'.$filtro.'%');
+
+
+        return $consulta->getQuery()->getResult();
+    }
+
 
 }

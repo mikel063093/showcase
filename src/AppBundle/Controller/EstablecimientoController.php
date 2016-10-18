@@ -30,8 +30,21 @@ class EstablecimientoController extends Controller
     public function registrosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $establecimientos = $em->getRepository('AppBundle:Establecimiento')->buscarEstablecimientos();
-        return $this->render('administrador/establecimiento/registros.html.twig',array('establecimientos'=>$establecimientos));
+        $filtro = $request->get('filtroNombre');
+        if (!$filtro){
+            $filtro = '';
+        }
+        if($filtro == '') {
+            $establecimientos = $em->getRepository('AppBundle:Establecimiento')->buscarEstablecimientos();
+        }else{
+            $establecimientos = $em->getRepository('AppBundle:Establecimiento')->buscarEstablecimientosNombre($filtro);
+        }
+
+        return $this->render('administrador/establecimiento/registros.html.twig',array(
+                'establecimientos'=>$establecimientos,
+                'filtro' => $filtro
+            )
+        );
     } 
 
     /**
@@ -89,6 +102,10 @@ class EstablecimientoController extends Controller
             $entity->setLocalizacion($coordenadas);
             $em->persist($entity);
             $em->flush();
+
+            $client = $this->get('notificaciones');
+            $resultado = $client->enviarNotificacion('Nuevo Establecimiento','Showcase cuenta con un nuevo establecimiento');
+            //var_dump(json_encode( $resultado));
 
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,

@@ -12,7 +12,7 @@
     </div>
     <div class="descripcion">
         <p>
-        {{ establecimiento.descripcion }}
+        {{ establecimiento.descripcion|raw }}
         </p>
     </div>
     <ul class="informacion">
@@ -42,7 +42,7 @@
             <ul class="lista articulos">
                 {% for articulo in articulos %}
                     <li>
-                        <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
+                        <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" data-id="{{ articulo.id }}"/>
                         <div class="informacion">
                             <h3>{{ articulo.nombre }}</h3>
                             <h4>{{ articulo.precio|number_format(0,',','.') }}</h4>

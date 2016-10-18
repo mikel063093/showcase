@@ -36,7 +36,7 @@
                 // (bool | optional) if you want it to fade out on its own or just sit there
                 sticky: true,
                 // (int | optional) the time you want it to be alive for before fading out
-                time: '',
+                time: 5000,
                 // (string | optional) the class name you want to apply to that specific message
                 class_name: 'my-sticky-class'
             });
@@ -69,7 +69,7 @@
             {% if app.user is not null %}
             <div class="usuario">{{ app.user.nombres| capitalize ~' '~app.user.apellidos|capitalize }}
                 <span class="flecha"></span>
-                <a class="salir" href="{{path('web_logout')}}">Cerrar sesión</a>
+                <a class="salir" href="{{path('web_logout_web')}}">Cerrar sesión</a>
             </div>
             {% endif %}
         </div>

@@ -50,6 +50,9 @@
 <section class="login">
     <img src="{{ asset('bundles/web/img/logo_showcase.png') }}" alt="Logo Showcase" />
     <h3>Iniciar sesión</h3>
+    {% if error  %}
+        <p style="color: red;text-align: center">Validación incorrecta, rectifique su información.</p>
+    {% endif %}
     <form id="login" action="{{ path("web_login_check") }}" method="post">
         <div class="form">
             <label>Nombre de usuario</label>

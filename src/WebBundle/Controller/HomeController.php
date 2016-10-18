@@ -151,7 +151,7 @@ class HomeController extends Controller
                 'promociones' => $promociones,
                 'establecimientosDestacados' => $establecimientosDestacados,
                 'articulosDestacados' => $articulosDestacados,
-
+                'mostrar' => true
             ));
         }
     }
@@ -193,7 +193,8 @@ class HomeController extends Controller
             'categoria' => $categoria,
             'establecimientos' => $establecimientosp,
             'paginador' => $paginador,
-            'establecimientosDestacados' => $establecimientosDestacados
+            'establecimientosDestacados' => $establecimientosDestacados,
+            'mostrar' => false
         ));
     }
 
@@ -209,7 +210,8 @@ class HomeController extends Controller
         $establecimientosDestacados = $em->getRepository('AppBundle:Establecimiento')->obtenerTodosEstablecimintosDestacados();
         return $this->render('web/establecimiento/masEstablecimientos.html.twig',array(
 
-            'establecimientosDestacados' => $establecimientosDestacados
+            'establecimientosDestacados' => $establecimientosDestacados,
+            'mostrar' => false
         ));
     }
 
@@ -223,8 +225,27 @@ class HomeController extends Controller
         $articulosDestacados = $em->getRepository('AppBundle:Articulo')->obtenerTodosArticulosDestacados();
         return $this->render('web/establecimiento/masArticulos.html.twig',array(
 
-            'articulos' => $articulosDestacados
+            'articulos' => $articulosDestacados,
+            'mostrar' => false
         ));
+    }
+
+    /**
+     * @Route("/articulo", name="articuloWeb")
+     * @Method({"POST"})
+     */
+    public function articuloAction(Request $peticion){
+         $idArticulo = $peticion->get('idElemento');
+        $em = $this->getDoctrine()->getManager();
+        $articulo = $em->getRepository('AppBundle:Articulo')->find($idArticulo);
+
+
+        return new JsonResponse(array(
+            'vista' => $this->renderView('web/establecimiento/verArticulo.html.twig',array(
+                'articulo' => $articulo
+            ))
+        ));
+
     }
 
     /**
@@ -1150,7 +1171,7 @@ class HomeController extends Controller
                 $pedido->setMetodoPago($formaPago);
                 $pedido->setUsuario($usuario);
                 $pedido->setFechaCreacion(new \DateTime());
-                $pedido->setEstado('Activo');
+                $pedido->setEstado('En Progreso');
                 $pedido->setCupon($cupon);
                 $pedido->setValorDomicilio($infoApp->getPrecioDomicilio());
                 $pedido->setObservaciones($observaciones);
@@ -1231,7 +1252,7 @@ class HomeController extends Controller
             $mail->setVista('web/correo.html.twig')
                 ->setPara(array($correo))
                 ->setTitulo("Nueva Contraseña")
-                ->setContenido("Para cambiar su contraseña por favor ingrese a este <a href='http://test.showcase.com.co".$link."'>link</a>");
+                ->setContenido("Para cambiar su contraseña por favor ingrese a este <a href='http://test.showcase.com.co/app_vep.php".$link."'>link</a>");
             $mail->enviar();
             $rta = array(
                 "estado"=> 1,
@@ -1253,7 +1274,7 @@ class HomeController extends Controller
     public function redesAction(Request $peticion){
         $em = $this->getDoctrine()->getEntityManager();
         $session = $peticion->getSession();
-        $session->start();
+        
         $facebookApp = new \Facebook\FacebookApp($this->container->getParameter('facebookId'), $this->container->getParameter('facebookSecret'));
         $fb = new \Facebook\Facebook([
             'app_id' => $this->container->getParameter('facebookId'),
@@ -1334,10 +1355,10 @@ class HomeController extends Controller
                 $datos['mensaje'] = 'Contraseña incorrecta.';
             }
         }else{
-            $rta = array('estado' => false,'mensaje'=>'Imposible acceder a la informacion del usuario' );
+            $rta = array('estado' => false,'mensaje'=>'Imposible acceder a la información del usuario' );
         }
 
-        return $this->forward('AppBundle:Home:Index',array('pedido' => true ,'rta' => $rta ));
+        return $this->render('validacion/redes.html.twig');
     }
 
     /**
@@ -1419,6 +1440,178 @@ class HomeController extends Controller
                 'mensaje'=> 'El correo no se encuentra en nuestra base de datos.'
             ));
         }
+
+    }
+
+    /**
+     * @Route("/reservarProductoCarrito", name="reservarProductoCarritoWeb")
+     */
+    public function reservarProductoCarritoAction(Request $peticion)
+    {
+        $this->limpiarCarritos();
+        $em = $this->getDoctrine()->getManager();
+        $idArticulo = $peticion->get('idArticulo');
+        $idCarrito = $peticion->get('idCarrito');
+        $cantidad = $peticion->get('cantidad');
+        $banderaPedido = $peticion->get('pedido');
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al reservar el producto',
+            'borrado' => false
+        );
+
+        try{
+
+            $session = $peticion->getSession();
+
+            $carrito = $em->getRepository('AppBundle:Carrito')->find($idCarrito);
+            $articulo = $em->getRepository('AppBundle:Articulo')->find($idArticulo);
+            $fecha = new \DateTime();
+            if($carrito && $carrito->getFechaLimite() <= $fecha){
+                $carrito->vaciarCarrito();
+                $em->remove($carrito);
+                $em->flush();
+
+                $carrito = null;
+
+            }
+            if(!$carrito){
+                $carrito = new Carrito();
+                $carrito->setFechaCreacion(new \DateTime());
+                $fechaLimite = new \DateTime();
+                $fechaLimite->add(new \DateInterval('PT60M'));
+                $carrito->setFechaLimite($fechaLimite);
+                $em->persist($carrito);
+                $em->flush();
+                $carro = array(
+                    'id' => $carrito->getId(),
+                    'items' => array()
+                );
+                $session->set('carrito',$carro);
+                $rta = array(
+                    'estado'=>0,
+                    'mensaje'=> 'El carro de compras a expirado',
+                    'cantidadArticulo' => $articulo->getCantidad(),
+                    'borrado' => true
+                );
+            }else{
+                $carro = array(
+                    'id' => $carrito->getId(),
+                    'items' => array()
+                );
+                $itemActual = 0;
+                foreach($carrito->getItems() as $item) {
+                    if ($item->getArticulo()->getId() == $idArticulo) {
+                        $itemActual = $item->getCantidad();
+                    }
+                }
+                if(($articulo->getCantidad() + $itemActual) < $cantidad){
+                    return new JsonResponse(array(
+                        'estado'=>0,
+                        'mensaje'=> 'No se puede reservar esta cantidad para este articulo, cantidad disponible: '.$articulo->getCantidad() + $itemActual,
+                        'cantidadArticulo' => $articulo->getCantidad(),
+                        'borrado' => false
+                    ));
+                }
+                $articulo->setCantidad($articulo->getCantidad() + $itemActual - $cantidad );
+                $em->persist($articulo);
+                $banderaExisteItem = false;
+                $subTotal = 0;
+                foreach($carrito->getItems() as $item){
+                    if($item->getArticulo()->getId() == $idArticulo ){
+                        if($cantidad == 0 ){
+                            $em->remove($item);
+                            $em->flush();
+                        }else {
+                            $item->setCantidad($cantidad);
+                            $em->persist($item);
+                            $em->flush();
+                            $banderaExisteItem = true;
+                        }
+
+                    }
+                    if($cantidad > 0 ) {
+                        $carro['items'][] = array(
+                            'id' => $item->getId(),
+                            'articulo' => $item->getArticulo()->getId(),
+                            'nombre' => $item->getArticulo()->getNombre(),
+                            'imagen' => $item->getArticulo()->getWebPath(),
+                            'cantidad' => $item->getCantidad(),
+                            'precio' => $item->getArticulo()->getPrecio()
+                        );
+
+                        $subTotal = $subTotal + $item->getArticulo()->getPrecio() * $item->getCantidad();
+                    }
+                }
+
+                if(!$banderaExisteItem && $cantidad > 0 ){
+                    $item = new Item();
+                    $item->setCantidad($cantidad);
+                    $item->setCarrito($carrito);
+                    $item->setArticulo($articulo);
+
+                    $em->persist($item);
+                    $em->flush();
+                    $subTotal = $subTotal + $item->getArticulo()->getPrecio()*$item->getCantidad();
+
+                    $carro['items'][] = array(
+                        'id' => $item->getId(),
+                        'articulo' => $item->getArticulo()->getId(),
+                        'nombre' => $item->getArticulo()->getNombre(),
+                        'imagen' => $item->getArticulo()->getWebPath(),
+                        'cantidad' => $item->getCantidad(),
+                        'precio' => $item->getArticulo()->getPrecio()
+                    );
+                }
+                $carro['subTotal'] = $subTotal;
+                $session->set('carrito',$carro);
+                $rta=array(
+                    'estado'=>1,
+                    'mensaje'=> 'Articulo reservado con exito',
+                    'borrado' => false,
+                    'cantidadArticulo' => $articulo->getCantidad(),
+                    'carro' => $this->renderView("web/carrito/carro.html.twig")
+                );
+
+                if($banderaPedido){
+                    $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+                    $rta['pedido'] = $this->renderView("web/carrito/pedido.html.twig",array('info'=>$infoApp,'ajax'=>true));
+                }
+            }
+
+
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al agregar el producto al carrito',
+                'borrado' => false
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/pedidoExitoso", name="pedidoExitoso")
+     *
+     */
+    public function pedidoExitosoAction(Request $peticion)
+    {
+
+        return $this->render('web/pedidoExitoso.html.twig');
+
+
+    }
+
+    /**
+     * @Route("/carro", name="carro")
+     *
+     */
+    public function carroAction(Request $peticion)
+    {
+
+        return  $this->render("web/carrito/carro.html.twig");
+
 
     }
 }

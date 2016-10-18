@@ -477,6 +477,8 @@ class MovilController extends Controller
             $datos["snapchat"] = $establecimiento->getSnapchat();
             $datos["youtube"] = $establecimiento->getYoutube();
             $datos["instagram"] = $establecimiento->getInstagram();
+            $datos["correo"] = $establecimiento->getCorreo();
+            $datos["whatsapp"] = $establecimiento->getWhatsapp();
             if($establecimiento->getLogo() != "" ){
                 $imagenes[] = $this->container->getParameter('servidor').'/'.$establecimiento->getWebPath();
             }
@@ -884,7 +886,7 @@ class MovilController extends Controller
                 'cantidad' => $a->getCantidad()
             );
             if ($a->getImagen()) {
-                $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
+                $articulo["imagen"] = array($this->container->getParameter('servidor').'/'.$a->getWebPath());
             } else {
                 $articulo["imagen"] = "";
             }
@@ -1576,8 +1578,9 @@ class MovilController extends Controller
             $pedido = new Pedido();
             $direccion = $em->getRepository('AppBundle:Direccion')->find($datosPedido->direccion);
             $cupon = null;
+
             if(isset($datosPedido->cupon)) {
-                $cupon = $em->getRepository('AppBundle:Cupon')->find($datosPedido->cupon);
+                $cupon = $em->getRepository('AppBundle:Cupon')->buscarCupon($datosPedido->cupon);
             }
             $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
 

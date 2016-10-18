@@ -79,7 +79,8 @@ class PromocionController extends Controller
             $entity->setFechaFin(new \DateTime($fechaFin));
             $em->persist($entity);
             $em->flush();
-
+            $client = $this->get('notificaciones');
+            $resultado = $client->enviarNotificacion('Nueva Promoción','Showcase cuenta con una nuevoa promoción');
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,
                 'mensaje'=>'Promoción creada satisfactoriamente'

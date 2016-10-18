@@ -59,7 +59,7 @@ class PlanController extends Controller
         $form->handleRequest($request);
         
         $errors = $this->get('validator')->validate($entity);
-        $entity->upload();
+
         if (count($errors) > 0){
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=> false,

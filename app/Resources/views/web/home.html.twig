@@ -7,7 +7,9 @@
     <div class="cycle-pager"></div>
 </div>
 <div class="contenedor destacados">
+    {% if mostrar %}
     <h2>Establecimientos destacados<a id="masEstablecimientos" href="#">VER MÁS DESTACADOS</a></h2>
+        {% endif %}
     <ul class="lista establecimientos">
         {% for establecimiento in establecimientosDestacados %}
         <li>
@@ -20,11 +22,13 @@
 </div>
 <div class="contenedor destacados">
     {% set carrito = app.session.get('carrito') %}
+    {% if mostrar %}
     <h2>Artículos destacados <a id="masArticulos" href="#" >VER MÁS ARTÍCULOS</a> </h2>
+    {% endif %}
     <ul class="lista articulos">
         {% for articulo in articulosDestacados %}
         <li>
-            <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
+            <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" data-id="{{ articulo.id }}"/>
             <div class="informacion">
                 <h3>{{ articulo.nombre }}</h3>
                 <h4>{{ articulo.precio|number_format(0,',','.') }}</h4>

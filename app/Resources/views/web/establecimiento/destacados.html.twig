@@ -1,5 +1,7 @@
 <div class="contenedor destacados">
+    {% if mostrar %}
     <h2>Establecimientos destacados<a href="#">VER MÁS DESTACADOS</a></h2>
+    {% endif %}
     <ul class="lista establecimientos">
         {% for establecimiento in establecimientosDestacados %}
             <li>

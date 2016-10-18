@@ -32,10 +32,25 @@ class ReservaController extends Controller
     public function registrosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $reservas = $em->getRepository('AppBundle:Pedido')->buscarReservas();
+        $filtro = $request->get('filtroEstado');
+        if (!$filtro){
+            $filtro = '';
+        }
+        $estados = array(
+            'En Progreso',
+            'Preparando',
+            'Entregado',
+            'Cancelado'
+        );
+        if($filtro == '') {
+            $reservas = $em->getRepository('AppBundle:Pedido')->buscarReservas();
+        }else{
+            $reservas = $em->getRepository('AppBundle:Pedido')->buscarReservasEstados($filtro);
+        }
         return $this->render('administrador/reserva/registros.html.twig',array(
-            'reservas' => $reservas
+            'reservas' => $reservas,
+            'estados' => $estados,
+            'filtro' => $filtro
         ));
     } 
 

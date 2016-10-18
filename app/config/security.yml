@@ -64,7 +64,7 @@ security:
         # Firewall modulo administracion
         secured_area:
             pattern:    ^/administracion/*
-            context: website
+            context: adminsite
             provider: user_db
             form_login:
                 check_path: web_login_check
@@ -74,7 +74,22 @@ security:
             logout:
                 path:   web_logout
                 target: /user
-                
+        # Firewall modulo consulta web
+        login_web:
+            pattern:    ^/user
+            context: adminsite
+            provider: user_db
+            form_login:
+                check_path: web_login_check
+                login_path: inicio
+                default_target_path: /user
+                always_use_default_target_path: true
+            logout:
+                path:   web_logout
+                target: /user
+            anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
         # Firewall modulo consulta web
         #secured_web:
          #   pattern:    ^/web/*
@@ -94,28 +109,13 @@ security:
             provider: web_db
             anonymous: ~
             form_login:
-                check_path: web_login_check
-                login_path: inicio
+                check_path: web_login_check_web
+                login_path: inicioWeb
                 default_target_path: /
             logout:
-                path:   web_logout
+                path:   web_logout_web
                 target: /
-        # Firewall modulo consulta web
-        login_web:
-            pattern:    ^/user
-            context: website
-            provider: chain_provider
-            form_login:
-                check_path: web_login_check
-                login_path: inicio
-                default_target_path: /user
-                always_use_default_target_path: true
-            logout:
-                path:   web_logout
-                target: /user
-            anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
+
 
 
     access_control:
@@ -124,7 +124,7 @@ security:
         - { path: ^/registrar, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/web/*, roles: ROLE_USER }
         - { path: ^/administracion/*, roles: ROLE_ADMIN }
-        - { path: ^/user, roles: [ROLE_USER , ROLE_ADMIN]}
+        - { path: ^/user, roles: ROLE_ADMIN}
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/*, roles: [ROLE_USER, IS_AUTHENTICATED_ANONYMOUSLY] }

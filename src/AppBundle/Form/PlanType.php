@@ -16,8 +16,8 @@ class PlanType extends AbstractType{
             ->add('nombre','text', array('attr' => array('size' => '30px')))
             ->add('precio','integer',array('attr' => array('size' => '30px')))
             ->add('descripcion',CKEditorType::class, array(
-                'config_name' => 'my_config'))
-            ->add('file','file',array('required' => false));
+                'config_name' => 'my_config'));
+
     }
     
     /**

@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new WebBundle\WebBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Dizda\OnesignalApiBundle\DizdaOnesignalApiBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

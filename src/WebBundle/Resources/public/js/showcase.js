@@ -1,3 +1,5 @@
+var articuloModal = null;
+
 $(document).ready(function() {
 
 	$("#carrusel").cycle({
@@ -57,12 +59,7 @@ $(document).ready(function() {
 
 
 
-	$("section.vistaPedido form.pedido div.contDer button").click( function() {
-		$("section.vistaPedido form.pedido").hide();
-		$("section.vistaPedido .confirmacion").show();
-		smoothScroll.animateScroll(null, '#marcaPedido');
-		return false;
-	});
+
 
 	//despliega el enlace de cerrar sesión
 	var $enlaceCerrar = $("#header div.centrar div.contSup .usuario a.salir");
@@ -185,4 +182,31 @@ function modalRecuperar(cadena) {
 		});
 	}
 	hoverBotones("div.recuperar div.login form.login div.enlace button");
+}
+
+function modalArticulo(cadena) {
+
+	if($(window).width() <= 480) {
+		$.colorbox({
+			width: "300px", // Ancho de la ventana puede se auto, un % o un tamaño fijo
+			height: "690px", // Alto de la ventana puede se auto, un % o un tamaño fijo
+			html: cadena // html que se muestra en la ventana
+		});
+	} else {
+		$.colorbox({
+			width: "460px", // Ancho de la ventana puede se auto, un % o un tamaño fijo
+			height: "690px", // Alto de la ventana puede se auto, un % o un tamaño fijo
+			html: cadena // html que se muestra en la ventana
+		});
+	}
+	$("#carruArticulo").cycle({
+		fx: 'fadeout',
+		slides: 'img',
+		swipe: true,
+		timeout: 3000,
+		speed:  2500
+	});
+
+	hoverBotones(".modalArticulo a.reservar");
+	$(".modalArticulo").parent().siblings('button#cboxClose').addClass('cerrarModal');
 }

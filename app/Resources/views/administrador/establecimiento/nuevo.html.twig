@@ -50,7 +50,7 @@
 			            type: "POST",
 			            url: '{{path("registrosEstablecimientos")}}',
 			            dataType: "html",
-			            
+                        data:{filtroNombre:$('#filtroNombre').val()},
 			            success: function(data) {
 			                $('#registros').html(data);
 			            }

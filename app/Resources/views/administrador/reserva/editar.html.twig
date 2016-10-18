@@ -42,7 +42,7 @@
                   type: "POST",
                   url: '{{path("registrosReservas")}}',
                   dataType: "html",
-
+                      data:{filtroEstado:$('#filtroEstado').val()},
                   success: function(data) {
                       $('#registros').html(data);
                   }

@@ -1,7 +1,24 @@
 <section id="unseen">
+    <br>
+    <h5><strong>Buscar por:</strong></h5>
+    <table class="table table-bordered table-striped tab-condensed">
+        <tr>
+            <td><strong>Estado</strong></td>
+            <td>
+                <select id="filtroEstado">
+                    <option value="">Todos</option>
+                    {% for estado in estados %}
+                        <option value="{{estado}}" {% if filtro == estado%}selected {% endif %}>{{estado}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td><button type="button" id="btn-buscar" class="btn btn-danger" >Buscar</button></td>
+        </tr>
+    </table>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
-
+    <th>Consecutivo</th>
+    <th>Usuario</th>
         <th>Fecha</th>
         <th>Dirección</th>
         <th>Teléfono</th>
@@ -12,7 +29,9 @@
     
         {% for reserva in reservas %}
           <tr>
-            <td >{{ reserva.fechaCreacion|date('d-m-Y H:i:s') }}</td>
+              <td >{{ reserva.id }}</td>
+              <td >{{ reserva.usuario.nombres|capitalize ~' '~reserva.usuario.apellidos|capitalize }}</td>
+              <td >{{ reserva.fechaCreacion|date('d-m-Y H:i:s') }}</td>
               <td >{{ reserva.direccion }}</td>
               <td >{{ reserva.telefonoContacto }}</td>
               <td >{{ reserva.estado }}</td>
@@ -88,6 +107,19 @@
 
               }
 
+          });
+      });
+
+      $('#btn-buscar').click(function(e){
+          e.preventDefault();
+          $.ajax({
+              type: "POST",
+              url: '{{path("registrosReservas")}}',
+              dataType: "html",
+              data:{filtroEstado:$('#filtroEstado').val()},
+              success: function(data) {
+                  $('#registros').html(data);
+              }
           });
       });
 

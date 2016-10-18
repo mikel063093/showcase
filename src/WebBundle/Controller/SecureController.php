@@ -1,6 +1,6 @@
 <?php
 
-namespace SecureBundle\Controller;
+namespace WebBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 /**
-* @Route("/user/seguridad")
+* @Route("/seguridad")
 */
 class SecureController extends Controller
 {
@@ -18,7 +18,7 @@ class SecureController extends Controller
     /**
      *  
      * La capa de seguridad interceptará esta solicitud
-     * @Route("/inicioSesion", name="inicio")
+     * @Route("/inicioSesion", name="inicioWeb")
      */
     public function loginAction(Request $request){
         
@@ -42,7 +42,7 @@ class SecureController extends Controller
     /**
      *  
      * La capa de seguridad interceptará esta solicitud
-     * @Route("/login_check", name="web_login_check")
+     * @Route("/login_check_web", name="web_login_check_web")
      */
     public function securityCheckAction(Request $request){
          return new Response('hola');
@@ -51,7 +51,7 @@ class SecureController extends Controller
     /**
      * 
      * La capa de seguridad interceptará esta solicitud
-     * @Route("/logout", name="web_logout")
+     * @Route("/logout", name="web_logout_web")
      */
     public function webLogoutAction(){
         

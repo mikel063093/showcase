@@ -15,12 +15,7 @@
         <span>Reservas</span>
     </a>
 </li>
-<li class="mt">
-    <a class="" href="#" value="{{path('planPrincipal')}}">
-        
-        <span>Planes</span>
-    </a>
-</li>
+
 <li class="mt">
     <a class="" href="#" value="{{path('zonaPrincipal')}}">
         
@@ -63,6 +58,18 @@
         <span>Informacion Aplicación</span>
     </a>
 </li>
+<li class="sub-menu">
+    <a href="javascript:;" >
+
+        <span>Sitio Web</span>
+    </a>
+    <ul class="sub">
+        <li><a  href="#">Pagina Principal</a></li>
+        <li><a class="" href="#" value="{{path('planPrincipal')}}">Planes</a></li>
+        <li><a  href="#">Nosotros</a></li>
+        <li><a  href="#">Precio Domicilio</a></li>
+    </ul>
+</li>
 <li class="mt">
     <a class="" href="#" value="{{path('estadisticasPrincipal')}}">
 
@@ -70,7 +77,7 @@
     </a>
 </li>
 <script>
-    $(".mt a").click(function(evento){
+    $(".mt a,.sub-menu .sub a").click(function(evento){
         var opcion = $(this).attr('value');
         $(this).parent().parent().children().removeClass('active');
         $(this).parent().addClass('active');

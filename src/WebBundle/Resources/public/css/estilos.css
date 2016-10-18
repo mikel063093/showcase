@@ -1208,7 +1208,7 @@ section.vistaPedido { width: 100%; }
 				color: #67BA0B;
 			}
 	section.vistaPedido .confirmacion {
-		display: none;
+		display: block;
 		width: 100%;
 		max-width: 459px;
 		margin: 125px auto;
@@ -1397,3 +1397,100 @@ div.recuperar p {
 	text-align: center;
 	margin: 41px 25px -30px;
 }
+
+/* ***** Modal articulo (inicio) ***** */
+.modalArticulo {
+	padding: 15px 30px;
+}
+#carruArticulo {
+	width: 100%;
+	overflow: hidden;
+}
+#carruArticulo img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+.modalArticulo h3 {
+	text-align: center;
+	color: rgba(55, 55, 56, 1);
+	font-family: "latobold";
+	line-height: 23px;
+	font-size: 27px;
+	margin-top: 20px;
+}
+.modalArticulo p {
+	font-family: 'opensansregular';
+	font-size: 15px;
+	color: rgba(51, 51, 51, 1);
+	text-align: center;
+	line-height: 30px;
+	margin: 13px 0 18px;
+}
+.modalArticulo h4 {
+	color: rgba(247, 167, 11, 1);
+	font-size: 38px;
+	font-family: 'latobold';
+	text-align: center;
+}
+.modalArticulo > span {
+	display: inline-block;
+	width: 100%;
+	font-size: 17px;
+	color: rgba(155, 155, 155, 1);
+	text-align: center;
+	margin: 9px 0 19px;
+}
+.modalArticulo  div.contador {
+	width: 100%;
+	text-align: center;
+}
+.modalArticulo div.contador a:link, .modalArticulo div.contador a:visited {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+	text-indent: -9999px;
+	vertical-align: top;
+}
+.modalArticulo div.contador a.mas { background-image: url('../img/btn_mas.png'); }
+.modalArticulo div.contador a.menos { background-image: url('../img/btn_menos.png');}
+.modalArticulo div.contador span.cantidad {
+	display: inline-block;
+	height: 20px;
+	width: 37px;
+	padding: 10px 0;
+	margin: 0 4px;
+	border: 1px solid rgba(231, 231, 231, 1);
+	border-radius: 7px;
+	font-size: 18px;
+	color: rgba(74, 74, 74, 1);
+	vertical-align: top;
+	text-align: center;
+}
+.modalArticulo a.reservar:link, .modalArticulo a.reservar:visited {
+	background-color: rgba(254, 83, 57, 1);
+	border-radius: 6px;
+	box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+	color: #ffffff;
+	display: block;
+	font-family: "latobold";
+	font-size: 19px;
+	margin: 19px auto 0;
+	padding: 15px 0;
+	text-align: center;
+	width: 146px;
+}
+
+#cboxClose.cerrarModal, #cboxClose:hover.cerrarModal {
+	width: 28px;
+	height: 28px;
+	top: 0;
+	right: 0px;
+	background: url('../img/btn_cerrar.png');
+	background-size: 28px 28px;
+	background-color: transparent;
+	border-radius: 15px;
+}
+/* ***** Modal articulo (fin) ***** */

@@ -50,15 +50,7 @@ class Plan {
      */
     private $descripcion;
 
-    /**
-     * @var string $imagen
-     *
-     * @ORM\Column(name="imagen", type="string", length=255, nullable=true, options=
-     * {"comment" = "Imagen del plan"})
-     */
-    private $imagen;
 
-    private $file;
     /**
      * 
      * @ORM\OneToMany(targetEntity="Establecimiento", mappedBy="plan")
@@ -185,111 +177,5 @@ class Plan {
         return $this->precio;
     }
 
-    /**
-     * Set imagen
-     *
-     * @param string $imagen
-     *
-     * @return Plan
-     */
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
 
-        return $this;
-    }
-
-    /**
-     * Get imagen
-     *
-     * @return string
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
-
-    /**
-     * Sets file.
-     *
-     * @param UploadedFile $file
-     */
-    public function setFile(UploadedFile $file = null)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * Get file.
-     *
-     * @return UploadedFile
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-    
-    
-     public function getAbsolutePath()
-    {
-        return null === $this->imagen
-            ? null
-            : $this->getUploadRootDir().'/'.$this->imagen;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->imagen
-            ? null
-            : $this->getUploadDir().'/'.$this->imagen;
-    }
-
-    public function getUploadRootDir()
-    {
-        // la ruta absoluta del directorio donde se deben
-        // guardar los archivos cargados
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
-    }
-
-    public function getUploadDir()
-    {
-        // se deshace del __DIR__ para no meter la pata
-        // al mostrar el documento/imagen cargada en la vista.
-        return 'imagenes/planes';
-    }
-    
-    public function upload()
-    {
-       
-        // the file property can be empty if the field is not required
-        if (null === $this->getFile()) {
-             
-            return;
-        }
-        
-      
-        // use the original file name here but you should
-        // sanitize it at least to avoid any security issues
-
-        // move takes the target directory and then the
-        // target filename to move to
-        
-            $posExten = strripos($this->getFile()->getClientOriginalName(), ".");
-            $exten = substr($this->getFile()->getClientOriginalName(), $posExten);
-            $nombrefinal = sha1_file($this->getFile()).$exten;
-
-
-        
-        
-        $this->getFile()->move(
-            $this->getUploadRootDir(),
-            $nombrefinal
-        );
-
-        // set the path property to the filename where you've saved the file
-        $this->imagen = $nombrefinal;
-
-        // clean up the file property as you won't need it anymore
-        $this->file = null;
-    }
 }
