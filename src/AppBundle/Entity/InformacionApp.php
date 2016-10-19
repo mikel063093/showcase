@@ -54,6 +54,31 @@ class InformacionApp {
     private $nosotros;
 
     /**
+     * @var integer $imagenInicio
+     *
+     * @ORM\Column(name="imagenInicio", type="string", nullable=true, options=
+     * {"comment" = "Imagen para la pagina inicio"})
+     */
+    private $imagenInicio;
+    private $fileCelular;
+
+    /**
+     * @var integer $inicio
+     *
+     * @ORM\Column(name="inicio", type="string", nullable=true,length=1000, options=
+     * {"comment" = "texto para la pagina de inicio"})
+     */
+    private $inicio;
+
+    /**
+     * @var integer $urlPlayStore
+     *
+     * @ORM\Column(name="urlPlayStore", type="string", nullable=true ,options=
+     * {"comment" = "url de la aplicacion en la play store"})
+     */
+    private $urlPlayStore;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -218,4 +243,106 @@ class InformacionApp {
         // clean up the file property as you won't need it anymore
         $this->file = null;
     }
+
+    public function uploadInicio()
+    {
+
+        // the file property can be empty if the field is not required
+        if (null === $this->getFileCelular()) {
+
+            return;
+        }
+
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+
+        $posExten = strripos($this->getFileCelular()->getClientOriginalName(), ".");
+        $exten = substr($this->getFileCelular()->getClientOriginalName(), $posExten);
+        $nombrefinal = sha1_file($this->getFileCelular()).$exten;
+
+
+
+
+        $this->getFileCelular()->move(
+            __DIR__.'/../../../web/imagenes/inicio',
+            $nombrefinal
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->imagenInicio = $nombrefinal;
+
+        // clean up the file property as you won't need it anymore
+        $this->fileCelular = null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getImagenInicio()
+    {
+        return $this->imagenInicio;
+    }
+
+    /**
+     * @param int $imagenInicio
+     */
+    public function setImagenInicio($imagenInicio)
+    {
+        $this->imagenInicio = $imagenInicio;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInicio()
+    {
+        return $this->inicio;
+    }
+
+    /**
+     * @param int $inicio
+     */
+    public function setInicio($inicio)
+    {
+        $this->inicio = $inicio;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUrlPlayStore()
+    {
+        return $this->urlPlayStore;
+    }
+
+    /**
+     * @param int $urlPlayStore
+     */
+    public function setUrlPlayStore($urlPlayStore)
+    {
+        $this->urlPlayStore = $urlPlayStore;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileCelular()
+    {
+        return $this->fileCelular;
+    }
+
+    /**
+     * @param mixed $fileCelular
+     */
+    public function setFileCelular($fileCelular)
+    {
+        $this->fileCelular = $fileCelular;
+    }
+
+
+
 }

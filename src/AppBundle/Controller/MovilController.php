@@ -570,10 +570,10 @@ class MovilController extends Controller
             ));
 
             $mail=$this->get('correo');
-            $mail->setVista('web/correo.html.twig')
+            $mail->setVista('web/correoPass.html.twig')
                 ->setPara(array($correo))
                 ->setTitulo("Nueva Contraseña")
-                ->setContenido("Para cambiar su contraseña por favor ingrese a este <a href='http://test.showcase.com.co".$link."'>link</a>");
+                ->setContenido("https://test.showcase.com.co".$link);
             $mail->enviar();
             $rta = array(
                 "estado"=> 'exito',

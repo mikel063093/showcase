@@ -1,89 +1,67 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
-    <title>Showcase</title>
+    <meta name="robots" content="index, all" >
+    <title>ShowCase</title>
+
     <meta name="viewport" content="width-device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="{{ asset('bundles/web/css/genericos.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/web/lib/colorbox/colorbox.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/web/css/estilos.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/web/css/responsive.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('bundles/app/js/gritter/css/jquery.gritter.css')}}" />
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="{{ asset('bundles/web/correo/css/genericos.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/correo/css/estilos.css') }}" />
 
-    <script src="{{ asset('bundles/web/lib/jquery.js') }}"></script>
-    <script src="{{ asset('bundles/web/lib/bootstrap/bootstrap.js') }}"></script>
-    <script src="{{ asset('bundles/web/lib/cycle2/cycle2.js') }}"></script>
-    <script src="{{ asset('bundles/web/lib/transit/transit.js') }}"></script>
-    <script src="{{ asset('bundles/web/lib/colorbox/colorbox.js') }}"></script>
-    <script src="{{ asset('bundles/web/lib/rating/rating.js') }}"></script>
-    <script src="{{ asset('bundles/web/lib/smoothscroll/smoothscroll.js') }}"></script>
+    <script src="{{ asset('bundles/web/correo/lib/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/web/correo/lib/transit/transit.js') }}"></script>
+    <script src="{{ asset('bundles/web/correo/lib/smoothscroll/smoothscroll.js') }}"></script>
+    <script src="{{ asset('bundles/web/correo/js/showcase.js') }}"></script>
     <script src="{{asset('bundles/app/js/jquery-validate/jquery.validate.js')}}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/web/lib/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('bundles/web/js/showcase.js') }}"></script>
-    <script type="text/javascript" src="{{asset('bundles/app/js/gritter/js/jquery.gritter.js')}}"></script>
-    <script type="text/javascript">
-        function mostrarMensaje(mensaje,estado){
-            $.gritter.add({
-                // (string | mandatory) the heading of the notification
-                title: estado,
-                // (string | mandatory) the text inside the notification
-                text: mensaje,
-                // (bool | optional) if you want it to fade out on its own or just sit there
-                sticky: true,
-                // (int | optional) the time you want it to be alive for before fading out
-                time: '',
-                // (string | optional) the class name you want to apply to that specific message
-                class_name: 'my-sticky-class'
-            });
-
-        };
-    </script>
 </head>
 
-<body class="fondoLogin">
-<!-- Login (inicio) -->
-<section class="login">
-    <img src="{{ asset('bundles/web/img/logo_showcase.png') }}" alt="Logo Showcase" />
-    {% if valido %}
-    <h3>Cambiar Contraseña</h3>
-    <form id="login"  method="post">
+<body>
+<!-- Header (inicio) -->
+<header id="header">
+    <h1><img src="{{ asset('bundles/web/correo/img/logo_showcase.png') }}" alt="ShowCase"></h1>
+</header>
+<!-- Header (fin) -->
+<section>
+    <h2>Restablece tu contraseña</h2>
+    <p>
+        Te recomendamos ingresar una contraseña fuerte con mínimo 6 caracteres que incluya números, letras y signos de puntuación.
+    </p>
+    <form id="contrasenas" class="contrasenas" action="" method="">
         <div class="form">
-            <label>Contraseña</label>
-            <input type="password" name="_password" id="_password" placeholder="Contraseña" />
+            <label for="contrasena">Escribe tu contraseña nueva</label>
+            <input type="password" id="contrasena" name="contrasena"></input>
         </div>
         <div class="form">
-            <label>Confirmar Contraseña</label>
-            <input type="password" name="_passwordConfirm" placeholder="Confirmar Contraseña" />
+            <label for="contra_confir">Escribe tu contraseña nueva una vez más</label>
+            <input type="password" id="contra_confir" name="contra_confir" ></input>
+            <input type="hidden" name="correo" value="{{ correo }}">
+            <input type="hidden" name="clave" value="{{ clave }}">
         </div>
-        <input type="hidden" name="clave" value="{{ clave }}">
-        <input type="hidden" name="correo" value="{{ correo }}">
-        <button type="submit">Cambiar</button>
+        <button type="submit">Enviar</button>
+        <div class="clearFix"></div>
     </form>
-
-    {% else %}
-    <h3>{{ mensaje }}</h3>
-    {% endif %}
 </section>
-<!-- Login (fin) -->
+</body>
+</html>
+
+
 <script>
     $(document).ready(function () {
-        $('#login').validate({
+        $('#contrasenas').validate({
             rules: {
 
-                '_passwordConfirm': { equalTo: "#_password"},
+                'contra_confir': { equalTo: "#contrasena"},
 
-                '_password': {required: true},
+                'contrasena': {required: true},
 
             },
             messages: {
 
-                '_passwordConfirm': {equalTo: 'Las contraseñas no son iguales'},
+                'contra_confir': {equalTo: 'Las contraseñas no son iguales'},
 
-                '_password': {required: 'El campo Contraseña es obligtorio'},
+                'contrasena': {required: 'El campo Contraseña es obligtorio'},
 
             },
             submitHandler: function (form) {
@@ -96,7 +74,8 @@
             invalidHandler: function (event, validator) {
                 if (validator.errorList.length > 0) {
                     for (var i = 0; i < validator.errorList.length; i++) {
-                        mostrarMensaje(validator.errorList[i].message, 'Error');
+                        $(validator.errorList[i].element).after('&nbsp;<span>'+validator.errorList[i].message+'</span>');
+                        $(validator.errorList[i].element).addClass('error');
                     }
                     ;
                     return false;
@@ -110,7 +89,7 @@
 
     function enviar(form){
 
-        var datos = $('#login').serialize();
+        var datos = $('#contrasenas').serialize();
         var errores = [];
         $.ajax({
             url:"{{path('realizarCambio')}}",
@@ -120,21 +99,12 @@
 
             success: function (data){
                 if(data.estado){
-
-                    mostrarMensaje(data.mensaje,'Exito');
-                    window.setTimeout(function(){ window.location.href = "{{ path('home') }}"; }, 5000);
-
-                }else{
-                    mostrarMensaje(data.mensaje,'Error');
-
+                    window.location.href = "{{ path('cambioExitoso') }}";
                 }
-
-
             }
 
         });
 
     }
 </script>
-</body>
-</html>
+

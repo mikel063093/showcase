@@ -76,6 +76,7 @@ class HomeController extends Controller
         $banderaPedido = $peticion->get('pedido');
         $rta = $peticion->get('rta');
         $em = $this->getDoctrine()->getManager();
+        $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
         $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
         $promociones = $em->getRepository('AppBundle:Promocion')->findPromocionesActivas();
         $establecimientosDestacados = $em->getRepository('AppBundle:Establecimiento')->obtenerEstablecimintosDestacados();
@@ -135,7 +136,7 @@ class HomeController extends Controller
             if(count($rta)>0) {
                 $session->getFlashBag()->add('rta', $rta);
             }
-            $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+
             return $this->render('web/pedido.html.twig', array(
                 'categorias' => $categorias,
                 'promociones' => $promociones,
@@ -151,7 +152,8 @@ class HomeController extends Controller
                 'promociones' => $promociones,
                 'establecimientosDestacados' => $establecimientosDestacados,
                 'articulosDestacados' => $articulosDestacados,
-                'mostrar' => true
+                'mostrar' => true,
+                'info' => $infoApp,
             ));
         }
     }
@@ -1249,10 +1251,10 @@ class HomeController extends Controller
             ));
 
             $mail=$this->get('correo');
-            $mail->setVista('web/correo.html.twig')
+            $mail->setVista('web/correoPass.html.twig')
                 ->setPara(array($correo))
                 ->setTitulo("Nueva Contraseña")
-                ->setContenido("Para cambiar su contraseña por favor ingrese a este <a href='http://test.showcase.com.co/app_vep.php".$link."'>link</a>");
+                ->setContenido("https://test.showcase.com.co".$link);
             $mail->enviar();
             $rta = array(
                 "estado"=> 1,
@@ -1384,16 +1386,16 @@ class HomeController extends Controller
 
                 ));
             }else{
-                return $this->render('validacion/cambiarContrasena.html.twig',array(
+                return $this->render('validacion/codigoInvalido.html.twig',array(
                     'valido'=>0,
                     'mensaje'=> 'No se puede cambiar la contraseña.'
                 ));
             }
 
         }else{
-            return $this->render('validacion/cambiarContrasena.html.twig',array(
+            return $this->render('validacion/codigoInvalido.html.twig',array(
                 'valido'=>0,
-                'mensaje'=> 'El correo no se encuentra en nuestra base de datos.'
+                'mensaje'=> 'No se puede cambiar la contraseña.'
             ));
         }
 
@@ -1407,7 +1409,7 @@ class HomeController extends Controller
     {
         $clave = $peticion->get('clave');
         $correo = $peticion->get('correo');
-        $password = $peticion->get('_password');
+        $password = $peticion->get('contrasena');
         $em=$this->getDoctrine()->getManager();
         $entity= $em->getRepository('AppBundle:Usuario')->findOneBy(array(
             'correo'=>$correo
@@ -1611,6 +1613,17 @@ class HomeController extends Controller
     {
 
         return  $this->render("web/carrito/carro.html.twig");
+
+
+    }
+    /**
+     * @Route("/cambioExitoso", name="cambioExitoso")
+     *
+     */
+    public function cambioExitosoAction(Request $peticion)
+    {
+
+        return  $this->render("validacion/cambioExitoso.html.twig");
 
 
     }

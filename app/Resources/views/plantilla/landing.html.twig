@@ -108,11 +108,14 @@
 <div class="franjaverde">
     <div class="centrar">
         <div class="celular"></div>
-        <div class="informacion">
-            <h2>Más de 20 establecimientos</h2>
-            <h3>por todo Popayán</h3>
-            <p>Descarga la aplicación que te conectará con miles de artículos y lo mejor es que no tendrás que que desplazarte a comprarlos. ¡Nosotros te los llevarémos!</p>
-            <a href="#">Disponoble en Google Play</a>
+        <style>
+            div.celular {
+                background-image: url("../../../imagenes/inicio/{{ info.imagenInicio }}") !important;
+
+            }
+        </style>
+        <div class="informacion">{{ info.inicio|raw }}
+            <a href="{{ info.urlPlayStore|default('#') }}">Disponoble en Google Play</a>
         </div>
     </div>
 </div>

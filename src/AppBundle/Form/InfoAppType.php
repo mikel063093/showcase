@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 class InfoAppType extends AbstractType{
     /**
      * @param FormBuilderInterface $builder
@@ -14,8 +15,9 @@ class InfoAppType extends AbstractType{
      */
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
-            ->add('precioDomicilio',NumberType::class, array('attr' => array('size' => '30px')))
-            ->add('nosotros',TextareaType::class, array('attr' => array('size' => '30px')))
+
+            ->add('nosotros',CKEditorType::class, array(
+                'config_name' => 'my_config'))
             ->add('file','file',array('required' => false))
             
              

@@ -3,3 +3,5 @@ ivory_ck_editor:
     configs:
         my_config:
             toolbar: [ ['Bold','Italic','Underline'],[ 'NumberedList','BulletedList' ], ['About' ]]
+        my_config_inicio:
+            toolbar: [ ['Source','Format'],['Bold','Italic','Underline'],[ 'NumberedList','BulletedList' ], ['About' ]]
