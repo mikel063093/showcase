@@ -1,0 +1,75 @@
+<div class="content-panel">
+    <h4><i class="fa fa-angle-right"></i>Información de Showcase</h4>
+
+    <div id="registros">
+        <div class="row">
+
+            <div class="col-sm-10 col-md-offset-2">
+                <strong>NOSOTROS</strong>
+            </div>
+            <br/>
+            <br/>
+            <div class="col-sm-2 col-md-offset-2">
+                Imagen :
+            </div>
+            <div class="col-sm-8">
+                 {% if not (informacion.imagenNosotros) or informacion.imagenNosotros == ""%}
+                     NO DEFINIDO
+                 {% else %}
+                     <img  src="{{asset('imagenes/nosotros/' ~ informacion.imagenNosotros)}}" alt=""  height="150"/>
+                 {%endif%}
+            </div>
+            <div class="col-sm-2 col-md-offset-2">
+                Descripción :
+            </div>
+            <div class="col-sm-8">
+                <p>
+                    {{ informacion.nosotros|raw  }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div>
+
+            <button id="btn-editar" type="button" class="btn btn-danger btn-principal">
+                Editar
+            </button>
+
+
+    </div>
+    <script>
+        $(document).ready(function () {
+           $('#btn-editar').click(function (e) {
+               e.preventDefault();
+               var id={{ informacion.id }}
+               $.ajax({
+                   url: '{{path("editarNosotros")}}',
+                   type: 'POST',
+                   dataType: 'html',
+                   data: { idElemento:id},
+                   success:function(data){
+
+                       $('#modal-title').html('Editar Información Nosotros');
+                       $('#modal-content').html(data);
+                       $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
+                       $('#modal').modal('show');
+                       $('#btn-actualizar').click(function(){
+                           $('#form-editar').submit();
+                       });
+                       $('#btn-cancelar').click(function(){
+                           $('#btn-cancelar').unbind();
+                           $('#btn-actualizar').unbind();
+                           $('#modal').modal('hide');
+                           $('#modal-title').html('');
+                           $('#modal-content').html('<br>CARGANDO . . .');
+                           $('#modal-footer').html('');
+                       });
+
+                   }
+
+               });
+           });
+        });
+    </script>
+</div>
+

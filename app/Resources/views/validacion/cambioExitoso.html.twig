@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="robots" content="index, all" >
+    <title>ShowCase</title>
+
+    <meta name="viewport" content="width-device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="{{ asset('bundles/web/correo/css/genericos.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/web/correo/css/estilos.css') }}" />
+
+    <script src="{{ asset('bundles/web/correo/lib/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/web/correo/lib/transit/transit.js') }}"></script>
+    <script src="{{ asset('bundles/web/correo/lib/smoothscroll/smoothscroll.js') }}"></script>
+    <script src="{{ asset('bundles/web/correo/js/showcase.js') }}"></script>
+    <script src="{{asset('bundles/app/js/jquery-validate/jquery.validate.js')}}" type="text/javascript"></script>
+</head>
+
+<body>
+<!-- Header (inicio) -->
+<header id="header">
+    <h1><img src="{{ asset('bundles/web/correo/img/logo_showcase.png') }}" alt="ShowCase"></h1>
+</header>
+<!-- Header (fin) -->
+<section>
+    <h2>Restablece tu contraseña</h2>
+    <h3>¡Felicitaciones!</h3>
+    <p class="mensaje">Has cambiado tu contraseña exitosamente</p>
+    <a href="{{ path('home') }}" class="sitio">IR AL SITIO WEB DE SHOWCASE</a>
+</section>
+</body>
+</html>
+
+

@@ -226,11 +226,15 @@ class MovilController extends Controller
                 $email = $response->getGraphUser()["email"];
                 $nombres = $response->getGraphUser()["first_name"];
                 $apellidos = $response->getGraphUser()["last_name"];
+            }elseif (isset($response->getGraphUser()["id"])){
+                $email = $response->getGraphUser()["id"];
+                $nombres = $response->getGraphUser()["first_name"];
+                $apellidos = $response->getGraphUser()["last_name"];
             }
                 
             if ($email != "") {
                 $password = $response->getGraphUser()["id"];
-                $user = $em->getRepository('AppBundle:Usuario')->findOneBy(array('username' => $email));
+                $user = $em->getRepository('AppBundle:Usuario')->findOneBy(array('correo' => $email));
                 if (!$user) {
                     $user = new \AppBundle\Entity\Usuario();
                     $user->setCorreo($email);
