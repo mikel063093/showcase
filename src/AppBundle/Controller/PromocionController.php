@@ -80,7 +80,7 @@ class PromocionController extends Controller
             $em->persist($entity);
             $em->flush();
             $client = $this->get('notificaciones');
-            $resultado = $client->enviarNotificacion('Nueva Promoción','Showcase cuenta con una nuevoa promoción');
+            $resultado = $client->enviarNotificacion('Nueva Promoción','Showcase cuenta con una nuevoa promoción',"https://test.showcase.com.co/".$entity->getWebPath());
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,
                 'mensaje'=>'Promoción creada satisfactoriamente'

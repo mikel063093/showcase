@@ -1612,6 +1612,11 @@ class MovilController extends Controller
                 $em->persist($articulo);
                 $em->persist($articuloPedido);
             }
+            $carrito = $this->getUser()->getCarritos()[0];
+            foreach ($carrito->getItems() as $item){
+                $em->remove($item);
+            }
+            $em->remove($carrito);
             $em->persist($pedido);
             $em->flush();
             $rta['ordenPedido'] = $pedido->getId();

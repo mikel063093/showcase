@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class Notificaciones{
 
-    public function enviarNotificacion($titulo, $mensaje){
+    public function enviarNotificacion($titulo, $mensaje,$imagen=null){
 
         $content = array(
             "en" => $mensaje
@@ -17,9 +17,12 @@ class Notificaciones{
         $fields = array(
             'app_id' => "159e39de-2bc7-41ea-bb84-627091bb7a0e",
             'included_segments' => array('All'),
-
+            'large_icon' => 'https://test.showcase.com.co/bundles/web/img/logo_showcase.png',
             'contents' => $content
         );
+        if($imagen){
+            $fields['big_picture']=$imagen;
+        }
 
         $fields = json_encode($fields);
 
