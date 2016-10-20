@@ -1,0 +1,98 @@
+<script type="text/javascript">
+  $('#form-editar').validate({
+        rules: {
+            'precio': {  required: true },
+
+        },
+        messages:{
+            'precio': {  required: 'El campo Precio es obligatorio' },
+
+          },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+              for (var i = 0; i < validator.errorList.length; i++) {
+                mostrarMensaje(validator.errorList[i].message,'Error');
+              };
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+      $('#modal-cargando').modal('show');
+        var datos = $('#form-editar').serialize();
+        $.ajax({
+            url:"{{path('actualizarPrecio')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+
+            success: function (data){
+                if(data.valor){
+                  $.ajax({
+                    type: "POST",
+                    url: '{{path('precioAdmin')}}',
+                    dataType: "html",
+
+                    success: function(data) {
+                        $('#contenido').html(data);
+                    }
+                  });
+                  $('#btn-guardar').unbind();
+                  $('#modal').modal('hide');
+                    $('#modal-title').html('');
+                  $('#modal-content').html('<br>CARGANDO . . .');
+                  $('#modal-footer').html('');
+                  mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+
+                  mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+
+
+                  
+  $('#close-modal').click(function(){
+    $('#btn-guardar').unbind();
+    $('#modal-title').html('');
+    $('#modal-content').html('<br>CARGANDO . . .');
+    $('#modal-footer').html('');
+    
+  });
+
+
+
+
+
+</script>
+
+<form id="form-editar" class="form-horizontal style-form">
+<div class="form-group">
+    <label class="col-sm-3 col-sm-3 control-label"><strong>Valor Domicilio (*)</strong></label>
+    <div class="col-sm-9">
+        <input name="precio" id="precio" class="form-control" value="{{ entity.precioDomicilio|default('') }}">
+    </div>
+</div>
+
+
+<input type="hidden" name="id_entity" value="{{ entity.id }}">
+
+
+</form>

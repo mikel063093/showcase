@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="" />
+    <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-bold-webfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-bold-webfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-bold-webfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-bold-webfont.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-regular-webfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-regular-webfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-regular-webfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-regular-webfont.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/img/logo_showcase.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/img/logo_correo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/imagenes/inicio/e5510b146459173b871ddfa3173a152d1ced8465.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/imagenes/inicio/img_celular.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editarInicio.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editarPrecio.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/inicio.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/nosotros.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/precio.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/validacion/cambioExitoso.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/validacion/codigoInvalido.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Form/InfoAppInicioType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/css/estilos.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/css/genericos.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-bold-webfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/fonts/lato-regular-webfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/js/showcase.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/lib/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/lib/smoothscroll/smoothscroll.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/correo/lib/transit/transit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
+    </list>
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -44,8 +78,8 @@
       <file leaf-file-name="AppKernel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="20" column="67" selection-start-line="20" selection-start-column="67" selection-end-line="20" selection-end-column="67" />
+            <state relative-caret-position="357">
+              <caret line="22" column="67" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -64,8 +98,8 @@
       <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1785">
-              <caret line="239" column="34" selection-start-line="239" selection-start-column="27" selection-end-line="239" selection-end-column="34" />
+            <state relative-caret-position="-4097">
+              <caret line="137" column="80" selection-start-line="137" selection-start-column="80" selection-end-line="137" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -179,7 +213,6 @@
         <option value="$PROJECT_DIR$/src/WebBundle/Resources/public/css/estilos.css" />
         <option value="$PROJECT_DIR$/app/Resources/views/web/pedido.js.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/web/pedidoExitoso.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/web/correoPass.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/validacion/cambioExitoso.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/validacion/cambiarContrasena.html.twig" />
@@ -200,6 +233,7 @@
         <option value="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" />
         <option value="$PROJECT_DIR$/app/config/ivory_ck_editor.yml" />
         <option value="$PROJECT_DIR$/app/Resources/views/plantilla/landing.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
       </list>
     </option>
   </component>
@@ -1185,7 +1219,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="289740000" />
+    <option name="totallyTimeSpent" value="289839000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1237,7 +1271,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php</url>
-          <line>907</line>
+          <line>911</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -1365,8 +1399,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1785">
-          <caret line="239" column="34" selection-start-line="239" selection-start-column="27" selection-end-line="239" selection-end-column="34" />
+        <state relative-caret-position="-4097">
+          <caret line="137" column="80" selection-start-line="137" selection-start-column="80" selection-end-line="137" selection-end-column="80" />
           <folding />
         </state>
       </provider>
@@ -1505,7 +1539,7 @@
         <state relative-caret-position="-48">
           <caret line="121" column="29" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="29" />
           <folding>
-            <element signature="e#40#76#0#PHP" expanded="true" />
+            <element signature="e#40#76#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -135,7 +135,7 @@ class MovilController extends Controller
         
         try {
 
-            $usuarios = $em->getRepository('AppBundle:Usuario')->findBy(array('username'=>$login));
+            $usuarios = $em->getRepository('AppBundle:Usuario')->findBy(array('correo'=>$login));
             if (count($usuarios) == 0) {
                 $datos['estado'] = 'error';
                 $datos['mensaje'] = 'Validacion incorrecta.';
@@ -226,11 +226,15 @@ class MovilController extends Controller
                 $email = $response->getGraphUser()["email"];
                 $nombres = $response->getGraphUser()["first_name"];
                 $apellidos = $response->getGraphUser()["last_name"];
+            }elseif (isset($response->getGraphUser()["id"])){
+                $email = $response->getGraphUser()["id"];
+                $nombres = $response->getGraphUser()["first_name"];
+                $apellidos = $response->getGraphUser()["last_name"];
             }
                 
             if ($email != "") {
                 $password = $response->getGraphUser()["id"];
-                $user = $em->getRepository('AppBundle:Usuario')->findOneBy(array('username' => $email));
+                $user = $em->getRepository('AppBundle:Usuario')->findOneBy(array('correo' => $email));
                 if (!$user) {
                     $user = new \AppBundle\Entity\Usuario();
                     $user->setCorreo($email);
