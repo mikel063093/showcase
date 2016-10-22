@@ -23,15 +23,41 @@
         <li class="sitioWeb">{{ establecimiento.sitioWeb }}</li>
     </ul>
     <div class="redes">
+        {% if establecimiento.facebook is not null or
+        establecimiento.twitter is not null or
+        establecimiento.instagram is not null or
+        establecimiento.snapchat is not null or
+        establecimiento.youtube is not null %}
         Síguenos en:
-        <ul>
+        <ul>{#facebook twitter instagram snapchat youtube#}
+            {% if establecimiento.facebook is not null %}
             <li class="facebook">
                 <a href="{{ establecimiento.facebook }}" target="_blank" title="Facebook">Facebook</a>
             </li>
+            {% endif %}
+            {% if establecimiento.twitter is not null %}
             <li class="twitter">
                 <a href="{{ establecimiento.twitter }}" target="_blank" title="Twitter">Twitter</a>
             </li>
+            {% endif %}
+            {% if establecimiento.instagram is not null %}
+                <li class="instagram">
+                    <a href="{{ establecimiento.instagram }}" target="_blank" title="Twitter">Instagram</a>
+                </li>
+            {% endif %}
+            {% if establecimiento.snapchat is not null %}
+                <li class="snapchat">
+                    <a href="{{ establecimiento.snapchat }}" target="_blank" title="Twitter">Snapchat</a>
+                </li>
+            {% endif %}
+            {% if establecimiento.youtube is not null %}
+                <li class="youtube">
+                    <a href="{{ establecimiento.youtube }}" target="_blank" title="Twitter">Youtube</a>
+                </li>
+            {% endif %}
+
         </ul>
+        {% endif %}
     </div>
     <div class="contenedor contArticulos ">
         <h2>Artículos de este establecimiento</h2>

@@ -855,14 +855,29 @@ section.vistaEstable {}
 					text-indent: -9999px;
 				}
 				div.redes ul li.facebook a:link, div.redes ul li.facebook a:visited {
-					width: 168px;
-					background-image: url('../img/btn_facebook_establecimientos.png');
-					background-size: 168px 64px;
+					width: 64px;
+					background-image: url('../img/btn_facebook_establecimiento.png');
+					background-size: 64px 64px;
 				}
 				div.redes ul li.twitter a:link, div.redes ul li.twitter a:visited {
-					width: 155px;
-					background-image: url('../img/btn_twitter_establecimientos.png');
-					background-size: 155px 64px;
+					width: 64px;
+					background-image: url('../img/btn_twitter_establecimiento.png');
+					background-size: 64px 64px;
+				}
+				div.redes ul li.instagram a:link, div.redes ul li.instagram a:visited {
+					width: 64px;
+					background-image: url('../img/btn_instagram_establecimiento.png');
+					background-size: 64px 64px;
+				}
+				div.redes ul li.snapchat a:link, div.redes ul li.snapchat a:visited {
+					width: 64px;
+					background-image: url('../img/btn_snapchat_establecimiento.png');
+					background-size: 64px 64px;
+				}
+				div.redes ul li.youtube a:link, div.redes ul li.youtube a:visited {
+					width: 64px;
+					background-image: url('../img/btn_youtube_establecimiento.png');
+					background-size: 64px 64px;
 				}
 .rating, section.vistaEstable h3 { vertical-align: bottom; }
 .rating {
