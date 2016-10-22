@@ -171,6 +171,31 @@
                 return false;
             }
         });
+
+        $("#terminos").click(function(e){
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "{{ path('terminos') }}",
+                type: 'json',
+                success: function(data){
+                    let cadena = data.vista;
+                    if($(window).width() <= 480) {
+                        $.colorbox({
+                            width: "300px", // Ancho de la ventana puede se auto, un % o un tamaño fijo
+                            height: "690px", // Alto de la ventana puede se auto, un % o un tamaño fijo
+                            html: cadena // html que se muestra en la ventana
+                        });
+                    } else {
+                        $.colorbox({
+                            width: "460px", // Ancho de la ventana puede se auto, un % o un tamaño fijo
+                            height: "690px", // Alto de la ventana puede se auto, un % o un tamaño fijo
+                            html: cadena // html que se muestra en la ventana
+                        });
+                    }
+                }
+            });
+        });
     });
 
     function redimirCupon(elemento){
@@ -285,5 +310,6 @@
 
         });
 
-    }
+    };
+
 </script>

@@ -210,3 +210,5 @@ function modalArticulo(cadena) {
 	hoverBotones(".modalArticulo a.reservar");
 	$(".modalArticulo").parent().siblings('button#cboxClose').addClass('cerrarModal');
 }
+
+

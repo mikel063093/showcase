@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\InformacionApp;
 use AppBundle\Form\InfoAppType;
 use AppBundle\Form\InfoAppInicioType;
+use AppBundle\Form\InfoAppTerminosType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -267,8 +268,74 @@ class InfoAppController extends Controller
                 'mensaje' => 'Información actualizada satisfactoriamente'
             ));
 
+    }
 
+    /**
+     * @Route("/terminosCondiciones", name="terminosCondiciones")
+     */
+    public function terminosCondicionesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $informaciones = $em->getRepository('AppBundle:InformacionApp')->findAll();
+        if(count($informaciones)==0){
+            $informacion = new InformacionApp();
+            $em->persist($informacion);
+            $em->flush();
+        }else{
+            $informacion = $informaciones[0];
+        }
+        return $this->render('administrador/informacion/terminos.html.twig',array(
+            'informacion' => $informacion
+        ));
+    }
 
+    /**
+     * @Route("/editarTerminos", name="editarTerminos")
+     * @Method({"POST"})
+     */
+    public function editarTerminosAction(Request $peticion){
+        $idInfo=$peticion->request->get('idElemento');
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:InformacionApp')->find($idInfo);
+        $form   = $this->formularioCrearTerminos($entity);
+        return $this->render('administrador/informacion/editarTerminos.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/actualizarTerminos", name="actualizarTerminos")
+     * @Method({"POST"})
+     */
+    public function actualizarTerminosAction(Request $peticion){
+        $em = $this->getDoctrine()->getManager();
+        $idEntidad=$peticion->request->get('id_entity');
+        $entity = $em->getRepository('AppBundle:InformacionApp')->find($idEntidad);
+        $form   = $this->formularioCrearTerminos($entity);
+        $form->handleRequest($peticion);
+        $errors = $this->get('validator')->validate($entity);
+        if (count($errors) > 0){
+            return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                'valor'=> false,
+                'mensaje'=> $errors[0]->getMessage()
+            ));
+        }
+
+        if ($form->isValid()) {
+
+            $em->persist($entity);
+            $em->flush();
+            return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                'valor' => true,
+                'mensaje' => 'Información actualizada satisfactoriamente'
+            ));
+        }
+
+        return new JsonResponse(array(
+            'valor'=>false,
+            'mensaje'=>'No se pudo actualizar la información'
+        ));
 
     }
 
@@ -283,6 +350,15 @@ class InfoAppController extends Controller
 
     private function formularioCrearInicio(InformacionApp $entity){
         $form = $this->createForm(new InfoAppInicioType(), $entity, array(
+            'action' => $this->generateUrl('infoAppPrincipal'),
+            'method' => 'POST',
+        ));
+
+        return $form;
+    }
+
+    private function formularioCrearTerminos(InformacionApp $entity){
+        $form = $this->createForm(new InfoAppTerminosType(), $entity, array(
             'action' => $this->generateUrl('infoAppPrincipal'),
             'method' => 'POST',
         ));

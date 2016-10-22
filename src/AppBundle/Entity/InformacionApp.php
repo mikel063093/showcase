@@ -79,6 +79,14 @@ class InformacionApp {
     private $urlPlayStore;
 
     /**
+     * @var integer $terminos
+     *
+     * @ORM\Column(name="terminos", type="string", nullable=true,length=500000 ,options=
+     * {"comment" = "url de la aplicacion en la play store"})
+     */
+    private $terminos;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -342,6 +350,24 @@ class InformacionApp {
     {
         $this->fileCelular = $fileCelular;
     }
+
+    /**
+     * @return int
+     */
+    public function getTerminos()
+    {
+        return $this->terminos;
+    }
+
+    /**
+     * @param int $terminos
+     */
+    public function setTerminos($terminos)
+    {
+        $this->terminos = $terminos;
+    }
+
+
 
 
 

@@ -45,7 +45,11 @@ security:
 
         recuperarContrasena:
             pattern: ^/movil/recuperarContrasena
-            security: false    
+            security: false
+
+        terminos:
+            pattern: ^/movil/terminos
+            security: false
 
         movil:
             pattern:  ^/api/login

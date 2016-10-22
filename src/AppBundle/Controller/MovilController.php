@@ -1632,7 +1632,62 @@ class MovilController extends Controller
     }
 
 
+    /**
+     * @Route("/terminos", name="terminos")
+     */
+    public function terminossAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al obtener los terminos y condiciones'
+        );
 
+        try{
+            $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+            $vista = $this->renderView("administrador/informacion/terminosCondiciones.html.twig",array('informacion'=>$infoApp));
+            $rta['vista'] = $vista;
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al obtener los pedidos'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
+
+    /**
+     * @Route("/eventos", name="eventos")
+     */
+    public function eventosAction(Request $peticion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rta=array(
+            'estado'=>1,
+            'mensaje'=> 'Exito al obtener la categoria eventos'
+        );
+
+        try{
+            $catEventos = $em->getRepository('AppBundle:Categoria')->findOneBy(array('nombre'=>'Eventos'));
+            if($catEventos){
+                $rta['categoria'] = $catEventos->getId();
+            }else{
+                $rta=array(
+                    'estado'=>0,
+                    'mensaje'=> 'Error al obtener la categoria eventos'
+                );
+            }
+
+        }catch (Exception $e){
+            $rta=array(
+                'estado'=>0,
+                'mensaje'=> 'Error al obtener la categoria eventos'
+            );
+        }
+        return new JsonResponse( $rta);
+
+    }
 
 
 

@@ -58,6 +58,19 @@
         <span>Informacion Aplicación</span>
     </a>
 </li>#}
+<li class="mt">
+    <a class="" href="#" value="{{path('precioAdmin')}}">
+
+        <span>Precio Domicilio</span>
+    </a>
+</li>
+<li class="mt">
+    <a class="" href="#" value="{{path('estadisticasPrincipal')}}">
+
+        <span>Estadisticas</span>
+    </a>
+</li>
+
 <li class="sub-menu">
     <a href="javascript:;" >
 
@@ -67,15 +80,10 @@
         <li><a  href="#" value="{{path('infoAppPrincipal')}}">Pagina Principal</a></li>
         <li><a class="" href="#" value="{{path('planPrincipal')}}">Planes</a></li>
         <li><a  href="#" value="{{path('nosotrosAdmin')}}">Nosotros</a></li>
-        <li><a  href="#" value="{{path('precioAdmin')}}">Precio Domicilio</a></li>
+        <li><a  href="#" value="{{path('terminosCondiciones')}}">Terminos y Condiciones</a></li>
     </ul>
 </li>
-<li class="mt">
-    <a class="" href="#" value="{{path('estadisticasPrincipal')}}">
 
-        <span>Estadisticas</span>
-    </a>
-</li>
 <script>
     $(".mt a,.sub-menu .sub a").click(function(evento){
         var opcion = $(this).attr('value');
