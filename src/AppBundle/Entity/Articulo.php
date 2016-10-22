@@ -73,11 +73,10 @@ class Articulo {
     private $cantidad;
 
     /**
-     * @var string $imagen
      *
-     * @ORM\Column(name="imagen", type="string", nullable=true,length=63)
-     * */
-    private $imagen;
+     * @ORM\OneToMany(targetEntity="FotosArticulo", mappedBy="articulo")
+     */
+    private $fotosArticulos;
 
     private $file;
     
@@ -256,6 +255,7 @@ class Articulo {
     {
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articulosPedidos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->fotosArticulos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -422,7 +422,7 @@ class Articulo {
     
     public function upload()
     {
-       
+        $em = $GLOBALS['kernel']->getContainer()->get('doctrine.orm.entity_manager');
         // the file property can be empty if the field is not required
         if (null === $this->getFile()) {
              
@@ -448,10 +448,47 @@ class Articulo {
             $nombrefinal
         );
 
+        $foto = new FotosArticulo();
+        $foto->setRuta($nombrefinal);
+        $foto->setTitulo('Principal');
+        $em->persist($foto);
         // set the path property to the filename where you've saved the file
-        $this->imagen = $nombrefinal;
+        $this->addFotosArticulo($foto);
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+    }
+
+    /**
+     * Add fotosArticulos
+     *
+     * @param \AppBundle\Entity\FotosArticulo $fotosArticulos
+     * @return Articulo
+     */
+    public function addFotosArticulo(\AppBundle\Entity\FotosArticulo $fotosArticulos)
+    {
+        $this->fotosArticulos[] = $fotosArticulos;
+
+        return $this;
+    }
+
+    /**
+     * Remove fotosArticulos
+     *
+     * @param \AppBundle\Entity\FotosArticulo $fotosArticulos
+     */
+    public function removeFotosArticulo(\AppBundle\Entity\FotosArticulo $fotosArticulos)
+    {
+        $this->fotosArticulos->removeElement($fotosArticulos);
+    }
+
+    /**
+     * Get fotosArticulos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFotosArticulos()
+    {
+        return $this->fotosArticulos;
     }
 }

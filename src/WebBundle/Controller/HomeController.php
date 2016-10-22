@@ -63,6 +63,7 @@ class HomeController extends Controller
 
             }
         }
+
         if(!$carrito){
 
             $carro = new Carrito();
@@ -430,7 +431,7 @@ class HomeController extends Controller
                         'id' => $item->getId(),
                         'articulo' => $item->getArticulo()->getId(),
                         'nombre' => $item->getArticulo()->getNombre(),
-                        'imagen' => $item->getArticulo()->getWebPath(),
+                        'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $item->getArticulo()->getFotosArticulos()[0]->getWebPath(): '',
                         'cantidad' => $item->getCantidad(),
                         'precio' => $item->getArticulo()->getPrecio()
                     );
@@ -452,7 +453,7 @@ class HomeController extends Controller
                         'id' => $item->getId(),
                         'articulo' => $item->getArticulo()->getId(),
                         'nombre' => $item->getArticulo()->getNombre(),
-                        'imagen' => $item->getArticulo()->getWebPath(),
+                        'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $item->getArticulo()->getFotosArticulos()[0]->getWebPath(): '',
                         'cantidad' => $item->getCantidad(),
                         'precio' => $item->getArticulo()->getPrecio()
                     );
@@ -562,7 +563,7 @@ class HomeController extends Controller
                             'id' => $item->getId(),
                             'articulo' => $item->getArticulo()->getId(),
                             'nombre' => $item->getArticulo()->getNombre(),
-                            'imagen' => $item->getArticulo()->getWebPath(),
+                            'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $item->getArticulo()->getFotosArticulos()[0]->getWebPath(): '',
                             'cantidad' => $item->getCantidad(),
                             'precio' => $item->getArticulo()->getPrecio()
                         );
@@ -881,7 +882,7 @@ class HomeController extends Controller
                             'id' => $item->getId(),
                             'articulo' => $item->getArticulo()->getId(),
                             'nombre' => $item->getArticulo()->getNombre(),
-                            'imagen' => $item->getArticulo()->getWebPath(),
+                            'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $item->getArticulo()->getFotosArticulos()[0]->getWebPath(): '',
                             'cantidad' => $item->getCantidad(),
                             'precio' => $item->getArticulo()->getPrecio()
                         );
@@ -1499,7 +1500,7 @@ class HomeController extends Controller
                             'id' => $item->getId(),
                             'articulo' => $item->getArticulo()->getId(),
                             'nombre' => $item->getArticulo()->getNombre(),
-                            'imagen' => $item->getArticulo()->getWebPath(),
+                            'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $item->getArticulo()->getFotosArticulos()[0]->getWebPath(): '',
                             'cantidad' => $item->getCantidad(),
                             'precio' => $item->getArticulo()->getPrecio()
                         );
@@ -1522,7 +1523,7 @@ class HomeController extends Controller
                         'id' => $item->getId(),
                         'articulo' => $item->getArticulo()->getId(),
                         'nombre' => $item->getArticulo()->getNombre(),
-                        'imagen' => $item->getArticulo()->getWebPath(),
+                        'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $item->getArticulo()->getFotosArticulos()[0]->getWebPath(): '',
                         'cantidad' => $item->getCantidad(),
                         'precio' => $item->getArticulo()->getPrecio()
                     );

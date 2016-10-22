@@ -526,8 +526,9 @@ class MovilController extends Controller
                     "unidades" => $a->getUnidadMedida(),
                     "valorUnidades" => $a->getValorMedida()
                     );
-                if ($a->getImagen()) {
-                    $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
+                if (count($a->getFotosArticulos()) > 0) {
+
+                    $articulo["imagen"] =  $this->container->getParameter('servidor').$a->getFotosArticulos()[0]->getWebPath();
                 } else {
                    $articulo["imagen"] = "";
                 }
@@ -850,11 +851,9 @@ class MovilController extends Controller
                     "unidades" => $a->getUnidadMedida(),
                     "valorUnidades" => $a->getValorMedida()
                 );
-                if ($a->getImagen()) {
-                    $articulo["imagen"] = $this->container->getParameter('servidor').'/'.$a->getWebPath();
-                } else {
-                    $articulo["imagen"] = "";
-                }
+
+                    $articulo["imagen"] = count($a->getFotosArticulos()) > 0 ? $this->container->getParameter('servidor').'/'.$a->getFotosArticulos()[0]->getWebPath() : '';
+
                 array_push($art,$articulo);
             }
             $rta['articulos'] = $art;
@@ -889,10 +888,14 @@ class MovilController extends Controller
                 "valorUnidades" => $a->getValorMedida(),
                 'cantidad' => $a->getCantidad()
             );
-            if ($a->getImagen()) {
-                $articulo["imagen"] = array($this->container->getParameter('servidor').'/'.$a->getWebPath());
+            if (count($a->getFotosArticulos()) > 0) {
+                $fotos = array();
+                foreach($a->getFotosArticulos() as  $foto){
+                    $fotos[] = $this->container->getParameter('servidor').$foto->getWebPath();
+                }
+                $articulo["imagen"] = $fotos;
             } else {
-                $articulo["imagen"] = "";
+                $articulo["imagen"] = array();
             }
 
             $rta['articulo'] = $articulo;
@@ -1167,7 +1170,7 @@ class MovilController extends Controller
                     'id' => $item->getId(),
                     'idArticulo' => $item->getArticulo()->getId(),
                     'nombre' => $item->getArticulo()->getNombre(),
-                    'imagen' => $this->container->getParameter('servidor').'/'.$item->getArticulo()->getWebPath(),
+                    'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $this->container->getParameter('servidor').'/'.$item->getArticulo()->getFotosArticulos()[0]->getWebPath(): '',
                     'precio' => $item->getArticulo()->getPrecio(),
                     'cantidad' => $item->getCantidad()
                 );
@@ -1527,7 +1530,7 @@ class MovilController extends Controller
                     $subtotal = $subtotal + $item->getCantidad() * $item->getPrecio();
                     $items[] = array(
                         'nombre' => $item->getArticulo()->getNombre(),
-                        'imagen' => $this->container->getParameter('servidor') . '/' . $item->getArticulo()->getWebPath(),
+                        'imagen' => count($item->getArticulo()->getFotosArticulos()) > 0 ? $this->container->getParameter('servidor') . '/' . $item->getArticulo()->getFotosArticulos()[0]->getWebPath() : '',
                         'precio' => $item->getPrecio(),
                         'cantidad' => $item->getCantidad()
                     );

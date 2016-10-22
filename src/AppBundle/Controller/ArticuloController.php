@@ -77,7 +77,7 @@ class ArticuloController extends Controller
                 'mensaje'=> $errors[0]->getMessage()
             ));
         }
-        $entity->upload();
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $establecimiento=$em->getRepository('AppBundle:Establecimiento')->find($request->get('establecimiento'));
@@ -134,7 +134,7 @@ class ArticuloController extends Controller
                 'mensaje'=> $errors[0]->getMessage()
             ));
         }
-        $entity->upload();
+
         if ($form->isValid()) {
 
             $establecimiento=$em->getRepository('AppBundle:Establecimiento')->find($peticion->get('establecimiento'));

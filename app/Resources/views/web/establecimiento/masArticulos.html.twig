@@ -5,7 +5,11 @@
     <ul class="lista articulos">
         {% for articulo in articulos %}
             <li>
-                <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" data-id="{{ articulo.id }}"/>
+                {% if articulo.fotosArticulos|length >0 %}
+                    <img src="{{ asset(articulo.fotosArticulos[0].webPath) }}" alt="{{ articulo.nombre }}" data-id="{{ articulo.id }}"/>
+                {% else %}
+                    <img src="" alt="{{ articulo.nombre }}" data-id="{{ articulo.id }}"/>
+                {% endif %}
                 <div class="informacion">
                     <h3>{{ articulo.nombre }}</h3>
                     <h4>{{ articulo.precio|number_format(0,',','.') }}</h4>

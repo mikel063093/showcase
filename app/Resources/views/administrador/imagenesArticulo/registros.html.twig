@@ -3,28 +3,20 @@
     <thead>
     <tr>
         <th>Nombre</th>
-        <th>Precio</th>
-        <th>Unidad de Medida</th>
-        <th>Valor de Medida</th>
-        <th>Cantidad</th>
-        <th>Establecimiento</th>
+        <th>Imagen</th>
         <th>Acciones</th>
     </thead>
     <tbody>
     
-        {% for articulo in articulos %}
+        {% for foto in fotos %}
           <tr>
-            <td >{{articulo.nombre}}</td>
-            <td >{{articulo.precio}}</td>
-            <td >{{articulo.unidadMedida}}</td>
-            <td >{{articulo.valorMedida}}</td>
-            <td >{{articulo.cantidad}}</td>
-            <td >{{articulo.establecimiento.nombre}}</td>
-            <td ><a href="#" class="btn-editar" data-id="{{ articulo.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ articulo.id }}">Eliminar</a>|<a href="#" class="btn-fotosArticulo" data-id="{{ articulo.id }}">Fotos</a></td>
+            <td >{{foto.titulo}}</td>
+            <td ><img src="{{ asset(foto.webPath) }}" style="height: 150px;"></td>
+            <td ><a href="#" class="btn-editar" data-id="{{ foto.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ foto.id }}">Eliminar</a></td>
           </tr>
         {% else %} 
            <tr> 
-              <td colspan="6">No hay articulos registrados</td>
+              <td colspan="6">No hay fotos registradas</td>
            </tr>
         {% endfor %}
         
@@ -41,16 +33,16 @@
         $('#modal-content').html('<br>CARGANDO . . .');
         $('#modal-footer').html('');
         $.ajax({
-          url: '{{path("editarArticulo")}}',
+          url: '{{path("editarFotoArticulo")}}',
           type: 'POST',
           dataType: 'html',
           data: {
               idElemento:id,
-              idEstablecimiento:{{ idEstablecimiento }}
+              idArticulo:{{ idArticulo }}
           },
           success:function(data){
             
-            $('#modal-title').html('Editar de Articulo');
+            $('#modal-title').html('Editar de Foto');
             $('#modal-content').html(data);
             $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
             $('#modal').modal('show');
@@ -70,32 +62,16 @@
 
         });
       });
-      $('.btn-fotosArticulo').click(function (e) {
-
-          e.preventDefault();
-          var id=$(this).data("id");
-          $.ajax({
-              url: '{{path("fotoArticuloPrincipal")}}',
-              type: 'POST',
-              dataType: 'html',
-              data: { idElemento:id},
-              success:function(data){
-
-                  $('#contenido').html(data);
-              }
-          });
-      });
-
       $('.btn-eliminar').click(function(e){
         e.preventDefault();
         var id=$(this).data("id");
         $('#modalConfirm-title').html('Confirmacion');
-        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar este articulo?</h4>');
+        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta foto?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');
         $('#btn-si').click(function(){
             $.ajax({
-              url: '{{path("eliminarArticulo")}}',
+              url: '{{path("eliminarFotoArticulo")}}',
               type: 'POST',
               dataType: 'json',
               data: { idElemento:id},
@@ -112,10 +88,10 @@
 
                        $.ajax({
                           type: "POST",
-                          url: '{{path("registrosArticulos")}}',
+                          url: '{{path("registrosFotosArticulo")}}',
                           dataType: "html",
                           data:{
-                            idElemento:{{ idEstablecimiento }}
+                            idElemento:{{ idArticulo }}
                           },
                           success: function(data) {
                               $('#registros').html(data);
@@ -128,7 +104,6 @@
               }
             });
         });
-
         $('#btn-no').click(function(){
               $('#btn-si').unbind();
               $('#btn-no').unbind();

@@ -1,8 +1,9 @@
 {% set carrito = app.session.get('carrito') %}
 <div class="modalArticulo">
     <div id="carruArticulo">
-
-        <img src="{{ asset(articulo.webPath) }}" alt="{{ articulo.nombre }}" />
+        {% for foto in articulo.fotosArticulos %}
+        <img src="{{ asset(foto.webPath) }}" alt="{{ articulo.nombre }}" />
+        {% endfor %}
         <div class="cycle-pager">
 
         </div>

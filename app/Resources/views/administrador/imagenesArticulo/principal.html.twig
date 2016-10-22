@@ -1,0 +1,71 @@
+{% extends "plantilla/principal.html.twig" %}
+
+{% block tituloLocal %}Gestion de Fotos de Articulo - {{ articulo.nombre }}{% endblock %}
+
+{% block lblAdicionar %}
+Adicionar Foto
+{% endblock %}
+{% block btnAdicional %}
+<button id="btn-volver" type="button" data-id="{{ articulo.establecimiento.id }}" class="btn btn-danger btn-principal">Volver</button>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+         $.ajax({
+            type: "POST",
+            url: '{{path("registrosFotosArticulo")}}',
+            dataType: "html",
+            data:{
+                idElemento:{{ idArticulo }}
+            },
+            success: function(data) {
+                $('#registros').html(data);
+            }
+        });
+    });
+
+    $('#btn-volver').click(function (e) {
+        e.preventDefault();
+        var id=$(this).data("id");
+        $.ajax({
+            url: '{{path("articuloPrincipal")}}',
+            type: 'POST',
+            dataType: 'html',
+            data: { idElemento:id},
+            success:function(data){
+
+                $('#contenido').html(data);
+            }
+        });
+    });
+
+    $('#btn-adicionar').click(function(){
+        
+        $.ajax({
+            url: '{{path("nuevoFotoArticulo")}}',
+            type: 'POST',
+            dataType: 'html',
+            data:{
+                idElemento:{{ idArticulo }}
+            },
+            success:function(data){
+                
+                $('#modal-title').html('Registro de Foto');
+                $('#modal-content').html(data);
+                $('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
+                $('#modal').modal('show');
+                $('#btn-guardar').click(function(){
+                    $('#form-registro').submit();
+                });
+
+            }
+
+        });
+    });
+
+
+    
+
+    </script>
+{% endblock %}

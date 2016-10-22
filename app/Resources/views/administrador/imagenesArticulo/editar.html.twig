@@ -1,0 +1,123 @@
+<script type="text/javascript">
+  $('#form-editar').validate({
+        rules: {
+            'foto[titulo]': {  required: true },
+        },
+        messages:{
+            'foto[titulo]': {  required: 'El campo Titulo es obligatorio' },
+        },
+        submitHandler: function(form) {
+           enviar(form);
+        },
+        showErrors: function(errorMap, errorList) {
+            if (errorList.length > 0) {
+            }
+        },
+        invalidHandler: function(event, validator) {
+            if (validator.errorList.length > 0) {
+              for (var i = 0; i < validator.errorList.length; i++) {
+                mostrarMensaje(validator.errorList[i].message,'Error');
+              };
+                return false;
+            }
+        },
+        errorPlacement: function(error, element) {
+            return false;
+        }
+    });
+
+     function enviar(form){
+      $('#modal-cargando').modal('show');
+        var datos = new FormData(form);
+        $.ajax({
+            url:"{{path('actualizarFotoArticulo')}}",
+            type: 'post',
+            dataType: 'json',
+            data: datos,
+            processData: false,
+            contentType: false,
+            success: function (data){
+                if(data.valor){
+                  $.ajax({
+                  type: "POST",
+                  url: '{{path("registrosFotosArticulo")}}',
+                  dataType: "html",
+                  data:{
+                    idElemento:{{ idArticulo }}
+                  },
+                  success: function(data) {
+                      $('#registros').html(data);
+                  }
+              });
+                  $('#btn-guardar').unbind();
+                  $('#modal').modal('hide');
+                    $('#modal-title').html('');
+                  $('#modal-content').html('<br>CARGANDO . . .');
+                  $('#modal-footer').html('');
+                  mostrarMensaje(data.mensaje,'Exito');         
+                }else{
+
+                  mostrarMensaje(data.mensaje,'Error');
+                }
+
+                $('#modal-cargando').modal('hide');
+            }
+
+        });
+
+    }
+
+                  
+  $('#close-modal').click(function(){
+    $('#btn-guardar').unbind();
+    $('#modal-title').html('');
+    $('#modal-content').html('<br>CARGANDO . . .');
+    $('#modal-footer').html('');
+    
+  });
+
+  $('#foto_file').change(function (){
+      validacion=true;
+      var sizeByte = this.files[0].size;
+      var nombre = this.files[0].name;
+      var file,img;
+      var extensiones=["JPG", "JPEG", "PNG"];
+      var ext=nombre.substring(nombre.indexOf('.')+1).toUpperCase();
+      if (extensiones.indexOf(ext) === -1){
+          crearMensaje(0, 'Las extensiones permitidas son: jpg, jpeg y png.');
+          $(this).val('');
+          validacion= false;
+      }else{
+          $("#imgPreviewEmpresa").attr("style","display:block;");
+          var file = $("#foto_file").val();
+          var ruta = URL.createObjectURL(this.files[0]);
+          $("#imgPreviewEmpresa").fadeIn("fast").attr('src',URL.createObjectURL(this.files[0]));
+      }
+  });
+
+
+
+</script>
+
+{{ form_start(form, {'attr': {'id': 'form-editar','class':'form-horizontal style-form' }}) }}
+  <div class="form-group">
+    <label class="col-sm-3 col-sm-3 control-label"><strong>Titulo (*)</strong></label>
+    <div class="col-sm-9">
+        {{ form_widget(form.titulo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+
+
+<input type="hidden" name="articulo" value="{{ idArticulo }}">
+<input type="hidden" name="id_entity" value="{{ entity.id }}">
+    
+    <div class="form-group">
+      <label class="col-sm-3 col-sm-3 control-label">Imagen (*)</label>
+      <div class="col-sm-9">
+          {{ form_widget(form.file,{'attr':{'class':'input-file'}}) }}
+          <img {% if not (entity.ruta) or entity.ruta == ""%}style="display: none"{%endif%} id="imgPreviewEmpresa" src="{% if entity.ruta and entity.ruta != ""%}{{asset('imagenes/articulos/' ~ entity.ruta)}}{%endif%}" alt="" height="80" />
+      </div>
+    </div>
+    
+
+{{ form_rest(form) }}
