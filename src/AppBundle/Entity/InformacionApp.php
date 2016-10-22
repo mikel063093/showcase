@@ -81,7 +81,7 @@ class InformacionApp {
     /**
      * @var integer $terminos
      *
-     * @ORM\Column(name="terminos", type="string", nullable=true,length=500000 ,options=
+     * @ORM\Column(name="terminos", type="text", nullable=true ,options=
      * {"comment" = "url de la aplicacion en la play store"})
      */
     private $terminos;
