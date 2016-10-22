@@ -15,8 +15,7 @@ class ArticuloType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
             ->add('nombre','text', array('attr' => array('size' => '30px')))
-            ->add('descripcion',CKEditorType::class, array(
-                'config_name' => 'my_config'))
+            ->add('descripcion','textarea', array('attr' => array('size' => '30px')))
             ->add('precio',NumberType::class, array('attr' => array('size' => '30px')))
             ->add('unidadMedida','text', array('attr' => array('size' => '30px')))
             ->add('valorMedida','text', array('attr' => array('size' => '30px'), 'required' => false))

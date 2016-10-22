@@ -29,7 +29,14 @@
     
         {% for reserva in reservas %}
           <tr>
-              <td >{{ reserva.id }}</td>
+              <td >
+                  {% set consecutivo = ""~reserva.id %}
+
+                  {% for a in reserva.id|length..3 %}
+                  {% set consecutivo = "0"~consecutivo %}
+                  {% endfor %}
+                  {{ consecutivo }}
+              </td>
               <td >{{ reserva.usuario.nombres|capitalize ~' '~reserva.usuario.apellidos|capitalize }}</td>
               <td >{{ reserva.fechaCreacion|date('d-m-Y H:i:s') }}</td>
               <td >{{ reserva.direccion }}</td>

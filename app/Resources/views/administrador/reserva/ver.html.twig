@@ -14,7 +14,12 @@
     
 
           <tr>
-              <td >{{ entity.id }}</td>
+              <td >{% set consecutivo = ""~entity.id %}
+
+                  {% for a in entity.id|length..3 %}
+                      {% set consecutivo = "0"~consecutivo %}
+                  {% endfor %}
+                  {{ consecutivo }}</td>
               <td >{{ entity.usuario.nombres|capitalize ~' '~entity.usuario.apellidos|capitalize }}</td>
             <td >{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
               <td >{{ entity.direccion }}</td>

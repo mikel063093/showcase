@@ -40,7 +40,8 @@ class PedidoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $consulta = $em->createQueryBuilder()
             ->select('p')
-            ->from('AppBundle:Pedido','p');
+            ->from('AppBundle:Pedido','p')
+        ->orderBy('p.fechaCreacion',"DESC");
 
         return $consulta->getQuery()->getResult();
     }
@@ -51,7 +52,8 @@ class PedidoRepository extends EntityRepository
             ->select('p')
             ->from('AppBundle:Pedido','p')
             ->andWhere('p.estado = :estado')
-            ->setParameter('estado',$filtro);
+            ->setParameter('estado',$filtro)
+            ->orderBy('p.fechaCreacion',"DESC");
         return $consulta->getQuery()->getResult();
     }
 }

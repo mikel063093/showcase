@@ -9,7 +9,7 @@
         </div>
     </div>
     <h3>{{ articulo.nombre }}</h3>
-    <p>{{ articulo.descripcion|raw }}</p>
+    <p>{{ articulo.descripcion|nl2br }}</p>
     <h4>${{ articulo.precio|number_format(0,',','.') }}</h4>
     <span>{{ articulo.unidadMedida~' '~articulo.valorMedida }}</span>
     <div class="contador">
