@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Articulo;
 use AppBundle\Entity\ArticulosPedido;
 use AppBundle\Entity\Carrito;
+use AppBundle\Entity\Categoria;
 use AppBundle\Entity\CuponUsuario;
 use AppBundle\Entity\Direccion;
 use AppBundle\Entity\InformacionApp;
@@ -612,7 +613,10 @@ class MovilController extends Controller
            $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
            $cats = array();
            foreach ($categorias as $categoria){
-               array_push($cats,array('id' => $categoria->getId() ,'nombre' => $categoria->getNombre() ));
+
+               if(count($categoria->getEstablecimientos())>0) {
+                   array_push($cats, array('id' => $categoria->getId(), 'nombre' => $categoria->getNombre()));
+               }
            }
            $rta=array(
                 'estado'=>1,
