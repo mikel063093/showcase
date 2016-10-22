@@ -40,7 +40,7 @@ class Establecimiento {
     /**
      * @var string $descripcion
      *
-     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true, options=
+     * @ORM\Column(name="descripcion", type="string", length=1000, nullable=true, options=
      * {"comment" = "Descripcion del establecimiento"})
      */
     private $descripcion;

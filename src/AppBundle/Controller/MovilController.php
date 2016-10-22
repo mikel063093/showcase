@@ -421,22 +421,25 @@ class MovilController extends Controller
 
             $cats = $em->getRepository('AppBundle:Categoria')->findAll();
             foreach ($cats as  $c) {
-                $cat = array("id" => $c->getId(),"nombre" => $c->getNombre());
-                $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
-                $est = array();
+                if(count($c->getEstablecimientos())>0) {
+                    $cat = array("id" => $c->getId(), "nombre" => $c->getNombre());
 
-                foreach ($establecimientos as $e) {
-                    
-                    $est[] = array(
-                        'id' => $e->getId(),
-                        'nombre' => $e->getNombre(),
-                        'logo' => array($this->container->getParameter('servidor').$e->getWebPath())
+                    $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
+                    $est = array();
+
+                    foreach ($establecimientos as $e) {
+
+                        $est[] = array(
+                            'id' => $e->getId(),
+                            'nombre' => $e->getNombre(),
+                            'logo' => array($this->container->getParameter('servidor') . $e->getWebPath())
                         );
-                    
-                }
-                $cat['establecimientos']=$est;
 
-                $datos["categorias"][] = $cat; 
+                    }
+                    $cat['establecimientos'] = $est;
+
+                    $datos["categorias"][] = $cat;
+                }
             }
 
             $promociones = $em->getRepository('AppBundle:Promocion')->findPromocionesActivas();
