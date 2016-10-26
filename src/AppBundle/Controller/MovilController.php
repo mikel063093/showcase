@@ -78,7 +78,7 @@ class MovilController extends Controller
                 $datos['apellido'] = $existe->getApellidos();
                 $datos['correo'] = $existe->getCorreo();
                 if($existe->getFoto()){
-                    $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto();
+                    $datos['foto'] = (gettype(strpos($existe->getFoto(),'https')) == "integer") ? $existe->getFoto() : $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto() ;
                 }
                 $passwordCodificado = $existe->getPassword();
             }
@@ -152,7 +152,7 @@ class MovilController extends Controller
                     $datos['correo'] = $existe->getCorreo();
                     $datos['apellido'] = $existe->getApellidos();
                     if($existe->getFoto()){
-                        $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto();
+                        $datos['foto'] = (gettype(strpos($existe->getFoto(),'https')) == "integer") ? $existe->getFoto() : $this->container->getParameter('servidor').'/imagenes/perfil/'.$existe->getFoto() ;
                     }
                     
                     $url = $this->generateUrl('api_login_check', array(), UrlGeneratorInterface::ABSOLUTE_URL);
@@ -220,7 +220,7 @@ class MovilController extends Controller
                 'default_graph_version' => 'v2.6',
             ]);
             $request = new \Facebook\FacebookRequest($facebookApp, $accessToken, 'GET', '/me', array(
-                'fields' => 'id,email,first_name,last_name'
+                'fields' => 'id,email,first_name,last_name,picture{url}'
             ));
             $response = $fb->getClient()->sendRequest($request);
             if (isset($response->getGraphUser()["email"])) {
@@ -232,7 +232,8 @@ class MovilController extends Controller
                 $nombres = $response->getGraphUser()["first_name"];
                 $apellidos = $response->getGraphUser()["last_name"];
             }
-                
+
+
             if ($email != "") {
                 $password = $response->getGraphUser()["id"];
                 $user = $em->getRepository('AppBundle:Usuario')->findOneBy(array('correo' => $email));
@@ -248,6 +249,10 @@ class MovilController extends Controller
                     $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
                     $passwordCodificado = $encoder->encodePassword($password, $user->getSalt());
                     $user->setPassword($passwordCodificado);
+                    //$request2 = new \Facebook\FacebookRequest($facebookApp, $accessToken, 'GET', '/'.$response->getGraphUser()["id"].'/picture');
+                    //$response2 = $fb->getClient()->sendRequest($request2);
+                    //var_dump($response->getGraphUser()['picture']);
+                    $user->setFoto($response->getGraphUser()['picture']['url']);
                     $em->persist($user);
                     $em->flush();
 
@@ -279,7 +284,8 @@ class MovilController extends Controller
                         $datos["apellido"] = $user->getApellidos();
                         $datos["correo"] = $user->getCorreo();
                         if($user->getFoto()){
-                            $datos['foto'] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$user->getFoto();
+                            //var_dump(gettype(strpos($user->getFoto(),'https')));
+                            $datos['foto'] = (gettype(strpos($user->getFoto(),'https')) == "integer") ? $user->getFoto() : $this->container->getParameter('servidor').'/imagenes/perfil/'.$user->getFoto();
                         }
                         $datos["token"] = $jsonToken->token;
                     }elseif(isset($jsonToken->code)){
@@ -383,7 +389,7 @@ class MovilController extends Controller
                 $em->persist($user);
                 $em->flush();
                 $datos["id"] = $user->getId();
-                $datos["foto"] = $this->container->getParameter('servidor').'/imagenes/perfil/'.$user->getFoto();
+                $datos["foto"] = (gettype(strpos($user->getFoto(),'https')) == "integer") ? $user->getFoto() : $this->container->getParameter('servidor').'/imagenes/perfil/'.$user->getFoto() ;
                 $datos["nombre"] = $user->getNombres();
                 $datos["apellido"] = $user->getApellidos();
                 $datos["telefono"] = $user->getTelefono();
@@ -797,7 +803,7 @@ class MovilController extends Controller
         );
         try{
             $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar(strtolower($palabra));
-
+//echo count($palabras);
             $posiblesPalabras = array();
             foreach ($palabras as $p){
                 $listaPalabras = explode(" ",$p['nombre']);
@@ -859,7 +865,7 @@ class MovilController extends Controller
                     "valorUnidades" => $a->getValorMedida()
                 );
 
-                    $articulo["imagen"] = count($a->getFotosArticulos()) > 0 ? $this->container->getParameter('servidor').'/'.$a->getFotosArticulos()[0]->getWebPath() : '';
+                    $articulo["imagen"] = count($a->getFotosArticulos()) > 0 ? array($this->container->getParameter('servidor').'/'.$a->getFotosArticulos()[0]->getWebPath()) : array();
 
                 array_push($art,$articulo);
             }

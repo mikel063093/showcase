@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Articulo
- * @ORM\Table(name="articulo", options={"comment" = "Productos o Servicios de un establecimiento"})
+ * @ORM\Table(name="articulo", options={"comment" = "Productos o Servicios de un establecimiento","collation"="utf8_unicode_ci"})
  * @ORM\Entity(repositoryClass="ArticuloRepository")
  * @author ALEJANDRO
  */
