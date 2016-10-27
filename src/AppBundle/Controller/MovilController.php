@@ -807,7 +807,7 @@ class MovilController extends Controller
             if(strlen($palabra) == 0){
                 $palabras = $em->getRepository('AppBundle:Articulo')->obtenerTodosAutocompletar();
                 foreach ($palabras as $p){
-                    $listaPalabras = explode(" ",$p['nombre']);
+                    $listaPalabras = explode(" ",strtolower($p['nombre']));
                     foreach ($listaPalabras as $lp){
                         array_push($posiblesPalabras,$lp);
                     }
@@ -816,14 +816,14 @@ class MovilController extends Controller
                         $nuevaPalabra = $nuevaPalabra." ".$lp;
 
                             array_push($posiblesPalabras,$nuevaPalabra);
-                        
+
                     }
                 }
 
             }else {
                 $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar(strtolower($palabra));
                 foreach ($palabras as $p){
-                    $listaPalabras = explode(" ",$p['nombre']);
+                    $listaPalabras = explode(" ",strtolower($p['nombre']));
                     foreach ($listaPalabras as $lp){
                         $bandera = strpos($lp,$palabra);
                         if(gettype($bandera) == "integer"){
