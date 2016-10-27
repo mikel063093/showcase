@@ -33,6 +33,17 @@ class ArticuloRepository extends EntityRepository
         return $consulta->getQuery()->getResult();
     }
 
+    public function obtenerTodosAutocompletar(){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->addSelect('a.nombre')
+            ->from('AppBundle:Articulo', 'a')
+            ->where('a.cantidad > 0');
+        return $consulta->getQuery()->getResult();
+    }
+
+
     public function realizarBusqueda($palabra){
         $em = $this->getEntityManager();
 

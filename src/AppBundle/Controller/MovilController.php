@@ -802,27 +802,47 @@ class MovilController extends Controller
             'mensaje' => 'Exito al buscar posibles palabras',
         );
         try{
-            $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar(strtolower($palabra));
-//echo count($palabras);
             $posiblesPalabras = array();
-            foreach ($palabras as $p){
-                $listaPalabras = explode(" ",$p['nombre']);
-                foreach ($listaPalabras as $lp){
-                    $bandera = strpos($lp,$palabra);
-                    if(gettype($bandera) == "integer"){
-
+            //echo strlen($palabra);
+            if(strlen($palabra) == 0){
+                $palabras = $em->getRepository('AppBundle:Articulo')->obtenerTodosAutocompletar();
+                foreach ($palabras as $p){
+                    $listaPalabras = explode(" ",$p['nombre']);
+                    foreach ($listaPalabras as $lp){
                         array_push($posiblesPalabras,$lp);
                     }
+                    $nuevaPalabra = $listaPalabras[0];
+                    foreach ( array_slice($listaPalabras,1) as $lp){
+                        $nuevaPalabra = $nuevaPalabra." ".$lp;
 
+                            array_push($posiblesPalabras,$nuevaPalabra);
+                        
+                    }
                 }
-                $nuevaPalabra = $listaPalabras[0];
-                foreach ( array_slice($listaPalabras,1) as $lp){
-                    $nuevaPalabra = $nuevaPalabra." ".$lp;
-                    if(strpos($lp,$palabra)){
-                        array_push($posiblesPalabras,$nuevaPalabra);
+
+            }else {
+                $palabras = $em->getRepository('AppBundle:Articulo')->autocompletar(strtolower($palabra));
+                foreach ($palabras as $p){
+                    $listaPalabras = explode(" ",$p['nombre']);
+                    foreach ($listaPalabras as $lp){
+                        $bandera = strpos($lp,$palabra);
+                        if(gettype($bandera) == "integer"){
+
+                            array_push($posiblesPalabras,$lp);
+                        }
+
+                    }
+                    $nuevaPalabra = $listaPalabras[0];
+                    foreach ( array_slice($listaPalabras,1) as $lp){
+                        $nuevaPalabra = $nuevaPalabra." ".$lp;
+                        if(strpos($lp,$palabra)){
+                            array_push($posiblesPalabras,$nuevaPalabra);
+                        }
                     }
                 }
             }
+//echo count($palabras);
+
             $posiblesPalabras = array_unique($posiblesPalabras);
             if(count($posiblesPalabras) > 0){
                 $rta['palabras'] = $posiblesPalabras;
