@@ -2,7 +2,7 @@
   <table class="table table-bordered table-striped table-condensed">
     <thead>
 
-        <th>Codigo</th>
+        <th>Código</th>
         <th>Valor</th>
         <th>Fecha Limite</th>
         <th>Estado</th>
@@ -45,7 +45,7 @@
           },
           success:function(data){
             
-            $('#modal-title').html('Editar de Cupon');
+            $('#modal-title').html('Editar de Cupón');
             $('#modal-content').html(data);
             $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
             $('#modal').modal('show');
@@ -68,8 +68,8 @@
       $('.btn-eliminar').click(function(e){
         e.preventDefault();
         var id=$(this).data("id");
-        $('#modalConfirm-title').html('Confirmacion');
-        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta cupon?</h4>');
+        $('#modalConfirm-title').html('Confirmación');
+        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta cupón?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');
         $('#btn-si').click(function(){

@@ -6,7 +6,7 @@
     <li>
         <div {% if loop.last  %}class="ultimo"{% endif %}>
             <h3>{{ plan.nombre|upper }}</h3>
-            <h4>{{ plan.precio|number_format(0,',','.') }}</h4>
+            <h4>${{ plan.precio|number_format(0,',','.') }}</h4>
             <ol>
                 {{ plan.descripcion|raw }}
             </ol>

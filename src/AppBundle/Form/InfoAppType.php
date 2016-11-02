@@ -17,7 +17,7 @@ class InfoAppType extends AbstractType{
         $builder
 
             ->add('nosotros',CKEditorType::class, array(
-                'config_name' => 'my_config'))
+                'config_name' => 'my_config_nosotros'))
             ->add('file','file',array('required' => false))
             
              

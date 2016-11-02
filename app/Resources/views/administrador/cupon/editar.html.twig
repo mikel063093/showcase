@@ -7,8 +7,8 @@
       },
       messages:{
           'fechaLimite': {  required: 'El campo Fecha Limite es obligatorio' },
-          'cupon[codigo]': {required: 'El campo Codigo es obligatorio'},
-          'cupon[valor]': {required: 'El campo Valor es obligatorio',number:'El campo Valor solo recibe valores numericos'},
+          'cupon[codigo]': {required: 'El campo Código es obligatorio'},
+          'cupon[valor]': {required: 'El campo Valor es obligatorio',number:'El campo Valor solo recibe valores numéricos'},
       },
         submitHandler: function(form) {
            enviar(form);
@@ -97,7 +97,7 @@
 {{ form_start(form, {'attr': {'id': 'form-editar','class':'form-horizontal style-form' }}) }}
 <input type="hidden" name="id_entity" value="{{entity.id}}">
     <div class="form-group">
-        <label class="col-sm-3 col-sm-3 control-label"><strong>Codigo (*)</strong></label>
+        <label class="col-sm-3 col-sm-3 control-label"><strong>Código (*)</strong></label>
         <div class="col-sm-9">
             {{ form_widget(form.codigo,{'attr':{'class':'form-control'}}) }}
         </div>

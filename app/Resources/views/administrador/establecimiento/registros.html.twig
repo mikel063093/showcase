@@ -14,8 +14,8 @@
     <thead>
     <tr>
         <th>Nombre</th>
-        <th>Direccion</th>
-        <th>Telefono</th>
+        <th>Dirección</th>
+        <th>Teléfono</th>
         <th>Peso</th>
         <th>Plan</th>
         <th>Acciones</th>
@@ -80,7 +80,7 @@
       $('.btn-eliminar').click(function(e){
         e.preventDefault();
         var id=$(this).data("id");
-        $('#modalConfirm-title').html('Confirmacion');
+        $('#modalConfirm-title').html('Confirmación');
         $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar este establecimiento?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');

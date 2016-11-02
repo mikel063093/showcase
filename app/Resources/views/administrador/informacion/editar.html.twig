@@ -3,12 +3,11 @@
         rules: {
 
             'info[nosotros]': {  required: true },
-            'info[file]': {  required: true },
+
         },
         messages:{
 
             'info[nosotros]': {  required: 'El campo Nosotros es obligatorio' },
-            'info[file]': {  required: 'El campo Imagen Nosotros es obligatorio' },
         },
         submitHandler: function(form) {
            enviar(form);

@@ -32,7 +32,7 @@
           data: { idElemento:id},
           success:function(data){
             
-            $('#modal-title').html('Editar de Zona');
+            $('#modal-title').html('Editar Zona');
             $('#modal-content').html(data);
             $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
             $('#modal').modal('show');
@@ -55,7 +55,7 @@
       $('.btn-eliminar').click(function(e){
         e.preventDefault();
         var id=$(this).data("id");
-        $('#modalConfirm-title').html('Confirmacion');
+        $('#modalConfirm-title').html('Confirmación');
         $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta zona?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');

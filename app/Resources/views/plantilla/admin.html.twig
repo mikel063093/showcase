@@ -40,7 +40,7 @@
             <script type="text/javascript" src="{{asset('bundles/app/js/gritter/js/jquery.gritter.js')}}"></script>
             <script type="text/javascript">
                 function mostrarMensaje(mensaje,estado){
-                    $.gritter.add({
+                    var unique_id = $.gritter.add({
                         // (string | mandatory) the heading of the notification
                         title: estado,
                         // (string | mandatory) the text inside the notification
@@ -52,6 +52,15 @@
                         // (string | optional) the class name you want to apply to that specific message
                         class_name: 'my-sticky-class'
                     });
+
+                    setTimeout(function(){
+
+                        $.gritter.remove(unique_id, {
+                            fade: true,
+                            speed: 'slow'
+                        });
+
+                    }, 5000)
 
                 };
                 $(document).ready(function () {

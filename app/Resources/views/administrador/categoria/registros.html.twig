@@ -14,7 +14,7 @@
           </tr>
         {% else %} 
            <tr> 
-              <td colspan="4">No hay categorias registras</td>
+              <td colspan="4">No hay categorías registras</td>
            </tr>
         {% endfor %} 
     </tbody>
@@ -32,7 +32,7 @@
           data: { idElemento:id},
           success:function(data){
             
-            $('#modal-title').html('Editar de Categoria');
+            $('#modal-title').html('Editar de Categoría');
             $('#modal-content').html(data);
             $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
             $('#modal').modal('show');
@@ -56,7 +56,7 @@
         e.preventDefault();
         var id=$(this).data("id");
         $('#modalConfirm-title').html('Confirmacion');
-        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta categoria?</h4>');
+        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar esta categoría?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');
         $('#btn-si').click(function(){

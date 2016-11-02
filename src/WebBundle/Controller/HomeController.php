@@ -1025,7 +1025,7 @@ class HomeController extends Controller
     public function realizarPedidoAction(Request $peticion)
     {
         $em = $this->getDoctrine()->getManager();
-        $observaciones = $peticion->get('observaciones');
+
         $nombres = $peticion->get('nombres');
         $apellidos = $peticion->get('apellidos');
         $email = $peticion->get('email');
@@ -1139,7 +1139,7 @@ class HomeController extends Controller
                 $pedido->setEstado('En Progreso');
                 $pedido->setCupon($cupon);
                 $pedido->setValorDomicilio($infoApp->getPrecioDomicilio());
-                $pedido->setObservaciones($observaciones);
+
                 foreach ($carrito->getItems() as $item) {
 
                     $articuloPedido = new ArticulosPedido();

@@ -11,7 +11,7 @@
         {% for plan in planes %}
           <tr>
             <td >{{plan.nombre}}</td>
-            <td>{{plan.precio}}</td>
+            <td>${{plan.precio|number_format(0,',','.') }}</td>
             <td ><a href="#" class="btn-editar" data-id="{{ plan.id }}">Editar</a>|<a href="#" class="btn-eliminar" data-id="{{ plan.id }}">Eliminar</a></td>
           </tr>
         {% else %} 
@@ -34,7 +34,7 @@
           data: { idElemento:id},
           success:function(data){
             
-            $('#modal-title').html('Editar de Plan');
+            $('#modal-title').html('Editar Plan');
             $('#modal-content').html(data);
             $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
             $('#modal').modal('show');
@@ -57,7 +57,7 @@
       $('.btn-eliminar').click(function(e){
         e.preventDefault();
         var id=$(this).data("id");
-        $('#modalConfirm-title').html('Confirmacion');
+        $('#modalConfirm-title').html('Confirmación');
         $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar este plan?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');

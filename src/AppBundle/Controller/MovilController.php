@@ -252,7 +252,8 @@ class MovilController extends Controller
                     //$request2 = new \Facebook\FacebookRequest($facebookApp, $accessToken, 'GET', '/'.$response->getGraphUser()["id"].'/picture');
                     //$response2 = $fb->getClient()->sendRequest($request2);
                     //var_dump($response->getGraphUser()['picture']);
-                    $user->setFoto($response->getGraphUser()['picture']['url']);
+                    //$user->setFoto($response->getGraphUser()['picture']['url']);
+                    $user->setFoto("https://graph.facebook.com/".$response->getGraphUser()["id"]."/picture?type=large");
                     $em->persist($user);
                     $em->flush();
 
@@ -1077,10 +1078,12 @@ class MovilController extends Controller
 
             $arrayZonas = array();
             foreach ($zonas as $z){
-                array_push($arrayZonas, array(
-                    'id' => $z->getId(),
-                    'nombre' => $z->getNombre()
-                ));
+                if(count($z->getEstablecimientos())>0) {
+                    array_push($arrayZonas, array(
+                        'id' => $z->getId(),
+                        'nombre' => $z->getNombre()
+                    ));
+                }
             }
             $rta['zonas'] = $arrayZonas;
         }catch (Exception $e){

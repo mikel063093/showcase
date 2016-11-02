@@ -9,9 +9,9 @@
         },
         messages:{
             'establecimiento[nombre]': {  required: 'El campo Nombre es obligatorio' },
-            'establecimiento[direccion]': {  required: 'El campo Direccion es obligatorio' },
-            'establecimiento[telefono]': {  required: 'El campo Telefono es obligatorio' },
-            'establecimiento[peso]': {  required: 'El campo Peso es obligatorio',number:'El campo Peso solo recibe numeros' },
+            'establecimiento[direccion]': {  required: 'El campo Dirección es obligatorio' },
+            'establecimiento[telefono]': {  required: 'El campo Teléfono es obligatorio' },
+            'establecimiento[peso]': {  required: 'El campo Peso es obligatorio',number:'El campo Peso solo recibe números' },
             'establecimiento[correo]': {  email: 'El campo Correo no tiene el formato correcto' },
         },
         submitHandler: function(form) {
@@ -74,17 +74,18 @@
 
            
                 
-    var establecimiento;    
+    var establecimiento = null;
     var mapa;
+
+
 
     function loadMap() {
         mapa = new google.maps.Map(document.getElementById('mapaEdit'), {
-        center:new google.maps.LatLng(2.433,-76.617),         
+        center:new google.maps.LatLng(2.444182700617672,-76.61384582519531),
         zoom:13,
         mapTypeId:google.maps.MapTypeId.ROADMAP,
         scrollwheel: false
       });
-        
         
       mapa.addListener('click', function(evento) {
           $('#coordenadas').val(evento.latLng.lat()+','+evento.latLng.lng());
@@ -93,18 +94,21 @@
               establecimiento.setTitle('Establecimiento');
           }else{
               establecimiento = new google.maps.Marker({
-              position: evento.latLng,
-              map: mapa,
-              title: 'Establecimiento'
-            });
+                  position: evento.latLng,
+                  map: mapa,
+                  title: 'Establecimiento'
+              });
           }
+
       });
+
+        google.maps.event.addListener(mapa, "idle", function(){
+            google.maps.event.trigger(mapa, 'resize');
+        });
     }
          
         
-  $(document).ready(function(){
-    loadMap();
-  });
+
              
   $('#close-modal').click(function(){
     $('#btn-guardar').unbind();
@@ -137,6 +141,7 @@
 
 </script>
 
+
 {{ form_start(form, {'attr': {'id': 'form-registro','class':'form-horizontal style-form' }}) }}
 	<div class="form-group">
 	  <label class="col-sm-3 col-sm-3 control-label"><strong>Nombre (*)</strong></label>
@@ -145,19 +150,19 @@
 	  </div>
 	</div>
 	<div class="form-group">
-	  <label class="col-sm-3 col-sm-3 control-label">Descripcion (*)</label>
+	  <label class="col-sm-3 col-sm-3 control-label">Descripción (*)</label>
 	  <div class="col-sm-9">
 	      {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
 	  </div>
 	</div>
 	<div class="form-group">
-	  <label class="col-sm-3 col-sm-3 control-label">Direccion (*)</label>
+	  <label class="col-sm-3 col-sm-3 control-label">Dirección (*)</label>
 	  <div class="col-sm-9">
 	      {{ form_widget(form.direccion, {'attr': {'class': 'form-control'}}) }}
 	  </div>
 	</div>
 	<div class="form-group">
-	  <label class="col-sm-3 col-sm-3 control-label">Telefono (*)</label>
+	  <label class="col-sm-3 col-sm-3 control-label">Teléfono (*)</label>
 	  <div class="col-sm-9">
 	      {{ form_widget(form.telefono, {'attr': {'class': 'form-control'}}) }}
 	  </div>
@@ -217,7 +222,7 @@
       </div>
     </div>
 	<div class="form-group">
-	  <label class="col-sm-3 col-sm-3 control-label">Categoria</label>
+	  <label class="col-sm-3 col-sm-3 control-label">Categoría</label>
 	  <div class="col-sm-9">
 	     	<select class="form-control" name="categoria" id="categoria">
 			  {% for categoria in categorias %}
@@ -246,11 +251,13 @@
             </select>
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-sm-3 col-sm-3 control-label">Localizacion</label>
+    <div class="form-group" >
+      <label class="col-sm-3 col-sm-3 control-label">Localización</label>
       <div class="col-sm-9">
           <input id="coordenadas" name="coordenadas" type="hidden">
-          <div id="mapaEdit" style="height:380px;"></div>
+          <div style="height:100%; width:100%;">
+          <div id="mapaEdit" style="height: 380px;"></div>
+          </div>
       </div>
     </div>
     <div class="form-group">
@@ -263,3 +270,11 @@
     
 
 {{ form_rest(form) }}
+
+<script>
+    $(document).ready(function () {
+        loadMap();
+    })
+
+
+</script>

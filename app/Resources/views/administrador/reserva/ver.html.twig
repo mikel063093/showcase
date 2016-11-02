@@ -54,7 +54,7 @@
             {% set subtotal = subtotal + (articulo.precio * articulo.cantidad ) %}
         {% else %}
             <tr>
-                <td colspan="5">No hay articulos </td>
+                <td colspan="5">No hay artículos </td>
             </tr>
         {% endfor %}
 
@@ -85,7 +85,7 @@
                 {% if cupon is not null %}
                     {% set valorCupon = cupon.valor %}
                 {% endif %}
-                <td >Cupon</td>
+                <td >Cupón</td>
                 <td >
 
                     ${{ valorCupon|number_format(0,',','.') }}
@@ -100,12 +100,7 @@
 
 
             </tr>
-            <tr>
 
-                <td >Observaciones</td>
-                <td >{{ entity.observaciones|default('') }}</td>
-
-            </tr>
 
 
 

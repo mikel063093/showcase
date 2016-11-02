@@ -24,7 +24,7 @@
           </tr>
         {% else %} 
            <tr> 
-              <td colspan="6">No hay articulos registrados</td>
+              <td colspan="6">No hay artículos registrados</td>
            </tr>
         {% endfor %}
         
@@ -50,7 +50,7 @@
           },
           success:function(data){
             
-            $('#modal-title').html('Editar de Articulo');
+            $('#modal-title').html('Editar de Artículo');
             $('#modal-content').html(data);
             $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
             $('#modal').modal('show');
@@ -89,8 +89,8 @@
       $('.btn-eliminar').click(function(e){
         e.preventDefault();
         var id=$(this).data("id");
-        $('#modalConfirm-title').html('Confirmacion');
-        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar este articulo?</h4>');
+        $('#modalConfirm-title').html('Confirmación');
+        $('#modalConfirm-content').html('<h4>¿Esta seguro que desea eliminar este artículo?</h4>');
         $('#modalConfirm-footer').html('<button type="button" id="btn-no" class="btn btn-danger" >No</button><button type="button" id="btn-si" class="btn btn-danger" >Si</button>');
         $('#modalConfirmacion').modal('show');
         $('#btn-si').click(function(){

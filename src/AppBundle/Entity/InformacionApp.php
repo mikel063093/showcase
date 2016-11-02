@@ -60,6 +60,7 @@ class InformacionApp {
      * {"comment" = "Imagen para la pagina inicio"})
      */
     private $imagenInicio;
+
     private $fileCelular;
 
     /**
