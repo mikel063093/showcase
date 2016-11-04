@@ -3,61 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/articulo/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/categoria/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/categoria/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/categoria/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/categoria/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/cupon/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/estadistica/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/estadistica/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenes/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/imagenesArticulo/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editarInicio.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editarInicio.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editarTerminos.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/editarTerminos.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/inicio.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/inicio.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/terminos.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/informacion/terminos.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/menu.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/menu.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/plan/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/plan/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/plan/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/plan/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/plan/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/plan/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/plan/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/plan/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/reserva/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/reserva/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/reserva/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/reserva/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/reserva/ver.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/reserva/ver.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/nuevo.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/usuario/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/zona/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/zona/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/zona/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/zona/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/plantilla/admin.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/plantilla/admin.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/plantilla/landing.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/plantilla/landing.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/validacion/cambiarContrasena.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/validacion/cambiarContrasena.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/web/pedido.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/web/pedido.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/web/planes.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/web/planes.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/ivory_ck_editor.yml" afterPath="$PROJECT_DIR$/app/config/ivory_ck_editor.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/InformacionApp.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/InformacionApp.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/InfoAppType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/InfoAppType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" afterPath="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" />
     </list>
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -81,8 +27,8 @@
       <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2074">
-              <caret line="1080" column="51" selection-start-line="1080" selection-start-column="51" selection-end-line="1080" selection-end-column="51" />
+            <state relative-caret-position="765">
+              <caret line="1648" column="52" selection-start-line="1648" selection-start-column="52" selection-end-line="1648" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -686,18 +632,19 @@
       <workItem from="1477588220177" duration="2065000" />
       <workItem from="1477688251171" duration="594000" />
       <workItem from="1477773862188" duration="1902000" />
-      <workItem from="1478013588933" duration="10513000" />
+      <workItem from="1478013588933" duration="10878000" />
+      <workItem from="1478224769423" duration="129000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="337382000" />
+    <option name="totallyTimeSpent" value="337876000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="728" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21745789" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22052068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10420168" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -771,7 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-374">
           <caret line="68" column="59" selection-start-line="68" selection-start-column="59" selection-end-line="68" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -779,7 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1530">
           <caret line="9" column="80" selection-start-line="9" selection-start-column="80" selection-end-line="9" selection-end-column="80" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -787,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1227">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -795,7 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1717">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -803,7 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1040">
           <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -811,7 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="54" column="71" selection-start-line="54" selection-start-column="71" selection-end-line="54" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -819,7 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-850">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -827,7 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-663">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -835,7 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -843,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-20">
           <caret line="32" column="42" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -851,7 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-969">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -859,7 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-955">
           <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -867,7 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1003">
           <caret line="10" column="66" selection-start-line="10" selection-start-column="66" selection-end-line="10" selection-end-column="66" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -875,7 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-173">
           <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -883,7 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-323">
           <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -891,7 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1989">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -899,7 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1924">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -907,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -915,7 +844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-323">
           <caret line="67" column="83" selection-start-line="67" selection-start-column="83" selection-end-line="67" selection-end-column="83" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -923,7 +851,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -931,7 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -939,7 +865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1819">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -947,7 +872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14">
           <caret line="86" column="27" selection-start-line="86" selection-start-column="27" selection-end-line="86" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -955,7 +879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-51">
           <caret line="95" column="68" selection-start-line="95" selection-start-column="68" selection-end-line="95" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -963,7 +886,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-51">
           <caret line="95" column="57" selection-start-line="95" selection-start-column="57" selection-end-line="95" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -971,7 +893,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
           <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -979,7 +900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-391">
           <caret line="61" column="27" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -987,7 +907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-867">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -995,7 +914,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-853">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1003,7 +921,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-275">
           <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1011,7 +928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
           <caret line="54" column="43" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1019,7 +935,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
           <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,7 +942,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-20">
           <caret line="79" column="71" selection-start-line="79" selection-start-column="71" selection-end-line="79" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1035,7 +949,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-867">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1043,7 +956,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1051,7 +963,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3026">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,7 +970,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4057">
           <caret line="12" column="60" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1067,7 +977,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1075,7 +984,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3">
           <caret line="126" column="69" selection-start-line="126" selection-start-column="69" selection-end-line="126" selection-end-column="69" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1083,7 +991,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1091,9 +998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-411">
           <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <marker date="1478056479819" expanded="true" signature="2869:2875" ph=" " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1101,7 +1005,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-156">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1109,7 +1012,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-173">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1117,7 +1019,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1125,7 +1026,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-612">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1133,7 +1033,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-343">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1141,7 +1040,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-292">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1149,7 +1047,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1157,7 +1054,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-496">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1165,14 +1061,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1856">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2074">
-          <caret line="1080" column="51" selection-start-line="1080" selection-start-column="51" selection-end-line="1080" selection-end-column="51" />
+        <state relative-caret-position="765">
+          <caret line="1648" column="52" selection-start-line="1648" selection-start-column="52" selection-end-line="1648" selection-end-column="52" />
           <folding />
         </state>
       </provider>

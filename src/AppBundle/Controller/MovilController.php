@@ -1623,7 +1623,7 @@ class MovilController extends Controller
             $cupon = null;
 
             if(isset($datosPedido->cupon)) {
-                $cupon = $em->getRepository('AppBundle:Cupon')->buscarCupon($datosPedido->cupon);
+                $cupon = $em->getRepository('AppBundle:Cupon')->find($datosPedido->cupon);
             }
             $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
 
