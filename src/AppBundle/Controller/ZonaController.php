@@ -57,7 +57,7 @@ class ZonaController extends Controller
         $entity = new Zona();
         $form   = $this->formularioCrear($entity);
         $form->handleRequest($request);
-        
+        $centro = $request->get('coordenadas');
         $errors = $this->get('validator')->validate($entity);
         if (count($errors) > 0){
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
@@ -68,6 +68,8 @@ class ZonaController extends Controller
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setCentro($centro);
+            $entity->setZoom("14");
             $em->persist($entity);
             $em->flush();
 
@@ -110,7 +112,7 @@ class ZonaController extends Controller
         $entity = $em->getRepository('AppBundle:Zona')->find($idEntidad);
         $form   = $this->formularioCrear($entity);
         $form->handleRequest($peticion);
-        
+        $centro = $peticion->get('coordenadas');
         $errors = $this->get('validator')->validate($entity);
         if (count($errors) > 0){
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
@@ -121,6 +123,8 @@ class ZonaController extends Controller
 
         if ($form->isValid()) {
             $em->persist($entity);
+            $entity->setCentro($centro);
+            $entity->setZoom("14");
             $em->flush();
             return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                 'valor'=>true,

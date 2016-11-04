@@ -34,6 +34,22 @@ class Zona {
     private $nombre;
 
     /**
+     * @var string $centro
+     *
+     * @ORM\Column(name="centro", type="string", length=63, nullable=true, options=
+     * {"comment" = "Centro de la zona en google maps"})
+     */
+    private $centro;
+
+    /**
+     * @var string $zoom
+     *
+     * @ORM\Column(name="zoom", type="string", length=63, nullable=true, options=
+     * {"comment" = "Zoom de la zona en google maps"})
+     */
+    private $zoom;
+
+    /**
      * 
      * @ORM\OneToMany(targetEntity="Establecimiento", mappedBy="zona")
      */
@@ -110,5 +126,53 @@ class Zona {
     public function getEstablecimientos()
     {
         return $this->establecimientos;
+    }
+
+    /**
+     * Set centro
+     *
+     * @param string $centro
+     *
+     * @return Zona
+     */
+    public function setCentro($centro)
+    {
+        $this->centro = $centro;
+
+        return $this;
+    }
+
+    /**
+     * Get centro
+     *
+     * @return string
+     */
+    public function getCentro()
+    {
+        return $this->centro;
+    }
+
+    /**
+     * Set zoom
+     *
+     * @param string $zoom
+     *
+     * @return Zona
+     */
+    public function setZoom($zoom)
+    {
+        $this->zoom = $zoom;
+
+        return $this;
+    }
+
+    /**
+     * Get zoom
+     *
+     * @return string
+     */
+    public function getZoom()
+    {
+        return $this->zoom;
     }
 }

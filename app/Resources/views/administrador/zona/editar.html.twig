@@ -26,39 +26,84 @@
         }
     });
 
-     function enviar(form){
-     	$('#modal-cargando').modal('show');
-        var datos = $('#form-editar').serialize();
-        $.ajax({
-            url:"{{path('actualizarZona')}}",
-            type: 'post',
-            dataType: 'json',
-            data: datos,
-            success: function (data){
-                if(data.valor){
-                	$.ajax({
-			            type: "POST",
-			            url: '{{path("registrosZonas")}}',
-			            dataType: "html",
-			            
-			            success: function(data) {
-			                $('#registros').html(data);
-			            }
-			        });
-                 	$('#btn-guardar').unbind();
-                	$('#modal').modal('hide');
-                    $('#modal-title').html('');
-					$('#modal-content').html('<br>CARGANDO . . .');
-					$('#modal-footer').html('');
-					mostrarMensaje(data.mensaje,'Exito');         
-                }else{
-                	mostrarMensaje(data.mensaje,'Error');
-                }
+     function enviar(form) {
+		 $('#modal-cargando').modal('show');
+		 var datos = $('#form-editar').serialize();
+		 $.ajax({
+			 url: "{{ path('actualizarZona') }}",
+			 type: 'post',
+			 dataType: 'json',
+			 data: datos,
+			 success: function (data) {
+				 if (data.valor) {
+					 $.ajax({
+						 type: "POST",
+						 url: '{{ path("registrosZonas") }}',
+						 dataType: "html",
 
-                $('#modal-cargando').modal('hide');
-            }
+						 success: function (data) {
+							 $('#registros').html(data);
+						 }
+					 });
+					 $('#btn-guardar').unbind();
+					 $('#modal').modal('hide');
+					 $('#modal-title').html('');
+					 $('#modal-content').html('<br>CARGANDO . . .');
+					 $('#modal-footer').html('');
+					 mostrarMensaje(data.mensaje, 'Exito');
+				 } else {
+					 mostrarMensaje(data.mensaje, 'Error');
+				 }
 
-        });
+				 $('#modal-cargando').modal('hide');
+			 }
+
+		 });
+	 }
+		 {%if entity.centro != ""%}
+		 $('#coordenadas').val("{{entity.centro}}");
+		 {% endif %}
+		 var establecimiento = null;
+		 var mapa;
+
+		 function loadMap() {
+			 mapa = new google.maps.Map(document.getElementById('mapaEdit'), {
+
+				 center:new google.maps.LatLng(2.444182700617672,-76.61384582519531),
+
+				 zoom:13,
+				 mapTypeId:google.maps.MapTypeId.ROADMAP,
+				 scrollwheel: false
+			 });
+
+			 mapa.addListener('click', function(evento) {
+				 $('#coordenadas').val(evento.latLng.lat()+','+evento.latLng.lng());
+				 if(establecimiento){
+					 establecimiento.setPosition(new google.maps.LatLng(evento.latLng.lat(),evento.latLng.lng()));
+					 establecimiento.setTitle('Establecimiento');
+				 }else{
+					 establecimiento = new google.maps.Marker({
+						 position: evento.latLng,
+						 map: mapa,
+						 title: 'Establecimiento'
+					 });
+				 }
+			 });
+
+			 google.maps.event.addListener(mapa, "idle", function(){
+				 google.maps.event.trigger(mapa, 'resize');
+			 });
+			 {%if entity.centro != ""%}
+
+			 {%set coordenadas=entity.centro | split(',')%}
+			 establecimiento = new google.maps.Marker({
+				 position: new google.maps.LatLng({{entity.centro}}),
+				 map: mapa,
+				 title: 'Establecimiento'
+			 });
+
+			 {% endif %}
+
 
     }
 
@@ -74,5 +119,22 @@
 	      {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
 	  </div>
 	</div>
+	<div class="form-group">
+		<label class="col-sm-3 col-sm-3 control-label">Localización</label>
+		<div class="col-sm-9">
+			<input id="coordenadas" name="coordenadas" type="hidden">
+			<div style="height:100%; width:100%;">
+				<div id="mapaEdit" style="height: 380px;"></div>
+			</div>
+		</div>
+	</div>
 
 {{ form_rest(form) }}
+
+<script>
+	$(document).ready(function () {
+		loadMap();
+	})
+
+
+</script>

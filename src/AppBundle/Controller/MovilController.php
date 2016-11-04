@@ -669,7 +669,13 @@ class MovilController extends Controller
                         );
                     
                 }
-                $cat = array('id' => $categoria->getId() ,'nombre' => $categoria->getNombre(),'establecimientos' => $est);
+
+                $cat = array(
+                    'id' => $categoria->getId() ,
+                    'nombre' => $categoria->getNombre(),
+
+                    'establecimientos' => $est
+                );
             }
 
            $rta=array(
@@ -1105,6 +1111,8 @@ class MovilController extends Controller
         $datos =array("estado" => 'exito',
             "mensaje" => "Establecimientos obtenidos exitosamente",
             "categorias" => array(),
+            "centro" => "",
+            "zoom" => "",
             "totalPaginas" => 0,
             "pagina" => 0
         );
@@ -1116,10 +1124,19 @@ class MovilController extends Controller
             $marcador = 1;
             if($filtro){
                 $cats = $em->getRepository('AppBundle:Categoria')->findByFiltro($filtro);
+
             }else {
                 $cats = $em->getRepository('AppBundle:Categoria')->findAll();
             }
+            if(count($cats)>0){
+                $zona = $cats[0]->getEstablecimientos()[0]->getZona();
+
+                $datos["centro"] = $zona->getCentro() ? $zona->getCentro() : "2.444182700617672,-76.61384582519531";
+                $datos["zoom"] = $zona->getZoom() ? $zona->getZoom() : "14";
+
+            }
             foreach ($cats as  $c) {
+
                 $cat = array("id" => $c->getId(),"nombre" => $c->getNombre());
                 $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
                 $est = array();
