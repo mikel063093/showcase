@@ -926,7 +926,8 @@ class MovilController extends Controller
                 "precio" => $a->getPrecio(),
                 "unidades" => $a->getUnidadMedida(),
                 "valorUnidades" => $a->getValorMedida(),
-                'cantidad' => $a->getCantidad()
+                'cantidad' => $a->getCantidad(),
+                'establecimiento' => $a->getEstablecimiento()->getNombre()
             );
             if (count($a->getFotosArticulos()) > 0) {
                 $fotos = array();

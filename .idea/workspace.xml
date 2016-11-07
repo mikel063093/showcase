@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/zona/editar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/zona/editar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/zona/nuevo.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/zona/nuevo.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/ZonaController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/ZonaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Zona.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Zona.php" />
     </list>
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +24,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MovilController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="1134" column="28" selection-start-line="1134" selection-start-column="28" selection-end-line="1134" selection-end-column="28" />
+            <state relative-caret-position="256">
+              <caret line="930" column="14" selection-start-line="930" selection-start-column="14" selection-end-line="930" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Articulo.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Articulo.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="278" column="25" selection-start-line="278" selection-start-column="20" selection-end-line="278" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Establecimiento.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Establecimiento.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="228" column="26" selection-start-line="228" selection-start-column="20" selection-end-line="228" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -50,7 +67,7 @@
       <file leaf-file-name="Zona.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Zona.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1074">
+            <state relative-caret-position="1445">
               <caret line="89" column="6" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
               <folding />
             </state>
@@ -60,7 +77,7 @@
       <file leaf-file-name="nuevo.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/zona/nuevo.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
+            <state relative-caret-position="595">
               <caret line="35" column="78" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="78" />
               <folding />
             </state>
@@ -70,7 +87,7 @@
       <file leaf-file-name="ZonaController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ZonaController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="2023">
               <caret line="125" column="40" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
               <folding />
             </state>
@@ -80,7 +97,7 @@
       <file leaf-file-name="editar.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/zona/editar.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
+            <state relative-caret-position="2176">
               <caret line="128" column="14" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
               <folding />
             </state>
@@ -90,7 +107,7 @@
       <file leaf-file-name="editar.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="4658">
               <caret line="274" column="10" selection-start-line="266" selection-start-column="4" selection-end-line="274" selection-end-column="10" />
               <folding />
             </state>
@@ -100,7 +117,7 @@
       <file leaf-file-name="nuevo.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
+            <state relative-caret-position="4743">
               <caret line="279" column="9" selection-start-line="273" selection-start-column="0" selection-end-line="279" selection-end-column="9" />
               <folding />
             </state>
@@ -186,7 +203,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="width" value="1366" />
-    <option name="height" value="728" />
+    <option name="height" value="729" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -641,8 +658,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -792,18 +809,19 @@
       <workItem from="1477688251171" duration="594000" />
       <workItem from="1477773862188" duration="1902000" />
       <workItem from="1478013588933" duration="10878000" />
-      <workItem from="1478224769423" duration="2943000" />
+      <workItem from="1478224769423" duration="3326000" />
+      <workItem from="1478547362227" duration="681000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="340690000" />
+    <option name="totallyTimeSpent" value="341754000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="728" extended-state="0" />
+    <frame x="0" y="0" width="1366" height="729" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22052068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22358346" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10420168" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -849,7 +867,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php</url>
-          <line>954</line>
+          <line>955</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -873,13 +891,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/informacion/terminosCondiciones.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/informacion/terminos.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-20">
@@ -1153,25 +1164,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Establecimiento.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="135" column="4" selection-start-line="135" selection-start-column="4" selection-end-line="141" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/EstablecimientoType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/nuevo.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
+        <state relative-caret-position="4743">
           <caret line="279" column="9" selection-start-line="273" selection-start-column="0" selection-end-line="279" selection-end-column="9" />
           <folding />
         </state>
@@ -1179,7 +1181,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/editar.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="4658">
           <caret line="274" column="10" selection-start-line="266" selection-start-column="4" selection-end-line="274" selection-end-column="10" />
           <folding />
         </state>
@@ -1187,7 +1189,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/zona/editar.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
+        <state relative-caret-position="2176">
           <caret line="128" column="14" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
           <folding />
         </state>
@@ -1195,7 +1197,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ZonaController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="2023">
           <caret line="125" column="40" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
           <folding />
         </state>
@@ -1203,7 +1205,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Zona.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1074">
+        <state relative-caret-position="1445">
           <caret line="89" column="6" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
           <folding />
         </state>
@@ -1221,13 +1223,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/zona/nuevo.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
+        <state relative-caret-position="595">
           <caret line="35" column="78" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="78" />
           <folding />
         </state>
@@ -1235,8 +1236,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovilController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="1134" column="28" selection-start-line="1134" selection-start-column="28" selection-end-line="1134" selection-end-column="28" />
+        <state relative-caret-position="256">
+          <caret line="930" column="14" selection-start-line="930" selection-start-column="14" selection-end-line="930" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Articulo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="278" column="25" selection-start-line="278" selection-start-column="20" selection-end-line="278" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Establecimiento.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="228" column="26" selection-start-line="228" selection-start-column="20" selection-end-line="228" selection-end-column="26" />
           <folding />
         </state>
       </provider>
