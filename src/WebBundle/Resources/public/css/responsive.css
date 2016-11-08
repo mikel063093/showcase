@@ -297,8 +297,8 @@
 		margin: 0 2% 15px;
 		width: 193px;
 	}
-	div.contenedor ul.establecimientos li img {	width: auto; }
-		div.destacados ul.articulos li img, div.contArticulos ul.articulos li img { width: auto;}
+
+
 	#planes > li { padding: 50px 0 0 48px; }
 		#planes li div { padding-right: 48px; }
 }

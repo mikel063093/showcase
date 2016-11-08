@@ -40,6 +40,7 @@
         <th>Nombre</th>
         <th>Precio</th>
         <th>Cantidad</th>
+        <th>Establecimiento</th>
 
         </thead>
         <tbody>
@@ -49,6 +50,7 @@
                 <td >{{ articulo.articulo.nombre}}</td>
                 <td >${{ articulo.precio|number_format(0,',','.') }}</td>
                 <td >{{ articulo.cantidad }}</td>
+                <td>{{ articulo.articulo.establecimiento.nombre }}</td>
 
             </tr>
             {% set subtotal = subtotal + (articulo.precio * articulo.cantidad ) %}

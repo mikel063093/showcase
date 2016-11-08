@@ -441,7 +441,11 @@ section.categorias {
 /* ***** Menú establecimientos (fin) ***** */
 /* ***** Home (inicio) ***** */
 section.home {}
-	#carrusel { width: 100%; }
+	#carrusel {
+		width: 100%;
+		height: 355px;
+		overflow: hidden;
+	}
 		#carrusel img {
 			display: block;
 			width: 100%;
@@ -480,18 +484,20 @@ section.home {}
 			padding: 17px 0;
 		}
 		div.contenedor ul.lista { margin: 32px -3% 0 0; }
-			div.contenedor ul.lista li {
-				position: relative;
-				display: inline-block;
-				width: 23%;
-				height: 264px;
-				vertical-align: top;
-				margin: 0 1% 15px 0;
-			}
+				div.contenedor ul.lista li {
+					position: relative;
+					display: inline-block;
+					width: 23%;
+					height: 264px;
+					vertical-align: top;
+					margin: 0 1% 15px 0;
+					overflow: hidden;
+				}
 				div.contenedor ul.establecimientos li img {
 					display: block;
-					margin: 70px auto 0;
+					margin: 0 auto;
 					width: 85%;
+					max-height: 135px;
 				}
 				div.contenedor ul.establecimientos li h3 {
 					position: absolute;
