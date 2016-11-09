@@ -47,7 +47,7 @@ class EstablecimientoRepository extends EntityRepository
                         ->addSelect('e')
                         ->from('AppBundle:Establecimiento', 'e')
                         ->where('e.categoria = :categoria')->setParameter('categoria',$id);
-                $consulta->setMaxResults(3);
+                $consulta->setMaxResults(4);
                 $consulta->orderBy('e.peso', 'ASC');
 
                 return $consulta->getQuery()->getResult();
