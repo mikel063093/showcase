@@ -188,6 +188,7 @@ $(document).ready(function() {
                 dataType: "html",
                 success: function(data) {
                     removerClase('vistaEstable');
+                    $("#carrusel").cycle('stop');
                     $('#home').html(data);
                 },
             });

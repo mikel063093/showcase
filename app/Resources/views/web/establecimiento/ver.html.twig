@@ -1,6 +1,6 @@
 
     <h2 class="titulo">Establecimiento</h2>
-    <div class="carrusel">
+    <div class="carrusel" id="carrusel">
         {% for foto in establecimiento.fotosEstablecimientos %}
         <img src="{{ asset(foto.webPath) }}" alt="{{ foto.titulo }}" />
         {% endfor %}

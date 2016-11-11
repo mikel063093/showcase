@@ -24,6 +24,14 @@
             });
 
         });
+
+        $("#carrusel").cycle({
+            fx: 'fadeout',
+            slides: 'img',
+            swipe: true,
+            timeout: 3000,
+            speed:  2500
+        });
     });
 
     $('#star').rating("{{ path('puntuarEstablecimientoWeb') }}", {maxvalue: 5, curvalue:{{ establecimiento.promedio }}, id:{{ establecimiento.id }}});
