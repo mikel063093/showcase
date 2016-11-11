@@ -68,15 +68,24 @@ class ArticuloRepository extends EntityRepository
     }
 
     public function obtenerArticulosDestacados($idCategoria = null){
-        $em = $this->getEntityManager();
 
-        $consulta = $em->createQueryBuilder()
-            ->select('a')
-            ->from('AppBundle:Articulo','a')
-            ->andWhere('a.cantidad > 0')
-            ->setMaxResults(4);
 
-        return $consulta->getQuery()->getResult();
+        $conn = $GLOBALS['kernel']->getContainer()->get('database_connection');
+
+        $sql = "SELECT articulo.id as id, sum(articulosPedido.cantidad) cantidad 
+                  FROM articulo INNER JOIN articulosPedido ON articulo.id = articulosPedido.id_articulo 
+                  WHERE articulo.id_establecimiento IS NOT NULL AND articulo.cantidad > 0
+                  GROUP by articulo.id 
+                  ORDER BY cantidad DESC 
+                  LIMIT 4";
+
+        $rows = $conn->query($sql);
+        $ids = array();
+        while ($row = $rows->fetch()) {
+            $ids[] = $row['id'];
+        }
+
+        return $ids;
     }
 
     public function obtenerTodosArticulosDestacados(){

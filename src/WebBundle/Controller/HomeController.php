@@ -41,8 +41,18 @@ class HomeController extends Controller
         $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
         $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
         $promociones = $em->getRepository('AppBundle:Promocion')->findPromocionesActivas();
-        $establecimientosDestacados = $em->getRepository('AppBundle:Establecimiento')->obtenerEstablecimintosDestacados();
-        $articulosDestacados = $em->getRepository('AppBundle:Articulo')->obtenerArticulosDestacados();
+        $est = $em->getRepository('AppBundle:Establecimiento')->obtenerEstablecimintosDestacados();
+
+        $establecimientosDestacados = array();
+        foreach ($est as $es){
+            array_push($establecimientosDestacados,$em->getRepository('AppBundle:Establecimiento')->find($es));
+        }
+        $art = $em->getRepository('AppBundle:Articulo')->obtenerArticulosDestacados();
+
+        $articulosDestacados = array();
+        foreach ($art as $a){
+            array_push($articulosDestacados,$em->getRepository('AppBundle:Articulo')->find($a));
+        }
         $this->limpiarCarritos();
         $session = $peticion->getSession();
 
@@ -151,9 +161,12 @@ class HomeController extends Controller
             $pagina,
             $tamPagina
         );
+        $est = $em->getRepository('AppBundle:Establecimiento')->obtenerEstablecimintosDestacados($idCategoria);
 
-
-        $establecimientosDestacados = $em->getRepository('AppBundle:Establecimiento')->obtenerEstablecimintosDestacados($idCategoria);
+        $establecimientosDestacados = array();
+        foreach ($est as $es){
+            array_push($establecimientosDestacados,$em->getRepository('AppBundle:Establecimiento')->find($es));
+        }
         return $this->render('web/establecimiento/registros.html.twig',array(
             'categoria' => $categoria,
             'establecimientos' => $establecimientosp,
@@ -172,7 +185,13 @@ class HomeController extends Controller
 
 
 
-        $establecimientosDestacados = $em->getRepository('AppBundle:Establecimiento')->obtenerTodosEstablecimintosDestacados();
+
+        $est =  $em->getRepository('AppBundle:Establecimiento')->obtenerTodosEstablecimintosDestacados();
+
+        $establecimientosDestacados = array();
+        foreach ($est as $es){
+            array_push($establecimientosDestacados,$em->getRepository('AppBundle:Establecimiento')->find($es));
+        }
         return $this->render('web/establecimiento/masEstablecimientos.html.twig',array(
 
             'establecimientosDestacados' => $establecimientosDestacados,

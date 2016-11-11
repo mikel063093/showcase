@@ -53,31 +53,61 @@ class EstablecimientoRepository extends EntityRepository
                 return $consulta->getQuery()->getResult();
 	}
 
-	public function obtenerEstablecimintosDestacados($idCategoria = null){
+    public function findTodosEstablecimientosCategoria($id){
         $em = $this->getEntityManager();
 
         $consulta = $em->createQueryBuilder()
-                       ->select('e')
-                       ->from('AppBundle:Establecimiento','e')
-                       ->setMaxResults(4);
-        if($idCategoria){
-            $consulta->innerJoin('e.categoria','c')
-                     ->andWhere('c.id = :id')
-                     ->setParameter('id',$idCategoria);
-        }
+            ->addSelect('e')
+            ->from('AppBundle:Establecimiento', 'e')
+            ->where('e.categoria = :categoria')->setParameter('categoria',$id);
+
+        $consulta->orderBy('e.peso', 'ASC');
 
         return $consulta->getQuery()->getResult();
     }
+
+	public function obtenerEstablecimintosDestacados($idCategoria = null){
+        $conn = $GLOBALS['kernel']->getContainer()->get('database_connection');
+
+        $sql = "SELECT e.id as id, e.peso, avg( p.valor ) AS calificacion, sum( aP.cantidad ) AS vendidos
+        FROM establecimiento AS e
+        LEFT JOIN puntuacion AS p ON e.id = p.id_establecimiento
+        LEFT JOIN articulo AS a ON e.id = a.id_establecimiento
+        LEFT JOIN articulosPedido AS aP ON a.id = aP.id_articulo WHERE e.id_categoria IS NOT NULL";
+
+        if($idCategoria){
+            $sql = $sql . " AND  e.id_categoria = ".$idCategoria;
+        }
+
+        $sql = $sql ."  GROUP BY e.id
+        ORDER BY e.peso ASC , calificacion DESC , vendidos DESC LIMIT 4";
+
+        $rows = $conn->query($sql);
+        $ids = array();
+        while ($row = $rows->fetch()) {
+            $ids[] = $row['id'];
+        }
+
+        return $ids;
+    }
     public function obtenerTodosEstablecimintosDestacados(){
-        $em = $this->getEntityManager();
 
-        $consulta = $em->createQueryBuilder()
-            ->select('e')
-            ->from('AppBundle:Establecimiento','e')
-            ->setMaxResults(12);
+        $conn = $GLOBALS['kernel']->getContainer()->get('database_connection');
 
+        $sql = "SELECT e.id as id, e.peso, avg( p.valor ) AS calificacion, sum( aP.cantidad ) AS vendidos
+        FROM establecimiento AS e
+        LEFT JOIN puntuacion AS p ON e.id = p.id_establecimiento
+        LEFT JOIN articulo AS a ON e.id = a.id_establecimiento
+        LEFT JOIN articulosPedido AS aP ON a.id = aP.id_articulo WHERE e.id_categoria IS NOT NULL  GROUP BY e.id
+        ORDER BY e.peso ASC , calificacion DESC , vendidos DESC LIMIT 12";
 
-        return $consulta->getQuery()->getResult();
+        $rows = $conn->query($sql);
+        $ids = array();
+        while ($row = $rows->fetch()) {
+            $ids[] = $row['id'];
+        }
+
+        return $ids;
     }
 
     public function buscarEstablecimientos(){

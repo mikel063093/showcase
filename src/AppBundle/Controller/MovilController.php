@@ -657,7 +657,7 @@ class MovilController extends Controller
            $cat = array();
            $establecimientos = array();
            if($categoria){
-                $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($categoria->getId());
+                $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findTodosEstablecimientosCategoria($categoria->getId());
                 $est = array();
 
                 foreach ($establecimientos as $e) {
