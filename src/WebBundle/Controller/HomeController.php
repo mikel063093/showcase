@@ -242,6 +242,45 @@ class HomeController extends Controller
         $articulos= $em->getRepository('AppBundle:Articulo')->obtenerArticulosEstablecimiento($idEstablecimiento);
         $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
         $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
+        $this->limpiarCarritos();
+        $session = $peticion->getSession();
+
+        if(!$session){
+
+            $session = new Session();
+        }
+        $fecha = new \DateTime();
+        $carrito = $session->get('carrito');
+        if($carrito) {
+            $carroCompras = $em->getRepository('AppBundle:Carrito')->find($carrito['id']);
+            if ($carroCompras && $carroCompras->getFechaLimite() <= $fecha) {
+                $carroCompras->vaciarCarrito();
+                $em->remove($carroCompras);
+                $em->flush();
+
+                $carrito = null;
+
+            }
+        }
+
+        if(!$carrito){
+
+            $carro = new Carrito();
+
+            $fechaLimite =  new \DateTime();
+            $fechaLimite->add(new \DateInterval('PT60M'));
+            $carro->setFechaCreacion($fecha);
+            $carro->setFechaLimite($fechaLimite);
+            $em->persist($carro);
+            $em->flush();
+            $carrito = array(
+                'id' => $carro->getId(),
+                'items' => array(),
+                'subTotal' => 0
+
+            );
+            $session->set('carrito',$carrito);
+        }
         return $this->render('web/establecimiento/ver.html.twig',array(
             'establecimiento' => $establecimiento,
             'articulos' => $articulos,

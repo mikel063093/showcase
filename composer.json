@@ -25,7 +25,8 @@
         "facebook/php-sdk-v4" : "~5.0",
         "egeloen/ckeditor-bundle": "dev-master",
         "facebook/graph-sdk": "^5.3",
-        "dizda/onesignal-api-bundle": "^0.1.5"
+        "dizda/onesignal-api-bundle": "^0.1.5",
+        "sonata-project/seo-bundle": "^2.0"
         
     },
     "require-dev": {
