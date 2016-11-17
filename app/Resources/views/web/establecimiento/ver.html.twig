@@ -1,11 +1,14 @@
-
+{% extends "plantilla/verEstablecimiento.html.twig" %}
+{% block contenidoWeb %}
     <h2 class="titulo">Establecimiento</h2>
+    {% if establecimiento.fotosEstablecimientos|length >0 %}
     <div class="carrusel" id="carrusel">
         {% for foto in establecimiento.fotosEstablecimientos %}
         <img src="{{ asset(foto.webPath) }}" alt="{{ foto.titulo }}" />
         {% endfor %}
         <div class="cycle-pager"></div>
     </div>
+        {% endif %}
     <div>
         <h3>{{ establecimiento.nombre }}</h3>
         <div id="star" class="rating">&nbsp;</div>
@@ -16,11 +19,22 @@
         </p>
     </div>
     <ul class="informacion">
+        {% if establecimiento.direccion is not null %}
         <li class="ubicacion">{{ establecimiento.direccion }}</li>
+            {% endif %}
+    {% if establecimiento.telefono is not null %}
         <li class="telefono">{{ establecimiento.telefono }}</li>
+    {% endif %}
+    {% if establecimiento.whatsapp is not null %}
         <li class="whatsapp">{{ establecimiento.whatsapp|default('No definido') }}</li>
+    {% endif %}
+    {% if establecimiento.correo is not null %}
         <li class="correo">{{ establecimiento.correo|default('No definido') }}</li>
+    {% endif %}
+    {% if establecimiento.sitioWeb is not null %}
         <li class="sitioWeb">{{ establecimiento.sitioWeb }}</li>
+    {% endif %}
+
     </ul>
     <div class="redes">
         {% if establecimiento.facebook is not null or
@@ -107,3 +121,5 @@
         {% endif %}
     </div>
     {% include "web/establecimiento/ver.js.twig" %}
+
+{% endblock %}

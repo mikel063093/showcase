@@ -1139,7 +1139,7 @@ class MovilController extends Controller
             foreach ($cats as  $c) {
 
                 $cat = array("id" => $c->getId(),"nombre" => $c->getNombre());
-                $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoria($c->getId());
+                $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findEstablecimientosCategoriaGeo($c->getId());
                 $est = array();
 
                 foreach ($establecimientos as $e) {
@@ -1157,7 +1157,8 @@ class MovilController extends Controller
                         "properties" => array(
                                         "marker-color" => "#f5a623",
                                         "marker-size" => "small",
-                                        "marker-symbol" => $marcador
+                                        "marker-symbol" => $marcador,
+                                        "marker-title"=> $e->getNombre()
                                     ),
                         "geometry" => array(
                                         "type" => "Point",

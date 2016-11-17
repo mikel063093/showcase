@@ -52,6 +52,18 @@ class EstablecimientoRepository extends EntityRepository
 
                 return $consulta->getQuery()->getResult();
 	}
+    public function findEstablecimientosCategoriaGeo($id){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQueryBuilder()
+            ->addSelect('e')
+            ->from('AppBundle:Establecimiento', 'e')
+            ->where('e.categoria = :categoria')->setParameter('categoria',$id);
+
+        $consulta->orderBy('e.peso', 'ASC');
+
+        return $consulta->getQuery()->getResult();
+    }
 
     public function findTodosEstablecimientosCategoria($id){
         $em = $this->getEntityManager();

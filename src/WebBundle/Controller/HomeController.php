@@ -240,9 +240,13 @@ class HomeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($idEstablecimiento);
         $articulos= $em->getRepository('AppBundle:Articulo')->obtenerArticulosEstablecimiento($idEstablecimiento);
+        $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
+        $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
         return $this->render('web/establecimiento/ver.html.twig',array(
             'establecimiento' => $establecimiento,
-            'articulos' => $articulos
+            'articulos' => $articulos,
+            'info' => $infoApp,
+            'categorias'=>$categorias
         ));
     }
 

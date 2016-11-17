@@ -182,7 +182,9 @@ $(document).ready(function() {
         $(".establecimientos a").click(function(e){
             e.preventDefault();
             var id = $(this).attr('value');
-            $.ajax({
+            $("#carrusel").cycle('stop');
+            window.location.href="{{ path('establecimiento') }}/"+id;
+            {#$.ajax({
                 type: "GET",
                 url: "{{ path('establecimiento') }}/"+id,
                 dataType: "html",
@@ -191,7 +193,7 @@ $(document).ready(function() {
                     $("#carrusel").cycle('stop');
                     $('#home').html(data);
                 },
-            });
+            });#}
         })
     }
 
