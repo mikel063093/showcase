@@ -38,7 +38,9 @@
 
     </div>
     <script>
+
         $(document).ready(function () {
+
            $('#btn-editar').click(function (e) {
                e.preventDefault();
                var id={{ informacion.id }}
@@ -49,27 +51,17 @@
                    data: { idElemento:id},
                    success:function(data){
 
-                       $('#modal-title').html('Editar Información Nosotros');
-                       $('#modal-content').html(data);
-                       $('#modal-footer').html('<button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>');
-                       $('#modal').modal('show');
-                       $('#btn-actualizar').click(function(){
-                           $('#form-editar').submit();
-                       });
-                       $('#btn-cancelar').click(function(){
-                           $('#btn-cancelar').unbind();
-                           $('#btn-actualizar').unbind();
-                           $('#modal').modal('hide');
-                           $('#modal-title').html('');
-                           $('#modal-content').html('<br>CARGANDO . . .');
-                           $('#modal-footer').html('');
-                       });
+
+                       $('#contenido').html(data);
+
 
                    }
 
                });
            });
         });
+
+
     </script>
 </div>
 

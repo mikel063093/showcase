@@ -1,6 +1,6 @@
 {% extends "plantilla/principal.html.twig" %}
 
-{% block tituloLocal %}Gestión de Reservas{% endblock %}
+{% block tituloLocal %}Gestión de Reservas <a class="link-r" href="#"><span id="recargar"></span></a>  <span class="tiempo-texto">Recarga en <label id="tiempo"></label><span></span>{% endblock %}
 
 {% block btnAdicionar  %}
 
@@ -9,21 +9,77 @@
 {% block js %}
     <script type="text/javascript">
     $(document).ready(function(){
+        getRegistros();
+        actualizar = window.setInterval(getRegistros, 240000);
+        var tiempo = 240000;
+        var min = (tiempo/1000/60) << 0;
+        var sec = (tiempo/1000) % 60;
 
-         $.ajax({
-            type: "POST",
-            url: '{{path("registrosReservas")}}',
-            dataType: "html",
+        if(sec==0){
+            sec='00';
+        }
 
-            success: function(data) {
-                $('#registros').html(data);
-            }
-        });
+        $('#tiempo').text(min+':'+sec+' '+ 'minutos ');
+        //contador=window.setInterval(actualizarTiempo,1000);
+
     });
 
+    function actualizarTiempo(){
+        console.log('act');
+        tiempo=tiempo-1000;
+        var min = (tiempo/1000/60) << 0;
+        var sec = (tiempo/1000) % 60;
+        if(sec.toString().length==1){
+            sec='0'+sec.toString();
+        }
+        if(tiempo==0){
+           // window.clearInterval(actualizar);
+            window.clearInterval(contador);
+           getRegistros();
+        }
+        $('#tiempo').text(min+':'+sec+' '+ 'minutos ');
+
+    }
+        function getRegistros(){
+            $.ajax({
+                type: "POST",
+                url: '{{path("registrosReservas")}}',
+                dataType: "html",
+
+                success: function(data) {
+                    $('#registros').html(data);
+                    tiempo=240000;
+                    window.clearInterval(actualizar);
+                    window.clearInterval(contador);
+                    limpiarContador();
+                    actualizar = setInterval(getRegistros, 240000);
+                    contador=window.setInterval(actualizarTiempo,1000);
+                }
+            });
+        }
+
+    $("#recargar").click(function (e) {
+        e.preventDefault();
+        window.clearInterval(actualizar);
+        window.clearInterval(contador);
+        limpiarContador();
+        getRegistros();
+        contador=window.setInterval(actualizarTiempo,1000);
+        actualizar = setInterval(getRegistros, 240000);
+    });
+function limpiarContador(){
+        tiempo=240000;
+        var min = (tiempo/1000/60) << 0;
+        var sec = (tiempo/1000) % 60;
+
+        if(sec==0){
+            sec='00';
+        }
+
+        $('#tiempo').text('');
 
 
-
+    }
     
 
     </script>

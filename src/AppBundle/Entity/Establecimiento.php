@@ -38,6 +38,13 @@ class Establecimiento {
     private $nombre;
 
     /**
+     * @var string $slug
+     *
+     * @ORM\Column(name="slug", type="string")
+     */
+    private $slug;
+
+    /**
      * @var string $descripcion
      *
      * @ORM\Column(name="descripcion", type="string", length=1000, nullable=true, options=
@@ -217,7 +224,7 @@ class Establecimiento {
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-
+        $this->setSlug($this->slugify($this->nombre));
         return $this;
     }
 
@@ -818,5 +825,57 @@ class Establecimiento {
         }
 
         return $puntuacion;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Establecimiento
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // transliterate
+        if (function_exists('iconv'))
+        {
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        }
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('#[^-\w]+#', '', $text);
+
+        if (empty($text))
+        {
+            return 'n-a';
+        }
+
+        return $text;
     }
 }

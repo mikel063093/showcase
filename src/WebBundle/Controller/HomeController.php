@@ -233,18 +233,27 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("/establecimiento/{idEstablecimiento}", name="establecimiento",defaults={"idEstablecimiento" = null})
+     * @Route("/establecimiento/{slug}", name="establecimiento",defaults={"slug" = null})
      * @Method({"GET"})
      */
-    public function establecimientoAction(Request $peticion, $idEstablecimiento){
+    public function establecimientoAction(Request $peticion, $slug){
         $em = $this->getDoctrine()->getManager();
-        $establecimiento = $em->getRepository('AppBundle:Establecimiento')->find($idEstablecimiento);
-        $articulos= $em->getRepository('AppBundle:Articulo')->obtenerArticulosEstablecimiento($idEstablecimiento);
+        $establecimiento = $em->getRepository('AppBundle:Establecimiento')->findOneBy(array('slug'=>$slug));
+        $articulos= $em->getRepository('AppBundle:Articulo')->obtenerArticulosEstablecimiento($establecimiento->getId());
         $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
         $infoApp = $em->getRepository('AppBundle:InformacionApp')->find(1);
         $this->limpiarCarritos();
         $session = $peticion->getSession();
+        $seoPage = $this->container->get('sonata.seo.page');
 
+        $seoPage
+            ->addMeta('property', 'og:description',"Encuentra toda la información de ".$establecimiento->getNombre()." en ".$this->generateUrl('establecimiento',array('slug'=>$establecimiento->getSlug())))
+            ->addMeta('property', 'og:title', $establecimiento->getNombre())
+            ->addMeta('property', 'og:type', 'website')
+            ->addMeta('property', 'og:url', $this->generateUrl('establecimiento',array('slug'=>$establecimiento->getSlug())) );
+        if($establecimiento->getWebPath()){
+            $seoPage->addMeta('property', 'og:image', $this->container->getParameter('servidor').$establecimiento->getWebPath());
+        }
         if(!$session){
 
             $session = new Session();

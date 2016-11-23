@@ -2255,4 +2255,24 @@ label {
     margin-left: 10px;
 }
 
+#recargar{
+    float:right;
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-image: url("../img/refresh.png");  /* shows image */
+
+}
+.link-r{
+    padding: 7px;
+    display: block;
+    margin-right: 15px;
+    border-radius: 10px;
+}
+.tiempo-texto{
+    float: right;
+    margin-right: 15px;
+}
+
 

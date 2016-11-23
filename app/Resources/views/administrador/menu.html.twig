@@ -89,7 +89,8 @@
         var opcion = $(this).attr('value');
         $(this).parent().parent().children().removeClass('active');
         $(this).parent().addClass('active');
-       
+        window.clearInterval(actualizar);
+        window.clearInterval(contador);
         evento.preventDefault();
         $.ajax({
             url: opcion,

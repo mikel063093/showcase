@@ -292,11 +292,7 @@
 	div.contenedor ul.lista {
 		text-align: center;
 	}
-	div.contenedor ul.lista li {
-		display: inline-block;
-		margin: 0 2% 15px;
-		width: 193px;
-	}
+
 
 
 	#planes > li { padding: 50px 0 0 48px; }

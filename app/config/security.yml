@@ -29,6 +29,10 @@ security:
             security: false
 
         registrarWeb:
+            pattern:  ^/movil/setSlug
+            security: false
+
+        registrarWeb:
             pattern:  ^/web/registrar$
             security: false
         registro:

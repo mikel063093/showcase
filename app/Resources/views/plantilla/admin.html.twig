@@ -39,6 +39,9 @@
             <!--script for this page-->
             <script type="text/javascript" src="{{asset('bundles/app/js/gritter/js/jquery.gritter.js')}}"></script>
             <script type="text/javascript">
+                var actualizar;
+                var contador;
+
                 function mostrarMensaje(mensaje,estado){
                     var unique_id = $.gritter.add({
                         // (string | mandatory) the heading of the notification

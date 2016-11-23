@@ -14,6 +14,7 @@ use AppBundle\Entity\Puntuacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -1747,6 +1748,23 @@ class MovilController extends Controller
 
     }
 
+    /**
+     * @Route("/setSlug", name="setSlug")
+     */
+    public function setSlugAction(Request $peticion)
+    {
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $establecimientos = $em->getRepository('AppBundle:Establecimiento')->findAll();
+            foreach ($establecimientos as $e) {
+                $e->setNombre($e->getNombre());
+                $em->persist($e);
 
-
+            }
+            $em->flush();
+            return new JsonResponse(array("respuesta" => "ok"));
+        }catch (\Exception $ex){
+            return new JsonResponse(array("respuesta" => $ex->getMessage()));
+        }
+    }
 }

@@ -50,11 +50,7 @@
                         $('#contenido').html(data);
                     }
                   });
-                  $('#btn-guardar').unbind();
-                  $('#modal').modal('hide');
-                    $('#modal-title').html('');
-                  $('#modal-content').html('<br>CARGANDO . . .');
-                  $('#modal-footer').html('');
+
                   mostrarMensaje(data.mensaje,'Exito');         
                 }else{
 
@@ -65,6 +61,7 @@
             }
 
         });
+
 
     }
 
@@ -87,13 +84,23 @@
       }
   });
 
-                  
-  $('#close-modal').click(function(){
-    $('#btn-guardar').unbind();
-    $('#modal-title').html('');
-    $('#modal-content').html('<br>CARGANDO . . .');
-    $('#modal-footer').html('');
-    
+
+  $('#btn-actualizar').click(function(){
+      $('#form-editar').submit();
+  });
+
+  $('#btn-cancelar').click(function(){
+      $('#btn-cancelar').unbind();
+      $('#btn-actualizar').unbind();
+      $.ajax({
+          url: "{{path('nosotrosAdmin')}}",
+          type: 'POST',
+          dataType: 'html',
+          success:function(data){
+              $('#contenido').html(data);
+          }
+
+      });
   });
 
 
@@ -101,7 +108,12 @@
 
 
 </script>
+<div class="content-panel">
+    <h4><i class="fa fa-angle-right"></i>Editar Nosotros</h4>
 
+    <div id="registros">
+        <div class="row">
+            <div class="col-sm-8 col-md-offset-1">
 {{ form_start(form, {'attr': {'id': 'form-editar','class':'form-horizontal style-form' }}) }}
 
 <div class="form-group">
@@ -120,5 +132,12 @@
         <img {% if not (entity.imagenNosotros) or entity.imagenNosotros == ""%}style="display: none"{%endif%} id="imgPreviewEmpresa" src="{% if entity.imagenNosotros and entity.imagenNosotros != ""%}{{asset('imagenes/nosotros/' ~ entity.imagenNosotros)}}{%endif%}" alt="" height="80" />
     </div>
 </div>
-
+<div class="form-group">
+    <button type="button" id="btn-cancelar" class="btn btn-danger" >Cancelar</button><button type="button" id="btn-actualizar" class="btn btn-danger" >Actualizar</button>
+</div>
 {{ form_rest(form) }}
+            </div>
+
+        </div>
+    </div>
+</div>
