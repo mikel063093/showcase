@@ -495,6 +495,7 @@ class MovilController extends Controller
             $datos["instagram"] = $establecimiento->getInstagram();
             $datos["correo"] = $establecimiento->getCorreo();
             $datos["whatsapp"] = $establecimiento->getWhatsapp();
+            $datos["slug"] = $establecimiento->getSlug();
             if($establecimiento->getLogo() != "" ){
                 $imagenes[] = $this->container->getParameter('servidor').'/'.$establecimiento->getWebPath();
             }
