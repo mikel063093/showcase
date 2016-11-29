@@ -2,7 +2,7 @@
 {% block contenidoWeb %}
     <h2 class="titulo">Establecimiento</h2>
     <div>
-        <div class="fb-share-button" data-href="http://localhost:8082/app_dev.php/establecimiento/establecimiento-1" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8082%2Fapp_dev.php%2Festablecimiento%2Festablecimiento-1&amp;src=sdkpreparse">Compartir</a></div>
+        <div class="fb-share-button" data-href="{{ web.servidor }}app_dev.php/establecimiento/{{ establecimiento.slug }}" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8082%2Fapp_dev.php%2Festablecimiento%2Festablecimiento-1&amp;src=sdkpreparse">Compartir</a></div>
         <div>
             <a class="twitter-share-button"
                href="https://twitter.com/intent/tweet?text=Encuentra toda la información de {{ establecimiento.nombre }} en "

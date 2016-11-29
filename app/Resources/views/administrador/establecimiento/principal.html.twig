@@ -2,8 +2,8 @@
 
 {% block tituloLocal %}Gestión de Establecimientos{% endblock %}
 
-{% block lblAdicionar %}
-Adicionar Establecimiento
+{% block btnAdicionar %}
+{#Adicionar Establecimiento#}
 {% endblock %}
 
 {% block js %}
@@ -17,39 +17,40 @@ Adicionar Establecimiento
             dataType: "html",           
             success: function(data) {
                 $('#registros').html(data);
+                $('#btn-adicionar').click(function(){
+
+                    $.ajax({
+                        url: '{{path("nuevoEstablecimiento")}}',
+                        type: 'POST',
+                        dataType: 'html',
+                        success:function(data){
+
+                            $('#modal-title').html('Registro de Establecimiento');
+                            $('#modal-content').html(data);
+                            $('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
+                            $('#modal').modal('show');
+                            $('#btn-guardar').click(function(){
+                                $('#form-registro').submit();
+                            });
+
+                            $('#close-modal').click(function(){
+                                $('#btn-guardar').unbind();
+
+                                $('#modal').modal('hide');
+                                $('#modal-title').html('');
+                                $('#modal-content').html('<br>CARGANDO . . .');
+                                $('#modal-footer').html('');
+                            });
+
+                        }
+
+                    });
+                });
             }
         });
     });
 
-    $('#btn-adicionar').click(function(){
-        
-        $.ajax({
-            url: '{{path("nuevoEstablecimiento")}}',
-            type: 'POST',
-            dataType: 'html',
-            success:function(data){
-                
-                $('#modal-title').html('Registro de Establecimiento');
-                $('#modal-content').html(data);
-                $('#modal-footer').html('<button type="button" id="btn-guardar" class="btn btn-danger" >Guardar</button>');
-                $('#modal').modal('show');
-                $('#btn-guardar').click(function(){
-                    $('#form-registro').submit();
-                });
 
-                $('#close-modal').click(function(){
-                    $('#btn-guardar').unbind();
-
-                    $('#modal').modal('hide');
-                    $('#modal-title').html('');
-                    $('#modal-content').html('<br>CARGANDO . . .');
-                    $('#modal-footer').html('');
-                });
-
-            }
-
-        });
-    });
 
 
     

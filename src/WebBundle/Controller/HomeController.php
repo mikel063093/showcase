@@ -247,10 +247,10 @@ class HomeController extends Controller
         $seoPage = $this->container->get('sonata.seo.page');
 
         $seoPage
-            ->addMeta('property', 'og:description',"Encuentra toda la información de ".$establecimiento->getNombre()." en ".$this->generateUrl('establecimiento',array('slug'=>$establecimiento->getSlug())))
+            ->addMeta('property', 'og:description',"Encuentra toda la información de ".substr($this->container->getParameter('servidor'), 0, -1).$establecimiento->getNombre()." en ".$this->generateUrl('establecimiento',array('slug'=>$establecimiento->getSlug())))
             ->addMeta('property', 'og:title', $establecimiento->getNombre())
             ->addMeta('property', 'og:type', 'website')
-            ->addMeta('property', 'og:url', $this->generateUrl('establecimiento',array('slug'=>$establecimiento->getSlug())) );
+            ->addMeta('property', 'og:url', substr($this->container->getParameter('servidor'), 0, -1).$this->generateUrl('establecimiento',array('slug'=>$establecimiento->getSlug())) );
         if($establecimiento->getWebPath()){
             $seoPage->addMeta('property', 'og:image', $this->container->getParameter('servidor').$establecimiento->getWebPath());
         }

@@ -434,7 +434,8 @@ section.categorias {
 		section.categorias ul.menu li {	margin-bottom: 17px; }
 			section.categorias ul.menu li a:link, section.categorias ul.menu li a:visited {
 				font-size: 14px;
-				color: #9B9B9B;
+				color: #666666;
+				text-transform: uppercase
 			}
 			section.categorias ul.menu li a:hover {text-decoration: underline;  }
 			section.categorias ul.menu li a.activo { color: #FE5339; }
