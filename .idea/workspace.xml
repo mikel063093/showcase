@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/WebBundle/Resources/public/img/logo_showcase.png" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/img/logo_showcase2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WebBundle/Resources/public/img/logo_correo.png" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/img/logo_correo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/establecimiento/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/principal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/principal.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/registros.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/promocion/registros.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/plantilla/verEstablecimiento.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/plantilla/verEstablecimiento.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/web/establecimiento/ver.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/web/establecimiento/ver.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" afterPath="$PROJECT_DIR$/src/WebBundle/Controller/HomeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WebBundle/Resources/public/css/estilos.css" afterPath="$PROJECT_DIR$/src/WebBundle/Resources/public/css/estilos.css" />
-    </list>
+    <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="" />
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -899,12 +887,12 @@
       <workItem from="1479579132071" duration="5438000" />
       <workItem from="1479859771367" duration="11007000" />
       <workItem from="1479952754656" duration="2702000" />
-      <workItem from="1480334862758" duration="2197000" />
+      <workItem from="1480334862758" duration="2523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="376947000" />
+    <option name="totallyTimeSpent" value="377273000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
