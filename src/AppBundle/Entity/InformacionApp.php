@@ -48,7 +48,7 @@ class InformacionApp {
     /**
      * @var integer $nosotros
      *
-     * @ORM\Column(name="nosotros", type="string", nullable=true, options=
+     * @ORM\Column(name="nosotros", type="text", nullable=true, options=
      * {"comment" = "texto para la pagina Nosotros"})
      */
     private $nosotros;
