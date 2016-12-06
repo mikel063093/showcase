@@ -1,0 +1,61 @@
+
+<h5 class="centered">{{ app.user.rol.nombre }}</h5>
+<h5 class="centered">
+  {{ app.user.nombres }} {{app.user.apellidos}}
+</h5>	
+
+<li class="mt">
+    <a class="" href="#" value="{{path('reservaPrincipal')}}">
+        
+        <span>Reservas</span>
+    </a>
+</li>
+
+
+<li class="mt">
+    <a class="" href="#" value="{{path('establecimientoPrincipal')}}">
+       
+        <span>Establecimientos</span>
+    </a>
+</li>
+{#<li class="mt">
+    <a class="" href="#" value="{{path('articuloPrincipal')}}">
+       
+        <span>Articulos</span>
+    </a>
+</li>#}
+<li class="mt">
+    <a class="" href="#" value="{{path('promocionPrincipal')}}">
+        
+        <span>Promociones</span>
+    </a>
+</li>
+<li class="mt">
+    <a class="" href="#" value="{{path('cuponPrincipal')}}">
+
+        <span>Cupones</span>
+    </a>
+</li>
+
+
+<script>
+    $(".mt a,.sub-menu .sub a").click(function(evento){
+        var opcion = $(this).attr('value');
+        $(this).parent().parent().children().removeClass('active');
+        $(this).parent().addClass('active');
+        window.clearInterval(actualizar);
+        window.clearInterval(contador);
+        evento.preventDefault();
+        $.ajax({
+            url: opcion,
+            type: 'POST',
+            dataType: 'html',
+            success:function(data){
+                $('#contenido').html(data);
+            }
+
+        });
+            
+        
+    });
+</script>

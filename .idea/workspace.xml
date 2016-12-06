@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/administrador/menu.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/administrador/menu.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/plantilla/admin.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/plantilla/admin.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SecureBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/SecureBundle/Controller/DefaultController.php" />
-    </list>
+    <list default="true" id="dd090efa-0d55-4696-96b3-80e148809441" name="Default" comment="" />
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -48,7 +41,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/plantilla/admin.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="159">
@@ -58,7 +51,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="menu_admin.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="menu_admin.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/menu_admin.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="646">
@@ -1096,12 +1089,12 @@
       <workItem from="1479952754656" duration="2702000" />
       <workItem from="1480334862758" duration="4192000" />
       <workItem from="1480706911613" duration="477000" />
-      <workItem from="1480982142407" duration="3474000" />
+      <workItem from="1480982142407" duration="3631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="382893000" />
+    <option name="totallyTimeSpent" value="383050000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1553,18 +1546,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/menu_admin.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/plantilla/admin.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="130" column="31" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/administrador/menu_admin.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>
