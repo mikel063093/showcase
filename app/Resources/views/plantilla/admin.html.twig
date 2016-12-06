@@ -126,7 +126,13 @@
                 <div id="sidebar"  class="nav-collapse ">
                   
                     <ul class="sidebar-menu" id="nav-accordion">
-                        {% include "administrador/menu.html.twig" %}
+                        {% if is_granted('ROLE_SUPER') %}
+                            {% include "administrador/menu.html.twig" %}
+                        {% elseif is_granted('ROLE_ADMIN') %}
+                            {% include "administrador/menu_admin.html.twig" %}
+
+                        {% endif %}
+
                     </ul>
                   
                 </div>

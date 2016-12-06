@@ -18,7 +18,12 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        
-        return $this->render('administrador/principal.html.twig');
+        $securityContext = $this->container->get('security.context');
+        if($securityContext->isGranted('ROLE_SUPER')){
+            return $this->render('administrador/principal.html.twig');
+        }elseif ($securityContext->isGranted('ROLE_ADMIN')){
+            return $this->render('administrador/reserva/principal.html.twig');
+        }
+
     }
 }
